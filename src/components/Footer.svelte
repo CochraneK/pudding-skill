@@ -1,66 +1,53 @@
 <script>
-	let { storyTitle = "Scrollytelling Story" } = $props();
+	let { storyTitle = "Pudding Scrolly" } = $props();
 </script>
 
 <footer>
 	<div class="c">
-		<div class="bottom">
-			<section class="links">
-				<div class="inner">
-					<p>Built with <a href="https://pudding.cool">the-pudding/svelte-starter</a> + <a href="https://layercake.graphics/">LayerCake</a></p>
-				</div>
-			</section>
-			<p class="copyright">&copy; {new Date().getFullYear()} {storyTitle}</p>
-		</div>
+		<p>
+			Pudding-inspired editorial data storytelling. Starter code derived from
+			<a href="https://github.com/the-pudding/svelte-starter">the-pudding/svelte-starter</a> (MIT).
+			Not affiliated with The Pudding.
+		</p>
+		<p class="copyright">&copy; {new Date().getFullYear()} {storyTitle}</p>
 	</div>
 </footer>
 
 <style>
 	footer {
-		margin-top: 100px;
-		padding: 48px 16px;
-		border-top: 1px solid var(--color-fg);
-		opacity: 0.6;
+		margin-top: 80px;
+		padding: 42px 20px;
+		border-top: 1px solid var(--color-border);
 		font-family: var(--font-sans);
-		font-size: var(--14px, 14px);
+		font-size: 0.78rem;
+		line-height: 1.55;
+		color: var(--color-fg-light);
 	}
 
 	.c {
-		max-width: calc(var(--width-column-wide, 1280px) - var(--margin, 16px) * 2);
+		display: flex;
+		justify-content: space-between;
+		gap: 2rem;
+		max-width: 1120px;
 		margin: 0 auto;
 	}
 
-	.bottom {
-		display: flex;
-		flex-direction: column;
-		align-items: center;
-		text-align: center;
-		gap: 8px;
-	}
-
-	.links {
-		width: 100%;
-	}
-
-	.links .inner {
-		display: flex;
-		justify-content: center;
-		gap: 16px;
+	p {
+		margin: 0;
 	}
 
 	a {
-		font-weight: 700;
-		color: var(--color-fg);
-		text-decoration: 2px underline var(--color-fg);
-	}
-
-	a:hover {
-		color: var(--color-link-hover);
-		text-decoration: 2px underline var(--color-link-hover);
+		color: inherit;
+		text-underline-offset: 0.16em;
 	}
 
 	.copyright {
-		color: var(--color-fg);
-		margin: 0;
+		white-space: nowrap;
+	}
+
+	@media (max-width: 700px) {
+		.c {
+			flex-direction: column;
+		}
 	}
 </style>
