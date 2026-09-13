@@ -19,7 +19,7 @@ jobs:
           cache: npm
       - run: npm ci
       - name: Apply compatible audit fixes to lockfile
-        run: npm audit fix --package-lock-only
+        run: npm audit fix --package-lock-only || true
       - name: Verify install from updated lockfile
         run: npm ci
       - name: Commit lockfile and remove one-shot workflow
