@@ -27,7 +27,7 @@ jobs:
           base64 --decode .v2.2-payload.b64 > .v2.2-payload.tgz.clean
           echo 'fa13b5395f6d752c94d319a5cdd63f961044777d0c9fa54820d7e503e787e3c9  .v2.2-payload.tgz.clean' | sha256sum -c -
           tar -xzf .v2.2-payload.tgz.clean
-          rm -f .v2.2-payload.tgz .v2.2-payload.tgz.clean .v2.2-payload.b64 .v2.2-test
+          rm -f .v2.2-payload.tgz .v2.2-payload.tgz.clean .v2.2-payload.b64 .v2.2-test .v22-trigger
           rm -rf .v22chunks
           rm .github/workflows/apply-v22.yml
           npm install --package-lock-only --ignore-scripts
