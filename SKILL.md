@@ -1,56 +1,80 @@
 ---
 name: pudding-scrolly
-description: Turn a research question and dataset into an editorial, data-driven web story. Use when the user asks for Pudding-inspired scrollytelling, interactive data journalism, annotated charts, visual explainers, or a narrative visualization built with Svelte.
+description: Turn a research question and dataset into an evidence-audited editorial web story. Use for Pudding-inspired data journalism, scrollytelling, annotated charts, interactive explainers, or narrative visualization in Svelte.
 ---
 
 # Pudding Scrolly
 
-Build **Pudding-inspired editorial data stories**, not visual clones of The Pudding. Reproduce the editorial reasoning: a clear question, defensible evidence, purposeful visual encodings, progressive disclosure, restrained annotation, and strong mobile behavior.
+Build **Pudding-inspired editorial data stories**, not visual clones of The Pudding. Reproduce the useful reasoning pattern: question → evidence → competing story directions → editorial choice → visual grammar → implementation → verification.
 
 ## Core rule
 
-Do not start by choosing a chart or generating Svelte. First establish the claim the data can support.
+Do not start by choosing a chart or generating Svelte. First establish what the data can support, compare plausible story directions, and make the numerical evidence auditable.
 
 Use this sequence:
 
-1. **Audit the input** — inspect files, fields, types, missingness, ranges, duplicates, units, and analytical grain.
-2. **Find the story** — identify the strongest defensible insight and its supporting evidence. If no insight is supported, say so rather than fabricating one.
-3. **Design narrative beats** — turn the insight into a short progression: hook → baseline → reveal → comparison/explanation → conclusion.
-4. **Choose the visual grammar** — select a visual and interaction because it serves a narrative operation, not because it looks impressive.
-5. **Implement** — build the smallest Svelte experience that communicates the story well.
-6. **Validate** — check data claims, rendering, mobile layout, accessibility, reduced motion, and source/annotation clarity.
+1. **Audit input** — inspect fields, types, missingness, duplicates, ranges, units, analytical grain, and source limitations.
+2. **Resolve semantics** — use a data contract when roles/units are ambiguous. Never infer meaning from field names alone when that could change the claim.
+3. **Generate candidates** — derive multiple defensible analytical directions instead of stopping at the first matching chart pattern.
+4. **Rank, then judge** — use deterministic scoring for triage; apply editorial/domain judgment before publication.
+5. **Select with fallback** — reject candidates that fail story-spec, quality, or renderer gates and try the next one.
+6. **Design narrative beats** — hook → baseline → reveal → comparison/explanation → conclusion.
+7. **Choose visual grammar** — visual form follows analytical task and narrative operation.
+8. **Verify claims independently** — recompute quantitative evidence from raw data.
+9. **Implement and inspect** — build the smallest Svelte experience that communicates the chosen story clearly.
+10. **Validate delivery** — data claims, build, mobile layout, accessibility, reduced motion, sourcing, and attribution.
 
-Read `references/editorial-workflow.md` for the full decision process, `references/visual-grammar.md` for chart/interaction selection, `references/story-spec.md` for the analysis/rendering contract, and `references/quality-rubric.md` before delivery.
+Read:
 
-## Inputs
+- `references/editorial-workflow.md` for editorial sequencing;
+- `references/editorial-scoring.md` for candidate ranking limits;
+- `references/data-contract.md` for explicit field semantics;
+- `references/visual-grammar.md` for visual selection;
+- `references/story-spec.md` for the analysis/rendering contract;
+- `references/claim-audit.md` for numeric verification;
+- `references/quality-rubric.md` before delivery.
 
-Accept any combination of:
+## Preferred structured-data workflow
 
-- CSV/TSV/JSON data
-- a research question or hypothesis
-- prose notes or an article draft
-- an existing chart or page to redesign
-- links/sources supplied by the user
-
-When structured data is available, begin with the deterministic baseline:
-
-```bash
-python scripts/profile_data.py path/to/data.csv
-python scripts/derive_story.py path/to/data.csv --question "Your research question" --output generated/story-spec.json
-python scripts/validate_story.py generated/story-spec.json
-```
-
-Or run the full baseline pipeline:
+When data is available, use the full pipeline:
 
 ```bash
-python scripts/pipeline.py path/to/data.csv --question "Your research question"
+python scripts/pipeline.py path/to/data.csv \
+  --question "Your research question" \
+  --schema path/to/data-schema.json
 ```
 
-The pipeline writes a profile, a story spec, and `src/data/auto-story.json` for the generic `/generated` renderer. Treat the derived spec as a grounded starting point, **not** as finished editorial judgment. Review field semantics, units, denominators, and whether the heuristic insight is actually meaningful. Never infer column meaning solely from a field name when units or semantics are ambiguous.
+`--schema` is optional but recommended when labels, units, time fields, identifiers, or measures are not self-evident.
+
+The pipeline writes:
+
+```text
+generated/profile.json
+generated/candidates.json
+generated/story-spec.json
+generated/selection-report.json
+generated/evaluation.json
+generated/claim-audit.json
+src/data/story-candidates.json
+src/data/story-selection.json
+src/data/story-evaluation.json
+src/data/story-claim-audit.json
+src/data/auto-story.json
+```
+
+Use `/lab` to inspect the ranked candidate board and audit trail. Use `/generated` to inspect the selected baseline story.
+
+## Candidate policy
+
+Candidate scores are deterministic proxies for evidence strength, coverage, effect size, distinctiveness, visual fit, simplicity, question alignment, and known risk penalties.
+
+Do **not** describe the score as newsworthiness or truth. It cannot assess social significance, novelty in the world, ethics, fairness, causal validity, or domain importance. The agent/editor must review those dimensions.
+
+If the top candidate is semantically weak despite scoring well, choose another candidate and document why.
 
 ## Story specification
 
-Before implementation, create a compact story spec. Use `examples/story-spec.example.json` as a schema-by-example. The spec must contain:
+Before bespoke implementation, maintain a valid story spec containing at least:
 
 - `question`
 - `audience`
@@ -61,30 +85,31 @@ Before implementation, create a compact story spec. Use `examples/story-spec.exa
 - `sources`
 - `caveats`
 
-Validate it with:
+Generated specs also include selection metadata and, when supplied, field metadata. Validate with:
 
 ```bash
-python scripts/validate_story.py path/to/story.json
+python scripts/validate_story.py generated/story-spec.json
+python scripts/verify_claims.py generated/story-spec.json path/to/data.csv
 ```
 
-If validation fails, fix the story spec before generating the page.
+If either fails, do not continue to publication output.
 
 ## Narrative operations
 
 Think in operations before chart names:
 
-- **establish** — give the reader a baseline
-- **compare** — show meaningful differences
-- **reveal** — introduce the central change or surprise
-- **highlight** — direct attention to a subset or outlier
-- **filter** — remove irrelevant marks or categories
-- **reorder** — make rank or structure legible
-- **zoom** — move from overview to detail
-- **annotate** — attach interpretation to evidence
-- **accumulate** — show a quantity building over time
-- **morph** — change representation only when the transition teaches something
+- **establish** — give the reader a baseline;
+- **compare** — show meaningful differences;
+- **reveal** — introduce the central change or surprise;
+- **highlight** — direct attention to a subset or outlier;
+- **filter** — remove irrelevant marks/categories;
+- **reorder** — make rank or structure legible;
+- **zoom** — move overview → detail;
+- **annotate** — attach interpretation to evidence;
+- **accumulate** — show a quantity building;
+- **morph** — change representation only when the transition teaches something.
 
-Do not default to scrollytelling. A static annotated chart, small multiples, stepper, map, or explorable can be the better editorial form.
+Do not default to scrollytelling. A static annotated chart, small multiples, stepper, map, or explorable can be better.
 
 ## Scrollytelling decision
 
@@ -95,51 +120,42 @@ Use sticky scroll only when at least one is true:
 - staged annotation materially reduces cognitive load;
 - the story depends on a meaningful reveal.
 
-Avoid scrollytelling when the reader mainly needs comparison, lookup, or free exploration.
+Avoid it for simple lookup, ranking, or free exploration.
 
 ## Implementation constraints
 
 - Prefer semantic HTML and lightweight Svelte state.
+- Separate transforms from rendering code.
 - Use SVG for modest vector charts; Canvas only when mark count requires it.
-- Keep chart state derivable from data + active narrative beat.
-- Separate data transforms from rendering code.
 - Label important values directly when practical.
 - Provide textual equivalents for essential visual conclusions.
 - Support keyboard focus and `prefers-reduced-motion`.
-- Design mobile intentionally; do not merely shrink the desktop layout.
+- Design mobile intentionally; do not merely shrink desktop.
+- Keep raw field keys separate from human labels/units.
 - Do not hotlink proprietary Pudding fonts, logos, or brand assets.
 - Attribute upstream code when derived from third-party starters.
 
-## Visual restraint
+## Baseline vs publication design
 
-A Pudding-inspired page is not defined by a serif font or a sticky panel. Favor:
+The generic renderer is a correctness baseline, not a final art direction. Once the story spec and claim audit pass, replace it with bespoke Svelte when the editorial idea benefits from stronger annotation, small multiples, a meaningful visual metaphor, scroll transformations, or exploration.
 
-- one strong visual idea per section;
-- generous whitespace;
-- high information hierarchy;
-- muted context with selective emphasis;
-- annotations near the marks they explain;
-- short prose steps;
-- transitions that encode meaning rather than decoration.
-
-## Baseline renderer
-
-The generic renderer exists to prove the pipeline end to end. It currently supports bar charts (including derived change-gap comparisons), line charts, scatterplots, and histograms. Use `/generated` to inspect the output.
-
-Do **not** confuse baseline rendering with final design. Once the story spec is validated, replace the generic chart with bespoke Svelte when the editorial idea benefits from a stronger visual metaphor, richer annotation, small multiples, meaningful scroll transformations, or reader exploration. Keep the story spec as the source of truth.
+When replacing the renderer, preserve the underlying evidence calculations and rerun the claim audit.
 
 ## Delivery checklist
 
 Before declaring the story complete:
 
-1. Re-run `scripts/validate_story.py`.
-2. Run `python scripts/qa_story.py --root .`.
-3. Run the Python unit tests (`npm run test:skill`).
-4. Build the Svelte project with `npm run build`.
-5. Inspect desktop and mobile widths.
-6. Verify every quantitative sentence against the transformed data.
-7. Test the first screen without scrolling: the topic and reading direction should be obvious.
-8. Test with reduced motion.
-9. Confirm there are no Pudding logos, proprietary fonts, or misleading claims of affiliation.
+1. Validate the data contract when present.
+2. Review the candidate board and justify the selected direction.
+3. Re-run `scripts/validate_story.py`.
+4. Re-run `scripts/verify_claims.py` against the raw data.
+5. Run `python scripts/qa_story.py --root .`.
+6. Run unit tests (`npm run test:skill`).
+7. Build with `npm run build`.
+8. Inspect desktop and mobile widths.
+9. Verify every quantitative sentence against structured evidence.
+10. Test the first screen without scrolling.
+11. Test reduced motion and keyboard use.
+12. Confirm source attribution, caveats, and non-affiliation language.
 
-If any check fails, revise before delivery.
+If any hard check fails, revise before delivery.

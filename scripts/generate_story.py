@@ -8,6 +8,7 @@ from __future__ import annotations
 
 import argparse
 import json
+import shutil
 from collections import defaultdict
 from pathlib import Path
 from typing import Any
@@ -16,9 +17,18 @@ from profile_data import load_rows, parse_number
 from validate_story import validate
 
 
+def serializable_rows(rows: list[dict[str, Any]]) -> list[dict[str, Any]]:
+    return [{str(k): v for k, v in row.items()} for row in rows]
+
+
 def prepare_chart(spec: dict[str, Any], rows: list[dict[str, Any]]) -> dict[str, Any]:
     visual_type = spec["visuals"][0]["type"]
     fields = spec.get("fields", {})
+    metadata = spec.get("field_metadata", {}) if isinstance(spec.get("field_metadata"), dict) else {}
+
+    def field_label(field: str) -> str:
+        meta = metadata.get(field, {}) if isinstance(metadata.get(field, {}), dict) else {}
+        return str(meta.get("label") or field.replace("_", " "))
 
     if visual_type == "bar":
         category = fields["category"]
@@ -47,8 +57,8 @@ def prepare_chart(spec: dict[str, Any], rows: list[dict[str, Any]]) -> dict[str,
                 })
             data.sort(key=lambda item: abs(item["value"]), reverse=True)
             return {
-                "type": "bar", "x_label": category,
-                "y_label": f"Δ {metric_b} − Δ {metric_a}",
+                "type": "bar", "x_label": field_label(category),
+                "y_label": f"Δ {field_label(metric_b)} − Δ {field_label(metric_a)}",
                 "data": data[:20], "zero_centered": True
             }
 
@@ -64,7 +74,7 @@ def prepare_chart(spec: dict[str, Any], rows: list[dict[str, Any]]) -> dict[str,
             for label, values in grouped.items() if values
         ]
         data.sort(key=lambda item: item["value"], reverse=True)
-        return {"type": "bar", "x_label": category, "y_label": metric, "data": data[:20]}
+        return {"type": "bar", "x_label": field_label(category), "y_label": field_label(metric), "data": data[:20]}
 
     if visual_type == "line":
         x, y = fields["x"], fields["y"]
@@ -77,7 +87,7 @@ def prepare_chart(spec: dict[str, Any], rows: list[dict[str, Any]]) -> dict[str,
                 continue
             data.append({"x": xv, "y": value, "series": str(row.get(series_field, "All")) if series_field else "All"})
         data.sort(key=lambda item: (item["series"], item["x"]))
-        return {"type": "line", "x_label": x, "y_label": y, "series_label": series_field, "data": data[:500]}
+        return {"type": "line", "x_label": field_label(x), "y_label": field_label(y), "series_label": field_label(series_field) if series_field else None, "data": data[:500]}
 
     if visual_type == "scatter":
         x, y = fields["x"], fields["y"]
@@ -87,14 +97,14 @@ def prepare_chart(spec: dict[str, Any], rows: list[dict[str, Any]]) -> dict[str,
             yv = parse_number(str(row.get(y, "")))
             if xv is not None and yv is not None:
                 data.append({"x": xv, "y": yv})
-        return {"type": "scatter", "x_label": x, "y_label": y, "data": data[:1000]}
+        return {"type": "scatter", "x_label": field_label(x), "y_label": field_label(y), "data": data[:1000]}
 
     if visual_type == "histogram":
         metric = fields["y"]
         values = [parse_number(str(row.get(metric, ""))) for row in rows]
         values = [v for v in values if v is not None]
         if not values:
-            return {"type": "histogram", "x_label": metric, "data": []}
+            return {"type": "histogram", "x_label": field_label(metric), "data": []}
         lo, hi = min(values), max(values)
         bins = min(12, max(5, round(len(values) ** 0.5)))
         if lo == hi:
@@ -109,7 +119,7 @@ def prepare_chart(spec: dict[str, Any], rows: list[dict[str, Any]]) -> dict[str,
                 {"label": f"{lo + i * width:.2g}–{lo + (i + 1) * width:.2g}", "value": count}
                 for i, count in enumerate(counts)
             ]
-        return {"type": "histogram", "x_label": metric, "y_label": "count", "data": data}
+        return {"type": "histogram", "x_label": field_label(metric), "y_label": "count", "data": data}
 
     raise ValueError(f"Unsupported visual type for baseline renderer: {visual_type}")
 

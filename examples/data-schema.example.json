@@ -1,0 +1,29 @@
+{
+  "fields": {
+    "year": {
+      "role": "time",
+      "label": "Year",
+      "description": "Observation year"
+    },
+    "city": {
+      "role": "category",
+      "label": "City",
+      "description": "Fictional city used for the demo"
+    },
+    "income_index": {
+      "role": "measure",
+      "label": "Income index",
+      "unit": "index, 2019 = 100",
+      "description": "Synthetic income level indexed to 2019"
+    },
+    "housing_cost_index": {
+      "role": "measure",
+      "label": "Housing cost index",
+      "unit": "index, 2019 = 100",
+      "description": "Synthetic housing cost level indexed to 2019"
+    }
+  },
+  "notes": [
+    "All values are fictional and exist only to demonstrate the pipeline."
+  ]
+}

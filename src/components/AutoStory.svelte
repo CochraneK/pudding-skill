@@ -91,7 +91,11 @@
 			<span>{bundle.row_count} source rows</span>
 			<span>{spec.production_mode || "unspecified mode"}</span>
 			<span>{chart.type}</span>
+			{#if spec.selection?.score != null}<span>editorial score {spec.selection.score}</span>{/if}
 		</div>
+		{#if spec.selection}
+			<p class="selection-note">Selected from the ranked candidate pool as <strong>#{spec.selection.rank}</strong>. <a href="/lab">Inspect the editorial decision →</a></p>
+		{/if}
 	</header>
 
 	<section class="narrative-grid">
@@ -202,6 +206,8 @@
 	h1 { font-family: var(--font-serif); font-size: clamp(2.6rem, 7vw, 6.3rem); line-height: .96; letter-spacing: -.045em; margin: .15em 0 .35em; }
 	.insight { max-width: 760px; font-size: clamp(1.15rem, 2vw, 1.5rem); line-height: 1.5; color: #55524e; }
 	.meta { display: flex; flex-wrap: wrap; gap: .55rem 1.2rem; margin-top: 2rem; color: #6f6b65; }
+	.selection-note { margin: 1.1rem 0 0; font-family: var(--font-sans); font-size: .86rem; color: #6f6b65; }
+	.selection-note a { color: #b7452a; font-weight: 700; text-decoration: none; }
 	.narrative-grid { display: grid; grid-template-columns: minmax(240px, .72fr) minmax(0, 1.7fr); gap: clamp(2rem, 5vw, 5rem); align-items: start; border-top: 1px solid #d9d3c9; padding-top: 4rem; }
 	.beats { position: sticky; top: 2rem; }
 	.beat { display: grid; grid-template-columns: 2.2rem 1fr; gap: .8rem; padding: 1rem 0; border-bottom: 1px solid #e2ddd4; }

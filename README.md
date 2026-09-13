@@ -1,61 +1,63 @@
 # pudding-skill
 
-A **Pudding-inspired editorial data-storytelling Agent Skill + SvelteKit starter**.
+A **Pudding-inspired editorial data-storytelling Agent Skill + SvelteKit starter** that turns structured data into an auditable set of story directions before it renders anything.
 
-This project is deliberately not a visual clone of [The Pudding](https://pudding.cool/). It borrows the more useful idea: start with an editorial question and evidence, design a narrative around what the data can actually support, choose the visual form that serves that narrative, and validate the result before publishing.
+This project is not a visual clone of [The Pudding](https://pudding.cool/). It borrows the more useful editorial idea: start with a question and evidence, compare what the data can support, choose the right narrative/visual form, and verify the result before publishing.
 
 > The Svelte starter is derived from [`the-pudding/svelte-starter`](https://github.com/the-pudding/svelte-starter) under the MIT License. This project is not affiliated with The Pudding and does not ship or hotlink The Pudding logos or proprietary fonts.
 
-## What changed in v2.1
+## v2.2: from chart heuristic to editorial decision system
 
-The old repository described a six-stage AI workflow in the README but did not actually implement the skill layer. v2 makes that workflow executable:
+v2.1 established a deterministic data → story → Svelte baseline. v2.2 removes the biggest remaining shortcut: **the first matching analytical pattern no longer automatically becomes the story.**
 
-- `SKILL.md` — agent instructions, trigger conditions, decision rules, and delivery checks
-- `scripts/profile_data.py` — CSV/TSV/JSON data audit for story planning
-- `scripts/validate_story.py` — validates the editorial story specification before implementation
-- `scripts/derive_story.py` — deterministic heuristic baseline that selects a defensible first story pattern from common tabular data
-- `scripts/generate_story.py` — turns a valid story spec + source data into a normalized render bundle
-- `scripts/pipeline.py` — profile → derive → validate → render in one command
-- `scripts/qa_story.py` — static preflight for generated data and Pudding brand/hotlink leakage
-- `references/editorial-workflow.md` — question → evidence → insight → beats → production mode
-- `references/visual-grammar.md` — analytical task + narrative operation → visual treatment
-- `references/quality-rubric.md` — pre-delivery scoring and rejection conditions
-- `references/story-spec.md` — contract between editorial analysis and the renderer
-- `examples/` — a valid story spec and synthetic dataset
-- a real scrollytelling demo on the root route
-- a generated baseline story at `/generated` powered by `src/data/auto-story.json`
-- Python unit tests covering change-gap, group comparison, correlation, and bundle generation
-- generic metadata and system font stacks instead of Pudding-specific brand defaults
-- CI that validates the skill example and builds the Svelte project
+The pipeline now:
 
-## Workflow
+1. profiles the data;
+2. optionally applies an explicit data contract for roles, labels, units, and definitions;
+3. generates multiple defensible story candidates;
+4. scores them with transparent editorial-priority proxies;
+5. selects the highest-ranked candidate that passes quality + renderer gates, with automatic fallback;
+6. creates a story spec and render bundle;
+7. independently recomputes the selected quantitative evidence from raw data;
+8. exposes the candidate board and audit trail in `/lab`;
+9. renders the selected baseline at `/generated`;
+10. runs the same gates in CI.
+
+## Pipeline
 
 ```text
-research question / data
-          ↓
-      DATA AUDIT
-          ↓
-  defensible insight?
-      ↙         ↘
-    no           yes
- explain gap       ↓
-              STORY SPEC
-                  ↓
-          NARRATIVE BEATS
-                  ↓
-         PRODUCTION MODE
-        ↙    ↓    ↓    ↘
-     static small scroll explore
-            multiples
-                  ↓
-             IMPLEMENT
-                  ↓
-      DATA + VISUAL + MOBILE QA
-                  ↓
-               DELIVER
+research question + structured data
+              │
+              ├──── optional data contract
+              ▼
+          DATA AUDIT
+              ▼
+      CANDIDATE GENERATION
+              │
+      ┌───────┼────────┬───────────┐
+      ▼       ▼        ▼           ▼
+   change   divergence relation distribution ...
+      └───────┬────────┴───────────┘
+              ▼
+       TRANSPARENT SCORING
+              ▼
+     QUALITY / RENDERER GATES
+          fail │  pass
+               ├──► try next
+               ▼
+          STORY SPEC
+              ▼
+       INDEPENDENT CLAIM AUDIT
+              ▼
+       BASELINE RENDER BUNDLE
+          ┌───┴────┐
+          ▼        ▼
+        /lab   /generated
+              ▼
+       BESPOKE EDITORIAL BUILD
 ```
 
-The important rule is that **scrollytelling is not the default**. If an annotated static chart, small multiples, stepper, map, or explorable communicates the evidence better, use that instead.
+The score is **not newsworthiness**. It ranks evidence-backed directions using computable proxies such as coverage, effect size, distinctiveness, visual fit, simplicity, question alignment, and risk penalties. Domain meaning and editorial significance still require judgment.
 
 ## Quick start
 
@@ -66,72 +68,115 @@ npm install
 npm run dev
 ```
 
-Open the local Vite URL to see the demo.
+Useful routes:
 
-## Validate the skill layer
+- `/` — Pudding-inspired scrollytelling design demo;
+- `/lab` — ranked story candidates, score breakdown, fallback attempts, quality gates, and claim audit;
+- `/generated` — the selected deterministic baseline story.
 
-```bash
-npm run check:skill
-```
-
-Or run the tools directly:
+## Run the full editorial pipeline
 
 ```bash
-python scripts/profile_data.py examples/sample-data.csv
-python scripts/validate_story.py examples/story-spec.example.json
+python scripts/pipeline.py examples/sample-data.csv \
+  --question "Which fictional cities saw housing costs separate most sharply from income after 2019?" \
+  --schema examples/data-schema.example.json
 ```
 
-Profile your own data:
-
-```bash
-python scripts/profile_data.py path/to/data.csv --output profile.json
-```
-
-## End-to-end baseline
-
-Run the full deterministic pipeline on any CSV/TSV/row-oriented JSON:
-
-```bash
-python scripts/pipeline.py data.csv --question "What changed, where, and by how much?"
-```
-
-It produces:
+Outputs:
 
 ```text
 generated/profile.json
+generated/candidates.json
 generated/story-spec.json
+generated/selection-report.json
+generated/evaluation.json
+generated/claim-audit.json
+src/data/story-candidates.json
+src/data/story-selection.json
+src/data/story-evaluation.json
+src/data/story-claim-audit.json
 src/data/auto-story.json
 ```
 
-Then open `/generated` in the Svelte app. The baseline currently detects common patterns such as:
+## Why the data contract matters
 
-- time + category + two measures → divergence in start-to-end change;
-- time + category + one measure → group time trend;
-- time + one measure → trend;
-- category + measure → ranked group comparison;
-- two numeric measures → correlation/scatter;
-- one numeric measure → distribution.
-
-This is deliberately conservative. The point is to establish a reproducible evidence chain before an agent invests in a bespoke visual treatment.
-
-## Story spec
-
-The story spec is the contract between analysis and implementation. At minimum it contains:
+Field names are not enough to establish semantics. An optional JSON contract can identify time/category/measure roles and provide publication labels, units, and definitions:
 
 ```json
 {
-  "question": "What are we trying to explain?",
-  "audience": "Who is this for?",
-  "primary_insight": "What does the evidence support?",
-  "evidence": [],
-  "beats": [],
-  "visuals": [],
-  "sources": [],
-  "caveats": []
+  "fields": {
+    "year": { "role": "time", "label": "Year" },
+    "city": { "role": "category", "label": "City" },
+    "income_index": {
+      "role": "measure",
+      "label": "Income index",
+      "unit": "index, 2019 = 100"
+    }
+  }
 }
 ```
 
-See `examples/story-spec.example.json` for a complete example.
+Validate one with:
+
+```bash
+python scripts/data_contract.py examples/data-schema.example.json
+```
+
+## Candidate generation and selection
+
+Inspect candidates directly:
+
+```bash
+python scripts/candidate_story.py data.csv \
+  --question "What changed?" \
+  --schema data-schema.json \
+  --output candidates.json
+```
+
+Select with automatic fallback:
+
+```bash
+python scripts/select_story.py data.csv \
+  --question "What changed?" \
+  --schema data-schema.json
+```
+
+Current baseline patterns include:
+
+- time + category + two measures → divergence in start-to-end change;
+- time + category + measure → group change over time;
+- category + measure → ranked group mean comparison;
+- two numeric measures → correlation/scatter;
+- numeric measure → distribution.
+
+## Independent claim verification
+
+The story spec does not get to “trust itself.” `verify_claims.py` reads raw rows again and recomputes structured evidence:
+
+```bash
+python scripts/verify_claims.py generated/story-spec.json examples/sample-data.csv
+```
+
+A mismatch is a hard failure. Tests include a tampering case where a correct gap of `31` is changed to `999`; the audit must reject it.
+
+The audit verifies numbers, not interpretation. It cannot decide whether a denominator is meaningful, a causal story is valid, or a metric is ethically appropriate.
+
+## Main scripts
+
+| Script | Purpose |
+|---|---|
+| `profile_data.py` | schema/type/missingness/range audit |
+| `data_contract.py` | validates explicit roles, labels, units, descriptions |
+| `candidate_story.py` | generates and scores multiple story directions |
+| `select_story.py` | applies quality/renderer gates and falls back when needed |
+| `validate_story.py` | validates story-spec structure |
+| `evaluate_story.py` | deterministic editorial quality gates |
+| `verify_claims.py` | independently recomputes quantitative evidence |
+| `generate_story.py` | creates normalized renderer data |
+| `pipeline.py` | orchestrates the full v2.2 chain |
+| `qa_story.py` | repository/static/brand preflight |
+
+`derive_story.py` remains as the v2.1 single-direction baseline for compatibility and simple experiments; the preferred workflow is now `pipeline.py`.
 
 ## Repository structure
 
@@ -140,55 +185,59 @@ pudding-skill/
 ├── SKILL.md
 ├── references/
 │   ├── editorial-workflow.md
+│   ├── editorial-scoring.md
+│   ├── data-contract.md
 │   ├── visual-grammar.md
 │   ├── story-spec.md
+│   ├── claim-audit.md
 │   └── quality-rubric.md
 ├── scripts/
 │   ├── profile_data.py
+│   ├── data_contract.py
+│   ├── candidate_story.py
+│   ├── select_story.py
 │   ├── derive_story.py
 │   ├── validate_story.py
+│   ├── evaluate_story.py
+│   ├── verify_claims.py
 │   ├── generate_story.py
 │   ├── pipeline.py
 │   └── qa_story.py
 ├── examples/
 │   ├── sample-data.csv
+│   ├── data-schema.example.json
 │   └── story-spec.example.json
-├── src/
-│   ├── actions/
-│   ├── components/
-│   ├── data/
-│   ├── routes/
-│   ├── styles/
-│   └── utils/
+├── src/routes/
+│   ├── +page.svelte
+│   ├── generated/+page.svelte
+│   └── lab/+page.svelte
 ├── tests/test_pipeline.py
-├── .github/workflows/ci.yml
-└── package.json
+└── .github/workflows/ci.yml
 ```
 
-## Editorial principles
-
-1. **Evidence before aesthetics.** Do not make the visual more confident than the data.
-2. **One primary argument.** Supporting facts should reinforce it, not compete with it.
-3. **Narrative operations before chart names.** Establish, compare, reveal, highlight, filter, reorder, zoom, annotate, accumulate, or morph.
-4. **Use scroll only when sequence matters.** Sticky graphics are a storytelling mechanism, not a house style.
-5. **Render, inspect, revise.** Visual QA is part of editing.
-6. **Mobile is its own editorial layout.** Do not merely shrink desktop.
-7. **Accessibility is part of correctness.** Essential conclusions cannot depend on hover or motion alone.
-
-## Checks and build
+## Checks
 
 ```bash
 npm run check:skill
 npm run build
-npm run preview
 ```
 
-`check:skill` runs the sample pipeline, validation, unit tests, and static preflight.
+`check:skill` validates the example contract/spec, runs the full candidate-selection pipeline, independently audits the selected quantitative evidence, runs unit tests, and performs static preflight checks.
 
-The project uses Svelte 5, SvelteKit, Vite, and D3-compatible tooling inherited from the upstream starter.
+## Editorial principles
+
+1. **Evidence before aesthetics.**
+2. **Competing hypotheses before commitment.** Do not stop at the first chartable pattern.
+3. **Explicit semantics before inference.** Units and roles should be stated when ambiguous.
+4. **One primary argument.** Supporting facts should reinforce it.
+5. **Narrative operations before chart names.**
+6. **Use scroll only when sequence matters.**
+7. **Numeric claims must be reproducible from source data.**
+8. **Mobile and accessibility are correctness concerns, not polish.**
+9. **Scores assist judgment; they do not replace it.**
 
 ## Licensing and attribution
 
 - Upstream starter: [`the-pudding/svelte-starter`](https://github.com/the-pudding/svelte-starter), MIT License.
-- v2 skill instructions, scripts, examples, and demo additions: MIT License under this repository.
-- The Pudding name is used only for attribution and to describe the editorial inspiration. No affiliation is implied.
+- Skill instructions, scripts, examples, and demo additions: MIT License under this repository.
+- The Pudding name is used only for attribution and to describe editorial inspiration. No affiliation is implied.

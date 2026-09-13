@@ -2,7 +2,7 @@
   "spec": {
     "question": "Which fictional cities saw housing costs separate most sharply from income after 2019?",
     "audience": "general audience",
-    "primary_insight": "housing_cost_index outpaced income_index most in Harbor: their changes differed by 31 between 2019 and 2024.",
+    "primary_insight": "Housing cost index outpaced Income index most in Harbor: their changes differed by 31 between 2019 and 2024.",
     "evidence": [
       {
         "kind": "change_gap",
@@ -21,15 +21,15 @@
     "beats": [
       {
         "operation": "establish",
-        "purpose": "Establish the common starting point for income_index and housing_cost_index."
+        "purpose": "Establish the shared time frame for income_index and housing_cost_index."
       },
       {
         "operation": "reveal",
-        "purpose": "Reveal how the two measures change by year."
+        "purpose": "Reveal how the two measures separate over time."
       },
       {
         "operation": "reorder",
-        "purpose": "Rank city by the divergence in change."
+        "purpose": "Rank groups by the difference between their start-to-end changes."
       },
       {
         "operation": "highlight",
@@ -39,7 +39,7 @@
     "visuals": [
       {
         "type": "bar",
-        "purpose": "Rank groups by the difference between two start-to-end changes.",
+        "purpose": "Rank groups by the divergence between two changes.",
         "operation": "compare"
       }
     ],
@@ -51,6 +51,33 @@
       "metric_b": "housing_cost_index",
       "derive": "change_gap"
     },
+    "field_metadata": {
+      "year": {
+        "role": "time",
+        "label": "Year",
+        "description": "Observation year"
+      },
+      "city": {
+        "role": "category",
+        "label": "City",
+        "description": "Fictional city used for the demo"
+      },
+      "income_index": {
+        "role": "measure",
+        "label": "Income index",
+        "unit": "index, 2019 = 100",
+        "description": "Synthetic income level indexed to 2019"
+      },
+      "housing_cost_index": {
+        "role": "measure",
+        "label": "Housing cost index",
+        "unit": "index, 2019 = 100",
+        "description": "Synthetic housing cost level indexed to 2019"
+      }
+    },
+    "data_notes": [
+      "All values are fictional and exist only to demonstrate the pipeline."
+    ],
     "sources": [
       {
         "label": "sample-data.csv",
@@ -58,13 +85,29 @@
       }
     ],
     "caveats": [
-      "This spec was produced by deterministic heuristics and should be editorially reviewed before publication."
-    ]
+      "This direction was selected by deterministic scoring and requires editorial review before publication."
+    ],
+    "selection": {
+      "candidate_id": "change-gap-income-index-housing-cost-index",
+      "rank": 1,
+      "score": 79.0,
+      "score_components": {
+        "evidence": 92.0,
+        "coverage": 100.0,
+        "effect": 73.8,
+        "distinctiveness": 19.4,
+        "visual_fit": 96.0,
+        "simplicity": 74.0,
+        "question_relevance": 94.7
+      },
+      "risk_penalty": 0.0,
+      "rationale": "Compares start-to-end changes across groups and isolates the strongest divergence between two measures."
+    }
   },
   "chart": {
     "type": "bar",
-    "x_label": "city",
-    "y_label": "Δ housing_cost_index − Δ income_index",
+    "x_label": "City",
+    "y_label": "Δ Housing cost index − Δ Income index",
     "data": [
       {
         "label": "Harbor",

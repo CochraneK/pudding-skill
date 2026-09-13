@@ -1,0 +1,44 @@
+{
+  "status": "PASS",
+  "source_file": "sample-data.csv",
+  "evidence_count": 1,
+  "reports": [
+    {
+      "kind": "change_gap",
+      "status": "PASS",
+      "checks": [
+        {
+          "field": "start_period",
+          "ok": true,
+          "expected": "2019",
+          "actual": "2019"
+        },
+        {
+          "field": "end_period",
+          "ok": true,
+          "expected": "2024",
+          "actual": "2024"
+        },
+        {
+          "field": "change_a",
+          "ok": true,
+          "expected": 11.0,
+          "actual": 11.0
+        },
+        {
+          "field": "change_b",
+          "ok": true,
+          "expected": 42.0,
+          "actual": 42.0
+        },
+        {
+          "field": "gap",
+          "ok": true,
+          "expected": 31.0,
+          "actual": 31.0
+        }
+      ]
+    }
+  ],
+  "note": "Quantitative evidence was independently recomputed from the raw source rows. Prose still requires editorial review."
+}
