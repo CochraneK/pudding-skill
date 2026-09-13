@@ -44,4 +44,5 @@ jobs:
           name: browser-qa-${{ github.run_id }}
           path: .qa/
           if-no-files-found: warn
+          include-hidden-files: true
           retention-days: 14
