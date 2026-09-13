@@ -22,6 +22,11 @@ jobs:
         with:
           python-version: "3.12"
       - run: npm ci
+      - name: Capture dependency audit
+        run: |
+          mkdir -p .qa
+          npm audit --json > .qa/npm-audit.json || true
+          npm audit --audit-level=high
       - run: npm run check:skill
       - run: npm run build
       - name: Browser delivery QA
@@ -37,11 +42,11 @@ jobs:
           done
           curl --fail --silent http://127.0.0.1:4173/ >/dev/null
           npm run qa:browser -- --base-url http://127.0.0.1:4173 --out .qa
-      - name: Upload browser QA evidence
+      - name: Upload QA evidence
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: browser-qa-${{ github.run_id }}
+          name: qa-evidence-${{ github.run_id }}
           path: .qa/
           if-no-files-found: warn
           include-hidden-files: true

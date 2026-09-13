@@ -1,8 +1,8 @@
 <script>
 	let { bundle } = $props();
 
-	const spec = bundle.spec;
-	const chart = bundle.chart;
+	const spec = $derived(bundle.spec);
+	const chart = $derived(bundle.chart);
 	const W = 760;
 	const H = 420;
 	const margin = { top: 34, right: 30, bottom: 74, left: 76 };
@@ -29,13 +29,13 @@
 		return r0 + ((value - d0) / (d1 - d0)) * (r1 - r0);
 	}
 
-	const barValues = chart.type === "bar" || chart.type === "histogram" ? chart.data.map((d) => d.value) : [];
-	const barDomain = chart.zero_centered
+	const barValues = $derived(chart.type === "bar" || chart.type === "histogram" ? chart.data.map((d) => d.value) : []);
+	const barDomain = $derived.by(() => chart.zero_centered
 		? (() => {
 			const maxAbs = Math.max(1, ...barValues.map((d) => Math.abs(d)));
 			return [-maxAbs, maxAbs];
 		})()
-		: [Math.min(0, ...barValues), Math.max(1, ...barValues)];
+		: [Math.min(0, ...barValues), Math.max(1, ...barValues)]);
 
 	function barX(value) {
 		return scale(value, barDomain, [margin.left, margin.left + innerW]);
@@ -54,19 +54,19 @@
 		return (innerH / Math.max(1, chart.data.length)) * 0.72;
 	}
 
-	const scatterX = chart.type === "scatter" ? extent(chart.data.map((d) => d.x)) : [0, 1];
-	const scatterY = chart.type === "scatter" ? extent(chart.data.map((d) => d.y)) : [0, 1];
+	const scatterX = $derived(chart.type === "scatter" ? extent(chart.data.map((d) => d.x)) : [0, 1]);
+	const scatterY = $derived(chart.type === "scatter" ? extent(chart.data.map((d) => d.y)) : [0, 1]);
 
-	const lineSeries = chart.type === "line"
+	const lineSeries = $derived.by(() => chart.type === "line"
 		? Object.entries(
 			chart.data.reduce((acc, d) => {
 				(acc[d.series] ||= []).push(d);
 				return acc;
 			}, {})
 		)
-		: [];
-	const lineX = chart.type === "line" ? [...new Set(chart.data.map((d) => d.x))].sort() : [];
-	const lineY = chart.type === "line" ? extent(chart.data.map((d) => d.y)) : [0, 1];
+		: []);
+	const lineX = $derived(chart.type === "line" ? [...new Set(chart.data.map((d) => d.x))].sort() : []);
+	const lineY = $derived(chart.type === "line" ? extent(chart.data.map((d) => d.y)) : [0, 1]);
 
 	function linePointX(value) {
 		const index = Math.max(0, lineX.indexOf(value));
