@@ -19,7 +19,8 @@
 		"story:candidates": "python scripts/candidate_story.py",
 		"story:select": "python scripts/select_story.py",
 		"story:evaluate": "python scripts/evaluate_story.py",
-		"story:verify": "python scripts/verify_claims.py"
+		"story:verify": "python scripts/verify_claims.py",
+		"qa:browser": "node scripts/browser_qa.mjs"
 	},
 	"devDependencies": {
 		"@lucide/svelte": "^1.16.0",
