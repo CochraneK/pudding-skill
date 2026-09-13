@@ -1,0 +1,51 @@
+{
+  "status": "PASS",
+  "candidate_id": "change-gap-income-index-housing-cost-index",
+  "candidate_score": 79.0,
+  "checks": [
+    {
+      "name": "story_spec_structure",
+      "ok": true,
+      "severity": "error",
+      "detail": "Valid story spec."
+    },
+    {
+      "name": "candidate_score",
+      "ok": true,
+      "severity": "error",
+      "detail": "Selected candidate score: 79.0 (minimum 55)."
+    },
+    {
+      "name": "minimum_evidence",
+      "ok": true,
+      "severity": "error",
+      "detail": "Start/end comparison evidence present."
+    },
+    {
+      "name": "baseline_renderer_support",
+      "ok": true,
+      "severity": "error",
+      "detail": "Visual type: bar; supported baseline types: bar, histogram, line, scatter."
+    },
+    {
+      "name": "caveats_present",
+      "ok": true,
+      "severity": "error",
+      "detail": "At least one limitation/caveat is stated."
+    },
+    {
+      "name": "sources_present",
+      "ok": true,
+      "severity": "error",
+      "detail": "At least one source is attached."
+    },
+    {
+      "name": "claim_length",
+      "ok": true,
+      "severity": "warning",
+      "detail": "Primary insight length: 108 characters."
+    }
+  ],
+  "warnings": 0,
+  "errors": 0
+}

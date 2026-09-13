@@ -1,0 +1,521 @@
+{
+  "source_file": "sample-data.csv",
+  "row_count": 8,
+  "question": "Which fictional cities saw housing costs separate most sharply from income after 2019?",
+  "candidate_count": 8,
+  "scoring_note": "Scores rank evidence-backed directions using deterministic proxies; they do not measure real-world newsworthiness or cultural significance.",
+  "data_contract_applied": true,
+  "data_notes": [
+    "All values are fictional and exist only to demonstrate the pipeline."
+  ],
+  "candidates": [
+    {
+      "id": "change-gap-income-index-housing-cost-index",
+      "pattern": "change_gap",
+      "claim": "Housing cost index outpaced Income index most in Harbor: their changes differed by 31 between 2019 and 2024.",
+      "question": "Where did Housing cost index diverge most from Income index over time?",
+      "n": 8,
+      "effect": 73.80952380952381,
+      "distinctiveness": 19.35483870967742,
+      "visual_fit": 96,
+      "transformations": 2,
+      "risk_penalty": 0.0,
+      "fields_used": [
+        "year",
+        "city",
+        "income_index",
+        "housing_cost_index"
+      ],
+      "visual": "bar",
+      "production_mode": "annotated-static",
+      "evidence": {
+        "kind": "change_gap",
+        "group_field": "city",
+        "group": "Harbor",
+        "time_field": "year",
+        "start_period": "2019",
+        "end_period": "2024",
+        "metric_a": "income_index",
+        "metric_b": "housing_cost_index",
+        "change_a": 11.0,
+        "change_b": 42.0,
+        "gap": 31.0
+      },
+      "fields": {
+        "category": "city",
+        "time": "year",
+        "metric_a": "income_index",
+        "metric_b": "housing_cost_index",
+        "derive": "change_gap"
+      },
+      "rationale": "Compares start-to-end changes across groups and isolates the strongest divergence between two measures.",
+      "field_metadata": {
+        "year": {
+          "role": "time",
+          "label": "Year",
+          "description": "Observation year"
+        },
+        "city": {
+          "role": "category",
+          "label": "City",
+          "description": "Fictional city used for the demo"
+        },
+        "income_index": {
+          "role": "measure",
+          "label": "Income index",
+          "unit": "index, 2019 = 100",
+          "description": "Synthetic income level indexed to 2019"
+        },
+        "housing_cost_index": {
+          "role": "measure",
+          "label": "Housing cost index",
+          "unit": "index, 2019 = 100",
+          "description": "Synthetic housing cost level indexed to 2019"
+        }
+      },
+      "data_notes": [
+        "All values are fictional and exist only to demonstrate the pipeline."
+      ],
+      "score": 79.0,
+      "score_components": {
+        "evidence": 92.0,
+        "coverage": 100.0,
+        "effect": 73.8,
+        "distinctiveness": 19.4,
+        "visual_fit": 96.0,
+        "simplicity": 74.0,
+        "question_relevance": 94.7
+      },
+      "rank": 1
+    },
+    {
+      "id": "group-change-housing-cost-index",
+      "pattern": "group_change",
+      "claim": "Harbor rose the most on Housing cost index, changing by 42 from 2019 to 2024.",
+      "question": "How did Housing cost index change over time across City?",
+      "n": 8,
+      "effect": 42.0,
+      "distinctiveness": 7.142857142857143,
+      "visual_fit": 92,
+      "transformations": 1,
+      "risk_penalty": 0.0,
+      "fields_used": [
+        "year",
+        "city",
+        "housing_cost_index"
+      ],
+      "visual": "line",
+      "production_mode": "scrollytelling",
+      "evidence": {
+        "kind": "change",
+        "metric": "housing_cost_index",
+        "group_field": "city",
+        "group": "Harbor",
+        "start": {
+          "period": "2019",
+          "value": 100.0
+        },
+        "end": {
+          "period": "2024",
+          "value": 142.0
+        },
+        "change": 42.0
+      },
+      "fields": {
+        "x": "year",
+        "series": "city",
+        "y": "housing_cost_index"
+      },
+      "rationale": "Preserves time context while identifying the group with the largest absolute change.",
+      "field_metadata": {
+        "year": {
+          "role": "time",
+          "label": "Year",
+          "description": "Observation year"
+        },
+        "city": {
+          "role": "category",
+          "label": "City",
+          "description": "Fictional city used for the demo"
+        },
+        "housing_cost_index": {
+          "role": "measure",
+          "label": "Housing cost index",
+          "unit": "index, 2019 = 100",
+          "description": "Synthetic housing cost level indexed to 2019"
+        }
+      },
+      "data_notes": [
+        "All values are fictional and exist only to demonstrate the pipeline."
+      ],
+      "score": 66.8,
+      "score_components": {
+        "evidence": 92.0,
+        "coverage": 100.0,
+        "effect": 42.0,
+        "distinctiveness": 7.1,
+        "visual_fit": 92.0,
+        "simplicity": 91.0,
+        "question_relevance": 61.0
+      },
+      "rank": 2
+    },
+    {
+      "id": "correlation-income-index-housing-cost-index",
+      "pattern": "correlation",
+      "claim": "Income index and Housing cost index show a strong positive association (r=0.86) in these observations.",
+      "question": "How are Income index and Housing cost index related?",
+      "n": 8,
+      "effect": 85.69543577767632,
+      "distinctiveness": 55,
+      "visual_fit": 90,
+      "transformations": 1,
+      "risk_penalty": 18.0,
+      "fields_used": [
+        "income_index",
+        "housing_cost_index"
+      ],
+      "visual": "scatter",
+      "production_mode": "annotated-static",
+      "evidence": {
+        "kind": "correlation",
+        "x": "income_index",
+        "y": "housing_cost_index",
+        "r": 0.8569543577767632,
+        "n": 8
+      },
+      "fields": {
+        "x": "income_index",
+        "y": "housing_cost_index"
+      },
+      "rationale": "Tests whether two quantitative measures move together, while explicitly avoiding causal language.",
+      "caveat": "Correlation does not establish causation; repeated measures or shared trends may inflate association.",
+      "field_metadata": {
+        "income_index": {
+          "role": "measure",
+          "label": "Income index",
+          "unit": "index, 2019 = 100",
+          "description": "Synthetic income level indexed to 2019"
+        },
+        "housing_cost_index": {
+          "role": "measure",
+          "label": "Housing cost index",
+          "unit": "index, 2019 = 100",
+          "description": "Synthetic housing cost level indexed to 2019"
+        }
+      },
+      "data_notes": [
+        "All values are fictional and exist only to demonstrate the pipeline."
+      ],
+      "score": 64.6,
+      "score_components": {
+        "evidence": 92.0,
+        "coverage": 100.0,
+        "effect": 85.7,
+        "distinctiveness": 55.0,
+        "visual_fit": 90.0,
+        "simplicity": 100.0,
+        "question_relevance": 61.0
+      },
+      "rank": 3
+    },
+    {
+      "id": "distribution-housing-cost-index",
+      "pattern": "distribution",
+      "claim": "The median Housing cost index is 112, spanning 100 to 142.",
+      "question": "What is the distribution of Housing cost index?",
+      "n": 8,
+      "effect": 14.904511033635481,
+      "distinctiveness": 45,
+      "visual_fit": 82,
+      "transformations": 1,
+      "risk_penalty": 0.0,
+      "fields_used": [
+        "housing_cost_index"
+      ],
+      "visual": "histogram",
+      "production_mode": "annotated-static",
+      "evidence": {
+        "kind": "distribution",
+        "metric": "housing_cost_index",
+        "min": 100.0,
+        "median": 112.0,
+        "max": 142.0,
+        "n": 8
+      },
+      "fields": {
+        "y": "housing_cost_index"
+      },
+      "rationale": "Shows shape, center, spread, and potential extremes without asserting a causal explanation.",
+      "field_metadata": {
+        "housing_cost_index": {
+          "role": "measure",
+          "label": "Housing cost index",
+          "unit": "index, 2019 = 100",
+          "description": "Synthetic housing cost level indexed to 2019"
+        }
+      },
+      "data_notes": [
+        "All values are fictional and exist only to demonstrate the pipeline."
+      ],
+      "score": 64.6,
+      "score_components": {
+        "evidence": 92.0,
+        "coverage": 100.0,
+        "effect": 14.9,
+        "distinctiveness": 45.0,
+        "visual_fit": 82.0,
+        "simplicity": 100.0,
+        "question_relevance": 49.3
+      },
+      "rank": 4
+    },
+    {
+      "id": "group-mean-housing-cost-index",
+      "pattern": "group_mean",
+      "claim": "Harbor has the highest average Housing cost index (121), 9 above Mesa.",
+      "question": "How does Housing cost index differ across City?",
+      "n": 8,
+      "effect": 62.97520661157025,
+      "distinctiveness": 16.666666666666668,
+      "visual_fit": 94,
+      "transformations": 1,
+      "risk_penalty": 10.0,
+      "fields_used": [
+        "city",
+        "housing_cost_index"
+      ],
+      "visual": "bar",
+      "production_mode": "annotated-static",
+      "evidence": {
+        "kind": "group_mean",
+        "metric": "housing_cost_index",
+        "group_field": "city",
+        "group": "Harbor",
+        "value": 121.0,
+        "n": 2,
+        "lowest_group": "Mesa",
+        "lowest_value": 112.0
+      },
+      "fields": {
+        "category": "city",
+        "y": "housing_cost_index",
+        "aggregate": "mean"
+      },
+      "rationale": "Makes rank and magnitude easy to compare across categories.",
+      "caveat": "Averages pool repeated time periods; inspect time structure before publication.",
+      "field_metadata": {
+        "city": {
+          "role": "category",
+          "label": "City",
+          "description": "Fictional city used for the demo"
+        },
+        "housing_cost_index": {
+          "role": "measure",
+          "label": "Housing cost index",
+          "unit": "index, 2019 = 100",
+          "description": "Synthetic housing cost level indexed to 2019"
+        }
+      },
+      "data_notes": [
+        "All values are fictional and exist only to demonstrate the pipeline."
+      ],
+      "score": 61.5,
+      "score_components": {
+        "evidence": 92.0,
+        "coverage": 100.0,
+        "effect": 63.0,
+        "distinctiveness": 16.7,
+        "visual_fit": 94.0,
+        "simplicity": 100.0,
+        "question_relevance": 49.3
+      },
+      "rank": 5
+    },
+    {
+      "id": "distribution-income-index",
+      "pattern": "distribution",
+      "claim": "The median Income index is 106, spanning 100 to 118.",
+      "question": "What is the distribution of Income index?",
+      "n": 8,
+      "effect": 7.076427434425673,
+      "distinctiveness": 45,
+      "visual_fit": 82,
+      "transformations": 1,
+      "risk_penalty": 0.0,
+      "fields_used": [
+        "income_index"
+      ],
+      "visual": "histogram",
+      "production_mode": "annotated-static",
+      "evidence": {
+        "kind": "distribution",
+        "metric": "income_index",
+        "min": 100.0,
+        "median": 105.5,
+        "max": 118.0,
+        "n": 8
+      },
+      "fields": {
+        "y": "income_index"
+      },
+      "rationale": "Shows shape, center, spread, and potential extremes without asserting a causal explanation.",
+      "field_metadata": {
+        "income_index": {
+          "role": "measure",
+          "label": "Income index",
+          "unit": "index, 2019 = 100",
+          "description": "Synthetic income level indexed to 2019"
+        }
+      },
+      "data_notes": [
+        "All values are fictional and exist only to demonstrate the pipeline."
+      ],
+      "score": 61.4,
+      "score_components": {
+        "evidence": 92.0,
+        "coverage": 100.0,
+        "effect": 7.1,
+        "distinctiveness": 45.0,
+        "visual_fit": 82.0,
+        "simplicity": 100.0,
+        "question_relevance": 37.7
+      },
+      "rank": 6
+    },
+    {
+      "id": "group-mean-income-index",
+      "pattern": "group_mean",
+      "claim": "Cedar has the highest average Income index (109), 3.5 above Harbor.",
+      "question": "How does Income index differ across City?",
+      "n": 8,
+      "effect": 61.28440366972477,
+      "distinctiveness": 28.571428571428573,
+      "visual_fit": 94,
+      "transformations": 1,
+      "risk_penalty": 10.0,
+      "fields_used": [
+        "city",
+        "income_index"
+      ],
+      "visual": "bar",
+      "production_mode": "annotated-static",
+      "evidence": {
+        "kind": "group_mean",
+        "metric": "income_index",
+        "group_field": "city",
+        "group": "Cedar",
+        "value": 109.0,
+        "n": 2,
+        "lowest_group": "Harbor",
+        "lowest_value": 105.5
+      },
+      "fields": {
+        "category": "city",
+        "y": "income_index",
+        "aggregate": "mean"
+      },
+      "rationale": "Makes rank and magnitude easy to compare across categories.",
+      "caveat": "Averages pool repeated time periods; inspect time structure before publication.",
+      "field_metadata": {
+        "city": {
+          "role": "category",
+          "label": "City",
+          "description": "Fictional city used for the demo"
+        },
+        "income_index": {
+          "role": "measure",
+          "label": "Income index",
+          "unit": "index, 2019 = 100",
+          "description": "Synthetic income level indexed to 2019"
+        }
+      },
+      "data_notes": [
+        "All values are fictional and exist only to demonstrate the pipeline."
+      ],
+      "score": 61.2,
+      "score_components": {
+        "evidence": 92.0,
+        "coverage": 100.0,
+        "effect": 61.3,
+        "distinctiveness": 28.6,
+        "visual_fit": 94.0,
+        "simplicity": 100.0,
+        "question_relevance": 37.7
+      },
+      "rank": 7
+    },
+    {
+      "id": "group-change-income-index",
+      "pattern": "group_change",
+      "claim": "Cedar rose the most on Income index, changing by 18 from 2019 to 2024.",
+      "question": "How did Income index change over time across City?",
+      "n": 8,
+      "effect": 18.0,
+      "distinctiveness": 11.11111111111111,
+      "visual_fit": 92,
+      "transformations": 1,
+      "risk_penalty": 0.0,
+      "fields_used": [
+        "year",
+        "city",
+        "income_index"
+      ],
+      "visual": "line",
+      "production_mode": "scrollytelling",
+      "evidence": {
+        "kind": "change",
+        "metric": "income_index",
+        "group_field": "city",
+        "group": "Cedar",
+        "start": {
+          "period": "2019",
+          "value": 100.0
+        },
+        "end": {
+          "period": "2024",
+          "value": 118.0
+        },
+        "change": 18.0
+      },
+      "fields": {
+        "x": "year",
+        "series": "city",
+        "y": "income_index"
+      },
+      "rationale": "Preserves time context while identifying the group with the largest absolute change.",
+      "field_metadata": {
+        "year": {
+          "role": "time",
+          "label": "Year",
+          "description": "Observation year"
+        },
+        "city": {
+          "role": "category",
+          "label": "City",
+          "description": "Fictional city used for the demo"
+        },
+        "income_index": {
+          "role": "measure",
+          "label": "Income index",
+          "unit": "index, 2019 = 100",
+          "description": "Synthetic income level indexed to 2019"
+        }
+      },
+      "data_notes": [
+        "All values are fictional and exist only to demonstrate the pipeline."
+      ],
+      "score": 61.0,
+      "score_components": {
+        "evidence": 92.0,
+        "coverage": 100.0,
+        "effect": 18.0,
+        "distinctiveness": 11.1,
+        "visual_fit": 92.0,
+        "simplicity": 91.0,
+        "question_relevance": 49.3
+      },
+      "rank": 8
+    }
+  ]
+}
