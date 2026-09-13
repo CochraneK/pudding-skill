@@ -141,6 +141,18 @@ The generic renderer is a correctness baseline, not a final art direction. Once 
 
 When replacing the renderer, preserve the underlying evidence calculations and rerun the claim audit.
 
+## Browser delivery QA
+
+After the static checks and production build pass, test the built site in a real Chromium process. Start `vite preview`, then run:
+
+```bash
+npm run qa:browser -- --base-url http://127.0.0.1:4173 --out .qa
+```
+
+The browser gate visits `/`, `/generated`, and `/lab` at desktop and mobile widths with reduced motion enabled. It fails on uncaught exceptions, browser console errors, network failures, horizontal overflow, missing page structure, duplicate IDs, images without `alt`, unnamed interactive controls, or a broken keyboard Tab path. It also writes six PNG screenshots plus `.qa/browser-qa.json` so a human can inspect visual quality that cannot be reduced to deterministic rules.
+
+Browser QA is a delivery gate, not an aesthetic score. A passing report means the page is mechanically healthy at the tested states; it does not prove that the art direction or editorial pacing is good.
+
 ## Delivery checklist
 
 Before declaring the story complete:
@@ -152,10 +164,11 @@ Before declaring the story complete:
 5. Run `python scripts/qa_story.py --root .`.
 6. Run unit tests (`npm run test:skill`).
 7. Build with `npm run build`.
-8. Inspect desktop and mobile widths.
-9. Verify every quantitative sentence against structured evidence.
-10. Test the first screen without scrolling.
-11. Test reduced motion and keyboard use.
-12. Confirm source attribution, caveats, and non-affiliation language.
+8. Run browser delivery QA against the built preview and inspect its screenshots/report.
+9. Inspect desktop and mobile widths as editorial compositions, not just overflow checks.
+10. Verify every quantitative sentence against structured evidence.
+11. Test the first screen without scrolling.
+12. Test reduced motion and keyboard use.
+13. Confirm source attribution, caveats, and non-affiliation language.
 
 If any hard check fails, revise before delivery.
