@@ -1,0 +1,35 @@
+name: Apply safe npm audit fixes
+
+on:
+  push:
+    branches: [hardening/dependencies-and-warnings]
+
+permissions:
+  contents: write
+
+jobs:
+  fix:
+    if: github.actor != 'github-actions[bot]'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - name: Apply compatible audit fixes to lockfile
+        run: npm audit fix --package-lock-only
+      - name: Verify install from updated lockfile
+        run: npm ci
+      - name: Commit lockfile and remove one-shot workflow
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git rm .github/workflows/apply-safe-audit-fix.yml
+          git add package-lock.json
+          if git diff --cached --quiet; then
+            exit 0
+          fi
+          git commit -m "chore: apply compatible npm audit fixes"
+          git push
