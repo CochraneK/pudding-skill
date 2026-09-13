@@ -6,6 +6,21 @@ This project is not a visual clone of [The Pudding](https://pudding.cool/). It b
 
 > The Svelte starter is derived from [`the-pudding/svelte-starter`](https://github.com/the-pudding/svelte-starter) under the MIT License. This project is not affiliated with The Pudding and does not ship or hotlink The Pudding logos or proprietary fonts.
 
+## v2.3: evidence-to-browser delivery gates
+
+v2.3 keeps the v2.2 editorial decision system and closes the delivery gap between “the numbers are defensible” and “the published experience actually works.”
+
+New release gates:
+
+- real Chromium QA for `/`, `/generated`, and `/lab` at desktop and mobile widths;
+- console/exception/network, horizontal-overflow, keyboard, accessible-name, duplicate-ID, image-alt, and reduced-motion checks;
+- six screenshot artifacts plus a machine-readable browser QA report for review;
+- dependency-audit evidence in CI, with **high or critical advisories failing the build**;
+- compatible dependency remediation without destructive `npm audit fix --force`;
+- Svelte 5 reactive renderer cleanup so production builds are free of the prior project-level state warnings.
+
+The current compatible dependency set has **0 critical, 0 high, 0 moderate, and 7 low** audit findings. The remaining lows stay visible in CI evidence because npm's only automated remediation path is breaking and would downgrade SvelteKit.
+
 ## v2.2: from chart heuristic to editorial decision system
 
 v2.1 established a deterministic data → story → Svelte baseline. v2.2 removes the biggest remaining shortcut: **the first matching analytical pattern no longer automatically becomes the story.**
@@ -220,9 +235,11 @@ pudding-skill/
 ```bash
 npm run check:skill
 npm run build
+npm run qa:browser
+npm audit --audit-level=high
 ```
 
-`check:skill` validates the example contract/spec, runs the full candidate-selection pipeline, independently audits the selected quantitative evidence, runs unit tests, and performs static preflight checks.
+`check:skill` validates the example contract/spec, runs the full candidate-selection pipeline, independently audits the selected quantitative evidence, runs unit tests, and performs static preflight checks. CI then builds the Svelte app, runs six real-browser delivery cases, stores screenshot/report evidence, and fails on high-or-critical npm advisories.
 
 ## Editorial principles
 
