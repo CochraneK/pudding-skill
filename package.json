@@ -1,6 +1,8 @@
 {
-	"name": "svelte-starter",
-	"version": "6.25.1",
+	"name": "pudding-skill",
+	"version": "2.1.0",
+	"private": true,
+	"description": "Pudding-inspired editorial data-storytelling agent skill with deterministic data-to-story baseline and Svelte renderer",
 	"scripts": {
 		"gdoc": "node tasks/fetch-google.js",
 		"style": "node tasks/style-dictionary.js",
@@ -8,7 +10,12 @@
 		"build": "vite build",
 		"preview": "vite preview",
 		"lint": "prettier --check --plugin-search-dir=. .",
-		"format": "prettier --write --plugin-search-dir=. ."
+		"format": "prettier --write --plugin-search-dir=. .",
+		"check:skill": "python scripts/validate_story.py examples/story-spec.example.json && python scripts/pipeline.py examples/sample-data.csv --question \"Which fictional cities saw housing costs separate most sharply from income after 2019?\" && python -m unittest discover -s tests -p 'test_*.py' && python scripts/qa_story.py --root .",
+		"story:derive": "python scripts/derive_story.py",
+		"story:build": "python scripts/pipeline.py",
+		"story:qa": "python scripts/qa_story.py --root .",
+		"test:skill": "python -m unittest discover -s tests -p 'test_*.py'"
 	},
 	"devDependencies": {
 		"@lucide/svelte": "^1.16.0",

@@ -2,23 +2,23 @@
 @import "normalize.css";
 @import "font.css";
 @import "reset.css";
-@import "ui.css"; /* optional for bits UI components */
+@import "ui.css";
 
-/* colors defined in variables.css */
 :root {
-	/* font */
-	--font-sans: "Atlas Grotesk", -apple-system, BlinkMacSystemFont, Helvetica, Arial, sans-serif;
-	--font-serif: "Tiempos Text", Iowan Old Style, Times New Roman, Times, serif;
-	--font-mono: Menlo, Consolas, Monaco, monospace;
+	--font-sans: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+	--font-serif: Georgia, "Times New Roman", Times, serif;
+	--font-mono: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
 
-	/* z-index */
+	--width-column: 680px;
+	--width-column-wide: 1280px;
+	--margin: 16px;
+
 	--z-bottom: -1;
 	--z-base: 1;
 	--z-top: 10;
 	--z-overlay: 100;
 	--z-modal: 1000;
 
-	/* presets (used in reset.css) */
 	--font-body: var(--font-serif);
 	--font-form: var(--font-sans);
 
@@ -26,17 +26,17 @@
 	--radius-sm: 0.25rem;
 	--radius-md: 0.5rem;
 	--radius-lg: 1rem;
-	
-	--color-bg: var(--color-white);
-	--color-fg: var(--color-gray-900);
-	--color-fg-light: var(--color-gray-500);
-	--color-primary: var(--color-black);
-	--color-link: var(--color-black);
-	--color-link-hover: var(--color-black);
-	--color-focus: var(--color-gray-500);
+
+	--color-bg: #f7f4ee;
+	--color-fg: #171717;
+	--color-fg-light: #615f59;
+	--color-primary: #171717;
+	--color-link: #171717;
+	--color-link-hover: #d94f2b;
+	--color-focus: #8d3d26;
 	--color-mark: var(--color-yellow);
-	--color-selection: var(--color-gray-300);
-	--color-border: var(--color-gray-300);
+	--color-selection: #ded8cc;
+	--color-border: rgba(23, 23, 23, 0.16);
 	--color-button-fg-primary: var(--color-white);
 	--color-button-bg-primary: var(--color-gray-900);
 	--color-button-fg-secondary: var(--color-white);
@@ -45,21 +45,32 @@
 	--color-input-fg: var(--color-gray-900);
 	--color-placeholder: var(--color-gray-500);
 
-	/* "1" second duration */
 	--1s: 1ms;
 }
-
-/* dark theme */
-/* @media screen and (prefers-color-scheme:dark) {
-	:root {
-		
-	}
-} */
 
 @media screen and (prefers-reduced-motion: no-preference) {
 	:root {
 		--1s: 1s;
 	}
+}
+
+html {
+	background: var(--color-bg);
+}
+
+body {
+	min-width: 320px;
+	background: var(--color-bg);
+	color: var(--color-fg);
+}
+
+::selection {
+	background: var(--color-selection);
+}
+
+:focus-visible {
+	outline: 3px solid var(--color-focus);
+	outline-offset: 3px;
 }
 
 h1 {

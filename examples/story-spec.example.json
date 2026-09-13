@@ -1,0 +1,29 @@
+{
+  "question": "Which fictional cities saw housing costs separate most sharply from income after 2019?",
+  "audience": "General readers with no prior statistical background",
+  "primary_insight": "In the synthetic example, Harbor and Summit show the clearest post-2019 divergence between housing cost and income indexes.",
+  "evidence": [
+    "Housing-cost index rises faster than income index in Harbor and Summit.",
+    "The gap is smaller and more stable in Cedar and Mesa."
+  ],
+  "beats": [
+    { "id": "baseline", "purpose": "Establish a common 2019 baseline." },
+    { "id": "reveal", "purpose": "Reveal that costs and incomes do not move together." },
+    { "id": "compare", "purpose": "Compare the size of the gap across four cities." },
+    { "id": "caveat", "purpose": "Clarify that the demo data is synthetic and not causal evidence." }
+  ],
+  "visuals": [
+    {
+      "type": "grouped bar",
+      "purpose": "Keep a common baseline while revealing divergence.",
+      "operation": "reveal"
+    },
+    {
+      "type": "ordered dot plot",
+      "purpose": "Compare the final gap across cities.",
+      "operation": "compare"
+    }
+  ],
+  "sources": ["Synthetic demo data included in examples/sample-data.csv"],
+  "caveats": ["Values are illustrative only and must not be interpreted as real housing statistics."]
+}

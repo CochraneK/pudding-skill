@@ -1,9 +1,10 @@
 <script>
 	import Meta from "$components/Meta.svelte";
-	let { data } = $props();
+	import Index from "$components/Index.svelte";
 </script>
 
-<Meta title="Demo" description="Scrollytelling starter demo components" />
-<h1>Scrollytelling Starter Demo</h1>
-<p>This is a placeholder for the demo page.</p>
-<p>The main scrollytelling content is at the root route.</p>
+<Meta
+	title="Demo — Pudding Scrolly"
+	description="A synthetic scrollytelling demonstration of the editorial workflow used by the skill."
+/>
+<Index />
