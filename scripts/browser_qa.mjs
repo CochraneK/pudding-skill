@@ -63,17 +63,20 @@ class CDP {
   }
 }
 
-async function connect(port) {
-  let meta;
-  for (let i = 0; i < 80; i++) {
-    try { const r = await fetch(`http://127.0.0.1:${port}/json/version`); if (r.ok) { meta = await r.json(); break; } } catch {}
+async function connectFromChrome(getStderr, proc) {
+  let wsUrl = '';
+  for (let i = 0; i < 200; i++) {
+    const match = getStderr().match(/DevTools listening on (ws:\/\/[^\s]+)/);
+    if (match) { wsUrl = match[1]; break; }
+    if (proc.exitCode != null) throw new Error(`Chrome exited before DevTools was ready (code ${proc.exitCode}).`);
     await sleep(100);
   }
-  if (!meta?.webSocketDebuggerUrl) throw new Error('Chrome DevTools endpoint unavailable.');
-  const ws = new WebSocket(meta.webSocketDebuggerUrl);
+  if (!wsUrl) throw new Error('Chrome DevTools endpoint unavailable.');
+  const ws = new WebSocket(wsUrl);
   await new Promise((resolve, reject) => {
-    ws.addEventListener('open', resolve, { once: true }); ws.addEventListener('error', reject, { once: true });
-    setTimeout(() => reject(new Error('DevTools WebSocket timeout')), 10000).unref?.();
+    const timer = setTimeout(() => reject(new Error('DevTools WebSocket timeout')), 10000);
+    ws.addEventListener('open', () => { clearTimeout(timer); resolve(); }, { once: true });
+    ws.addEventListener('error', (event) => { clearTimeout(timer); reject(event.error || new Error('DevTools WebSocket error')); }, { once: true });
   });
   return new CDP(ws);
 }
@@ -152,12 +155,12 @@ async function caseRun(cdp, sid, cfg, route, viewport) {
 
 async function main() {
   const cfg = args(); cfg.out = path.resolve(cfg.out); await mkdir(cfg.out, { recursive: true });
-  const chrome = chromePath(cfg.chrome), profile = await mkdtemp(path.join(tmpdir(), 'pudding-qa-')), port = 9222 + Math.floor(Math.random() * 500);
-  const proc = spawn(chrome, ['--headless=new', '--no-sandbox', '--disable-gpu', '--disable-dev-shm-usage', '--no-first-run', `--remote-debugging-port=${port}`, `--user-data-dir=${profile}`, 'about:blank'], { stdio: ['ignore', 'ignore', 'pipe'] });
+  const chrome = chromePath(cfg.chrome), profile = await mkdtemp(path.join(tmpdir(), 'pudding-qa-'));
+  const proc = spawn(chrome, ['--headless=new', '--no-sandbox', '--disable-gpu', '--disable-dev-shm-usage', '--no-first-run', '--remote-debugging-port=0', `--user-data-dir=${profile}`, 'about:blank'], { stdio: ['ignore', 'ignore', 'pipe'] });
   let stderr = ''; proc.stderr.on('data', (x) => { stderr += x.toString(); });
   let cdp;
   try {
-    cdp = await connect(port);
+    cdp = await connectFromChrome(() => stderr, proc);
     const { targetId } = await cdp.call('Target.createTarget', { url: 'about:blank' });
     const { sessionId } = await cdp.call('Target.attachToTarget', { targetId, flatten: true });
     for (const domain of ['Page', 'Runtime', 'Log', 'Network']) await cdp.call(`${domain}.enable`, {}, sessionId);
