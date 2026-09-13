@@ -5,3 +5,11 @@ build/
 .env.local
 .DS_Store
 *.log
+
+# Generated Python/runtime caches
+__pycache__/
+*.py[cod]
+.pytest_cache/
+
+# Local browser QA artifacts
+.qa/

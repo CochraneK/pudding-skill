@@ -24,3 +24,25 @@ jobs:
       - run: npm ci
       - run: npm run check:skill
       - run: npm run build
+      - name: Browser delivery QA
+        run: |
+          npm run preview -- --host 127.0.0.1 --port 4173 > /tmp/pudding-preview.log 2>&1 &
+          PREVIEW_PID=$!
+          trap 'kill $PREVIEW_PID >/dev/null 2>&1 || true' EXIT
+          for attempt in $(seq 1 30); do
+            if curl --fail --silent http://127.0.0.1:4173/ >/dev/null; then
+              break
+            fi
+            sleep 1
+          done
+          curl --fail --silent http://127.0.0.1:4173/ >/dev/null
+          npm run qa:browser -- --base-url http://127.0.0.1:4173 --out .qa
+      - name: Upload browser QA evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: browser-qa-${{ github.run_id }}
+          path: .qa/
+          if-no-files-found: warn
+          include-hidden-files: true
+          retention-days: 14
