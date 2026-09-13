@@ -166,7 +166,14 @@ async function main() {
     for (const route of cfg.routes) for (const viewport of viewports) results.push(await caseRun(cdp, sessionId, cfg, route, viewport));
     const report = { generatedAt: new Date().toISOString(), baseUrl: cfg.baseUrl, status: results.every((r) => r.ok) ? 'PASS' : 'FAIL', passed: results.filter((r) => r.ok).length, total: results.length, results };
     await writeFile(path.join(cfg.out, 'browser-qa.json'), JSON.stringify(report, null, 2) + '\n');
-    for (const r of results) console.log(`${r.ok ? 'PASS' : 'FAIL'} ${r.route} ${r.viewport}${r.failures.length ? ` — ${r.failures.join('; ')}` : ''}`);
+    for (const r of results) {
+      console.log(`${r.ok ? 'PASS' : 'FAIL'} ${r.route} ${r.viewport}${r.failures.length ? ` — ${r.failures.join('; ')}` : ''}`);
+      if (!r.ok) {
+        for (const value of r.errors) console.log(`  console: ${value}`);
+        for (const value of r.exceptions) console.log(`  exception: ${value}`);
+        for (const value of r.networkFailures) console.log(`  network: ${value}`);
+      }
+    }
     console.log(`${report.status}: ${report.passed}/${report.total} browser QA cases passed.`);
     if (report.status !== 'PASS') process.exitCode = 1;
   } finally {
