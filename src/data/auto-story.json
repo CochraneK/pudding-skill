@@ -1,0 +1,98 @@
+{
+  "spec": {
+    "question": "Which fictional cities saw housing costs separate most sharply from income after 2019?",
+    "audience": "general audience",
+    "primary_insight": "housing_cost_index outpaced income_index most in Harbor: their changes differed by 31 between 2019 and 2024.",
+    "evidence": [
+      {
+        "kind": "change_gap",
+        "group_field": "city",
+        "group": "Harbor",
+        "time_field": "year",
+        "start_period": "2019",
+        "end_period": "2024",
+        "metric_a": "income_index",
+        "metric_b": "housing_cost_index",
+        "change_a": 11.0,
+        "change_b": 42.0,
+        "gap": 31.0
+      }
+    ],
+    "beats": [
+      {
+        "operation": "establish",
+        "purpose": "Establish the common starting point for income_index and housing_cost_index."
+      },
+      {
+        "operation": "reveal",
+        "purpose": "Reveal how the two measures change by year."
+      },
+      {
+        "operation": "reorder",
+        "purpose": "Rank city by the divergence in change."
+      },
+      {
+        "operation": "highlight",
+        "purpose": "Highlight Harbor as the largest absolute divergence."
+      }
+    ],
+    "visuals": [
+      {
+        "type": "bar",
+        "purpose": "Rank groups by the difference between two start-to-end changes.",
+        "operation": "compare"
+      }
+    ],
+    "production_mode": "annotated-static",
+    "fields": {
+      "category": "city",
+      "time": "year",
+      "metric_a": "income_index",
+      "metric_b": "housing_cost_index",
+      "derive": "change_gap"
+    },
+    "sources": [
+      {
+        "label": "sample-data.csv",
+        "path": "examples/sample-data.csv"
+      }
+    ],
+    "caveats": [
+      "This spec was produced by deterministic heuristics and should be editorially reviewed before publication."
+    ]
+  },
+  "chart": {
+    "type": "bar",
+    "x_label": "city",
+    "y_label": "Δ housing_cost_index − Δ income_index",
+    "data": [
+      {
+        "label": "Harbor",
+        "value": 31.0,
+        "change_a": 11.0,
+        "change_b": 42.0
+      },
+      {
+        "label": "Summit",
+        "value": 25.0,
+        "change_a": 14.0,
+        "change_b": 39.0
+      },
+      {
+        "label": "Cedar",
+        "value": 9.0,
+        "change_a": 18.0,
+        "change_b": 27.0
+      },
+      {
+        "label": "Mesa",
+        "value": 8.0,
+        "change_a": 16.0,
+        "change_b": 24.0
+      }
+    ],
+    "zero_centered": true
+  },
+  "row_count": 8,
+  "source_file": "sample-data.csv"
+}
