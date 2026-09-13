@@ -1,0 +1,32 @@
+name: Apply v2.2 payload
+
+on:
+  push:
+    branches:
+      - refactor/pudding-skill-v2.2
+    paths:
+      - .v2.2-payload.tgz
+
+permissions:
+  contents: write
+
+jobs:
+  apply:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: refactor/pudding-skill-v2.2
+      - name: Apply generated payload
+        run: |
+          tar -xzf .v2.2-payload.tgz
+          rm .v2.2-payload.tgz
+          rm .github/workflows/apply-v22.yml
+          npm install --package-lock-only --ignore-scripts
+      - name: Commit v2.2
+        run: |
+          git config user.name github-actions[bot]
+          git config user.email 41898282+github-actions[bot]@users.noreply.github.com
+          git add -A
+          git commit -m "v2.2: add candidate ranking and claim-audited editorial pipeline"
+          git push origin HEAD:refactor/pudding-skill-v2.2
