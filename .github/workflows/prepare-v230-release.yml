@@ -1,0 +1,44 @@
+name: Prepare v2.3.0 release
+
+on:
+  push:
+    branches: [release/v2.3.0]
+
+permissions:
+  contents: write
+
+jobs:
+  prepare:
+    if: github.actor != 'github-actions[bot]'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - name: Bump package metadata
+        run: npm version 2.3.0 --no-git-tag-version
+      - name: Document v2.3 delivery gates
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          p = Path('README.md')
+          text = p.read_text()
+          marker = '## v2.2: from chart heuristic to editorial decision system\n'
+          section = '''## v2.3: evidence-to-browser delivery gates\n\nv2.3 keeps the v2.2 editorial decision system and closes the delivery gap between “the numbers are defensible” and “the published experience actually works.”\n\nNew release gates:\n\n- real Chromium QA for `/`, `/generated`, and `/lab` at desktop and mobile widths;\n- console/exception/network, horizontal-overflow, keyboard, accessible-name, duplicate-ID, image-alt, and reduced-motion checks;\n- six screenshot artifacts plus a machine-readable browser QA report for review;\n- dependency-audit evidence in CI, with **high or critical advisories failing the build**;\n- compatible dependency remediation without destructive `npm audit fix --force`;\n- Svelte 5 reactive renderer cleanup so production builds are free of the prior project-level state warnings.\n\nThe current compatible dependency set has **0 critical, 0 high, 0 moderate, and 7 low** audit findings. The remaining lows stay visible in CI evidence because npm's only automated remediation path is breaking and would downgrade SvelteKit.\n\n'''
+          if '## v2.3: evidence-to-browser delivery gates' not in text:
+              text = text.replace(marker, section + marker)
+          text = text.replace('```bash\nnpm run check:skill\nnpm run build\n```', '```bash\nnpm run check:skill\nnpm run build\nnpm run qa:browser\nnpm audit --audit-level=high\n```')
+          text = text.replace('`check:skill` validates the example contract/spec, runs the full candidate-selection pipeline, independently audits the selected quantitative evidence, runs unit tests, and performs static preflight checks.', '`check:skill` validates the example contract/spec, runs the full candidate-selection pipeline, independently audits the selected quantitative evidence, runs unit tests, and performs static preflight checks. CI then builds the Svelte app, runs six real-browser delivery cases, stores screenshot/report evidence, and fails on high-or-critical npm advisories.')
+          p.write_text(text)
+          PY
+      - name: Commit release metadata
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git rm .github/workflows/prepare-v230-release.yml
+          git add README.md package.json package-lock.json
+          git commit -m "release: prepare v2.3.0"
+          git push
