@@ -69,19 +69,27 @@ def fetch_json(url: str) -> dict:
 
 
 def fetch_odata_rows(url: str) -> list[dict[str, Any]]:
-    """Fetch an OData collection, following continuation links when present."""
+    """Fetch all WHO OData pages, including endpoints without nextLink."""
     rows: list[dict[str, Any]] = []
-    next_url: str | None = url
-    seen: set[str] = set()
-    while next_url:
-        if next_url in seen:
-            raise RuntimeError(f"WHO OData pagination loop detected at {next_url}")
-        seen.add(next_url)
-        payload = fetch_json(next_url)
-        rows.extend(payload.get("value", []))
-        next_url = payload.get("@odata.nextLink") or payload.get("odata.nextLink")
+    page_size = 100
+    skip = 0
+    while True:
+        separator = "&" if "?" in url else "?"
+        page_url = f"{url}{separator}$skip={skip}"
+        payload = fetch_json(page_url)
+        page = payload.get("value", [])
+        if skip and page and rows and page[0].get("Id") == rows[0].get("Id"):
+            raise RuntimeError(f"WHO OData ignored $skip at {page_url}")
+        rows.extend(page)
+        continuation = payload.get("@odata.nextLink") or payload.get("odata.nextLink")
+        if continuation:
+            url = continuation
+            skip = 0
+            continue
+        if len(page) < page_size:
+            break
+        skip += page_size
     return rows
-
 
 def _numeric(value: Any) -> float | None:
     if value is None or value == "":
