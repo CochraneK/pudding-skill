@@ -13,7 +13,7 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
-      - name: Test and refresh
+      - name: Test and refresh after pagination fixes
         run: |
           python -m unittest tests.test_global_mental_health
           python scripts/mental_health_story.py capacity \
