@@ -1,0 +1,40 @@
+name: One-shot explorer cleanup
+
+on:
+  push:
+    branches: [feat/bilingual-pudding-interaction]
+    paths:
+      - .github/workflows/one-shot-explorer-cleanup.yml
+
+permissions:
+  contents: write
+
+jobs:
+  patch:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          ref: feat/bilingual-pudding-interaction
+      - name: Patch explorer semantics
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          import re
+
+          path = Path('src/components/GlobalMentalHealthExplorer.svelte')
+          text = path.read_text(encoding='utf-8')
+          text = text.replace("click: '点击国家可锁定；再次点击同一国家取消。',", "click: '用上方选择器锁定国家；桌面端悬停地图可快速查看。',")
+          text = text.replace("click: 'Click a country to pin it; click the same country again to clear.',", "click: 'Use the country picker to pin details; on desktop, hover the map for a quick look.',")
+          text = text.replace("\t\t\t\t\t\taria-label={country ? `${country.name}: ${formatValue(metricValue, selectedMetric)}` : feature.properties?.name}\n", "\t\t\t\t\t\trole=\"img\"\n\t\t\t\t\t\taria-label={country ? `${country.name}: ${formatValue(metricValue, selectedMetric)}` : feature.properties?.name}\n", 1)
+          text = re.sub(r"\n\tfunction chooseCountry\(code\) \{\n\t\tif \(!code\) return;\n\t\tselectedCode = selectedCode === code \? null : code;\n\t\}\n", "\n", text, count=1)
+          path.write_text(text, encoding='utf-8')
+          PY
+      - name: Remove one-shot workflow and commit
+        run: |
+          rm .github/workflows/one-shot-explorer-cleanup.yml
+          git config user.name github-actions[bot]
+          git config user.email 41898282+github-actions[bot]@users.noreply.github.com
+          git add src/components/GlobalMentalHealthExplorer.svelte .github/workflows/one-shot-explorer-cleanup.yml
+          git commit -m "fix: clean up explorer semantics"
+          git push origin HEAD:feat/bilingual-pudding-interaction
