@@ -1,4 +1,5 @@
 <script>
+	import { base } from '$app/paths';
 	let { bundle } = $props();
 
 	const spec = $derived(bundle.spec);
@@ -94,7 +95,7 @@
 			{#if spec.selection?.score != null}<span>editorial score {spec.selection.score}</span>{/if}
 		</div>
 		{#if spec.selection}
-			<p class="selection-note">Selected from the ranked candidate pool as <strong>#{spec.selection.rank}</strong>. <a href="/lab">Inspect the editorial decision →</a></p>
+			<p class="selection-note">Selected from the ranked candidate pool as <strong>#{spec.selection.rank}</strong>. <a href={`${base}/lab`}>Inspect the editorial decision →</a></p>
 		{/if}
 	</header>
 

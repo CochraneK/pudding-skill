@@ -1,4 +1,5 @@
 <script>
+	import { base } from '$app/paths';
 	import { onMount } from "svelte";
 	import Footer from "$components/Footer.svelte";
 
@@ -56,7 +57,7 @@
 			This repository is a Pudding-inspired workflow for agents: audit the data, find the claim,
 			design the narrative, choose the right visual form, implement it, then validate the result.
 		</p>
-		<p class="hero-action"><a href="/generated">View the generated baseline →</a></p>
+		<p class="hero-action"><a href={`${base}/generated`}>View the generated baseline →</a></p>
 		<div class="hero-grid" aria-label="Skill workflow">
 			{#each ["Audit", "Insight", "Narrative", "Visual", "Build", "QA"] as item, i}
 				<div class="phase"><span>{String(i + 1).padStart(2, "0")}</span>{item}</div>

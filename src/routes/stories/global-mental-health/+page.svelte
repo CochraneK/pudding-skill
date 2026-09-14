@@ -1,4 +1,5 @@
 <script>
+	import { base } from '$app/paths';
 	import facts from '$data/global-mental-health-facts.json';
 
 	const byId = Object.fromEntries(facts.facts.map((fact) => [fact.id, fact]));
@@ -258,7 +259,7 @@
 					WHO GHO and Atlas country profiles expose workforce, financing and service-system indicators. Those can be
 					extracted into a country map without waiting for IHME.
 				</p>
-				<a class="atlas-link" href="/stories/global-mental-health/atlas">Explore the country capacity atlas →</a>
+				<a class="atlas-link" href={`${base}/stories/global-mental-health/atlas`}>Explore the country capacity atlas →</a>
 				<code>python scripts/mental_health_story.py who</code>
 			</article>
 			<article>
