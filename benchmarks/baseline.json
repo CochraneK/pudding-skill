@@ -1,0 +1,14 @@
+{
+  "schema_version": 1,
+  "minimum_overall_score": 100,
+  "minimum_case_pass_rate": 1.0,
+  "max_hard_failures": 0,
+  "minimum_dimension_pass_rates": {
+    "selection": 1.0,
+    "visual_grammar": 1.0,
+    "claim_audit": 1.0,
+    "editorial_gate": 1.0,
+    "provenance": 1.0
+  },
+  "policy": "The curated v2.6 corpus is a deterministic regression floor. Any fixture regression must be explained by an intentional corpus/expectation change, not hidden by lowering thresholds in the same patch."
+}
