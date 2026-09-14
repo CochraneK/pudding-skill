@@ -353,7 +353,7 @@ def build_capacity_dataset(
 def fetch_country_capacity(output: Path, audit_output: Path | None = None) -> dict[str, Any]:
     indicator_rows: dict[str, list[dict[str, Any]]] = {}
     for code in [*WHO_CAPACITY_INDICATORS, *WHO_NEED_PROXY_INDICATORS]:
-        indicator_rows[code] = fetch_odata_rows(f"{WHO_GHO_BASE}/{code}?$top=10000")
+        indicator_rows[code] = fetch_odata_rows(f"{WHO_GHO_BASE}/{code}?$top=100")
     country_dimension = fetch_odata_rows(WHO_COUNTRY_DIMENSION)
     dataset = build_capacity_dataset(indicator_rows, country_dimension)
 
@@ -379,7 +379,7 @@ def fetch_country_capacity(output: Path, audit_output: Path | None = None) -> di
 def fetch_who_workforce(output: Path) -> None:
     rows: list[dict] = []
     for code, metric in WHO_INDICATORS.items():
-        for record in fetch_odata_rows(f"{WHO_GHO_BASE}/{code}?$top=10000"):
+        for record in fetch_odata_rows(f"{WHO_GHO_BASE}/{code}?$top=100"):
             normalized = normalize_gho_record(record, metric)
             if normalized["country_code"] and normalized["value"] is not None:
                 rows.append(normalized)
