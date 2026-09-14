@@ -124,13 +124,20 @@ def build_review(probe: dict[str, Any]) -> dict[str, Any]:
     screenshots = []
     for case in probe.get("results") or []:
         findings.extend(critique_case(case))
-        screenshots.append({
-            "route": case.get("route"),
-            "viewport": case.get("viewport"),
-            "path": case.get("screenshot"),
-        })
+        case_shots = case.get("screenshots") or ([{"position": "mid", "path": case.get("screenshot")}] if case.get("screenshot") else [])
+        for shot in case_shots:
+            if shot.get("path"):
+                screenshots.append({
+                    "route": case.get("route"),
+                    "viewport": case.get("viewport"),
+                    "position": shot.get("position", "unknown"),
+                    "path": shot.get("path"),
+                })
 
-    penalty = sum(SEVERITY_WEIGHT.get(item["severity"], 0) for item in findings)
+    unique_penalties = {}
+    for item in findings:
+        unique_penalties[item["code"]] = max(unique_penalties.get(item["code"], 0), SEVERITY_WEIGHT.get(item["severity"], 0))
+    penalty = sum(unique_penalties.values())
     score = max(0, 100 - penalty)
     errors = sum(item["severity"] == "error" for item in findings)
     warnings = sum(item["severity"] == "warning" for item in findings)

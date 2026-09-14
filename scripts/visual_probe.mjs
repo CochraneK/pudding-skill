@@ -121,7 +121,11 @@ const PROBE = String.raw`(() => {
   };
 
   const copy = [...document.querySelectorAll('main p, main li')]
-    .filter((el) => visible(el) && (el.textContent || '').trim().length >= 24)
+    .filter((el) => {
+      const value = (el.textContent || '').trim();
+      const classes = String(el.className || '');
+      return visible(el) && value.length >= 80 && !el.closest('footer, nav, aside') && !/(eyebrow|kicker|label|meta|caption|step-num)/i.test(classes);
+    })
     .slice(0, 160)
     .map((el) => {
       const r = el.getBoundingClientRect(), s = getComputedStyle(el);
@@ -151,7 +155,11 @@ const PROBE = String.raw`(() => {
   }
 
   const controls = [...document.querySelectorAll('main button, main input, main select, main textarea, main [role="button"], main [role="link"], main a[href]')]
-    .filter(visible)
+    .filter((el) => {
+      if (!visible(el)) return false;
+      if (el.matches('a[href]') && el.closest('p, li') && getComputedStyle(el).display === 'inline') return false;
+      return true;
+    })
     .map((el) => {
       const r = el.getBoundingClientRect();
       return { selector: selector(el), width: Math.round(r.width), height: Math.round(r.height), text: (el.textContent || el.getAttribute('aria-label') || '').trim().slice(0, 70) };
@@ -282,9 +290,24 @@ async function main() {
         const url = new URL(route, cfg.baseUrl.endsWith('/') ? cfg.baseUrl : `${cfg.baseUrl}/`).href;
         await cdp.call('Page.navigate', { url }, sessionId);
         await sleep(700);
+        await evalValue(cdp, sessionId, 'window.scrollTo(0, 0); true');
+        await sleep(100);
         const metrics = await evalValue(cdp, sessionId, PROBE);
-        results.push({ route, viewport: viewport.name, screenshot: `.qa/${route === '/' ? 'home' : route.replace(/^\/+|\/+$/g, '')}-${viewport.name}.png`, metrics });
-        console.log(`PROBE ${route} ${viewport.name} — ${metrics.copy.blockCount} copy blocks, ${metrics.visuals.count} visuals`);
+        const routeSlug = route === '/' ? 'home' : route.replace(/^\/+|\/+$/g, '').replace(/[^a-z0-9]+/gi, '-');
+        const topPath = path.join(path.dirname(output), `visual-${routeSlug}-${viewport.name}-top.png`);
+        const topShot = await cdp.call('Page.captureScreenshot', { format: 'png', fromSurface: true }, sessionId);
+        await writeFile(topPath, Buffer.from(topShot.data, 'base64'));
+        await evalValue(cdp, sessionId, 'window.scrollTo(0, document.documentElement.scrollHeight * .55); true');
+        await sleep(250);
+        const midPath = path.join(path.dirname(output), `visual-${routeSlug}-${viewport.name}-mid.png`);
+        const midShot = await cdp.call('Page.captureScreenshot', { format: 'png', fromSurface: true }, sessionId);
+        await writeFile(midPath, Buffer.from(midShot.data, 'base64'));
+        const screenshots = [
+          { position: 'top', path: path.relative(process.cwd(), topPath).split(path.sep).join('/') },
+          { position: 'mid', path: path.relative(process.cwd(), midPath).split(path.sep).join('/') }
+        ];
+        results.push({ route, viewport: viewport.name, screenshots, metrics });
+        console.log(`PROBE ${route} ${viewport.name} — ${metrics.copy.blockCount} long-form copy blocks, ${metrics.visuals.count} visuals`);
       }
     }
     const report = { generatedAt: new Date().toISOString(), baseUrl: cfg.baseUrl, total: results.length, results };
