@@ -124,7 +124,7 @@ const PROBE = String.raw`(() => {
     .filter((el) => {
       const value = (el.textContent || '').trim();
       const classes = String(el.className || '');
-      return visible(el) && value.length >= 80 && !el.closest('footer, nav, aside') && !/(eyebrow|kicker|label|meta|caption|step-num)/i.test(classes);
+      return visible(el) && value.length >= 80 && !el.closest('footer, nav, aside, .graphic') && !/(eyebrow|kicker|label|meta|caption|step-num)/i.test(classes);
     })
     .slice(0, 160)
     .map((el) => {

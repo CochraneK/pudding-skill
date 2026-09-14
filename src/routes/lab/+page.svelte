@@ -27,7 +27,7 @@
 
 <section class="lab-shell">
 	<header class="hero">
-		<p class="eyebrow">EDITORIAL LAB · V2.2</p>
+		<p class="eyebrow">EDITORIAL LAB</p>
 		<h1>Don’t generate the first story. <em>Compare the plausible ones.</em></h1>
 		<p class="dek">
 			The pipeline found {candidates.candidate_count} evidence-backed directions in <strong>{candidates.source_file}</strong>, scored them with transparent proxies, then selected the first candidate that passed structural, editorial, and renderer gates.
