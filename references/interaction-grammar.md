@@ -153,3 +153,5 @@ A passing screenshot score does not prove the interaction works editorially. An 
 3. Does the page hand off control at the right moment?
 4. Can the same conclusion be understood on mobile and with reduced motion?
 5. Are uncertainty, dates, and missingness still visible when the reader explores?
+
+The global mental-health story is the current reference implementation: `GlobalMentalHealthScrolly.svelte` demonstrates the guided sticky state machine, and `GlobalMentalHealthExplorer.svelte` demonstrates the same-page handoff into reader-controlled exploration.
