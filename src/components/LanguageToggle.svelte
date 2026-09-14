@@ -15,8 +15,9 @@
 	.language-toggle {
 		display: inline-flex;
 		align-items: center;
-		gap: 0.45rem;
-		padding: 0.3rem 0.55rem;
+		gap: 0.1rem;
+		padding: 0 0.25rem;
+		min-height: 46px;
 		border: 1px solid currentColor;
 		border-radius: 999px;
 		font: 700 0.72rem/1 var(--font-sans);
@@ -26,10 +27,13 @@
 	button {
 		appearance: none;
 		border: 0;
-		padding: 0.3rem 0.25rem;
+		min-width: 44px;
+		min-height: 44px;
+		padding: 0.55rem 0.45rem;
 		background: transparent;
 		color: inherit;
 		font: inherit;
+		font-family: "Noto Sans CJK SC", "PingFang SC", "Microsoft YaHei", var(--font-sans);
 		cursor: pointer;
 		opacity: 0.45;
 	}
@@ -40,7 +44,8 @@
 
 	button:focus-visible {
 		outline: 2px solid currentColor;
-		outline-offset: 2px;
+		outline-offset: 0;
+		border-radius: 999px;
 	}
 
 	span {
