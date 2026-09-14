@@ -20,19 +20,29 @@
       "notes": "Published 2 September 2025; survey coverage: 144 countries."
     },
     {
-      "id": "who-gho-mental-health-workers",
+      "id": "who-gho-capacity-atlas",
       "publisher": "World Health Organization",
-      "title": "Global Health Observatory: Mental health workers",
-      "url": "https://www.who.int/data/gho/data/themes/topics/indicator-groups/indicator-group-details/GHO/mental-health-workers",
-      "use": "Country-level workforce indicators",
-      "api_indicators": ["MH_21", "MH_6", "MH_7", "MH_9"]
+      "title": "Global Health Observatory mental-health country indicators",
+      "url": "https://ghoapi.azureedge.net/api",
+      "use": "Country-level capacity atlas and historical depression × psychiatrist-density lens",
+      "api_indicators": ["MH_6", "MH_7", "MH_9", "MH_4", "MH_10", "GDO_q35"],
+      "notes": "The atlas retains each country's latest non-missing observation and its reporting year. Public indicator tables are historical and have uneven coverage; missing is never converted to zero."
+    },
+    {
+      "id": "natural-earth-admin0-110m",
+      "publisher": "Natural Earth",
+      "title": "Admin 0 Countries, 1:110m",
+      "url": "https://github.com/nvkelso/natural-earth-vector/blob/master/geojson/ne_110m_admin_0_countries.geojson",
+      "use": "Public-domain geographic shapes for the WHO country atlas",
+      "license": "Public domain",
+      "notes": "Geometry only; all mental-health values come from WHO sources."
     },
     {
       "id": "ihme-gbd-2025",
       "publisher": "Institute for Health Metrics and Evaluation",
       "title": "Global Burden of Disease 2025 release / 1990–2023 estimates",
       "url": "https://vizhub.healthdata.org/gbd-results/",
-      "use": "Country-year mental-disorder burden, prevalence and condition-specific trends",
+      "use": "Optional country-year mental-disorder burden, prevalence and condition-specific trends",
       "redistribution": "Do not commit or redistribute downloaded IHME data unless its license explicitly permits it. Keep raw exports local and use scripts/mental_health_story.py ihme-import to normalize a user-supplied export.",
       "reference_view": "https://ourworldindata.org/grapher/share-with-mental-and-substance-disorders"
     }
@@ -40,7 +50,10 @@
   "editorial_rules": [
     "Do not frame modeled prevalence as a simple ranking of which countries are mentally healthier.",
     "Separate measured service resources from modeled disorder prevalence and explain their different data-generating processes.",
-    "Prefer age-standardized rates for cross-country comparisons when available.",
+    "Country observations from WHO GHO can come from different reporting years; show the year whenever a country value is exposed.",
+    "Missing country observations remain missing and are never treated as zero.",
+    "The 2015 depression prevalence × latest psychiatrist-density layer is descriptive historical context only, not a current need score or causal estimate.",
+    "Do not collapse workforce, spending, facilities, prevalence or treatment coverage into an opaque composite country score.",
     "Keep suicide separate from the mental-disorder prevalence total unless the metric definition explicitly includes it.",
     "Every numeric narrative claim must retain a source or claim_ref before publication."
   ]
