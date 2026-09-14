@@ -23,7 +23,10 @@
 		"story:select": "python scripts/select_story.py",
 		"story:evaluate": "python scripts/evaluate_story.py",
 		"story:verify": "python scripts/verify_claims.py",
-		"qa:browser": "node scripts/browser_qa.mjs"
+		"qa:browser": "node scripts/browser_qa.mjs",
+		"qa:visual-probe": "node scripts/visual_probe.mjs",
+		"qa:visual": "python scripts/visual_critic.py .qa/visual-probe.json --output .qa/visual-review.json --markdown .qa/visual-review.md --fail-on error",
+		"visual:refine": "python scripts/refine_visual.py .qa/visual-review.json"
 	},
 	"devDependencies": {
 		"@lucide/svelte": "^1.16.0",
