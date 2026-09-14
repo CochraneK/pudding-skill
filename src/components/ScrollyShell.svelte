@@ -159,7 +159,7 @@
 		.scrolly-shell__graphic {
 			height: 50svh;
 			top: 0;
-			z-index: 2;
+			z-index: 4;
 		}
 
 		.scrolly-shell__stage {
