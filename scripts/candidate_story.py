@@ -374,7 +374,8 @@ def decorate_semantics(candidate: dict[str, Any], contract: dict[str, Any]) -> d
     for key in ("claim", "question", "rationale"):
         text = str(candidate.get(key, ""))
         for raw, label in replacements:
-            text = text.replace(raw, label)
+            token_pattern = rf"(?<![A-Za-z0-9_]){re.escape(raw)}(?![A-Za-z0-9_])"
+            text = re.sub(token_pattern, lambda _match, replacement=label: replacement, text)
         candidate[key] = text
     metadata = {field: field_meta(contract, field) for field in candidate.get("fields_used", [])}
     candidate["field_metadata"] = {field: meta for field, meta in metadata.items() if meta}

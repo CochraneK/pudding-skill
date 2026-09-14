@@ -103,7 +103,9 @@ def run_case(case: dict[str, Any], temp_root: Path) -> dict[str, Any]:
         provenance_ok, provenance_errors = validate_provenance(spec, draft)
 
         evidence = list(spec.get("evidence") or [])
-        actual_pattern = str(evidence[0].get("kind")) if evidence else "unknown"
+        selected_id = selection.get("selected_candidate_id")
+        selected_candidate = next((item for item in pool.get("candidates", []) if item.get("id") == selected_id), {})
+        actual_pattern = str(selected_candidate.get("pattern") or (evidence[0].get("kind") if evidence else "unknown"))
         insight = str(spec.get("primary_insight", ""))
         claim_tokens = [str(token) for token in expected.get("claim_contains") or []]
         selection_ok = actual_pattern == expected.get("pattern") and all(token.lower() in insight.lower() for token in claim_tokens)

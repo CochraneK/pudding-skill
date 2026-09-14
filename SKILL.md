@@ -22,10 +22,11 @@ Use this sequence:
 7. **Choose visual grammar** — recommend the best editorial form while preserving a deterministic baseline renderer.
 8. **Verify claims independently** — recompute quantitative evidence from raw data.
 9. **Generate a first-draft package** — headline, dek, sections, annotations, methodology, caveats, and claim provenance.
-10. **Implement and inspect** — build the smallest Svelte experience that communicates the chosen story clearly.
-11. **Validate delivery** — data claims, build, mobile layout, accessibility, reduced motion, sourcing, attribution, dependency gate, and real-browser QA.
-12. **Review screenshots** — separate measurable browser evidence from visual/editorial judgment and inspect every desktop/mobile capture.
-13. **Refine safely** — apply only bounded automatic fixes; use agent/manual source edits for art direction, then rerun the full browser/visual loop.
+11. **Implement and inspect** — build the smallest Svelte experience that communicates the chosen story clearly.
+12. **Validate delivery** — data claims, build, mobile layout, accessibility, reduced motion, sourcing, attribution, dependency gate, and real-browser QA.
+13. **Review screenshots** — separate measurable browser evidence from visual/editorial judgment and inspect every desktop/mobile capture.
+14. **Refine safely** — apply only bounded automatic fixes; use agent/manual source edits for art direction, then rerun the full browser/visual loop.
+15. **Benchmark pipeline changes** — when candidate scoring, selection, claim verification, visual grammar, or provenance changes, run the curated regression corpus and explain any expectation change instead of weakening the gate.
 
 Read:
 
@@ -37,6 +38,7 @@ Read:
 - `references/claim-audit.md` for numeric verification;
 - `references/first-draft.md` for copy/provenance rules;
 - `references/visual-refinement-loop.md` for screenshot review and bounded iteration;
+- `references/benchmark.md` for the v2.6 regression corpus, scoring dimensions, and baseline policy;
 - `references/quality-rubric.md` before delivery.
 
 ## Preferred structured-data workflow
@@ -57,6 +59,7 @@ For focused work:
 python scripts/pudding.py inspect path/to/data.jsonl
 python scripts/pudding.py candidates path/to/data.csv --question "What changed?"
 python scripts/pipeline.py path/to/data.csv --question "What changed?"
+python scripts/pudding.py benchmark
 ```
 
 The pipeline writes:
@@ -234,16 +237,17 @@ Before declaring the story complete:
 6. Review `generated/story-draft.json` and verify every `claim_ref` still maps to the intended evidence.
 7. Run `python scripts/qa_story.py --root .`.
 8. Run unit tests (`npm run test:skill`).
-9. Build with `npm run build`.
+9. Run the editorial benchmark (`npm run benchmark`) when core pipeline behavior changed.
+10. Build with `npm run build`.
 10. Run browser delivery QA against the built preview.
 11. Run the visual probe and deterministic critic.
 12. Inspect all desktop/mobile screenshots and record a separate agent/editor visual verdict.
 13. If refinement is needed, apply only allowlisted auto-actions or an explicit source edit; then rerun the full visual loop.
 14. Inspect desktop and mobile widths as editorial compositions, not just overflow checks.
-15. Verify every quantitative sentence against structured evidence.
-16. Test the first screen without scrolling.
-17. Test reduced motion and keyboard use.
-18. Confirm source attribution, caveats, and non-affiliation language.
-19. Confirm the npm audit gate has no high or critical advisories.
+16. Verify every quantitative sentence against structured evidence.
+17. Test the first screen without scrolling.
+18. Test reduced motion and keyboard use.
+19. Confirm source attribution, caveats, and non-affiliation language.
+20. Confirm the npm audit gate has no high or critical advisories.
 
 If any hard check fails, revise before delivery.

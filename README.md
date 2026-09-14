@@ -6,6 +6,22 @@ This project is not a visual clone of [The Pudding](https://pudding.cool/). It b
 
 > The Svelte starter is derived from [`the-pudding/svelte-starter`](https://github.com/the-pudding/svelte-starter) under the MIT License. This project is not affiliated with The Pudding and does not ship or hotlink The Pudding logos or proprietary fonts.
 
+## v2.6: editorial benchmark and regression corpus
+
+v2.6 adds a curated regression suite so changes to scoring, selection, claim verification, visual grammar, or provenance can be measured across multiple data/story shapes rather than a single demo.
+
+```bash
+npm run benchmark
+# or
+python scripts/pudding.py benchmark
+```
+
+The initial corpus contains 12 self-contained cases across CSV, TSV, JSON, JSONL, and NDJSON. It covers divergence, grouped change, ranked means, correlation, distribution, missing values, percentage parsing, ignored identifiers, and explicit semantic contracts. Each case separately scores story selection (35), visual grammar (20), independent claim audit (25), editorial/renderer gate (10), and first-draft provenance (10).
+
+The committed regression floor is intentionally strict: 100/100 overall, 100% case pass rate, zero hard failures, and 100% pass in every dimension. A claim-audit regression cannot be hidden by a good average. Reports are written to `.qa/benchmark-report.json` and `.qa/benchmark-report.md` and uploaded with CI evidence.
+
+Use `/benchmark` to inspect the corpus and scoring contract. The benchmark is a deterministic regression instrument, **not** a score for newsworthiness, prose craft, causal validity, or visual taste. See `references/benchmark.md`.
+
 ## v2.5: screenshot-driven visual refinement
 
 v2.5 extends the data/claim/browser pipeline into a bounded visual self-review loop. It deliberately keeps mechanical browser health, deterministic visual diagnostics, agent screenshot judgment, and automatic refinement as separate evidence layers.
@@ -125,7 +141,8 @@ Useful routes:
 
 - `/` — Pudding-inspired scrollytelling design demo;
 - `/lab` — ranked story candidates, score breakdown, fallback attempts, quality gates, and claim audit;
-- `/generated` — the selected deterministic baseline story.
+- `/generated` — the selected deterministic baseline story;
+- `/benchmark` — the v2.6 regression corpus and scoring contract.
 
 ## Run the full editorial pipeline
 
@@ -272,12 +289,13 @@ pudding-skill/
 
 ```bash
 npm run check:skill
+npm run benchmark
 npm run build
 npm run qa:browser
 npm audit --audit-level=high
 ```
 
-`check:skill` validates the example contract/spec, runs the full candidate-selection pipeline, independently audits the selected quantitative evidence, runs unit tests, and performs static preflight checks. CI then builds the Svelte app, runs six real-browser delivery cases, stores screenshot/report evidence, and fails on high-or-critical npm advisories.
+`check:skill` validates the example contract/spec, runs the full candidate-selection pipeline, independently audits the selected quantitative evidence, runs unit tests, and performs static preflight checks. CI then runs the editorial benchmark gate, builds the Svelte app, validates four routes at desktop/mobile widths (8 browser cases), stores benchmark/browser/visual evidence, and fails on high-or-critical npm advisories.
 
 ## Editorial principles
 
