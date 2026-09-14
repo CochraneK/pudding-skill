@@ -1,0 +1,90 @@
+[
+  {
+    "id": "who-world-mental-health-2025",
+    "tier": "T2",
+    "type": "official_report",
+    "title": "World mental health today: latest data",
+    "publisher": "World Health Organization",
+    "url": "https://www.who.int/publications/i/item/9789240113817",
+    "retrieved_at": "2026-09-14",
+    "license_note": "WHO publication page states CC BY-NC-SA 3.0 IGO for non-commercial reuse with attribution; commercial reuse requires permission.",
+    "method_note": "WHO synthesis using the latest available epidemiological evidence, including GBD 2021 estimates produced by IHME."
+  },
+  {
+    "id": "who-mental-disorders-fact-sheet",
+    "tier": "T2",
+    "type": "official_report",
+    "title": "Mental disorders",
+    "publisher": "World Health Organization",
+    "url": "https://www.who.int/news-room/fact-sheets/detail/mental-disorders",
+    "retrieved_at": "2026-09-14",
+    "license_note": "Use WHO material with attribution and according to WHO reuse terms.",
+    "method_note": "WHO fact sheet updated in 2025; the epidemiology section cites the 2021 Global Burden of Disease database."
+  },
+  {
+    "id": "who-atlas-2024",
+    "tier": "T2",
+    "type": "official_report",
+    "title": "Mental Health Atlas 2024",
+    "publisher": "World Health Organization",
+    "url": "https://www.who.int/publications/i/item/9789240114487",
+    "retrieved_at": "2026-09-14",
+    "license_note": "WHO publication page states CC BY-NC-SA 3.0 IGO for non-commercial reuse with attribution; commercial reuse requires permission.",
+    "method_note": "Seventh WHO Mental Health Atlas survey; 144 countries contributed data. Denominators vary by indicator because response completeness differs."
+  },
+  {
+    "id": "who-atlas-country-profiles-2024",
+    "tier": "T1",
+    "type": "official_dataset",
+    "title": "Mental Health Atlas 2024 country profiles",
+    "publisher": "World Health Organization",
+    "url": "https://www.who.int/teams/mental-health-and-substance-use/data-research/mental-health-atlas",
+    "retrieved_at": "2026-09-14",
+    "license_note": "Country profiles are WHO publications; preserve attribution and verify reuse conditions before redistributing bulk derived data.",
+    "method_note": "Public country-profile PDFs expose standardized fields for financing, workforce, governance and service capacity, but coverage is limited to responding countries."
+  },
+  {
+    "id": "ihme-gbd-2021-mental-disorders",
+    "tier": "T1",
+    "type": "official_report",
+    "title": "Global Health Metrics: Mental disorders—Level 2 cause (GBD 2021)",
+    "publisher": "Institute for Health Metrics and Evaluation",
+    "url": "https://www.healthdata.org/sites/default/files/disease_and_injury/gbd_2021/topic_pdf/cause/558.pdf",
+    "retrieved_at": "2026-09-14",
+    "license_note": "Use figures under applicable IHME terms; do not assume bulk redistribution rights for GBD exports.",
+    "method_note": "GBD 2021 modeled estimates with 95% uncertainty intervals; mental-disorder DALYs are overwhelmingly YLDs because fatal burden is only directly assigned to selected causes such as eating disorders."
+  },
+  {
+    "id": "plos-mdd-treatment-gap-2022",
+    "tier": "T1",
+    "type": "systematic_review",
+    "title": "The global gap in treatment coverage for major depressive disorder in 84 countries from 2000–2019: A systematic review and Bayesian meta-regression analysis",
+    "publisher": "PLOS Medicine",
+    "url": "https://journals.plos.org/plosmedicine/article?id=10.1371/journal.pmed.1003901",
+    "retrieved_at": "2026-09-14",
+    "license_note": "Open access under Creative Commons Attribution (CC BY).",
+    "method_note": "149 studies from 84 countries; treatment rates modeled with Bayesian meta-regression. Low- and lower-middle-income data remain sparse."
+  },
+  {
+    "id": "who-gho-mental-health-workforce",
+    "tier": "T1",
+    "type": "official_dataset",
+    "title": "WHO Global Health Observatory — mental health service availability: human resources",
+    "publisher": "World Health Organization",
+    "url": "https://www.who.int/data/gho/data/themes/topics/indicator-groups/indicator-group-details/GHO/human-resources",
+    "retrieved_at": "2026-09-14",
+    "license_note": "Verify WHO GHO indicator reuse terms; preserve indicator definitions and attribution.",
+    "method_note": "Country-level indicators include psychiatrists, nurses, psychologists, social workers and other mental-health workforce measures per 100,000 population."
+  },
+  {
+    "id": "ihme-gbd-tools-guide",
+    "tier": "T0",
+    "type": "manual",
+    "title": "GBD 2021 Data and Tools Guide",
+    "publisher": "Institute for Health Metrics and Evaluation",
+    "url": "https://www.healthdata.org/sites/default/files/2024-05/IHME_GBD_2021_DATA_TOOLS_GUIDE_Y2024M05D28_0.PDF",
+    "retrieved_at": "2026-09-14",
+    "license_note": "GBD web tools are described as freely available for non-commercial use; individual datasets remain subject to IHME terms.",
+    "method_note": "Technical guide defining GBD measures, metrics, hierarchies, outputs, downloadable estimates and query-tool behavior."
+  }
+]

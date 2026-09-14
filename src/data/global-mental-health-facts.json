@@ -2,41 +2,90 @@
   "status": "EDITORIAL_REVIEW_REQUIRED",
   "updated": "2026-09-14",
   "headline": "The world's invisible burden",
-  "dek": "Mental disorders affect more than a billion people, but the capacity to provide care is distributed far less evenly than the burden itself.",
+  "dek": "More than a billion people live with mental disorders. The sharper global divide is not whether mental illness exists, but whether care systems have the money, people and services to respond.",
   "facts": [
     {
       "id": "global-prevalence-2021",
-      "value": "1.1 billion",
+      "value": "1.095 billion",
       "label": "people were living with a mental disorder in 2021",
-      "detail": "Nearly 1 in every 7 people worldwide.",
-      "source_id": "who-mental-disorders-2025"
+      "detail": "WHO reports an age-standardized prevalence of 13.6% — nearly one in seven people worldwide.",
+      "source_id": "who-world-mental-health-2025"
+    },
+    {
+      "id": "global-prevalence-rate-2021",
+      "value": "13.6%",
+      "label": "age-standardized global prevalence in 2021",
+      "detail": "A modeled GBD estimate, not a count of diagnosed cases or a national wellbeing score.",
+      "source_id": "who-world-mental-health-2025"
     },
     {
       "id": "anxiety-2021",
       "value": "359 million",
-      "label": "people were living with an anxiety disorder in 2021",
-      "detail": "Anxiety disorders were among the most common mental disorders globally.",
-      "source_id": "who-mental-disorders-2025"
+      "label": "people living with anxiety disorders in 2021",
+      "detail": "WHO's table uses the GBD category that includes anxiety disorders and PTSD.",
+      "source_id": "who-world-mental-health-2025"
+    },
+    {
+      "id": "depression-2021",
+      "value": "332 million",
+      "label": "people living with depressive disorders in 2021",
+      "detail": "The category includes major depressive disorder and dysthymia.",
+      "source_id": "who-world-mental-health-2025"
+    },
+    {
+      "id": "mental-disorder-dalys",
+      "value": "155 million",
+      "label": "DALYs attributed to mental disorders in 2021",
+      "detail": "GBD 2021 gives a 95% uncertainty interval of 117–198 million; almost all of this burden was nonfatal disability (YLDs).",
+      "source_id": "ihme-gbd-2021-mental-disorders"
+    },
+    {
+      "id": "mental-disorder-daly-share",
+      "value": "5.4%",
+      "label": "of all global DALYs in 2021",
+      "detail": "95% uncertainty interval: 4.3–6.5%.",
+      "source_id": "ihme-gbd-2021-mental-disorders"
     },
     {
       "id": "atlas-countries",
       "value": "144",
       "label": "countries contributed to WHO Mental Health Atlas 2024",
-      "detail": "The Atlas measures policies, financing, workforce and service delivery.",
+      "detail": "Indicator denominators differ because not every country answered every Atlas question.",
       "source_id": "who-mental-health-atlas-2024"
     },
     {
       "id": "mental-health-spending",
       "value": "2.1%",
       "label": "global median share of government health expenditure allocated to mental health",
-      "detail": "WHO reports the same global median as in its 2017 and 2020 Atlas rounds.",
+      "detail": "Based on reporting countries; the median was unchanged from the 2017 and 2020 Atlas rounds.",
+      "source_id": "who-mental-health-atlas-2024"
+    },
+    {
+      "id": "mental-health-spend-global",
+      "value": "$2.69",
+      "label": "global median government mental-health spending per person",
+      "detail": "Among the 75 countries reporting expenditure data.",
+      "source_id": "who-mental-health-atlas-2024"
+    },
+    {
+      "id": "mental-health-spend-lic",
+      "value": "$0.04",
+      "label": "median per-person mental-health spending in low-income countries",
+      "detail": "Atlas 2024 income-group median among reporting countries.",
+      "source_id": "who-mental-health-atlas-2024"
+    },
+    {
+      "id": "mental-health-spend-hic",
+      "value": "$65.89",
+      "label": "median per-person mental-health spending in high-income countries",
+      "detail": "Atlas 2024 income-group median among reporting countries.",
       "source_id": "who-mental-health-atlas-2024"
     },
     {
       "id": "mental-health-workforce",
       "value": "13.5",
       "label": "specialized mental-health workers per 100,000 people, global median",
-      "detail": "WHO reports roughly 1.1–2.4 per 100,000 in low- and lower-middle-income countries versus 67.2 in high-income countries.",
+      "detail": "WHO reports roughly 1.1–2.4 per 100,000 in low- and lower-middle-income settings versus 67.2 in high-income settings.",
       "source_id": "who-mental-health-atlas-2024"
     },
     {
@@ -45,9 +94,62 @@
       "label": "of responding countries had fully shifted from institution-based to community-based care",
       "detail": "WHO says 52.9% remained in the early stage of transition.",
       "source_id": "who-mental-health-atlas-2024"
+    },
+    {
+      "id": "psychosis-service-coverage",
+      "value": "~40%",
+      "label": "estimated psychosis service coverage in the Atlas 2024 reporting subset",
+      "detail": "Only 22 countries had sufficiently complete data, so WHO calls this indicative rather than definitive.",
+      "source_id": "who-mental-health-atlas-2024"
+    },
+    {
+      "id": "mdd-service-hic",
+      "value": "33%",
+      "label": "modeled mental-health service use among MDD cases in high-income locations",
+      "detail": "95% UI 8–66% in a systematic review/meta-regression of 149 studies from 84 countries.",
+      "source_id": "plos-mdd-treatment-gap"
+    },
+    {
+      "id": "mdd-service-low",
+      "value": "8%",
+      "label": "modeled mental-health service use among MDD cases in low/lower-middle-income locations",
+      "detail": "95% UI <1–36%; evidence in low-resource settings was sparse.",
+      "source_id": "plos-mdd-treatment-gap"
+    },
+    {
+      "id": "mdd-mat-hic",
+      "value": "23%",
+      "label": "modeled minimally adequate treatment among MDD cases in high-income locations",
+      "detail": "95% UI 2–55%.",
+      "source_id": "plos-mdd-treatment-gap"
+    },
+    {
+      "id": "mdd-mat-low",
+      "value": "3%",
+      "label": "modeled minimally adequate treatment among MDD cases in low/lower-middle-income locations",
+      "detail": "95% UI <1–25%.",
+      "source_id": "plos-mdd-treatment-gap"
+    },
+    {
+      "id": "workdays-lost",
+      "value": "12 billion",
+      "label": "productive work days estimated lost each year to depression and anxiety",
+      "detail": "WHO 2025 cites a 2016 analysis covering 36 countries and extrapolated globally.",
+      "source_id": "who-world-mental-health-2025"
+    },
+    {
+      "id": "productivity-cost",
+      "value": "$1 trillion",
+      "label": "estimated annual productivity cost from depression and anxiety",
+      "detail": "Use as an economic-scale estimate, not as a contemporaneous 2025 administrative total.",
+      "source_id": "who-world-mental-health-2025"
     }
   ],
   "sources": {
+    "who-world-mental-health-2025": {
+      "label": "WHO · World mental health today (2025)",
+      "url": "https://www.who.int/publications/i/item/9789240113817"
+    },
     "who-mental-disorders-2025": {
       "label": "WHO · Mental disorders fact sheet",
       "url": "https://www.who.int/en/news-room/fact-sheets/detail/mental-disorders"
@@ -55,6 +157,14 @@
     "who-mental-health-atlas-2024": {
       "label": "WHO · Mental Health Atlas 2024",
       "url": "https://www.who.int/publications/i/item/9789240114487"
+    },
+    "ihme-gbd-2021-mental-disorders": {
+      "label": "IHME · GBD 2021 mental disorders cause summary",
+      "url": "https://www.healthdata.org/sites/default/files/disease_and_injury/gbd_2021/topic_pdf/cause/558.pdf"
+    },
+    "plos-mdd-treatment-gap": {
+      "label": "PLOS Medicine · MDD treatment coverage systematic review",
+      "url": "https://journals.plos.org/plosmedicine/article?id=10.1371/journal.pmed.1003901"
     }
   }
 }
