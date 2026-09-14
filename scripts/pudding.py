@@ -40,6 +40,24 @@ def candidates(args: argparse.Namespace) -> int:
     return run(command)
 
 
+def benchmark(args: argparse.Namespace) -> int:
+    command = [
+        sys.executable,
+        "scripts/benchmark.py",
+        "--corpus",
+        str(args.corpus),
+        "--baseline",
+        str(args.baseline),
+        "--output",
+        str(args.output),
+        "--markdown",
+        str(args.markdown),
+    ]
+    if args.no_gate:
+        command.append("--no-gate")
+    return run(command)
+
+
 def review(args: argparse.Namespace) -> int:
     command = [
         sys.executable,
@@ -106,6 +124,14 @@ def main() -> int:
     story_parser.add_argument("--workdir", type=Path, default=Path("generated"))
     story_parser.add_argument("--limit", type=int, default=12)
     story_parser.set_defaults(func=story)
+
+    benchmark_parser = sub.add_parser("benchmark", help="run the curated editorial regression corpus")
+    benchmark_parser.add_argument("--corpus", type=Path, default=Path("benchmarks/corpus.json"))
+    benchmark_parser.add_argument("--baseline", type=Path, default=Path("benchmarks/baseline.json"))
+    benchmark_parser.add_argument("--output", type=Path, default=Path(".qa/benchmark-report.json"))
+    benchmark_parser.add_argument("--markdown", type=Path, default=Path(".qa/benchmark-report.md"))
+    benchmark_parser.add_argument("--no-gate", action="store_true")
+    benchmark_parser.set_defaults(func=benchmark)
 
     review_parser = sub.add_parser("review", help="turn visual-probe metrics into a screenshot review contract")
     review_parser.add_argument("probe", type=Path, nargs="?", default=Path(".qa/visual-probe.json"))

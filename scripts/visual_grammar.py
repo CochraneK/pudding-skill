@@ -50,6 +50,10 @@ GRAMMAR: dict[str, dict[str, Any]] = {
     },
 }
 
+# group_change candidates store evidence kind `change` because verify_claims recomputes
+# a generic start/end change object. Keep both names mapped to the same editorial grammar.
+GRAMMAR["change"] = GRAMMAR["group_change"]
+
 
 def plan_visual(spec: dict[str, Any]) -> dict[str, Any]:
     evidence = spec.get("evidence") or []
