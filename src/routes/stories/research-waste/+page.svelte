@@ -21,31 +21,31 @@
 	const reviewerFteYears = Math.round(facts.peer_review_hours_2020 / 2000);
 	const millionDollarGrants = Math.round(facts.irreproducible_preclinical_cost_usd / 1_000_000);
 
-	let currentYear = 2026;
-	let modeledAnnual = annualForYear(currentYear);
-	let todayCount = 0;
-	let yearCountAtOpen = 0;
-	let sinceOpen = 0;
-	let openedAt = 0;
-	let papersPerDay = 5;
-	let readingYears = 50;
-	let scenario = 'long';
-	let pagesPerPaper = 10;
-	let printCopies = 1;
-	let deviceWhPerPaper = 60;
+	let currentYear = $state(2026);
+	let modeledAnnual = $state(annualForYear(currentYear));
+	let todayCount = $state(0);
+	let yearCountAtOpen = $state(0);
+	let sinceOpen = $state(0);
+	let openedAt = $state(0);
+	let papersPerDay = $state(5);
+	let readingYears = $state(50);
+	let scenario = $state('long');
+	let pagesPerPaper = $state(10);
+	let printCopies = $state(1);
+	let deviceWhPerPaper = $state(60);
 
-	$: perSecond = modeledAnnual / secondsPerYear;
-	$: perDay = modeledAnnual / 365.2425;
-	$: secondsPerPaper = 1 / perSecond;
-	$: annualRead = papersPerDay * 365.2425;
-	$: annualShare = (annualRead / modeledAnnual) * 100;
-	$: lifetimeRead = annualRead * readingYears;
-	$: lifetimeVsOneYear = (lifetimeRead / modeledAnnual) * 100;
-	$: worldDuringReadingYears = modeledAnnual * readingYears;
-	$: activeCross = scenario === 'long' ? longCross : spikeCross;
-	$: activeRetGrowth = scenario === 'long' ? facts.retraction_growth_cagr_2010_2021 : facts.retraction_growth_cagr_2010_2023_spike_inclusive;
-	$: paperKg = (facts.retraction_anchors['2023_minimum'] * pagesPerPaper * printCopies * 5) / 1000;
-	$: deviceKwh = (facts.retraction_anchors['2023_minimum'] * deviceWhPerPaper) / 1000;
+	let perSecond = $derived(modeledAnnual / secondsPerYear);
+	let perDay = $derived(modeledAnnual / 365.2425);
+	let secondsPerPaper = $derived(1 / perSecond);
+	let annualRead = $derived(papersPerDay * 365.2425);
+	let annualShare = $derived((annualRead / modeledAnnual) * 100);
+	let lifetimeRead = $derived(annualRead * readingYears);
+	let lifetimeVsOneYear = $derived((lifetimeRead / modeledAnnual) * 100);
+	let worldDuringReadingYears = $derived(modeledAnnual * readingYears);
+	let activeCross = $derived(scenario === 'long' ? longCross : spikeCross);
+	let activeRetGrowth = $derived(scenario === 'long' ? facts.retraction_growth_cagr_2010_2021 : facts.retraction_growth_cagr_2010_2023_spike_inclusive);
+	let paperKg = $derived((facts.retraction_anchors['2023_minimum'] * pagesPerPaper * printCopies * 5) / 1000);
+	let deviceKwh = $derived((facts.retraction_anchors['2023_minimum'] * deviceWhPerPaper) / 1000);
 
 	const fmt = (n, digits = 0) => new Intl.NumberFormat($language === 'zh' ? 'zh-CN' : 'en-US', { maximumFractionDigits: digits }).format(n);
 	const pct = (n, digits = 2) => `${fmt(n, digits)}%`;
@@ -274,8 +274,8 @@
 	<section class="cross section-light">
 		<div class="section-head"><p class="eyebrow">{t().crossEyebrow}</p><h2>{t().crossTitle}</h2><p>{t().crossDek}</p></div>
 		<div class="scenario-buttons" role="group" aria-label="Retraction growth scenario">
-			<button class:active={scenario === 'long'} on:click={() => scenario = 'long'}>{t().long}</button>
-			<button class:active={scenario === 'spike'} on:click={() => scenario = 'spike'}>{t().spike}</button>
+			<button class:active={scenario === 'long'} onclick={() => scenario = 'long'}>{t().long}</button>
+			<button class:active={scenario === 'spike'} onclick={() => scenario = 'spike'}>{t().spike}</button>
 		</div>
 		<div class="cross-result">
 			<div><span>{t().retGrowth}</span><strong>{pct(activeRetGrowth * 100, 1)}</strong></div>
