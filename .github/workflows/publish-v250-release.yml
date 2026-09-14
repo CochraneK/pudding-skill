@@ -1,0 +1,44 @@
+name: Publish v2.5.0 release
+
+on:
+  push:
+    branches: [release/v2.5.0]
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    if: github.actor != 'github-actions[bot]'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Create verified release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          if gh release view v2.5.0 >/dev/null 2>&1; then
+            echo "v2.5.0 already exists; nothing to create."
+          else
+            gh release create v2.5.0 \
+              --target 733209863593f4d07da41b552c4f5de24e13866f \
+              --title "v2.5.0 — Screenshot-driven visual refinement loop" \
+              --notes "Pudding-inspired editorial data-storytelling Agent Skill v2.5.0.
+
+Adds real-Chromium visual probing, top/mid screenshot evidence, deterministic visual diagnostics, machine-validatable agent/editor screenshot review, and bounded allowlisted refinement. The loop explicitly separates mechanical delivery checks, browser-measured findings, screenshot judgment, and safe automatic CSS refinement.
+
+Validation: 21 regression tests, production Svelte build, dependency high/critical gate, 6/6 browser delivery cases, 6 visual-probe cases with 12 top/mid screenshots, deterministic visual critic 100/100 with 0 findings, and 12/12 screenshot review.
+
+The npm audit baseline remains 7 low advisories; there are no high or critical advisories, and npm's all-fix path is breaking."
+          fi
+      - name: Remove one-shot publisher from release branch
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git rm .github/workflows/publish-v250-release.yml
+          git commit -m "chore: remove one-shot v2.5.0 publisher"
+          git push
