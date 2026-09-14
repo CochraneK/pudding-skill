@@ -1,0 +1,58 @@
+name: Patch Pudding study corpus guidance
+
+on:
+  push:
+    branches: [feat/pudding-study-corpus]
+
+permissions:
+  contents: write
+
+jobs:
+  patch:
+    if: github.actor != 'github-actions[bot]'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: feat/pudding-study-corpus
+          fetch-depth: 0
+      - name: Patch SKILL guidance
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          path = Path('SKILL.md')
+          text = path.read_text(encoding='utf-8')
+          text = text.replace(
+              '3. **Generate candidates** — derive multiple defensible analytical directions instead of stopping at the first matching chart pattern.\n',
+              '3. **Gate the concept** — when the work starts from a broad topic or ambitious bespoke story, run the Pudding DNA gate before expensive research/production. The valid result may be `CONTINUE`, `PIVOT`, `PIVOT_NONVISUAL`, or `PUT_DOWN`; the workflow is not required to ship a visual story.\n4. **Generate candidates** — derive multiple defensible analytical directions instead of stopping at the first matching chart pattern.\n'
+          )
+          for old, new in [
+              ('4. **Rank, then judge**', '5. **Rank, then judge**'),
+              ('5. **Select with fallback**', '6. **Select with fallback**'),
+              ('6. **Design narrative beats**', '7. **Design narrative beats**'),
+              ('7. **Choose visual grammar**', '8. **Choose visual grammar**'),
+              ('8. **Verify claims independently**', '9. **Verify claims independently**'),
+              ('9. **Generate a first-draft package**', '10. **Generate a first-draft package**'),
+              ('10. **Implement and inspect**', '11. **Implement and inspect**'),
+              ('11. **Validate delivery**', '12. **Validate delivery**'),
+              ('12. **Review screenshots**', '13. **Review screenshots**'),
+              ('13. **Refine safely**', '14. **Refine safely**'),
+              ('14. **Benchmark pipeline changes**', '15. **Benchmark pipeline changes**'),
+          ]:
+              text = text.replace(old, new)
+          text = text.replace(
+              '- `references/research-dossier.md` when the user starts with a topic/question but lacks a trustworthy dataset;\n',
+              '- `references/pudding-dna.md` before committing an ambitious topic to a visual-story format; it defines the editorial gate, public-story study corpus, and continue/pivot/put-down policy;\n- `references/research-dossier.md` when the user starts with a topic/question but lacks a trustworthy dataset;\n'
+          )
+          text = text.replace(
+              '## Research-first workflow\n\nUse this when the user has a topic or industry question but no reliable structured dataset yet.',
+              '## Pudding DNA gate and study corpus\n\nFor a broad topic or bespoke visual essay, create a `story-concept.json` and run `python scripts/pudding.py pitch path/to/story-concept.json` before committing to production. A passing gate is only permission to investigate further. `PIVOT_NONVISUAL` and `PUT_DOWN` are successful editorial outcomes when the visual case or evidence path does not justify a story.\n\nStudy `benchmarks/pudding-study-corpus.json` with `npm run pudding:study` before choosing an interaction pattern. Learn transferable editorial operations across multiple public stories—question, human stake, evidence strategy, visual necessity, interaction job, reader handoff, caveat strategy—and never retrieve a nearest-neighbor layout or imitate Pudding typography, colors, jokes, CSS, or assets. The separate `benchmarks/pudding-dna-corpus.json` is synthetic and exists only to regression-test gate decisions.\n\n## Research-first workflow\n\nUse this when the user has a topic or industry question but no reliable structured dataset yet.'
+          )
+          path.write_text(text, encoding='utf-8')
+          PY
+          rm .github/workflows/patch-study-corpus.yml
+          git config user.name github-actions[bot]
+          git config user.email 41898282+github-actions[bot]@users.noreply.github.com
+          git add SKILL.md .github/workflows/patch-study-corpus.yml
+          git commit -m "docs: wire Pudding study corpus into skill"
+          git push origin HEAD:feat/pudding-study-corpus
