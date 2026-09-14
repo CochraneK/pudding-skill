@@ -20,8 +20,7 @@ export function initLanguage() {
 	const url = new URL(window.location.href);
 	const queryLanguage = url.searchParams.get('lang');
 	const storedLanguage = window.localStorage.getItem('pudding-language');
-	const browserLanguage = navigator.language?.toLowerCase().startsWith('zh') ? 'zh' : 'en';
-	const next = normalize(queryLanguage || storedLanguage || browserLanguage);
+	const next = normalize(queryLanguage || storedLanguage || 'zh');
 	store.set(next);
 	applyDocumentLanguage(next);
 }
