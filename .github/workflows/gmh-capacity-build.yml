@@ -1,0 +1,90 @@
+name: Build global mental-health capacity atlas data
+on:
+  push:
+    branches: [story/global-mental-health-capacity-atlas]
+permissions:
+  contents: write
+jobs:
+  build-data:
+    if: github.actor != 'github-actions[bot]'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Run mental-health data tests
+        run: python -m unittest tests.test_global_mental_health
+      - name: Fetch and compile WHO country indicators
+        run: |
+          python scripts/mental_health_story.py capacity \
+            --output src/data/global-mental-health-capacity.json \
+            --audit stories/global-mental-health/research/capacity-audit.json
+          python - <<'PY'
+          import json
+          p='stories/global-mental-health/research/capacity-audit.json'
+          d=json.load(open(p))
+          print(json.dumps(d, indent=2)[:12000])
+          PY
+      - name: Fetch Natural Earth 110m country geometry
+        run: |
+          curl --fail --location --retry 3 \
+            https://raw.githubusercontent.com/nvkelso/natural-earth-vector/master/geojson/ne_110m_admin_0_countries.geojson \
+            --output /tmp/world.geojson
+          python - <<'PY'
+          import json
+          src=json.load(open('/tmp/world.geojson'))
+          features=[]
+          for f in src.get('features',[]):
+              p=f.get('properties') or {}
+              code=p.get('ADM0_A3') or p.get('ISO_A3_EH') or p.get('ISO_A3')
+              name=p.get('NAME_EN') or p.get('ADMIN') or p.get('NAME') or code
+              features.append({
+                  'type':'Feature',
+                  'properties':{
+                      'code':code,
+                      'iso_a3':p.get('ISO_A3'),
+                      'iso_a3_eh':p.get('ISO_A3_EH'),
+                      'name':name,
+                  },
+                  'geometry':f.get('geometry'),
+              })
+          out={'type':'FeatureCollection','features':features,'source':'Natural Earth 1:110m Admin 0 Countries','license':'public domain'}
+          with open('src/data/world-110m.geojson','w') as h:
+              json.dump(out,h,separators=(',',':'))
+          print('geometry features',len(features))
+          PY
+      - name: Write data manifest
+        run: |
+          cat > stories/global-mental-health/research/capacity-data-manifest.json <<'JSON'
+          {
+            "status": "EDITORIAL_REVIEW_REQUIRED",
+            "generated": "2026-09-14",
+            "country_data": {
+              "publisher": "World Health Organization",
+              "system": "Global Health Observatory OData API",
+              "base_url": "https://ghoapi.azureedge.net/api",
+              "indicators": ["MH_21", "MH_6", "MH_7", "MH_9", "MH_4", "MH_10", "GDO_q35"],
+              "use_note": "Latest non-missing observation is retained per country and indicator. Reporting years vary and are preserved with every value. Missing is never converted to zero."
+            },
+            "geometry": {
+              "publisher": "Natural Earth",
+              "dataset": "Admin 0 Countries, 1:110m",
+              "source_url": "https://github.com/nvkelso/natural-earth-vector/blob/master/geojson/ne_110m_admin_0_countries.geojson",
+              "license": "Public domain"
+            },
+            "historical_mismatch_lens": {
+              "need_proxy": "WHO GDO_q35 depression prevalence estimate, 2015",
+              "capacity": "WHO latest available total mental-health workforce or psychiatrist density, selected by overlap",
+              "warning": "Descriptive historical pairing only. Different years and constructs; not a current need score or causal estimate."
+            }
+          }
+          JSON
+      - name: Commit generated evidence and self-delete
+        run: |
+          git config user.name github-actions[bot]
+          git config user.email 41898282+github-actions[bot]@users.noreply.github.com
+          git rm .github/workflows/gmh-capacity-build.yml
+          git add src/data/global-mental-health-capacity.json src/data/world-110m.geojson stories/global-mental-health/research/capacity-audit.json stories/global-mental-health/research/capacity-data-manifest.json
+          git commit -m 'data: add WHO country mental-health capacity atlas'
+          git push
