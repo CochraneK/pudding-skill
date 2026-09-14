@@ -89,8 +89,8 @@
 </script>
 
 <section class="scrolly" aria-label={t().label}>
-	<div class="graphic-wrap" aria-live="polite">
-		<div class="graphic" data-active={active}>
+	<div class="graphic-wrap">
+		<figure class="graphic" data-active={active}>
 			<div class="graphic-topline">
 				<span>{t().label}</span>
 				<div class="progress" aria-hidden="true">
@@ -147,7 +147,7 @@
 			</div>
 
 			<p class="source-note">{t().source}</p>
-	</div>
+	</figure>
 	</div>
 
 	<div class="steps">
@@ -155,7 +155,7 @@
 			<article class="step" data-mental-step={i} class:active={active === i}>
 				<div>
 					<p class="step-kicker">{step.kicker}</p>
-					<h3>{step.title}</h3>
+					<h2>{step.title}</h2>
 					<p>{step.body}</p>
 				</div>
 			</article>
@@ -189,6 +189,7 @@
 	}
 
 	.graphic {
+		margin: 0;
 		width: min(760px, 58vw);
 		min-height: 70vh;
 		padding: clamp(1.2rem, 3vw, 2.5rem);
@@ -278,7 +279,7 @@
 	.step > div { padding: 1.3rem 1.4rem 1.5rem; border: 1px solid var(--line); background: rgba(245, 240, 231, 0.93); box-shadow: 0 16px 50px rgba(31, 25, 18, 0.07); transition: opacity 250ms ease, transform 250ms ease; opacity: 0.64; }
 	.step.active > div { opacity: 1; transform: translateX(-6px); }
 	.step-kicker { margin: 0 0 0.7rem; font: 800 0.7rem/1.2 var(--font-mono); letter-spacing: 0.08em; color: var(--accent); }
-	.step h3 { margin: 0 0 0.8rem; font: 600 clamp(1.7rem, 2.7vw, 2.7rem)/1.04 var(--font-serif); letter-spacing: -0.035em; }
+	.step h2 { margin: 0 0 0.8rem; font: 600 clamp(1.7rem, 2.7vw, 2.7rem)/1.04 var(--font-serif); letter-spacing: -0.035em; }
 	.step p:last-child { margin: 0; color: var(--muted); font: 500 0.96rem/1.65 var(--font-sans); }
 
 	@media (max-width: 760px) {

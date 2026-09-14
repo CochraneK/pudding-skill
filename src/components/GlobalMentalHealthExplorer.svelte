@@ -6,6 +6,7 @@
 
 	const world = JSON.parse(worldRaw);
 	const countryByCode = new Map(capacity.countries.map((country) => [country.code, country]));
+	const selectableCountries = [...capacity.countries].sort((a, b) => a.name.localeCompare(b.name));
 	const metrics = [
 		'psychiatrists_per_100k',
 		'mental_health_nurses_per_100k',
@@ -144,6 +145,21 @@
 		{/each}
 	</div>
 
+	<div class="country-picker">
+		<label for="country-select">{$language === 'zh' ? '选择国家 / 地区' : 'Choose a country / area'}</label>
+		<select
+			id="country-select"
+			value={selectedCode || ''}
+			onchange={(event) => (selectedCode = event.currentTarget.value || null)}
+		>
+			<option value="">{$language === 'zh' ? '— 选择后锁定详情 —' : '— Select to pin details —'}</option>
+			{#each selectableCountries as country}
+				<option value={country.code}>{country.name}</option>
+			{/each}
+		</select>
+		<span>{$language === 'zh' ? '桌面端也可直接把鼠标移到地图上快速查看。' : 'On desktop, hover the map for quick inspection.'}</span>
+	</div>
+
 	<div class="explorer-grid">
 		<div class="map-card">
 			<div class="map-title">
@@ -159,21 +175,12 @@
 						d={path(feature)}
 						class={`country ${binFor(metricValue, selectedMetric)}`}
 						class:focused={focusCode && focusCode === code}
-						tabindex={country ? 0 : undefined}
-						role={country ? 'button' : undefined}
-						aria-label={country ? `${country.name}: ${formatValue(metricValue, selectedMetric)}` : undefined}
-						onpointerenter={() => (hoveredCode = code)}
+						aria-label={country ? `${country.name}: ${formatValue(metricValue, selectedMetric)}` : feature.properties?.name}
+						onpointerenter={() => (hoveredCode = country ? code : null)}
 						onpointerleave={() => (hoveredCode = null)}
-						onfocus={() => (hoveredCode = code)}
-						onblur={() => (hoveredCode = null)}
-						onclick={() => chooseCountry(code)}
-						onkeydown={(event) => {
-							if ((event.key === 'Enter' || event.key === ' ') && code) {
-								event.preventDefault();
-								chooseCountry(code);
-							}
-						}}
-					></path>
+					>
+						<title>{country?.name || feature.properties?.name || 'Unknown'} — {formatValue(metricValue, selectedMetric)}</title>
+					</path>
 				{/each}
 			</svg>
 
@@ -236,6 +243,10 @@
 	.controls button.active { background: var(--ink); color: var(--paper); }
 	.controls button:focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; }
 
+	.country-picker { display: grid; grid-template-columns: auto minmax(220px, 360px) 1fr; gap: 0.8rem; align-items: center; margin: 0 0 1rem; padding: 0.85rem 1rem; border: 1px solid var(--line); background: rgba(255, 250, 242, 0.55); }
+	.country-picker label { font: 750 0.78rem/1.3 var(--font-sans); }
+	.country-picker select { min-height: 44px; width: 100%; padding: 0.55rem 2rem 0.55rem 0.7rem; border: 1px solid var(--ink); border-radius: 0; background: var(--panel); color: var(--ink); font: 600 0.82rem/1.2 var(--font-sans); }
+	.country-picker span { color: var(--muted); font: 500 0.72rem/1.4 var(--font-sans); }
 	.explorer-grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(260px, 0.32fr); gap: 1rem; align-items: stretch; }
 	.map-card, .country-card { border: 1px solid var(--line); background: var(--panel); }
 	.map-card { padding: clamp(0.75rem, 2vw, 1.4rem); overflow: hidden; }
@@ -271,6 +282,7 @@
 
 	@media (max-width: 820px) {
 		.explorer-head, .explorer-grid { grid-template-columns: 1fr; }
+		.country-picker { grid-template-columns: 1fr; }
 		.explorer-head { gap: 2rem; }
 		.coverage { border-left: 0; border-top: 3px solid var(--accent); padding-left: 0; }
 		.map-title { flex-direction: column; gap: 0.35rem; }
