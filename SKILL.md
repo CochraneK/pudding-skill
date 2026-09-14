@@ -1,15 +1,15 @@
 ---
 name: pudding-scrolly
-description: Turn a research question and dataset into an evidence-audited editorial web story. Use for Pudding-inspired data journalism, scrollytelling, annotated charts, interactive explainers, or narrative visualization in Svelte.
+description: Turn a research question and structured dataset into an evidence-audited editorial web story and publication-ready first draft. Use for Pudding-inspired data journalism, scrollytelling, annotated charts, interactive explainers, narrative visualization, or data-story prototyping in Svelte.
 ---
 
 # Pudding Scrolly
 
-Build **Pudding-inspired editorial data stories**, not visual clones of The Pudding. Reproduce the useful reasoning pattern: question → evidence → competing story directions → editorial choice → visual grammar → implementation → verification.
+Build **Pudding-inspired editorial data stories**, not visual clones of The Pudding. Reproduce the useful reasoning pattern: question → evidence → competing story directions → editorial choice → visual grammar → independently verified claims → first draft → implementation → browser verification.
 
 ## Core rule
 
-Do not start by choosing a chart or generating Svelte. First establish what the data can support, compare plausible story directions, and make the numerical evidence auditable.
+Do not start by choosing a chart, writing a headline, or generating Svelte. First establish what the data can support, compare plausible story directions, and make the numerical evidence auditable.
 
 Use this sequence:
 
@@ -19,10 +19,11 @@ Use this sequence:
 4. **Rank, then judge** — use deterministic scoring for triage; apply editorial/domain judgment before publication.
 5. **Select with fallback** — reject candidates that fail story-spec, quality, or renderer gates and try the next one.
 6. **Design narrative beats** — hook → baseline → reveal → comparison/explanation → conclusion.
-7. **Choose visual grammar** — visual form follows analytical task and narrative operation.
+7. **Choose visual grammar** — recommend the best editorial form while preserving a deterministic baseline renderer.
 8. **Verify claims independently** — recompute quantitative evidence from raw data.
-9. **Implement and inspect** — build the smallest Svelte experience that communicates the chosen story clearly.
-10. **Validate delivery** — data claims, build, mobile layout, accessibility, reduced motion, sourcing, and attribution.
+9. **Generate a first-draft package** — headline, dek, sections, annotations, methodology, caveats, and claim provenance.
+10. **Implement and inspect** — build the smallest Svelte experience that communicates the chosen story clearly.
+11. **Validate delivery** — data claims, build, mobile layout, accessibility, reduced motion, sourcing, attribution, dependency gate, and real-browser QA.
 
 Read:
 
@@ -32,19 +33,28 @@ Read:
 - `references/visual-grammar.md` for visual selection;
 - `references/story-spec.md` for the analysis/rendering contract;
 - `references/claim-audit.md` for numeric verification;
+- `references/first-draft.md` for copy/provenance rules;
 - `references/quality-rubric.md` before delivery.
 
 ## Preferred structured-data workflow
 
-When data is available, use the full pipeline:
+The unified v2.4 entry point is:
 
 ```bash
-python scripts/pipeline.py path/to/data.csv \
+python scripts/pudding.py story path/to/data.csv \
   --question "Your research question" \
   --schema path/to/data-schema.json
 ```
 
-`--schema` is optional but recommended when labels, units, time fields, identifiers, or measures are not self-evident.
+The pipeline accepts CSV, TSV, row-oriented JSON, JSONL, and NDJSON. `--schema` is optional but recommended when labels, units, time fields, identifiers, or measures are not self-evident.
+
+For focused work:
+
+```bash
+python scripts/pudding.py inspect path/to/data.jsonl
+python scripts/pudding.py candidates path/to/data.csv --question "What changed?"
+python scripts/pipeline.py path/to/data.csv --question "What changed?"
+```
 
 The pipeline writes:
 
@@ -55,10 +65,14 @@ generated/story-spec.json
 generated/selection-report.json
 generated/evaluation.json
 generated/claim-audit.json
+generated/visual-plan.json
+generated/story-draft.json
+generated/story-draft.md
 src/data/story-candidates.json
 src/data/story-selection.json
 src/data/story-evaluation.json
 src/data/story-claim-audit.json
+src/data/story-draft.json
 src/data/auto-story.json
 ```
 
@@ -74,7 +88,7 @@ If the top candidate is semantically weak despite scoring well, choose another c
 
 ## Story specification
 
-Before bespoke implementation, maintain a valid story spec containing at least:
+Before drafting or bespoke implementation, maintain a valid story spec containing at least:
 
 - `question`
 - `audience`
@@ -85,7 +99,7 @@ Before bespoke implementation, maintain a valid story spec containing at least:
 - `sources`
 - `caveats`
 
-Generated specs also include selection metadata and, when supplied, field metadata. Validate with:
+Generated specs also include selection metadata, visual-plan metadata, and, when supplied, field metadata. Validate with:
 
 ```bash
 python scripts/validate_story.py generated/story-spec.json
@@ -93,6 +107,22 @@ python scripts/verify_claims.py generated/story-spec.json path/to/data.csv
 ```
 
 If either fails, do not continue to publication output.
+
+## First-draft contract
+
+`story-draft.json` is an editable publication draft, not an authorization to publish. It must retain `status: EDITORIAL_REVIEW_REQUIRED` until editorial review is complete.
+
+The draft includes:
+
+- `headline` and `dek`;
+- narrative sections with operations and `claim_refs`;
+- a visual recommendation plus baseline renderer;
+- annotations linked to structured evidence;
+- methodology, source note, caveats, and data notes;
+- a field glossary when metadata is present;
+- `provenance.claims`, mapping quantitative copy back to evidence indices.
+
+When rewriting quantitative copy, preserve the `claim_ref` if meaning is unchanged. If the number, comparison, aggregation, denominator, or causal implication changes, update structured evidence and rerun claim verification. Never introduce an unverified number just because it improves the prose.
 
 ## Narrative operations
 
@@ -109,7 +139,18 @@ Think in operations before chart names:
 - **accumulate** — show a quantity building;
 - **morph** — change representation only when the transition teaches something.
 
-Do not default to scrollytelling. A static annotated chart, small multiples, stepper, map, or explorable can be better.
+Do not default to scrollytelling. A static annotated chart, dot plot, slopegraph, small multiples, stepper, map, or explorable can be better.
+
+## Visual grammar policy
+
+`visual_grammar.py` deliberately distinguishes:
+
+- **recommended visual** — the editorial form that best matches the evidence/narrative operation;
+- **baseline renderer** — the simpler chart that the deterministic Svelte renderer can build and QA today.
+
+For example, change-gap evidence may recommend a slopegraph while retaining a ranked bar as the safe baseline.
+
+Do not silently replace a passing baseline with a richer bespoke form unless that implementation can also pass build, accessibility, mobile, and browser QA.
 
 ## Scrollytelling decision
 
@@ -132,12 +173,12 @@ Avoid it for simple lookup, ranking, or free exploration.
 - Support keyboard focus and `prefers-reduced-motion`.
 - Design mobile intentionally; do not merely shrink desktop.
 - Keep raw field keys separate from human labels/units.
-- Do not hotlink proprietary Pudding fonts, logos, or brand assets.
+- Do not hotlink proprietary Pudding fonts, logos, analytics, or brand assets.
 - Attribute upstream code when derived from third-party starters.
 
 ## Baseline vs publication design
 
-The generic renderer is a correctness baseline, not a final art direction. Once the story spec and claim audit pass, replace it with bespoke Svelte when the editorial idea benefits from stronger annotation, small multiples, a meaningful visual metaphor, scroll transformations, or exploration.
+The generic renderer is a correctness baseline, not a final art direction. Once the story spec, claim audit, visual plan, and first-draft provenance pass, replace it with bespoke Svelte when the editorial idea benefits from stronger annotation, small multiples, a meaningful visual metaphor, scroll transformations, or exploration.
 
 When replacing the renderer, preserve the underlying evidence calculations and rerun the claim audit.
 
@@ -161,14 +202,17 @@ Before declaring the story complete:
 2. Review the candidate board and justify the selected direction.
 3. Re-run `scripts/validate_story.py`.
 4. Re-run `scripts/verify_claims.py` against the raw data.
-5. Run `python scripts/qa_story.py --root .`.
-6. Run unit tests (`npm run test:skill`).
-7. Build with `npm run build`.
-8. Run browser delivery QA against the built preview and inspect its screenshots/report.
-9. Inspect desktop and mobile widths as editorial compositions, not just overflow checks.
-10. Verify every quantitative sentence against structured evidence.
-11. Test the first screen without scrolling.
-12. Test reduced motion and keyboard use.
-13. Confirm source attribution, caveats, and non-affiliation language.
+5. Review `generated/visual-plan.json`; confirm the recommended form actually fits the editorial task.
+6. Review `generated/story-draft.json` and verify every `claim_ref` still maps to the intended evidence.
+7. Run `python scripts/qa_story.py --root .`.
+8. Run unit tests (`npm run test:skill`).
+9. Build with `npm run build`.
+10. Run browser delivery QA against the built preview and inspect its screenshots/report.
+11. Inspect desktop and mobile widths as editorial compositions, not just overflow checks.
+12. Verify every quantitative sentence against structured evidence.
+13. Test the first screen without scrolling.
+14. Test reduced motion and keyboard use.
+15. Confirm source attribution, caveats, and non-affiliation language.
+16. Confirm the npm audit gate has no high or critical advisories.
 
 If any hard check fails, revise before delivery.
