@@ -192,6 +192,8 @@ npm run pudding:study
 
 The corpus validator requires diversity across story families, data strategies, interaction jobs, and interaction modes. This is a deliberate defense against reducing “Pudding-like” to sticky scroll.
 
+It also requires at least one intentionally static reference. The Pudding’s own public resources explicitly note that some static/non-interactive graphics are made with tools such as R, Figma, or Flourish, and their storytelling guide treats static chart sequences as a valid structure. “No interaction” is therefore a first-class design decision, not a lower score.
+
 ## How to study a reference story
 
 For each reference, answer in this order:
