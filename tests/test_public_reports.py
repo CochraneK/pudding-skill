@@ -41,6 +41,26 @@ class PublicReportContractTests(unittest.TestCase):
         self.assertEqual(contract["primary_interaction_job"], "none")
         self.assertEqual(contract["required_sequence"], ["need", "priority", "capacity"])
 
+    def test_research_waste_public_story_uses_reusable_scrolly_shell(self):
+        story = (ROOT / "src/routes/stories/research-waste/+page.svelte").read_text(encoding="utf-8")
+        self.assertIn("ScrollyShell", story)
+        self.assertIn("steps={stepData()}", story)
+        for state in (
+            "volume",
+            "reading",
+            "boundary",
+            "hidden",
+            "contamination",
+            "cost",
+            "crossing",
+        ):
+            self.assertIn(f"id: '{state}'", story)
+        self.assertIn("bind:value={papersPerDay}", story)
+        self.assertIn("scenario === 'long'", story)
+        self.assertIn("scenario === 'spike'", story)
+        self.assertIn("prefers-reduced-motion", story)
+        self.assertIn("LanguageToggle", story)
+
     def test_optional_capacity_atlas_remains_available(self):
         atlas = (ROOT / "src/routes/stories/global-mental-health/atlas/+page.svelte").read_text(encoding="utf-8")
         self.assertIn("selectedMetric", atlas)
