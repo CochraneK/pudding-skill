@@ -31,6 +31,26 @@ def pitch_benchmark(args: argparse.Namespace) -> int:
     return run(command)
 
 
+
+def concept(args: argparse.Namespace) -> int:
+    command = [sys.executable, "scripts/concept_board.py", args.concept_command]
+    if args.concept_command == "init":
+        command += [
+            "--story-id", args.story_id,
+            "--question", args.question,
+            "--argument", args.argument,
+            "--output", str(args.output),
+        ]
+    elif args.concept_command == "validate":
+        command += [
+            str(args.board),
+            "--corpus", str(args.corpus),
+            "--output", str(args.output),
+            "--markdown", str(args.markdown),
+        ]
+    return run(command)
+
+
 def story(args: argparse.Namespace) -> int:
     command = [sys.executable, "scripts/pipeline.py", str(args.data)]
     if args.question:
@@ -152,6 +172,23 @@ def main() -> int:
     pitch_benchmark_parser.add_argument("--corpus", type=Path, default=Path("benchmarks/pudding-dna-corpus.json"))
     pitch_benchmark_parser.add_argument("--output", type=Path, default=Path(".qa/pudding-dna-report.json"))
     pitch_benchmark_parser.set_defaults(func=pitch_benchmark)
+
+    concept_parser = sub.add_parser("concept", help="build and validate contrasting visual concepts before bespoke implementation")
+    concept_sub = concept_parser.add_subparsers(dest="concept_command", required=True)
+
+    concept_init = concept_sub.add_parser("init", help="create a three-direction concept-board scaffold")
+    concept_init.add_argument("--story-id", required=True)
+    concept_init.add_argument("--question", required=True)
+    concept_init.add_argument("--argument", required=True)
+    concept_init.add_argument("--output", type=Path, default=Path("generated/concept-board.json"))
+    concept_init.set_defaults(func=concept)
+
+    concept_validate = concept_sub.add_parser("validate", help="validate concept contrast, evidence dependencies, mobile/accessibility, and anti-copy guardrails")
+    concept_validate.add_argument("board", type=Path)
+    concept_validate.add_argument("--corpus", type=Path, default=Path("benchmarks/pudding-study-corpus.json"))
+    concept_validate.add_argument("--output", type=Path, default=Path(".qa/concept-board-review.json"))
+    concept_validate.add_argument("--markdown", type=Path, default=Path(".qa/concept-board-review.md"))
+    concept_validate.set_defaults(func=concept)
 
     inspect_parser = sub.add_parser("inspect", help="profile an arbitrary tabular dataset")
     inspect_parser.add_argument("data", type=Path)

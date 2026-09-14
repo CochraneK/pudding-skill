@@ -1,0 +1,88 @@
+{
+  "status": "IDEATION_COMPLETE",
+  "story_id": "global-mental-health",
+  "question": "全球精神障碍的负担有多大，而不同国家为治疗和照护准备了多少资源？",
+  "argument": "全球精神健康的核心不只是患病人数巨大，而是需求普遍存在、治疗能力却跨国家极不均衡；理解这种差距必须同时看到规模、资源与数据缺口。",
+  "concepts": [
+    {
+      "id": "static-gap-atlas",
+      "title": "静态差距图册 / A static atlas of gaps",
+      "form": "annotated_static",
+      "interaction_job": "none",
+      "reader_realization": "读者通过连续但独立的地图、小倍数和直接标注，看见全球负担是共同问题，而可用的人员、预算和服务能力呈现数量级差距。",
+      "why_visual": "国家间资源差异既有空间结构也有数量级差异；一组克制的静态地图和比较图可以让读者同时保留地理位置、单位、年份与缺失值，而不依赖交互。",
+      "evidence_dependencies": [
+        "WHO Mental Health Atlas 2024 global and income-group summaries",
+        "WHO GHO country workforce and budget observations with reporting years",
+        "verified global burden figures and explicit source caveats"
+      ],
+      "visual_metaphor": "把每一项资源当作同一本世界图册里的不同透明层，逐页比较哪里有数据、哪里资源稀薄。",
+      "mobile_strategy": "移动端把地图与比较图按章节纵向堆叠，重要国家和收入组直接标注，不要求悬停或双栏阅读。",
+      "accessibility_equivalent": "每张图提供一句可独立理解的文字结论，并为国家级指标保留可键盘读取的选择器和摘要表。",
+      "prototype_test": "先做预算占比与精神科医生密度两张代表图，在桌面和手机上测试读者能否在十秒内说出差距方向、年份和缺失值含义。",
+      "kill_condition": "如果连续静态图只是在重复“高收入国家资源更多”而没有产生新的比较或理解层次，就停止该方向而不继续堆图。",
+      "inspiration": [
+        {
+          "story_id": "outkast-in-charts",
+          "transfer": "借用“证据变化时允许图形变化、由一组自足图表共同推进论点”的编辑操作，而不是任何视觉样式。"
+        }
+      ]
+    },
+    {
+      "id": "care-capacity-ladder",
+      "title": "照护能力阶梯 / The care-capacity ladder",
+      "form": "guided_sequence",
+      "interaction_job": "reveal",
+      "reader_realization": "读者先建立十亿级需求的尺度，再逐层加入政府投入、专业人员与治疗覆盖，最终意识到同一个“全球平均”背后是完全不同的照护能力。",
+      "why_visual": "核心论点依赖顺序：如果同时抛出所有指标，读者容易把它们当成四个统计数字；让同一视觉框架逐步改变，能够明确显示每一层资源如何缩小或扩大可获得照护的空间。",
+      "evidence_dependencies": [
+        "WHO 2025 mental-disorders global prevalence figure",
+        "Mental Health Atlas 2024 spending, workforce, transition, and coverage summaries",
+        "country capacity observations used only after reporting-year caveats are introduced"
+      ],
+      "visual_metaphor": "一架从“需要帮助的人”通向“真正获得有效照护”的阶梯，每一步加入一种现实资源约束。",
+      "mobile_strategy": "手机保留短的 sticky 段落时减少同时出现的标记；若短视口导致图形不可读，则退化为相同状态的纵向静态堆叠。",
+      "accessibility_equivalent": "每个滚动状态都有完整文本结论和数值来源；减少动态效果后状态瞬时切换也不丢失信息。",
+      "prototype_test": "只实现前三个状态并让不熟悉精神健康数据的读者复述“数字发生了什么、为什么下一层被加入”；不能复述就重做而非增加动画。",
+      "kill_condition": "如果滚动转换本身没有比三张静态图更清楚地解释资源约束，立即改回静态序列而不是保留 scrolly 作为装饰。",
+      "inspiration": [
+        {
+          "story_id": "stand-up-structure",
+          "transfer": "借用“逐层揭示隐藏结构并让每一步承担一个明确认知动作”的叙事机制，而不是其导航或表演素材。"
+        },
+        {
+          "story_id": "womens-pockets",
+          "transfer": "借用“用一个稳定的视觉对象承载连续比较”的原则，同时保留精神健康领域自身的证据和隐喻。"
+        }
+      ]
+    },
+    {
+      "id": "country-capacity-explorer",
+      "title": "国家照护能力探索器 / Country capacity explorer",
+      "form": "explorable",
+      "interaction_job": "compare",
+      "reader_realization": "在完成全球叙事后，读者可以选择自己的国家或一个比较对象，并发现资源指标并非同一年报告、部分国家缺失数据，因此“哪里最差”的简单排名并不可靠。",
+      "why_visual": "国家级 workforce、预算与设施数据同时包含地理模式、数量差异、年份差异和缺失值；可切换地图与国家摘要让读者在同一证据合同下进行自己的比较。",
+      "evidence_dependencies": [
+        "WHO GHO country observations and country-code normalization",
+        "per-observation reporting year and explicit missingness",
+        "income-group/global context from Mental Health Atlas 2024"
+      ],
+      "visual_metaphor": "把地图当成索引而不是排行榜：点击或选择国家后，读者打开该国家的一张“照护能力档案卡”。",
+      "mobile_strategy": "触屏优先使用国家选择器和锁定后的摘要卡；地图用于概览，不要求点击细小国土区域才能获得信息。",
+      "accessibility_equivalent": "所有地图信息都能通过国家选择器、键盘焦点和文字摘要访问；颜色之外同时显示数值、单位、年份与缺失状态。",
+      "prototype_test": "测试读者能否完成三个任务：找自己的国家、切换一个指标、解释为什么两个国家的数值可能不是同一年；任一任务失败都减少控制项。",
+      "kill_condition": "如果 explorer 变成无问题导向的 dashboard，或读者无法辨认年份与缺失值，就删减交互并把关键比较重新交还给编辑叙事。",
+      "inspiration": [
+        {
+          "story_id": "flooding-america",
+          "transfer": "借用“让地理探索服务于一个明确比较，并把模型或数据差异保持可见”的操作，而不是地图外观。"
+        },
+        {
+          "story_id": "microbrew-capital",
+          "transfer": "借用“把方法中的主观或可变假设暴露给读者，而不是把排名包装成唯一答案”的认识论原则。"
+        }
+      ]
+    }
+  ]
+}
