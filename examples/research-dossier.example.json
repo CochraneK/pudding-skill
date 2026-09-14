@@ -1,0 +1,83 @@
+{
+  "version": 1,
+  "status": "EDITORIAL_REVIEW_REQUIRED",
+  "topic": "Global mental health",
+  "question": "How large is the global mental-disorder burden, and where does treatment capacity lag behind need?",
+  "audience": "general audience",
+  "research_scope": {
+    "geographies": ["global", "countries"],
+    "period": "latest comparable estimates, with long-run trend where available",
+    "population": "general population",
+    "dimensions": ["prevalence", "burden", "workforce", "financing", "treatment capacity"],
+    "exclusions": ["causal claims not supported by source design"]
+  },
+  "source_strategy": [],
+  "sources": [
+    {
+      "id": "who-fact-sheet",
+      "tier": "T2",
+      "type": "official_report",
+      "title": "Mental disorders",
+      "publisher": "World Health Organization",
+      "url": "https://www.who.int/news-room/fact-sheets/detail/mental-disorders",
+      "retrieved_at": "2026-09-14",
+      "license_note": "Check WHO reuse terms before redistribution of source material.",
+      "method_note": "WHO synthesis; follow material estimates to underlying source when a downloadable dataset is needed."
+    }
+  ],
+  "claims": [
+    {
+      "id": "global-mental-disorders-2021",
+      "kind": "numeric",
+      "statement": "About 1.1 billion people were living with a mental disorder in 2021.",
+      "value": 1.1,
+      "unit": "billion people",
+      "geography": "Global",
+      "period": "2021",
+      "population": "All ages",
+      "lower": null,
+      "upper": null,
+      "source_ids": ["who-fact-sheet"],
+      "locator": "Key facts / opening summary",
+      "definition": "People living with a mental disorder under the source's GBD-based definitions.",
+      "method_note": "Modelled global estimate; not a count of diagnosed cases.",
+      "license_note": "Use the numeric claim with attribution; do not mirror restricted underlying microdata.",
+      "status": "QUALIFIED",
+      "confidence": "high",
+      "verification_note": "Checked against the WHO fact sheet and retained the modelled-estimate caveat."
+    }
+  ],
+  "conflicts": [],
+  "data_targets": [
+    {
+      "id": "ihme-mental-disorders-prevalence",
+      "dataset": "IHME Global Burden of Disease mental-disorder prevalence",
+      "purpose": "Country-level prevalence map and 1990–2023 trend.",
+      "preferred_source": "IHME GBD Results Tool / My Requests",
+      "access_mode": "request",
+      "license_note": "Do not commit or redistribute restricted exports without permission.",
+      "query_spec": "Cause=Mental disorders; Measure=Prevalence; Metric=Rate; Age=Age-standardized; Sex=Both; Years=1990–2023; countries",
+      "next_action": "Submit a data request or export a smaller compliant result set, then normalize locally."
+    }
+  ],
+  "recommendations": [
+    {
+      "action": "Prioritize burden × capacity rather than a prevalence ranking alone",
+      "why": "Cross-country modeled prevalence can reflect data and diagnostic differences; workforce and service capacity provide a more useful editorial comparison."
+    }
+  ],
+  "story_handoff": {
+    "candidate_questions": [
+      "Where is mental-health need high relative to workforce capacity?",
+      "How has modeled mental-disorder burden changed since 1990?"
+    ],
+    "recommended_question": "Where does mental-health need appear most mismatched with treatment capacity?",
+    "usable_claim_ids": ["global-mental-disorders-2021"],
+    "preferred_dataset_targets": ["ihme-mental-disorders-prevalence"],
+    "caveats": [
+      "Modeled prevalence is not a national scorecard of psychological wellbeing.",
+      "Do not compare counts and age-standardized rates as if they were the same metric."
+    ]
+  },
+  "executive_answer": "The evidence supports a large global burden, but the publishable story should focus on the mismatch between need and treatment capacity. Country-level trend work requires a reproducible IHME export or request rather than copying values from a visualization."
+}
