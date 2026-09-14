@@ -13,10 +13,10 @@ Do not start by choosing a chart, writing a headline, or generating Svelte. Firs
 
 Use this sequence:
 
-0. **Research when data is missing** — if the input is a domain/industry question rather than a trustworthy dataset, build a research dossier first: definitions → source map → primary evidence → numeric claims → conflict resolution → data acquisition plan. Do not invent a dataset to skip this step.
-1. **Audit input** — inspect fields, types, missingness, duplicates, ranges, units, analytical grain, and source limitations.
-2. **Resolve semantics** — use a data contract when roles/units are ambiguous. Never infer meaning from field names alone when that could change the claim.
-3. **Gate the concept** — when the work starts from a broad topic or ambitious bespoke story, run the Pudding DNA gate before expensive research/production. The valid result may be `CONTINUE`, `PIVOT`, `PIVOT_NONVISUAL`, or `PUT_DOWN`; the workflow is not required to ship a visual story.
+0. **Gate the concept when needed** — when work starts from a broad topic or ambitious bespoke story, run the Pudding DNA gate before expensive research/production. The valid result may be `CONTINUE`, `PIVOT`, `PIVOT_NONVISUAL`, or `PUT_DOWN`; the workflow is not required to ship a visual story.
+1. **Research when data is missing** — if the surviving concept lacks a trustworthy dataset, build a research dossier: definitions → source map → primary evidence → numeric claims → conflict resolution → data acquisition plan. Do not invent a dataset to skip this step.
+2. **Audit input** — inspect fields, types, missingness, duplicates, ranges, units, analytical grain, and source limitations.
+3. **Resolve semantics** — use a data contract when roles/units are ambiguous. Never infer meaning from field names alone when that could change the claim.
 4. **Generate candidates** — derive multiple defensible analytical directions instead of stopping at the first matching chart pattern.
 5. **Rank, then judge** — use deterministic scoring for triage; apply editorial/domain judgment before publication.
 6. **Select with fallback** — reject candidates that fail story-spec, quality, or renderer gates and try the next one.
