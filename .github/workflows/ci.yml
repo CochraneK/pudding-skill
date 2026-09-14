@@ -28,6 +28,8 @@ jobs:
           npm audit --json > .qa/npm-audit.json || true
           npm audit --audit-level=high
       - run: npm run check:skill
+      - name: Editorial benchmark regression gate
+        run: npm run benchmark
       - run: npm run build
       - name: Browser delivery and visual QA
         run: |
@@ -41,8 +43,8 @@ jobs:
             sleep 1
           done
           curl --fail --silent http://127.0.0.1:4173/ >/dev/null
-          npm run qa:browser -- --base-url http://127.0.0.1:4173 --out .qa
-          npm run qa:visual-probe -- --base-url http://127.0.0.1:4173 --out .qa/visual-probe.json
+          npm run qa:browser -- --base-url http://127.0.0.1:4173 --out .qa --routes /,/generated,/lab,/benchmark
+          npm run qa:visual-probe -- --base-url http://127.0.0.1:4173 --out .qa/visual-probe.json --routes /,/generated,/lab,/benchmark
           npm run qa:visual
           npm run visual:refine
       - name: Upload QA evidence
