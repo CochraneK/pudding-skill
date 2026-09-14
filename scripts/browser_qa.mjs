@@ -153,6 +153,42 @@ async function caseRun(cdp, sid, cfg, route, viewport) {
   d.failures = f; d.ok = !f.length; return d;
 }
 
+async function waitForExit(proc, timeoutMs = 2500) {
+  if (proc.exitCode != null || proc.signalCode != null) return true;
+  return await new Promise((resolve) => {
+    const timer = setTimeout(() => { cleanup(); resolve(false); }, timeoutMs);
+    const onExit = () => { cleanup(); resolve(true); };
+    const cleanup = () => { clearTimeout(timer); proc.off('exit', onExit); };
+    proc.once('exit', onExit);
+  });
+}
+
+async function removeProfile(profile) {
+  const retryable = new Set(['ENOTEMPTY', 'EBUSY', 'EPERM']);
+  let lastError;
+  for (let attempt = 1; attempt <= 8; attempt++) {
+    try {
+      await rm(profile, { recursive: true, force: true });
+      return;
+    } catch (error) {
+      lastError = error;
+      if (!retryable.has(error?.code) || attempt === 8) break;
+      await sleep(100 * attempt);
+    }
+  }
+  console.warn(`WARN: unable to remove temporary Chrome profile ${profile}: ${lastError?.message || lastError}`);
+}
+
+async function shutdownChrome(cdp, proc, profile) {
+  try { cdp?.ws.close(); } catch {}
+  if (proc.exitCode == null && proc.signalCode == null) proc.kill('SIGTERM');
+  if (!(await waitForExit(proc))) {
+    try { proc.kill('SIGKILL'); } catch {}
+    await waitForExit(proc, 1500);
+  }
+  await removeProfile(profile);
+}
+
 async function main() {
   const cfg = args(); cfg.out = path.resolve(cfg.out); await mkdir(cfg.out, { recursive: true });
   const chrome = chromePath(cfg.chrome), profile = await mkdtemp(path.join(tmpdir(), 'pudding-qa-'));
@@ -180,8 +216,7 @@ async function main() {
     console.log(`${report.status}: ${report.passed}/${report.total} browser QA cases passed.`);
     if (report.status !== 'PASS') process.exitCode = 1;
   } finally {
-    try { cdp?.ws.close(); } catch {}
-    proc.kill('SIGTERM'); await sleep(100); await rm(profile, { recursive: true, force: true });
+    await shutdownChrome(cdp, proc, profile);
     if (process.exitCode && stderr) await writeFile(path.join(cfg.out, 'chrome-stderr.log'), stderr);
   }
 }
