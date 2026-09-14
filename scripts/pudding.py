@@ -13,6 +13,24 @@ def run(command: list[str]) -> int:
     return subprocess.call(command)
 
 
+def pitch(args: argparse.Namespace) -> int:
+    command = [sys.executable, "scripts/pudding_gate.py", "evaluate", str(args.concept), "--output", str(args.output)]
+    return run(command)
+
+
+def pitch_benchmark(args: argparse.Namespace) -> int:
+    command = [
+        sys.executable,
+        "scripts/pudding_gate.py",
+        "benchmark",
+        "--corpus",
+        str(args.corpus),
+        "--output",
+        str(args.output),
+    ]
+    return run(command)
+
+
 def story(args: argparse.Namespace) -> int:
     command = [sys.executable, "scripts/pipeline.py", str(args.data)]
     if args.question:
@@ -124,6 +142,16 @@ def refine(args: argparse.Namespace) -> int:
 def main() -> int:
     parser = argparse.ArgumentParser(prog="pudding", description="Evidence-first editorial data-storytelling CLI")
     sub = parser.add_subparsers(dest="command", required=True)
+
+    pitch_parser = sub.add_parser("pitch", help="triage a story concept before spending on research or production")
+    pitch_parser.add_argument("concept", type=Path)
+    pitch_parser.add_argument("--output", type=Path, default=Path(".qa/pudding-gate.json"))
+    pitch_parser.set_defaults(func=pitch)
+
+    pitch_benchmark_parser = sub.add_parser("pitch-benchmark", help="run the Pudding DNA calibration/holdout corpus")
+    pitch_benchmark_parser.add_argument("--corpus", type=Path, default=Path("benchmarks/pudding-dna-corpus.json"))
+    pitch_benchmark_parser.add_argument("--output", type=Path, default=Path(".qa/pudding-dna-report.json"))
+    pitch_benchmark_parser.set_defaults(func=pitch_benchmark)
 
     inspect_parser = sub.add_parser("inspect", help="profile an arbitrary tabular dataset")
     inspect_parser.add_argument("data", type=Path)

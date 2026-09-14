@@ -1,0 +1,43 @@
+{
+  "id": "global-mental-health-invisible-burden",
+  "question": "Where is the global mental-health burden, and do care systems have resources that match the need?",
+  "argument": "The sharper global mental-health divide is not whether mental disorders exist, but whether care systems have enough money, trained people, and reachable services to respond.",
+  "why_you": "A prevalence map alone risks turning countries into a ranking of who is 'more mentally ill.' The more useful question is what happens after need exists: whether a person meets a system capable of responding.",
+  "human_angle": "Mental-health capacity is experienced as a concrete encounter: whether a trained professional, clinic, affordable service, or community alternative is actually there when someone seeks help.",
+  "tone_or_obsession": "make the invisible care infrastructure visible without stigmatizing countries or patients",
+  "aha": "The most striking contrast in the verified evidence is not a dramatic global prevalence ranking; it is the orders-of-magnitude difference in spending and workforce capacity between resource settings.",
+  "distinctive_entry_point": "Instead of asking which country is 'most mentally ill,' the story follows a care question: after the global burden is established, how much response capacity sits on the other side of the need?",
+  "data_plan": {
+    "status": "verified",
+    "sources": [
+      "WHO World Mental Health Today 2025",
+      "WHO Mental Health Atlas 2024",
+      "WHO Global Health Observatory",
+      "IHME GBD 2021 cause summary",
+      "PLOS Medicine treatment-coverage systematic review"
+    ],
+    "method": "Keep global burden claims separate from country capacity indicators; preserve each WHO observation year and missingness; verify every derived comparison from normalized source rows; treat the historical depression-versus-capacity lens as descriptive rather than causal.",
+    "limitations": "Country indicators have uneven coverage and reporting years; global burden estimates are modeled; the current public dataset is not a contemporaneous burden-by-capacity ranking.",
+    "fallback": "If restricted IHME country-level burden data remains unavailable, keep the story focused on verified global/region burden plus WHO country capacity and explicitly label the two layers as non-contemporaneous."
+  },
+  "visual_case": {
+    "why_visual": "The central claim is about scale and mismatch: readers need to see the same visual frame transform from global burden into spending, workforce, treatment reach, and then a country capacity landscape; the country explorer makes missingness and reporting years inspectable rather than hiding them in prose.",
+    "first_whiteboard": "Begin with one-in-seven as a population scale, then reuse a stable frame to reveal spending, workforce, and treatment gaps before handing the reader a map of reported country capacity.",
+    "visual_concepts": [
+      "one stable scrollytelling stage that morphs scale → money → workforce → treatment",
+      "care-door metaphor: people on one side, system capacity on the other, with the gap changing by resource setting",
+      "guided global comparison followed by a country capacity map where missingness and reporting year remain first-class"
+    ]
+  },
+  "interaction": {
+    "job": "explore",
+    "rationale": "After the guided argument teaches what the indicators mean, the reader can switch capacity metrics and inspect countries/years without turning the opening into a dashboard or inventing a single league-table score."
+  },
+  "prototype_plan": "Treat the current bilingual guided scrolly + inline capacity explorer as the first working prototype, then separately prototype the care-door metaphor before deciding whether it teaches more than the existing evidence-driven frame.",
+  "iteration_plan": "Compare the current scrolly, a care-door visual metaphor, and a more restrained annotated-static version on desktop/mobile; keep scrollytelling only where the transition itself changes understanding, and preserve the explorer only if lookup remains useful after the guided section.",
+  "kill_conditions": [
+    "A proposed country-level burden-versus-capacity claim requires data that cannot legally or methodologically be supported.",
+    "The visual metaphor implies that prevalence, diagnosis, and treatment demand are interchangeable.",
+    "The interactive layer becomes a country ranking that encourages stigma or hides reporting-year/missingness limits."
+  ]
+}
