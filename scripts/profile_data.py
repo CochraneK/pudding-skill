@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Profile CSV, TSV, or row-oriented JSON for editorial data-story planning."""
+"""Profile CSV, TSV, JSON, JSONL, or NDJSON for editorial data-story planning."""
 
 from __future__ import annotations
 
@@ -48,11 +48,27 @@ def load_rows(path: Path) -> list[dict[str, Any]]:
         if isinstance(data, list) and all(isinstance(row, dict) for row in data):
             return data
         if isinstance(data, dict):
-            for value in data.values():
-                if isinstance(value, list) and all(isinstance(row, dict) for row in value):
-                    return value
-        raise ValueError("JSON must be a list of objects, or contain a top-level list of objects.")
+            list_fields = [(key, value) for key, value in data.items() if isinstance(value, list) and all(isinstance(row, dict) for row in value)]
+            if len(list_fields) == 1:
+                return list_fields[0][1]
+            if len(list_fields) > 1:
+                names = ", ".join(key for key, _ in list_fields)
+                raise ValueError(f"JSON contains multiple row-like arrays ({names}); provide a single row array or convert to JSONL.")
+        raise ValueError("JSON must be a list of objects, or contain exactly one top-level list of objects.")
 
+    if suffix in {".jsonl", ".ndjson"}:
+        rows: list[dict[str, Any]] = []
+        for line_number, line in enumerate(path.read_text(encoding="utf-8").splitlines(), start=1):
+            if not line.strip():
+                continue
+            row = json.loads(line)
+            if not isinstance(row, dict):
+                raise ValueError(f"Line {line_number} is not a JSON object.")
+            rows.append(row)
+        return rows
+
+    if suffix not in {".csv", ".tsv"}:
+        raise ValueError(f"Unsupported input format: {suffix or '(no extension)'}. Use CSV, TSV, JSON, JSONL, or NDJSON.")
     delimiter = "\t" if suffix == ".tsv" else ","
     with path.open("r", encoding="utf-8-sig", newline="") as handle:
         return list(csv.DictReader(handle, delimiter=delimiter))
@@ -124,7 +140,7 @@ def profile(path: Path) -> dict[str, Any]:
 
 def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("path", type=Path, help="CSV, TSV, or JSON file")
+    parser.add_argument("path", type=Path, help="CSV, TSV, JSON, JSONL, or NDJSON file")
     parser.add_argument("--output", type=Path, help="Optional path for JSON output")
     args = parser.parse_args()
 
@@ -134,6 +150,7 @@ def main() -> int:
     result = profile(args.path)
     payload = json.dumps(result, ensure_ascii=False, indent=2)
     if args.output:
+        args.output.parent.mkdir(parents=True, exist_ok=True)
         args.output.write_text(payload + "\n", encoding="utf-8")
     else:
         print(payload)
