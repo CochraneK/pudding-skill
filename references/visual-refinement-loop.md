@@ -21,13 +21,17 @@ npm run qa:visual-probe -- --base-url http://127.0.0.1:4173 --out .qa/visual-pro
 The probe records observable browser facts such as:
 
 - long-form copy measure in `em`;
-- minimum copy font size and line-height ratio;
+- minimum long-form copy font size and line-height ratio;
 - heading-level jumps;
 - mobile touch-target dimensions;
 - clipped text containers;
 - computed text/background contrast;
 - chart/visual aspect ratios;
 - first-visual position and sticky-element count.
+
+It also captures both **top-of-page** and **mid-page** screenshots for every route/viewport so the agent can judge the opening composition and the body state separately.
+
+Long-form copy heuristics intentionally ignore short labels/eyebrows and footer/nav/aside text. Touch-target heuristics do not treat inline links inside prose as button-sized controls; inline text links have different interaction semantics. These exclusions reduce false positives without weakening clipping, contrast, or runtime checks.
 
 These are diagnostics, not art direction.
 
@@ -46,7 +50,7 @@ This writes:
 .qa/visual-review.md
 ```
 
-The critic can classify measurable issues as error, warning, or info. CI may fail on errors, but warnings are review prompts by default.
+The critic can classify measurable issues as error, warning, or info. CI may fail on errors, but warnings are review prompts by default. The numeric score penalizes each finding **type** once, so one repeated issue across routes does not masquerade as many independent failures.
 
 Even a score of 100 still leaves `agent_review.status = PENDING`. An agent/editor must inspect every screenshot and judge qualities that browser metrics cannot establish reliably:
 
@@ -95,7 +99,7 @@ Every applied refinement must be followed by:
 1. production build;
 2. browser delivery QA;
 3. visual probe + critic;
-4. inspection of the new screenshots;
+4. inspection of the new top/mid screenshots;
 5. comparison with the previous screenshots/report.
 
 Keep a change only when it fixes the stated problem without introducing a regression.
