@@ -22,11 +22,11 @@ Use this sequence:
 7. **Choose visual grammar** — recommend the best editorial form while preserving a deterministic baseline renderer.
 8. **Verify claims independently** — recompute quantitative evidence from raw data.
 9. **Generate a first-draft package** — headline, dek, sections, annotations, methodology, caveats, and claim provenance.
-11. **Implement and inspect** — build the smallest Svelte experience that communicates the chosen story clearly.
-12. **Validate delivery** — data claims, build, mobile layout, accessibility, reduced motion, sourcing, attribution, dependency gate, and real-browser QA.
-13. **Review screenshots** — separate measurable browser evidence from visual/editorial judgment and inspect every desktop/mobile capture.
-14. **Refine safely** — apply only bounded automatic fixes; use agent/manual source edits for art direction, then rerun the full browser/visual loop.
-15. **Benchmark pipeline changes** — when candidate scoring, selection, claim verification, visual grammar, or provenance changes, run the curated regression corpus and explain any expectation change instead of weakening the gate.
+10. **Implement and inspect** — build the smallest Svelte experience that communicates the chosen story clearly.
+11. **Validate delivery** — data claims, build, mobile layout, accessibility, reduced motion, sourcing, attribution, dependency gate, and real-browser QA.
+12. **Review screenshots** — separate measurable browser evidence from visual/editorial judgment and inspect every desktop/mobile capture.
+13. **Refine safely** — apply only bounded automatic fixes; use agent/manual source edits for art direction, then rerun the full browser/visual loop.
+14. **Benchmark pipeline changes** — when candidate scoring, selection, claim verification, visual grammar, or provenance changes, run the curated regression corpus and explain any expectation change instead of weakening the gate.
 
 Read:
 
@@ -82,7 +82,7 @@ src/data/story-draft.json
 src/data/auto-story.json
 ```
 
-Use `/lab` to inspect the ranked candidate board and audit trail. Use `/generated` to inspect the selected baseline story.
+Use `/lab` to inspect the ranked candidate board and audit trail. Use `/generated` to inspect the selected baseline story. Use `/benchmark` to inspect the curated regression corpus and scoring contract.
 
 ## Candidate policy
 
@@ -196,7 +196,7 @@ After the static checks and production build pass, test the built site in a real
 npm run qa:browser -- --base-url http://127.0.0.1:4173 --out .qa
 ```
 
-The browser gate visits `/`, `/generated`, and `/lab` at desktop and mobile widths with reduced motion enabled. It fails on uncaught exceptions, browser console errors, network failures, horizontal overflow, missing page structure, duplicate IDs, images without `alt`, unnamed interactive controls, or a broken keyboard Tab path. It also writes six PNG screenshots plus `.qa/browser-qa.json`.
+The default browser gate visits `/`, `/generated`, and `/lab` at desktop and mobile widths with reduced motion enabled. v2.6 CI also includes `/benchmark`, producing eight route/viewport delivery cases. It fails on uncaught exceptions, browser console errors, network failures, horizontal overflow, missing page structure, duplicate IDs, images without `alt`, unnamed interactive controls, or a broken keyboard Tab path. It writes PNG screenshots plus `.qa/browser-qa.json`.
 
 Browser QA is a delivery gate, not an aesthetic score.
 
@@ -239,11 +239,11 @@ Before declaring the story complete:
 8. Run unit tests (`npm run test:skill`).
 9. Run the editorial benchmark (`npm run benchmark`) when core pipeline behavior changed.
 10. Build with `npm run build`.
-10. Run browser delivery QA against the built preview.
-11. Run the visual probe and deterministic critic.
-12. Inspect all desktop/mobile screenshots and record a separate agent/editor visual verdict.
-13. If refinement is needed, apply only allowlisted auto-actions or an explicit source edit; then rerun the full visual loop.
-14. Inspect desktop and mobile widths as editorial compositions, not just overflow checks.
+11. Run browser delivery QA against the built preview.
+12. Run the visual probe and deterministic critic.
+13. Inspect all desktop/mobile screenshots and record a separate agent/editor visual verdict.
+14. If refinement is needed, apply only allowlisted auto-actions or an explicit source edit; then rerun the full visual loop.
+15. Inspect desktop and mobile widths as editorial compositions, not just overflow checks.
 16. Verify every quantitative sentence against structured evidence.
 17. Test the first screen without scrolling.
 18. Test reduced motion and keyboard use.
