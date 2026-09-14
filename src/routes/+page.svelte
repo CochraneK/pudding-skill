@@ -1,15 +1,63 @@
 <script>
 	import { base } from '$app/paths';
 	import Meta from '$components/Meta.svelte';
+	import LanguageToggle from '$components/LanguageToggle.svelte';
 	import reportIndex from '$data/report-index.json';
+	import { language } from '$lib/language.js';
 
 	const hrefFor = (route) => `${base}${route}`;
 	const reports = reportIndex.reports;
+	const localize = (value) => typeof value === 'object' && value !== null && !Array.isArray(value) ? value[$language] : value;
+
+	const copy = {
+		zh: {
+			eyebrow: 'PUDDING-SKILL · 公共报告库',
+			titleLead: 'Data stories,',
+			titleEm: 'in one place.',
+			published: '份已发布报告',
+			hosting: 'GitHub Pages · 免费公开托管',
+			qa: '证据 + 方法 + 交互 + QA 保持可见',
+			library: '报告库',
+			libraryTitle: '当前报告',
+			libraryDek: '正式报告从这里进入；开发用 demo、lab 和 benchmark 保持在后台，不打断阅读。',
+			read: '阅读完整报告 →',
+			architecture: '为下一份报告准备',
+			architectureTitle: '一个网址，持续增加报告。',
+			cards: [
+				['统一入口', '首页只负责发现与进入。每个正式报告拥有自己的完整叙事空间。'],
+				['双语注册表', '标题、摘要、关键数字和路由集中维护，中英文从同一份元数据生成。'],
+				['引导 + 探索', '报告先用滚动叙事建立论点，再把真实数据交给读者自由探索。']
+			],
+			footer: 'Built with pudding-skill · 可审计证据驱动的数据叙事。'
+		},
+		en: {
+			eyebrow: 'PUDDING-SKILL · PUBLIC REPORTS',
+			titleLead: 'Data stories,',
+			titleEm: 'in one place.',
+			published: 'published report',
+			hosting: 'GitHub Pages · free public hosting',
+			qa: 'Evidence + method + interaction + QA stay visible',
+			library: 'REPORT LIBRARY',
+			libraryTitle: 'Current reports',
+			libraryDek: 'Published reports start here. Developer surfaces such as demo, lab, and benchmark stay in the background instead of interrupting readers.',
+			read: 'Read the full report →',
+			architecture: 'BUILT FOR THE NEXT REPORT',
+			architectureTitle: 'One URL, a growing report library.',
+			cards: [
+				['One public entrance', 'The homepage handles discovery. Each published report keeps its own full narrative space.'],
+				['Bilingual registry', 'Titles, summaries, key figures, and routes live in one registry and render in Chinese or English.'],
+				['Guide + explore', 'Reports establish the argument through scroll-driven narrative, then hand real data back to the reader for exploration.']
+			],
+			footer: 'Built with pudding-skill · auditable evidence-driven data storytelling.'
+		}
+	};
+
+	const t = () => copy[$language];
 </script>
 
 <Meta
 	title="Pudding Reports — 数据故事"
-	description="A single public index for evidence-audited data stories built with pudding-skill."
+	description={localize(reportIndex.site_dek)}
 	url="https://cochranek.github.io/pudding-skill/"
 />
 
@@ -19,21 +67,21 @@
 
 <article class="report-hub">
 	<section class="hero">
-		<p class="eyebrow">PUDDING-SKILL · PUBLIC REPORTS</p>
-		<h1>Data stories,<br /><em>in one place.</em></h1>
-		<p class="dek">{reportIndex.site_dek}</p>
-		<div class="hero-meta" aria-label="Report library summary">
-			<span><strong>{reports.length}</strong> published report</span>
-			<span>GitHub Pages · free public hosting</span>
-			<span>Evidence + method + QA kept visible</span>
+		<div class="utility"><span>{t().eyebrow}</span><LanguageToggle /></div>
+		<h1>{t().titleLead}<br /><em>{t().titleEm}</em></h1>
+		<p class="dek">{localize(reportIndex.site_dek)}</p>
+		<div class="hero-meta" aria-label={$language === 'zh' ? '报告库摘要' : 'Report library summary'}>
+			<span><strong>{reports.length}</strong> {t().published}</span>
+			<span>{t().hosting}</span>
+			<span>{t().qa}</span>
 		</div>
 	</section>
 
 	<section class="reports" aria-labelledby="reports-title">
 		<div class="section-head">
-			<p class="eyebrow">REPORT LIBRARY</p>
-			<h2 id="reports-title">当前报告</h2>
-			<p>以后新增的报告只需要注册到同一个 report index，这里会继续作为统一入口。</p>
+			<p class="eyebrow">{t().library}</p>
+			<h2 id="reports-title">{t().libraryTitle}</h2>
+			<p>{t().libraryDek}</p>
 		</div>
 
 		{#each reports as report, i}
@@ -41,26 +89,23 @@
 				<div class="report-number">{String(i + 1).padStart(2, '0')}</div>
 				<div class="report-copy">
 					<div class="report-topline">
-						<span>{report.eyebrow}</span>
-						<span class="status">{report.status} · {report.published}</span>
+						<span>{localize(report.eyebrow)}</span>
+						<span class="status">{localize(report.status)} · {report.published}</span>
 					</div>
-					<h3>{report.title}</h3>
-					<p class="subtitle">{report.subtitle}</p>
-					<p class="report-dek">{report.dek}</p>
+					<h3>{localize(report.title)}</h3>
+					<p class="subtitle">{localize(report.subtitle)}</p>
+					<p class="report-dek">{localize(report.dek)}</p>
 
-					<div class="stats" aria-label={`${report.title} key figures`}>
+					<div class="stats" aria-label={`${localize(report.title)} key figures`}>
 						{#each report.stats as stat}
-							<div>
-								<strong>{stat.value}</strong>
-								<span>{stat.label}</span>
-							</div>
+							<div><strong>{stat.value}</strong><span>{localize(stat.label)}</span></div>
 						{/each}
 					</div>
 
 					<div class="actions">
-						<a class="primary" href={hrefFor(report.primary_route)}>阅读完整报告 →</a>
+						<a class="primary" href={hrefFor(report.primary_route)}>{t().read}</a>
 						{#each report.secondary_routes as route}
-							<a href={hrefFor(route.route)}>{route.label} ↗</a>
+							<a href={hrefFor(route.route)}>{localize(route.label)} ↗</a>
 						{/each}
 					</div>
 
@@ -74,30 +119,22 @@
 
 	<section class="architecture" aria-labelledby="architecture-title">
 		<div>
-			<p class="eyebrow">BUILT FOR THE NEXT REPORT</p>
-			<h2 id="architecture-title">一个网址，持续增加报告。</h2>
+			<p class="eyebrow">{t().architecture}</p>
+			<h2 id="architecture-title">{t().architectureTitle}</h2>
 		</div>
 		<div class="architecture-grid">
-			<article>
-				<span>01</span>
-				<h3>统一首页</h3>
-				<p>所有正式报告从这里进入，不再把读者送进开发用的 demo、lab 或 benchmark。</p>
-			</article>
-			<article>
-				<span>02</span>
-				<h3>报告注册表</h3>
-				<p>新增报告时增加一条元数据即可进入公共目录，标题、摘要、状态和关键数字都集中维护。</p>
-			</article>
-			<article>
-				<span>03</span>
-				<h3>独立深读页面</h3>
-				<p>长报告仍保留自己的叙事空间；地图、atlas 或附录可作为报告模块，而首页负责统一发现。</p>
-			</article>
+			{#each t().cards as card, i}
+				<article>
+					<span>0{i + 1}</span>
+					<h3>{card[0]}</h3>
+					<p>{card[1]}</p>
+				</article>
+			{/each}
 		</div>
 	</section>
 
 	<footer class="hub-footer">
-		<p>Built with <strong>pudding-skill</strong> · editorial data storytelling with auditable evidence.</p>
+		<p>{t().footer}</p>
 		<nav aria-label="Developer routes">
 			<a href={hrefFor('/demo')}>Demo</a>
 			<a href={hrefFor('/lab')}>Lab</a>
@@ -107,347 +144,51 @@
 </article>
 
 <style>
-	:global(body) {
-		background: #f4efe6;
-		color: #171715;
-	}
-
-	.report-hub {
-		--paper: #f4efe6;
-		--panel: #fffaf2;
-		--ink: #171715;
-		--muted: #68645d;
-		--accent: #a33f32;
-		--line: #d6cec1;
-		min-height: 100vh;
-	}
-
-	.hero,
-	.reports,
-	.architecture,
-	.hub-footer {
-		width: min(1180px, calc(100% - 40px));
-		margin: 0 auto;
-	}
-
-	.hero {
-		padding: clamp(5rem, 11vw, 10rem) 0 clamp(5rem, 9vw, 8rem);
-	}
-
-	.eyebrow,
-	.report-topline,
-	.tags,
-	.architecture-grid > article > span {
-		font-family: var(--font-mono);
-		font-size: 0.72rem;
-		font-weight: 750;
-		letter-spacing: 0.1em;
-		text-transform: uppercase;
-	}
-
-	.eyebrow,
-	.report-topline > span:first-child {
-		color: var(--accent);
-	}
-
-	h1,
-	h2,
-	h3 {
-		font-family: var(--font-serif);
-	}
-
-	h1 {
-		max-width: 1000px;
-		margin: 0.18em 0 0.3em;
-		font-size: clamp(4rem, 11vw, 9.4rem);
-		font-weight: 600;
-		line-height: 0.84;
-		letter-spacing: -0.065em;
-	}
-
-	h1 em {
-		color: var(--accent);
-		font-weight: 400;
-	}
-
-	.dek {
-		max-width: 720px;
-		font-size: clamp(1.12rem, 2vw, 1.45rem);
-		line-height: 1.58;
-		color: var(--muted);
-	}
-
-	.hero-meta {
-		display: grid;
-		grid-template-columns: repeat(3, 1fr);
-		margin-top: 4rem;
-		border-top: 1px solid var(--line);
-		border-bottom: 1px solid var(--line);
-	}
-
-	.hero-meta span {
-		padding: 1rem 1rem 1rem 0;
-		font-family: var(--font-sans);
-		font-size: 0.86rem;
-		line-height: 1.45;
-		color: var(--muted);
-	}
-
-	.hero-meta strong {
-		color: var(--ink);
-	}
-
-	.reports {
-		padding: 7rem 0;
-		border-top: 1px solid var(--line);
-	}
-
-	.section-head {
-		display: grid;
-		grid-template-columns: 1fr 1fr;
-		column-gap: 3rem;
-		align-items: end;
-		margin-bottom: 3rem;
-	}
-
-	.section-head .eyebrow {
-		grid-column: 1 / -1;
-	}
-
-	.section-head h2,
-	.architecture h2 {
-		margin: 0.2em 0 0;
-		font-size: clamp(2.6rem, 6vw, 5.6rem);
-		line-height: 0.94;
-		letter-spacing: -0.045em;
-	}
-
-	.section-head > p:last-child {
-		max-width: 52ch;
-		margin: 0;
-		color: var(--muted);
-		line-height: 1.6;
-	}
-
-	.report-card {
-		display: grid;
-		grid-template-columns: minmax(80px, 0.15fr) minmax(0, 1fr);
-		gap: 1.5rem;
-		padding: clamp(1.5rem, 4vw, 3rem) 0 0;
-		border-top: 1px solid var(--line);
-	}
-
-	.report-number {
-		font-family: var(--font-mono);
-		font-size: clamp(2.5rem, 6vw, 5rem);
-		font-weight: 700;
-		letter-spacing: -0.06em;
-		color: #b8aea0;
-	}
-
-	.report-copy {
-		padding: 0 0 4rem;
-	}
-
-	.report-topline {
-		display: flex;
-		justify-content: space-between;
-		gap: 1rem;
-	}
-
-	.status {
-		color: var(--muted);
-	}
-
-	.report-card h3 {
-		margin: 1rem 0 0;
-		font-size: clamp(3rem, 7vw, 6.8rem);
-		line-height: 0.92;
-		letter-spacing: -0.05em;
-	}
-
-	.subtitle {
-		margin: 0.5rem 0 1.5rem;
-		font: 500 clamp(1.35rem, 2.6vw, 2.2rem)/1.15 var(--font-serif);
-		font-style: italic;
-		color: var(--accent);
-	}
-
-	.report-dek {
-		max-width: 760px;
-		font-size: 1.08rem;
-		line-height: 1.65;
-		color: var(--muted);
-	}
-
-	.stats {
-		display: grid;
-		grid-template-columns: repeat(3, 1fr);
-		margin: 3rem 0;
-		border: 1px solid var(--line);
-		background: var(--panel);
-	}
-
-	.stats > div {
-		padding: 1.5rem;
-		border-right: 1px solid var(--line);
-	}
-
-	.stats > div:last-child {
-		border-right: 0;
-	}
-
-	.stats strong,
-	.stats span {
-		display: block;
-	}
-
-	.stats strong {
-		font: 800 clamp(2.4rem, 5vw, 4.8rem)/0.95 var(--font-sans);
-		letter-spacing: -0.055em;
-		color: var(--accent);
-	}
-
-	.stats span {
-		max-width: 26ch;
-		margin-top: 0.8rem;
-		font-family: var(--font-sans);
-		font-size: 0.82rem;
-		line-height: 1.45;
-		color: var(--muted);
-	}
-
-	.actions {
-		display: flex;
-		flex-wrap: wrap;
-		gap: 0.7rem;
-	}
-
-	.actions a {
-		display: inline-flex;
-		align-items: center;
-		min-height: 44px;
-		padding: 0.7rem 1rem;
-		border: 1px solid var(--ink);
-		font-family: var(--font-sans);
-		font-size: 0.9rem;
-		font-weight: 750;
-		color: var(--ink);
-		text-decoration: none;
-	}
-
-	.actions a.primary {
-		background: var(--ink);
-		color: var(--paper);
-	}
-
-	.actions a:hover {
-		transform: translateY(-1px);
-	}
-
-	.tags {
-		display: flex;
-		flex-wrap: wrap;
-		gap: 0.45rem;
-		margin-top: 1.5rem;
-		color: var(--muted);
-	}
-
-	.tags span::after {
-		content: ' ·';
-	}
-
-	.tags span:last-child::after {
-		content: '';
-	}
-
-	.architecture {
-		display: grid;
-		grid-template-columns: 0.9fr 1.1fr;
-		gap: 5vw;
-		padding: 8rem 0;
-		border-top: 1px solid var(--line);
-	}
-
-	.architecture-grid {
-		display: grid;
-		gap: 0;
-		border-top: 1px solid var(--line);
-	}
-
-	.architecture-grid article {
-		padding: 1.5rem 0;
-		border-bottom: 1px solid var(--line);
-	}
-
-	.architecture-grid h3 {
-		margin: 0.3rem 0 0.5rem;
-		font-size: 1.8rem;
-	}
-
-	.architecture-grid p {
-		max-width: 56ch;
-		margin: 0;
-		line-height: 1.6;
-		color: var(--muted);
-	}
-
-	.hub-footer {
-		display: flex;
-		justify-content: space-between;
-		gap: 2rem;
-		padding: 2rem 0 4rem;
-		border-top: 1px solid var(--line);
-		font-family: var(--font-sans);
-		font-size: 0.82rem;
-		color: var(--muted);
-	}
-
-	.hub-footer nav {
-		display: flex;
-		gap: 1rem;
-	}
-
-	.hub-footer a {
-		color: inherit;
-	}
-
-	@media (max-width: 760px) {
-		.hero-meta,
-		.section-head,
-		.architecture,
-		.stats {
-			grid-template-columns: 1fr;
-		}
-
-		.hero-meta span + span,
-		.stats > div + div {
-			border-top: 1px solid var(--line);
-		}
-
-		.stats > div {
-			border-right: 0;
-		}
-
-		.section-head > p:last-child {
-			margin-top: 1rem;
-		}
-
-		.report-card {
-			grid-template-columns: 1fr;
-		}
-
-		.report-number {
-			font-size: 2rem;
-		}
-
-		.report-topline,
-		.hub-footer {
-			flex-direction: column;
-		}
-
-		.architecture-grid {
-			margin-top: 2rem;
-		}
-	}
+	:global(body) { background: #f4efe6; color: #171715; }
+	.report-hub { --paper:#f4efe6; --panel:#fffaf2; --ink:#171715; --muted:#68645d; --accent:#a33f32; --line:#d6cec1; min-height:100vh; }
+	.hero,.reports,.architecture,.hub-footer { width:min(1180px,calc(100% - 40px)); margin:0 auto; }
+	.hero { padding:clamp(3rem,7vw,6rem) 0 clamp(5rem,9vw,8rem); }
+	.utility { display:flex; justify-content:space-between; gap:1rem; align-items:center; margin-bottom:clamp(5rem,10vw,9rem); font:750 .72rem/1.2 var(--font-mono); letter-spacing:.1em; color:var(--accent); }
+	.eyebrow,.report-topline,.tags,.architecture-grid>article>span { font-family:var(--font-mono); font-size:.72rem; font-weight:750; letter-spacing:.1em; text-transform:uppercase; }
+	.eyebrow,.report-topline>span:first-child { color:var(--accent); }
+	h1,h2,h3 { font-family:var(--font-serif); }
+	h1 { max-width:1000px; margin:.18em 0 .3em; font-size:clamp(4rem,11vw,9.4rem); font-weight:600; line-height:.84; letter-spacing:-.065em; }
+	h1 em { color:var(--accent); font-weight:400; }
+	.dek { max-width:760px; font-size:clamp(1.12rem,2vw,1.45rem); line-height:1.58; color:var(--muted); }
+	.hero-meta { display:grid; grid-template-columns:repeat(3,1fr); margin-top:4rem; border-top:1px solid var(--line); border-bottom:1px solid var(--line); }
+	.hero-meta span { padding:1rem 1rem 1rem 0; font:500 .86rem/1.45 var(--font-sans); color:var(--muted); }
+	.hero-meta strong { color:var(--ink); }
+	.reports { padding:7rem 0; border-top:1px solid var(--line); }
+	.section-head { display:grid; grid-template-columns:1fr 1fr; column-gap:3rem; align-items:end; margin-bottom:3rem; }
+	.section-head .eyebrow { grid-column:1/-1; }
+	.section-head h2,.architecture h2 { margin:.2em 0 0; font-size:clamp(2.6rem,6vw,5.6rem); line-height:.94; letter-spacing:-.045em; }
+	.section-head>p:last-child { max-width:52ch; margin:0; color:var(--muted); line-height:1.6; }
+	.report-card { display:grid; grid-template-columns:minmax(80px,.15fr) minmax(0,1fr); gap:1.5rem; padding:clamp(1.5rem,4vw,3rem) 0 0; border-top:1px solid var(--line); }
+	.report-number { font:700 clamp(2.5rem,6vw,5rem)/1 var(--font-mono); letter-spacing:-.06em; color:#b8aea0; }
+	.report-copy { padding:0 0 4rem; }
+	.report-topline { display:flex; justify-content:space-between; gap:1rem; }
+	.status { color:var(--muted); }
+	.report-card h3 { margin:1rem 0 0; font-size:clamp(3rem,7vw,6.8rem); line-height:.92; letter-spacing:-.05em; }
+	.subtitle { margin:.5rem 0 1.5rem; font:500 clamp(1.35rem,2.6vw,2.2rem)/1.15 var(--font-serif); font-style:italic; color:var(--accent); }
+	.report-dek { max-width:760px; font-size:1.08rem; line-height:1.65; color:var(--muted); }
+	.stats { display:grid; grid-template-columns:repeat(3,1fr); margin:3rem 0; border:1px solid var(--line); background:var(--panel); }
+	.stats>div { padding:1.5rem; border-right:1px solid var(--line); }
+	.stats>div:last-child { border-right:0; }
+	.stats strong,.stats span { display:block; }
+	.stats strong { font:800 clamp(2.4rem,5vw,4.8rem)/.95 var(--font-sans); letter-spacing:-.055em; color:var(--accent); }
+	.stats span { max-width:28ch; margin-top:.8rem; font:500 .82rem/1.45 var(--font-sans); color:var(--muted); }
+	.actions { display:flex; flex-wrap:wrap; gap:.7rem; }
+	.actions a { display:inline-flex; align-items:center; min-height:44px; padding:.7rem 1rem; border:1px solid var(--ink); font:750 .9rem/1.2 var(--font-sans); color:var(--ink); text-decoration:none; }
+	.actions a.primary { background:var(--ink); color:var(--paper); }
+	.actions a:hover { transform:translateY(-1px); }
+	.tags { display:flex; flex-wrap:wrap; gap:.45rem; margin-top:1.5rem; color:var(--muted); }
+	.tags span::after { content:' ·'; } .tags span:last-child::after { content:''; }
+	.architecture { display:grid; grid-template-columns:.9fr 1.1fr; gap:5vw; padding:8rem 0; border-top:1px solid var(--line); }
+	.architecture-grid { display:grid; border-top:1px solid var(--line); }
+	.architecture-grid article { padding:1.5rem 0; border-bottom:1px solid var(--line); }
+	.architecture-grid h3 { margin:.3rem 0 .5rem; font-size:1.8rem; }
+	.architecture-grid p { max-width:56ch; margin:0; line-height:1.6; color:var(--muted); }
+	.hub-footer { display:flex; justify-content:space-between; gap:2rem; padding:2rem 0 4rem; border-top:1px solid var(--line); font:500 .82rem/1.4 var(--font-sans); color:var(--muted); }
+	.hub-footer nav { display:flex; gap:.35rem; flex-wrap:wrap; } .hub-footer a { display:inline-flex; align-items:center; min-width:44px; min-height:44px; padding:0 .35rem; color:inherit; }
+	@media(max-width:760px){ .hero-meta,.section-head,.architecture,.stats{grid-template-columns:1fr}.hero-meta span+span,.stats>div+div{border-top:1px solid var(--line)}.stats>div{border-right:0}.section-head>p:last-child{margin-top:1rem}.report-card{grid-template-columns:1fr}.report-number{font-size:2rem}.report-topline,.hub-footer{flex-direction:column}.architecture-grid{margin-top:2rem} }
 </style>
