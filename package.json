@@ -2,7 +2,7 @@
 	"name": "pudding-skill",
 	"version": "2.3.0",
 	"private": true,
-	"description": "Pudding-inspired editorial data-storytelling agent skill with candidate ranking, claim auditing, data contracts, and Svelte renderer",
+	"description": "Pudding-inspired editorial data-storytelling agent skill with candidate ranking, claim auditing, data contracts, visual grammar, first-draft generation, and browser QA",
 	"scripts": {
 		"gdoc": "node tasks/fetch-google.js",
 		"style": "node tasks/style-dictionary.js",
@@ -15,6 +15,9 @@
 		"story:derive": "python scripts/derive_story.py",
 		"story:build": "python scripts/pipeline.py",
 		"story:qa": "python scripts/qa_story.py --root .",
+		"story:visual": "python scripts/visual_grammar.py",
+		"story:draft": "python scripts/draft_story.py",
+		"pudding": "python scripts/pudding.py",
 		"test:skill": "python -m unittest discover -s tests -p 'test_*.py'",
 		"story:candidates": "python scripts/candidate_story.py",
 		"story:select": "python scripts/select_story.py",
