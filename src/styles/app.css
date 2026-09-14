@@ -49,6 +49,12 @@
 	--1s: 1ms;
 }
 
+html[lang^="zh"] {
+	--font-sans: "Noto Sans CJK SC", "PingFang SC", "Microsoft YaHei", "WenQuanYi Micro Hei", ui-sans-serif, sans-serif;
+	--font-serif: "Noto Serif CJK SC", "Songti SC", "STSong", "SimSun", serif;
+	--font-mono: "Noto Sans Mono CJK SC", "Noto Sans CJK SC", "Microsoft YaHei", monospace;
+}
+
 @media screen and (prefers-reduced-motion: no-preference) {
 	:root {
 		--1s: 1s;
