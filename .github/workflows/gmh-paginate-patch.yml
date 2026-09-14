@@ -1,0 +1,31 @@
+name: Patch WHO OData pagination
+on:
+  push:
+    branches: [story/global-mental-health-capacity-atlas]
+permissions:
+  contents: write
+jobs:
+  patch:
+    if: github.actor != 'github-actions[bot]'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Patch paginator
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          p=Path('scripts/mental_health_story.py')
+          s=p.read_text()
+          a=s.index('def fetch_odata_rows(')
+          b=s.index('\ndef _numeric(', a)
+          new='''def fetch_odata_rows(url: str) -> list[dict[str, Any]]:\n    \"\"\"Fetch all WHO OData pages, including endpoints without nextLink.\"\"\"\n    rows: list[dict[str, Any]] = []\n    page_size = 100\n    skip = 0\n    while True:\n        separator = \"&\" if \"?\" in url else \"?\"\n        page_url = f\"{url}{separator}$skip={skip}\"\n        payload = fetch_json(page_url)\n        page = payload.get(\"value\", [])\n        if skip and page and rows and page[0].get(\"Id\") == rows[0].get(\"Id\"):\n            raise RuntimeError(f\"WHO OData ignored $skip at {page_url}\")\n        rows.extend(page)\n        continuation = payload.get(\"@odata.nextLink\") or payload.get(\"odata.nextLink\")\n        if continuation:\n            url = continuation\n            skip = 0\n            continue\n        if len(page) < page_size:\n            break\n        skip += page_size\n    return rows\n\n'''
+          p.write_text(s[:a]+new+s[b+1:], encoding='utf-8')
+          PY
+      - name: Commit and self-delete
+        run: |
+          git config user.name github-actions[bot]
+          git config user.email 41898282+github-actions[bot]@users.noreply.github.com
+          git rm .github/workflows/gmh-paginate-patch.yml
+          git add scripts/mental_health_story.py
+          git commit -m 'fix: page complete WHO OData collections'
+          git push
