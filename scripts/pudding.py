@@ -31,7 +31,6 @@ def pitch_benchmark(args: argparse.Namespace) -> int:
     return run(command)
 
 
-
 def concept(args: argparse.Namespace) -> int:
     command = [sys.executable, "scripts/concept_board.py", args.concept_command]
     if args.concept_command == "init":
@@ -45,6 +44,25 @@ def concept(args: argparse.Namespace) -> int:
         command += [
             str(args.board),
             "--corpus", str(args.corpus),
+            "--output", str(args.output),
+            "--markdown", str(args.markdown),
+        ]
+    return run(command)
+
+
+def tournament(args: argparse.Namespace) -> int:
+    command = [sys.executable, "scripts/prototype_tournament.py", args.tournament_command]
+    if args.tournament_command == "init":
+        command += [
+            str(args.board),
+            "--route", args.route,
+            "--output", str(args.output),
+        ]
+    elif args.tournament_command == "validate":
+        command += [
+            str(args.tournament),
+            "--stage", args.stage,
+            "--evidence-root", str(args.evidence_root),
             "--output", str(args.output),
             "--markdown", str(args.markdown),
         ]
@@ -189,6 +207,23 @@ def main() -> int:
     concept_validate.add_argument("--output", type=Path, default=Path(".qa/concept-board-review.json"))
     concept_validate.add_argument("--markdown", type=Path, default=Path(".qa/concept-board-review.md"))
     concept_validate.set_defaults(func=concept)
+
+    tournament_parser = sub.add_parser("tournament", help="compare low-cost visual prototypes before selecting an implementation direction")
+    tournament_sub = tournament_parser.add_subparsers(dest="tournament_command", required=True)
+
+    tournament_init = tournament_sub.add_parser("init", help="create a prototype-tournament scaffold from a concept board")
+    tournament_init.add_argument("board", type=Path)
+    tournament_init.add_argument("--route", required=True)
+    tournament_init.add_argument("--output", type=Path, default=Path("generated/prototype-tournament.json"))
+    tournament_init.set_defaults(func=tournament)
+
+    tournament_validate = tournament_sub.add_parser("validate", help="validate the manifest, judged decision, or screenshot evidence")
+    tournament_validate.add_argument("tournament", type=Path)
+    tournament_validate.add_argument("--stage", choices=["manifest", "decision", "evidence"], default="manifest")
+    tournament_validate.add_argument("--evidence-root", type=Path, default=Path("."))
+    tournament_validate.add_argument("--output", type=Path, default=Path(".qa/prototype-tournament-review.json"))
+    tournament_validate.add_argument("--markdown", type=Path, default=Path(".qa/prototype-tournament-review.md"))
+    tournament_validate.set_defaults(func=tournament)
 
     inspect_parser = sub.add_parser("inspect", help="profile an arbitrary tabular dataset")
     inspect_parser.add_argument("data", type=Path)

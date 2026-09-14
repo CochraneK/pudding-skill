@@ -1,0 +1,140 @@
+{
+  "status": "WINNER_SELECTED",
+  "story_id": "global-mental-health",
+  "question": "全球精神障碍的负担有多大，而不同国家为治疗和照护准备了多少资源？",
+  "argument": "全球精神健康的核心不只是患病人数巨大，而是需求普遍存在、治疗能力却跨国家极不均衡；理解这种差距必须同时看到规模、资源与数据缺口。",
+  "concept_board": "stories/global-mental-health/concept-board.json",
+  "comparison_route": "/stories/global-mental-health/prototypes",
+  "instructions": "Build only the hardest claim-bearing moment for every concept. Capture the same desktop and mobile viewports, score the screenshots independently, eliminate hard-gate failures, then select, combine, pivot, or put the story down.",
+  "criteria": [
+    {
+      "id": "reader_realization",
+      "weight": 20,
+      "question": "Can a reader state the intended insight from the prototype?",
+      "scale": "1-5"
+    },
+    {
+      "id": "evidence_fidelity",
+      "weight": 20,
+      "question": "Does the prototype preserve units, caveats, missingness, and provenance?",
+      "scale": "1-5"
+    },
+    {
+      "id": "visual_necessity",
+      "weight": 15,
+      "question": "Does the visual treatment materially improve understanding over prose alone?",
+      "scale": "1-5"
+    },
+    {
+      "id": "interaction_economy",
+      "weight": 15,
+      "question": "Does the chosen interaction level, including none, earn its complexity?",
+      "scale": "1-5"
+    },
+    {
+      "id": "reader_effort",
+      "weight": 10,
+      "question": "Can the reader understand the claim without avoidable work or controls?",
+      "scale": "1-5"
+    },
+    {
+      "id": "mobile_viability",
+      "weight": 10,
+      "question": "Does the same conclusion survive a narrow viewport and touch input?",
+      "scale": "1-5"
+    },
+    {
+      "id": "accessibility_equivalence",
+      "weight": 10,
+      "question": "Is the same evidence and conclusion available without hover, motion, or vision-only cues?",
+      "scale": "1-5"
+    }
+  ],
+  "prototypes": [
+    {
+      "alias": "A",
+      "concept_id": "static-gap-atlas",
+      "form": "annotated_static",
+      "interaction_job": "none",
+      "prototype_route": "/stories/global-mental-health/prototypes?focus=A",
+      "desktop_screenshot": ".qa/stories-global-mental-health-prototypes-focus-A-desktop.png",
+      "mobile_screenshot": ".qa/stories-global-mental-health-prototypes-focus-A-mobile.png",
+      "judge": {
+        "scores": {
+          "reader_realization": 5,
+          "evidence_fidelity": 5,
+          "visual_necessity": 4,
+          "interaction_economy": 5,
+          "reader_effort": 5,
+          "mobile_viability": 5,
+          "accessibility_equivalence": 5
+        },
+        "hard_failures": [],
+        "verdict": "SURVIVE",
+        "notes": "Desktop and mobile screenshots make the 1,647× resource gap immediately legible with direct numeric labels, visible source/year context, and the reporting-coverage caveat. The static bars add magnitude without asking the reader to operate a control, and the narrow layout preserves the same conclusion without losing evidence."
+      }
+    },
+    {
+      "alias": "B",
+      "concept_id": "care-capacity-ladder",
+      "form": "guided_sequence",
+      "interaction_job": "reveal",
+      "prototype_route": "/stories/global-mental-health/prototypes?focus=B",
+      "desktop_screenshot": ".qa/stories-global-mental-health-prototypes-focus-B-desktop.png",
+      "mobile_screenshot": ".qa/stories-global-mental-health-prototypes-focus-B-mobile.png",
+      "judge": {
+        "scores": {
+          "reader_realization": 4,
+          "evidence_fidelity": 4,
+          "visual_necessity": 4,
+          "interaction_economy": 3,
+          "reader_effort": 4,
+          "mobile_viability": 4,
+          "accessibility_equivalence": 5
+        },
+        "hard_failures": [],
+        "verdict": "SURVIVE",
+        "notes": "The screenshots show a coherent need → priority → capacity sequence and the active state remains readable on mobile. The sequence adds editorial structure, but the core 1,647× claim is already understandable without stepping through the other states, so the interaction earns only a moderate economy score rather than receiving a novelty bonus."
+      }
+    },
+    {
+      "alias": "C",
+      "concept_id": "country-capacity-explorer",
+      "form": "explorable",
+      "interaction_job": "compare",
+      "prototype_route": "/stories/global-mental-health/prototypes?focus=C",
+      "desktop_screenshot": ".qa/stories-global-mental-health-prototypes-focus-C-desktop.png",
+      "mobile_screenshot": ".qa/stories-global-mental-health-prototypes-focus-C-mobile.png",
+      "judge": {
+        "scores": {
+          "reader_realization": 3,
+          "evidence_fidelity": 4,
+          "visual_necessity": 4,
+          "interaction_economy": 3,
+          "reader_effort": 3,
+          "mobile_viability": 3,
+          "accessibility_equivalence": 4
+        },
+        "hard_failures": [],
+        "verdict": "ELIMINATE",
+        "notes": "The comparison control is accessible and the visible metric is well sourced, but the concept's real promise — that capacity is multidimensional — is not apparent until the reader changes the metric. On mobile the selected label is visibly cramped, and the extra operation increases reader effort before it produces a stronger realization than the static comparison."
+      }
+    }
+  ],
+  "decision": {
+    "outcome": "SELECT",
+    "winner_concept_ids": [
+      "static-gap-atlas"
+    ],
+    "reason": "Prototype A wins because it communicates the central resource disparity fastest on both desktop and mobile while preserving the relevant evidence and caveat in the same frame. Prototype B contributes a useful editorial sequence but does not need an interactive stepper to deliver it, while Prototype C makes the reader operate a control before its multidimensional thesis becomes visible. The tournament therefore selects the static composition as the production base rather than rewarding the more complex implementations by default.",
+    "implementation_handoff": [
+      "Keep the 1,647× comparison, the two direct numeric labels, and the source/reporting-coverage caveat visible together without requiring hover, scrolling state, or a control.",
+      "Reuse the useful Need → priority → capacity logic from Prototype B as static section framing or annotation hierarchy rather than importing the stepper interaction machinery.",
+      "Treat multidimensional capacity exploration from Prototype C as optional secondary depth only when it adds a distinct question; do not make it a prerequisite for understanding the main claim."
+    ],
+    "discarded_lessons": [
+      "Prototype B showed that sequencing need, public priority, and capacity is editorially useful even though the stepper itself was unnecessary for the main claim.",
+      "Prototype C showed that additional capacity metrics can deepen the story, but a selector should not hide the thesis or become mandatory work for first-pass comprehension."
+    ]
+  }
+}

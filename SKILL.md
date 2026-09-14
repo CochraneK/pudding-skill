@@ -5,11 +5,11 @@ description: Turn a domain or industry question into an auditable research dossi
 
 # Pudding Scrolly
 
-Build **Pudding-inspired editorial data stories**, not visual clones of The Pudding. When trustworthy structured data does not yet exist, first build an auditable research dossier. Reproduce the useful reasoning pattern: question → research dossier when needed → evidence → competing story directions → editorial choice → visual grammar → independently verified claims → first draft → implementation → browser verification → screenshot review → bounded refinement.
+Build **Pudding-inspired editorial data stories**, not visual clones of The Pudding. When trustworthy structured data does not yet exist, first build an auditable research dossier. Reproduce the useful reasoning pattern: question → research dossier when needed → evidence → competing story directions → contrastive concepts → cheap prototypes → screenshot tournament → editorial choice → visual grammar → independently verified claims → first draft → implementation → browser verification → screenshot review → bounded refinement.
 
 ## Core rule
 
-Do not start by choosing a chart, writing a headline, or generating Svelte. First establish what the data can support, compare plausible story directions, and make the numerical evidence auditable.
+Do not start by choosing a chart, writing a headline, or generating production Svelte. First establish what the data can support, compare plausible story directions, and make the numerical evidence auditable. After a concept board passes, prototype competing forms before committing to one implementation.
 
 Use this sequence:
 
@@ -19,17 +19,18 @@ Use this sequence:
 3. **Resolve semantics** — use a data contract when roles/units are ambiguous. Never infer meaning from field names alone when that could change the claim.
 4. **Generate candidates** — derive multiple defensible analytical directions instead of stopping at the first matching chart pattern.
 5. **Rank, then judge** — use deterministic scoring for triage; apply editorial/domain judgment before publication.
-6. **Select with fallback** — reject candidates that fail story-spec, quality, or renderer gates and try the next one.
+6. **Select with fallback** — reject analytical candidates that fail story-spec, quality, or renderer gates and try the next one.
 7. **Design narrative beats** — hook → baseline → reveal → comparison/explanation → conclusion.
-8. **Contrast concepts** — before bespoke implementation, develop and validate at least three structurally different concepts, including a static/no-interaction alternative. Prototype the hardest claim-bearing moments before selecting a form.
-9. **Choose visual grammar** — recommend the best editorial form while preserving a deterministic baseline renderer.
-10. **Verify claims independently** — recompute quantitative evidence from raw data.
-11. **Generate a first-draft package** — headline, dek, sections, annotations, methodology, caveats, and claim provenance.
-12. **Implement and inspect** — build the smallest Svelte experience that communicates the chosen story clearly.
-13. **Validate delivery** — data claims, build, mobile layout, accessibility, reduced motion, sourcing, attribution, dependency gate, and real-browser QA.
-14. **Review screenshots** — separate measurable browser evidence from visual/editorial judgment and inspect every desktop/mobile capture.
-15. **Refine safely** — apply only bounded automatic fixes; use agent/manual source edits for art direction, then rerun the full browser/visual loop.
-16. **Benchmark pipeline changes** — when candidate scoring, selection, claim verification, visual grammar, or provenance changes, run the curated regression corpus and explain any expectation change instead of weakening the gate.
+8. **Contrast concepts** — before bespoke implementation, develop and validate 3–6 structurally different visual concepts, including a serious static/no-interaction alternative.
+9. **Run a prototype tournament** — implement only the hardest claim-bearing moment for every concept, capture equivalent desktop/mobile screenshots, score them with interaction-neutral criteria, apply hard gates, then `SELECT`, `COMBINE`, `PIVOT`, or `PUT_DOWN`. Do not force a winner.
+10. **Choose visual grammar** — recommend the best editorial form while preserving a deterministic baseline renderer.
+11. **Verify claims independently** — recompute quantitative evidence from raw data.
+12. **Generate a first-draft package** — headline, dek, sections, annotations, methodology, caveats, and claim provenance.
+13. **Implement and inspect** — build the smallest production Svelte experience that communicates the tournament decision clearly.
+14. **Validate delivery** — data claims, build, mobile layout, accessibility, reduced motion, sourcing, attribution, dependency gate, and real-browser QA.
+15. **Review screenshots** — separate measurable browser evidence from visual/editorial judgment and inspect every desktop/mobile capture.
+16. **Refine safely** — apply only bounded automatic fixes; use agent/manual source edits for art direction, then rerun the full browser/visual loop.
+17. **Benchmark pipeline changes** — when candidate scoring, selection, claim verification, visual grammar, provenance, or tournament logic changes, run the curated regression corpus and explain any expectation change instead of weakening the gate.
 
 Read:
 
@@ -38,7 +39,8 @@ Read:
 - `references/editorial-workflow.md` for editorial sequencing;
 - `references/editorial-scoring.md` for candidate ranking limits;
 - `references/data-contract.md` for explicit field semantics;
-- `references/concept-board.md` after evidence supports the argument and before bespoke visual implementation;
+- `references/concept-board.md` after evidence supports the argument and before any bespoke visual implementation;
+- `references/prototype-tournament.md` immediately after the concept board passes; it defines the equal screenshot contract, interaction-neutral scoring, hard gates, and implementation handoff;
 - `references/visual-grammar.md` for visual selection;
 - `references/interaction-grammar.md` for guided scrollytelling, reader handoff, exploration, bilingual interaction, and no-scroll-jacking rules;
 - `references/story-spec.md` for the analysis/rendering contract;
@@ -56,7 +58,50 @@ Study `benchmarks/pudding-study-corpus.json` with `npm run pudding:study` before
 
 ## Contrastive concept board
 
-Once research/data audit supports the argument, do not code the first plausible visual. Create a concept board with `python scripts/pudding.py concept init ...`, develop at least three complete directions, then run `python scripts/pudding.py concept validate generated/concept-board.json`. One direction must be a serious static/no-interaction alternative. A passing result is `READY_FOR_PROTOTYPE`, never automatic selection. Read `references/concept-board.md` for the contract and prototype-review criteria.
+Once research/data audit supports the argument, do not code the first plausible visual. Create a concept board with `python scripts/pudding.py concept init ...`, develop 3–6 complete directions, then run `python scripts/pudding.py concept validate generated/concept-board.json`. One direction must be a serious static/no-interaction alternative. A passing result is `READY_FOR_PROTOTYPE`, never automatic selection. Read `references/concept-board.md` for the contract.
+
+A board is incomplete as a decision instrument until its concepts are actually compared. Do not silently drop the static direction, the least fashionable direction, or the concept that is harder to implement before the tournament. The purpose of this stage is to create genuine alternatives, not to decorate a choice already made.
+
+## Prototype tournament
+
+After `READY_FOR_PROTOTYPE`, create a tournament manifest:
+
+```bash
+python scripts/pudding.py tournament init generated/concept-board.json \
+  --route /stories/example/prototypes \
+  --output generated/prototype-tournament.json
+```
+
+Build only the **hardest claim-bearing moment** for every concept. Do not spend on headers, decorative motion, transitions, or a complete article. Give every concept the same screenshot contract at desktop and mobile widths, then judge the captures rather than the implementation effort already invested.
+
+The canonical seven dimensions are:
+
+- reader realization — can someone state the intended insight?
+- evidence fidelity — are units, caveats, missingness, uncertainty, and provenance preserved?
+- visual necessity — does the visual materially improve understanding over prose?
+- interaction economy — does the chosen interaction level, including `none`, earn its complexity?
+- reader effort — can the claim be understood without avoidable work or controls?
+- mobile viability — does the same conclusion survive a narrow touch viewport?
+- accessibility equivalence — is the evidence available without hover, motion, or vision-only cues?
+
+`evidence_fidelity`, `mobile_viability`, and `accessibility_equivalence` are hard gates. A visually impressive prototype cannot compensate for failing them. A static prototype is not penalized for having no interaction; `none` can score highest when interaction adds work without adding understanding.
+
+Once screenshots have been inspected and scores/notes recorded, validate the decision:
+
+```bash
+python scripts/pudding.py tournament validate generated/prototype-tournament.json --stage decision
+```
+
+CI or another evidence-bearing environment can additionally require every referenced screenshot to exist:
+
+```bash
+python scripts/pudding.py tournament validate generated/prototype-tournament.json \
+  --stage evidence --evidence-root .
+```
+
+Valid outcomes are `SELECT`, `COMBINE`, `PIVOT`, and `PUT_DOWN`. Never force `SELECT` when every prototype is eliminated. A selected outcome must preserve explicit implementation constraints learned from the comparison so production polish does not erase why the concept won.
+
+Read `references/prototype-tournament.md` for the full scoring and handoff contract.
 
 ## Research-first workflow
 
@@ -191,7 +236,7 @@ Do not default to scrollytelling. A static annotated chart, dot plot, slopegraph
 
 For example, change-gap evidence may recommend a slopegraph while retaining a ranked bar as the safe baseline.
 
-Do not silently replace a passing baseline with a richer bespoke form unless that implementation can also pass build, accessibility, mobile, and browser QA.
+Do not silently replace a passing baseline with a richer bespoke form unless that implementation can also pass build, accessibility, mobile, and browser QA. For bespoke stories that went through a concept board, the tournament decision is an additional constraint: the richer production form should implement the winning editorial job, not simply the easiest reusable component.
 
 ## Scrollytelling decision
 
@@ -223,9 +268,9 @@ Never scroll-jack. Observe natural scrolling with IntersectionObserver/Scrollama
 
 ## Baseline vs publication design
 
-The generic renderer is a correctness baseline, not a final art direction. Once the story spec, claim audit, visual plan, and first-draft provenance pass, replace it with bespoke Svelte when the editorial idea benefits from stronger annotation, small multiples, a meaningful visual metaphor, scroll transformations, or exploration.
+The generic renderer is a correctness baseline, not a final art direction. Once the story spec, claim audit, visual plan, first-draft provenance, and—when used—the prototype tournament pass, replace it with bespoke Svelte when the winning editorial idea benefits from stronger annotation, small multiples, a meaningful visual metaphor, scroll transformations, or exploration.
 
-When replacing the renderer, preserve the underlying evidence calculations and rerun the claim audit.
+When replacing the renderer, preserve the underlying evidence calculations and rerun the claim audit. Preserve the tournament's implementation handoff unless later screenshot evidence gives a documented reason to revise it.
 
 ## Browser delivery QA
 
@@ -235,9 +280,9 @@ After the static checks and production build pass, test the built site in a real
 npm run qa:browser -- --base-url http://127.0.0.1:4173 --out .qa
 ```
 
-The default browser gate visits `/`, `/generated`, and `/lab` at desktop and mobile widths with reduced motion enabled. v2.6 CI also includes `/benchmark`, producing eight route/viewport delivery cases. It fails on uncaught exceptions, browser console errors, network failures, horizontal overflow, missing page structure, duplicate IDs, images without `alt`, unnamed interactive controls, or a broken keyboard Tab path. It writes PNG screenshots plus `.qa/browser-qa.json`.
+The default browser gate visits `/`, `/generated`, and `/lab` at desktop and mobile widths with reduced motion enabled. CI extends this to benchmark and bespoke story routes. It fails on uncaught exceptions, browser console errors, network failures, horizontal overflow, missing page structure, duplicate IDs, images without `alt`, unnamed interactive controls, or a broken keyboard Tab path. It writes PNG screenshots plus `.qa/browser-qa.json`.
 
-Browser QA is a delivery gate, not an aesthetic score.
+Browser QA is a delivery gate, not an aesthetic score. Prototype-tournament screenshots may use the same browser harness, but their editorial scores must still be recorded separately in the tournament manifest.
 
 ## Screenshot-driven visual review
 
@@ -269,24 +314,27 @@ After any refinement, rebuild and rerun browser QA + visual probe + screenshot i
 Before declaring the story complete:
 
 1. Validate the data contract when present.
-2. Review the candidate board and justify the selected direction.
+2. Review the candidate board and justify the selected analytical direction.
 3. Re-run `scripts/validate_story.py`.
 4. Re-run `scripts/verify_claims.py` against the raw data.
-5. Review `generated/visual-plan.json`; confirm the recommended form actually fits the editorial task.
-6. Review `generated/story-draft.json` and verify every `claim_ref` still maps to the intended evidence.
-7. Run `python scripts/qa_story.py --root .`.
-8. Run unit tests (`npm run test:skill`).
-9. Run the editorial benchmark (`npm run benchmark`) when core pipeline behavior changed.
-10. Build with `npm run build`.
-11. Run browser delivery QA against the built preview.
-12. Run the visual probe and deterministic critic.
-13. Inspect all desktop/mobile screenshots and record a separate agent/editor visual verdict.
-14. If refinement is needed, apply only allowlisted auto-actions or an explicit source edit; then rerun the full visual loop.
-15. Inspect desktop and mobile widths as editorial compositions, not just overflow checks.
-16. Verify every quantitative sentence against structured evidence.
-17. Test the first screen without scrolling.
-18. Test reduced motion and keyboard use.
-19. Confirm source attribution, caveats, and non-affiliation language.
-20. Confirm the npm audit gate has no high or critical advisories.
+5. For bespoke visual stories, validate the contrastive concept board and confirm the static/no-interaction alternative was seriously developed.
+6. Run the prototype tournament: inspect equivalent desktop/mobile screenshots, record scores/notes, apply hard gates, and document `SELECT`, `COMBINE`, `PIVOT`, or `PUT_DOWN`.
+7. If the tournament selects/combines a direction, preserve its implementation handoff in the production build; if it pivots or puts the story down, do not continue as though a winner existed.
+8. Review `generated/visual-plan.json`; confirm the recommended form fits the evidence and the tournament outcome.
+9. Review `generated/story-draft.json` and verify every `claim_ref` still maps to the intended evidence.
+10. Run `python scripts/qa_story.py --root .`.
+11. Run unit tests (`npm run test:skill`).
+12. Run the editorial benchmark (`npm run benchmark`) when core pipeline behavior changed.
+13. Build with `npm run build`.
+14. Run browser delivery QA against the built preview.
+15. Run the visual probe and deterministic critic.
+16. Inspect all desktop/mobile screenshots and record a separate agent/editor visual verdict.
+17. If refinement is needed, apply only allowlisted auto-actions or an explicit source edit; then rerun the full visual loop.
+18. Inspect desktop and mobile widths as editorial compositions, not just overflow checks.
+19. Verify every quantitative sentence against structured evidence.
+20. Test the first screen without scrolling.
+21. Test reduced motion and keyboard use.
+22. Confirm source attribution, caveats, and non-affiliation language.
+23. Confirm the npm audit gate has no high or critical advisories.
 
 If any hard check fails, revise before delivery.

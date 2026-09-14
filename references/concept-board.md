@@ -25,7 +25,9 @@ supported argument + verified evidence
   ↓
 cheap prototypes of the riskiest ideas
   ↓
-editorial comparison
+equal desktop/mobile screenshots
+  ↓
+prototype tournament
   ↓
 select / combine / pivot / put down
   ↓
@@ -90,15 +92,20 @@ A passing result is `READY_FOR_PROTOTYPE`, not `SELECTED` or `APPROVED`.
 
 Do not ask “which Pudding story looks most like mine?” and retrieve its layout.
 
-## Prototype review
+## Prototype handoff
 
-Prototype the **hardest claim-bearing moment**, not the header, transitions, or decorative motion. Compare prototypes on:
+Prototype the **hardest claim-bearing moment**, not the header, transitions, or decorative motion. Every concept on the validated board must enter the prototype tournament, including the static/no-interaction direction.
 
-1. reader realization — can someone state the intended insight?
-2. evidence fidelity — does the form preserve units, uncertainty, missingness, and provenance?
-3. visual necessity — is this materially better than prose/static alternatives?
-4. interaction necessity — does the interaction change understanding?
-5. mobile/accessibility — is the same conclusion available without hover, wide screens, or motion?
-6. editorial character — does the form arise from this story's subject and evidence rather than generic “data-viz style”? 
+The tournament compares:
 
-A concept may pass the deterministic board validator and still fail prototype review. That is expected.
+1. reader realization;
+2. evidence fidelity;
+3. visual necessity;
+4. interaction economy — including whether `none` is the best interaction choice;
+5. reader effort;
+6. mobile viability;
+7. accessibility equivalence.
+
+Evidence fidelity, mobile viability, and accessibility equivalence are hard gates. A visually exciting concept cannot compensate for failing them, and no-interaction is not penalized when it communicates the claim with less reader effort.
+
+A concept may pass the deterministic board validator and still be eliminated by screenshot review. That is expected. Continue with `references/prototype-tournament.md`; do not begin bespoke implementation merely because the board says `READY_FOR_PROTOTYPE`.
