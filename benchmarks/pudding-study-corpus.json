@@ -20,7 +20,10 @@
       "human_angle": "Readers already recognize unequal representation; the project gives that lived observation a measurable frame without pretending the metric captures every dimension of a role.",
       "data_strategy": "large_custom_dataset",
       "visual_necessity": "Thousands of films and several cuts by gender, age, genre, and lead status are much easier to reason about through repeated visual comparisons than through prose or a table.",
-      "interaction_jobs": ["compare", "explore"],
+      "interaction_jobs": [
+        "compare",
+        "explore"
+      ],
       "interaction_mode": "guided_then_lookup",
       "design_move": "Start with an accessible subset, expand to the full corpus, then let readers inspect films and categories.",
       "caveat_mode": "Method limitations are tied directly to screenplay coverage, character thresholds, and script-to-screen differences.",
@@ -38,7 +41,11 @@
       "human_angle": "The premise begins with a mundane recurring annoyance that many readers physically experience, so the measurements answer a felt question rather than an abstract metric.",
       "data_strategy": "hand_collected_measurements",
       "visual_necessity": "Pocket outlines, dimensions, and object-fit tests make physical constraints spatially legible in a way percentages alone cannot.",
-      "interaction_jobs": ["reveal", "compare", "play"],
+      "interaction_jobs": [
+        "reveal",
+        "compare",
+        "play"
+      ],
       "interaction_mode": "scrolly_then_item_explorer",
       "design_move": "Use a stable physical metaphor—the pocket itself—through the guided section, then let the reader test familiar objects.",
       "caveat_mode": "Sample construction, waist-size matching, store collection, and geometric fit assumptions are exposed in methods.",
@@ -56,7 +63,11 @@
       "human_angle": "The reader is invited to re-experience a performance and discover craft hidden beneath something that initially feels spontaneous.",
       "data_strategy": "manual_annotation",
       "visual_necessity": "A routine's nested topics, callbacks, timing, and laughter duration are structural relationships; mapping them makes the argument visible rather than merely asserted.",
-      "interaction_jobs": ["reveal", "zoom", "annotate"],
+      "interaction_jobs": [
+        "reveal",
+        "zoom",
+        "annotate"
+      ],
       "interaction_mode": "guided_stepper",
       "design_move": "Use navigation and progressive decomposition so the same performance moves from line-level detail to thematic form and back again.",
       "caveat_mode": "The project states that captions and topic boundaries were manually annotated and collectively reviewed.",
@@ -74,7 +85,12 @@
       "human_angle": "Technical language analysis is anchored in artists, slang, regions, and musical identity that readers may already care about.",
       "data_strategy": "large_licensed_corpus_plus_modeling",
       "visual_necessity": "Odds, term centrality, artist similarity, and high-dimensional neighborhoods become intelligible through spatial encodings and staged examples.",
-      "interaction_jobs": ["compare", "reveal", "explore", "zoom"],
+      "interaction_jobs": [
+        "compare",
+        "reveal",
+        "explore",
+        "zoom"
+      ],
       "interaction_mode": "guided_method_then_map",
       "design_move": "Use one familiar word or artist to establish each analytical concept before exposing the full high-dimensional result.",
       "caveat_mode": "Methodology explains corpus filters, tf-idf modifications, similarity, dimensionality reduction, and known interpretation limits.",
@@ -92,7 +108,11 @@
       "human_angle": "The project starts from a recurring social argument—everyone claims their city is best—and admits that the author's own definition is only one opinion.",
       "data_strategy": "third_party_reviews_plus_derived_metric",
       "visual_necessity": "The ranking is not a single fact; interactive movement shows sensitivity to weights and thresholds, making methodological subjectivity visible.",
-      "interaction_jobs": ["compare", "simulate", "explore"],
+      "interaction_jobs": [
+        "compare",
+        "simulate",
+        "explore"
+      ],
       "interaction_mode": "parameterized_explorer",
       "design_move": "Turn uncertainty about the scoring model into the main interaction instead of burying it in methodology.",
       "caveat_mode": "Criteria restrictions and the arbitrariness of ‘best’ are acknowledged in both interface and methods.",
@@ -110,7 +130,11 @@
       "human_angle": "The story converts an abstract success rate into the careers of bands whose paths have recognizable hopes, stalls, and breakthroughs.",
       "data_strategy": "event_history_dataset",
       "visual_necessity": "Career trajectories are sequences through time and venue scale; paths and search make the contrast between exceptional and typical careers visible.",
-      "interaction_jobs": ["compare", "lookup", "explore"],
+      "interaction_jobs": [
+        "compare",
+        "lookup",
+        "explore"
+      ],
       "interaction_mode": "guided_examples_then_search",
       "design_move": "Teach the trajectory with a few named bands before handing the same representation to readers for lookup.",
       "caveat_mode": "Venue capacity is explicitly framed as a proxy for success, with thresholds described as manual choices.",
@@ -128,7 +152,11 @@
       "human_angle": "The reader is not a spectator; their own guess and birthday become part of the explanation and the evolving dataset.",
       "data_strategy": "reader_generated_plus_probability_model",
       "visual_necessity": "The gap between intuition and probability is experiential, and the evolving distribution of guesses makes collective misunderstanding visible.",
-      "interaction_jobs": ["play", "simulate", "reveal"],
+      "interaction_jobs": [
+        "play",
+        "simulate",
+        "reveal"
+      ],
       "interaction_mode": "participatory_experiment",
       "design_move": "Ask for a commitment before revealing the answer so the interaction creates a cognitive stake in the result.",
       "caveat_mode": "The project distinguishes theoretical even-distribution math from the real birthday data collected from readers.",
@@ -146,7 +174,11 @@
       "human_angle": "The story treats niche obsession itself as legitimate motivation and turns the author's rabbit hole into a reader-controlled depth choice.",
       "data_strategy": "large_clue_database_plus_editorial_examples",
       "visual_necessity": "Frequency, repetition, and word-pattern constraints are easier to see through compact visual counts and interactive word play than through exposition alone.",
-      "interaction_jobs": ["play", "explore", "lookup"],
+      "interaction_jobs": [
+        "play",
+        "explore",
+        "lookup"
+      ],
       "interaction_mode": "progressive_depth",
       "design_move": "Offer multiple reading levels so a three-minute answer and a deep nerdy exploration can coexist without forcing every reader through the same length.",
       "caveat_mode": "Database scope and historical frequency are kept distinct from claims about editorial intent.",
@@ -164,7 +196,11 @@
       "human_angle": "The reader's identity and taste are the content, creating emotional stakes through teasing, recognition, and self-reflection.",
       "data_strategy": "user_authorized_personal_data_plus_curated_rules",
       "visual_necessity": "The essential medium is interactive personalization rather than a chart; a static article cannot reproduce the same individualized sequence.",
-      "interaction_jobs": ["play", "lookup", "personalize"],
+      "interaction_jobs": [
+        "play",
+        "lookup",
+        "personalize"
+      ],
       "interaction_mode": "personalized_conversation",
       "design_move": "Treat interface, timing, and voice as the visual essay rather than forcing conventional charts into a product-like experience.",
       "caveat_mode": "Privacy and data access behavior are disclosed, including the limits of the faux-AI framing.",
@@ -182,7 +218,10 @@
       "human_angle": "Readers can connect a global phenomenon to familiar cities and recent days instead of only seeing century-scale averages.",
       "data_strategy": "continuously_updated_public_data",
       "visual_necessity": "Map position and recency encode where records are happening and how recently, letting a living pattern emerge at a glance.",
-      "interaction_jobs": ["lookup", "explore"],
+      "interaction_jobs": [
+        "lookup",
+        "explore"
+      ],
       "interaction_mode": "living_map",
       "design_move": "Choose a metric whose meaning updates naturally over time so the page remains a living instrument rather than a frozen article.",
       "caveat_mode": "Station threading, relocation, and long-series construction are documented in the data notes.",
@@ -200,7 +239,11 @@
       "human_angle": "Differences between models matter because they can change how residents understand property risk and insurance-relevant exposure.",
       "data_strategy": "paired_model_outputs",
       "visual_necessity": "Geographic disagreement is inherently spatial, and maps plus local tables show both pattern and consequence.",
-      "interaction_jobs": ["compare", "zoom", "lookup"],
+      "interaction_jobs": [
+        "compare",
+        "zoom",
+        "lookup"
+      ],
       "interaction_mode": "map_and_table_explorer",
       "design_move": "Keep the comparison frame stable while switching model views so disagreement is the visual subject.",
       "caveat_mode": "The page identifies each model's role and frames one dataset as an additional perspective rather than a universal replacement.",
@@ -218,12 +261,36 @@
       "human_angle": "Humor creates an immediate human standard: outputs can be technically plausible yet still fail because people simply do not laugh.",
       "data_strategy": "live_experiment_plus_human_feedback",
       "visual_necessity": "The project benefits from showing iterations, choices, and examples as a process; the interface documents collaboration rather than only reporting a final score.",
-      "interaction_jobs": ["reveal", "play", "compare"],
+      "interaction_jobs": [
+        "reveal",
+        "play",
+        "compare"
+      ],
       "interaction_mode": "process_experiment",
       "design_move": "Make the feedback loop and imperfect intermediate outputs part of the story rather than hiding them behind a polished final result.",
       "caveat_mode": "Human involvement and the limits of computational humor are foregrounded rather than treated as implementation details.",
       "editorial_lesson": "Process can be the evidence when the question is about whether a new creative workflow actually works.",
       "anti_copy_note": "Learn the experiment-as-story frame; do not reproduce their prompts, cartoons, model outputs, or comedic voice."
+    },
+    {
+      "id": "outkast-in-charts",
+      "title": "Outkast, in Charts",
+      "url": "https://pudding.cool/2017/03/outkast",
+      "published_year": 2017,
+      "story_family": "static_chart_essay",
+      "question": "What does Outkast’s history look like when lyrical themes, language, collaborators, and life events are treated as evidence?",
+      "argument_pattern": "Build a portrait of one cultural subject through a sequence of focused charts and reported context rather than through one master interactive.",
+      "human_angle": "The author’s fandom and curiosity about hip-hop history are explicit, so the charts answer specific questions about an artist rather than decorating a retrospective.",
+      "data_strategy": "artist_specific_analysis_plus_reporting",
+      "visual_necessity": "Multiple small, mostly static charts let different kinds of evidence—language, themes, geography, collaborators, and chronology—sit beside reported context without forcing one interaction model.",
+      "interaction_jobs": [
+        "none"
+      ],
+      "interaction_mode": "static_chart_sequence",
+      "design_move": "Use a sequence of self-contained visuals, each paired with editorial interpretation, so the story can change visual form when the evidence changes.",
+      "caveat_mode": "The piece distinguishes quantitative counts from interpretive cultural history and uses reported context where data alone cannot establish meaning.",
+      "editorial_lesson": "Static charts are a first-class visual-story form: if each chart advances a distinct part of the argument, interactivity is optional rather than a marker of ambition.",
+      "anti_copy_note": "Learn the chart-sequence discipline; do not copy the typography, chart styling, artist framing, or specific Outkast analysis."
     }
   ]
 }

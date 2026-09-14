@@ -60,6 +60,7 @@ def validate_corpus(corpus: dict[str, Any]) -> dict[str, Any]:
     strategies: Counter[str] = Counter()
     jobs: Counter[str] = Counter()
     modes: Counter[str] = Counter()
+    static_stories = 0
 
     for index, story in enumerate(stories):
         label = story.get("id") if isinstance(story, dict) else f"row-{index}"
@@ -97,13 +98,20 @@ def validate_corpus(corpus: dict[str, Any]) -> dict[str, Any]:
 
         interaction_jobs = story.get("interaction_jobs")
         if not isinstance(interaction_jobs, list) or not interaction_jobs:
-            errors.append(f"{sid}: interaction_jobs must be a non-empty list")
+            errors.append(f"{sid}: interaction_jobs must be a non-empty list; use ['none'] for an intentionally static story")
         else:
+            normalized_jobs = []
             for job in interaction_jobs:
                 if isinstance(job, str) and job.strip():
-                    jobs[job.strip()] += 1
+                    normalized = job.strip()
+                    normalized_jobs.append(normalized)
+                    jobs[normalized] += 1
                 else:
                     errors.append(f"{sid}: interaction job entries must be non-empty strings")
+            if "none" in normalized_jobs:
+                if len(normalized_jobs) != 1:
+                    errors.append(f"{sid}: 'none' cannot be combined with interactive jobs")
+                static_stories += 1
 
         family = str(story.get("story_family", "")).strip()
         strategy = str(story.get("data_strategy", "")).strip()
@@ -129,6 +137,8 @@ def validate_corpus(corpus: dict[str, Any]) -> dict[str, Any]:
         errors.append("corpus needs at least 6 distinct interaction jobs")
     if len(modes) < 6:
         errors.append("corpus needs at least 6 distinct interaction modes")
+    if static_stories < 1:
+        errors.append("corpus needs at least one intentionally static story so Pudding-like does not imply interactive")
 
     metrics = {
         "stories": len(stories),
@@ -136,6 +146,7 @@ def validate_corpus(corpus: dict[str, Any]) -> dict[str, Any]:
         "data_strategies": len(strategies),
         "interaction_jobs": len(jobs),
         "interaction_modes": len(modes),
+        "static_stories": static_stories,
         "family_counts": dict(sorted(families.items())),
         "strategy_counts": dict(sorted(strategies.items())),
         "job_counts": dict(sorted(jobs.items())),

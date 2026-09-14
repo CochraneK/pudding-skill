@@ -103,7 +103,7 @@ def score_pitch(pitch: dict[str, Any]) -> dict[str, Any]:
     if interaction_job in {"", "none", "not_needed", "not-needed"}:
         interaction_score = 5
     elif interaction_job in {
-        "compare", "reveal", "highlight", "zoom", "annotate", "accumulate", "morph", "explore", "lookup", "simulate", "play"
+        "compare", "reveal", "highlight", "zoom", "annotate", "accumulate", "morph", "explore", "lookup", "simulate", "play", "personalize"
     } and len(interaction_rationale) >= 25:
         interaction_score = 5
     else:

@@ -20,6 +20,7 @@ class PuddingCorpusTests(unittest.TestCase):
         self.assertGreaterEqual(report["metrics"]["data_strategies"], 6)
         self.assertGreaterEqual(report["metrics"]["interaction_jobs"], 6)
         self.assertGreaterEqual(report["metrics"]["interaction_modes"], 6)
+        self.assertGreaterEqual(report["metrics"]["static_stories"], 1)
 
     def test_corpus_rejects_style_clone_urls_and_thin_annotations(self):
         bad = {
