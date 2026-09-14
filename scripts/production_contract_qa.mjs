@@ -98,7 +98,13 @@ async function connect(getStderr, proc) {
 
 async function evalValue(cdp, sessionId, expression) {
   const result = await cdp.call('Runtime.evaluate', { expression, returnByValue: true, awaitPromise: true }, sessionId);
-  if (result.exceptionDetails) throw new Error(result.exceptionDetails.text || 'Runtime.evaluate failed');
+  if (result.exceptionDetails) {
+    const detail = result.exceptionDetails.exception?.description
+      || result.exceptionDetails.exception?.value
+      || result.exceptionDetails.text
+      || 'Runtime.evaluate failed';
+    throw new Error(detail);
+  }
   return result.result?.value;
 }
 
@@ -151,7 +157,7 @@ async function main() {
       for (const claim of contract.required_claims || []) {
         const el = document.querySelector('[data-claim-id="' + CSS.escape(claim.id) + '"]');
         if (!el) { failures.push('missing runtime claim ' + claim.id); continue; }
-        const text = el.innerText.replace(/\s+/g, ' ').trim();
+        const text = el.innerText.replace(/\\s+/g, ' ').trim();
         for (const token of claim.tokens || []) if (!text.includes(String(token))) failures.push('claim ' + claim.id + ' missing token ' + token);
       }
 
@@ -163,7 +169,8 @@ async function main() {
         const container = document.querySelector('[data-optional-depth="' + CSS.escape(depth.from_concept_id) + '"]');
         if (!container) { failures.push('missing optional depth marker ' + depth.from_concept_id); continue; }
         const links = [...container.querySelectorAll('a[href]')].map((a) => a.getAttribute('href'));
-        if (!links.some((href) => href && href.includes(depth.route.replace(/^\//, '')))) failures.push('optional depth route not exposed for ' + depth.from_concept_id);
+        const routeNeedle = depth.route.startsWith('/') ? depth.route.slice(1) : depth.route;
+        if (!links.some((href) => href && href.includes(routeNeedle))) failures.push('optional depth route not exposed for ' + depth.from_concept_id);
       }
 
       return {
