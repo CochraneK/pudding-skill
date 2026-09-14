@@ -8,4 +8,6 @@ The implemented route is `/stories/global-mental-health/atlas`. Across the 234 W
 
 A separate historical mismatch lens pairs WHO's **2015 depression prevalence estimate** with the latest available psychiatrist-density observation only when both exist. The overlap is 142 countries in the current audit. Because the two measurements can come from different years and depression is only one condition, this layer is descriptive context rather than a current need score, causal estimate, or country ranking.
 
-Every atlas view must expose the reporting year and data coverage. Countries without an observation must render as unavailable rather than zero. The atlas is included in production browser and screenshot QA at desktop and mobile widths.
+Every atlas view must expose the reporting year and data coverage. Countries without an observation must render as unavailable rather than zero. Indicator switching uses ordinary keyboard-focusable buttons; the SVG map and scatter plot carry text alternatives and per-mark labels, while the surrounding prose states the essential conclusions without requiring hover interaction.
+
+The atlas is included in production browser and screenshot QA at desktop and mobile widths. Its delivery gate covers the field story plus atlas as separate routes so an interactive-layer regression cannot be hidden by the narrative page passing.
