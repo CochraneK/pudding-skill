@@ -10,7 +10,9 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "scripts"))
 
 from benchmark import aggregate, gate, materialize_case, validate_provenance
+from candidate_story import decorate_semantics
 from profile_data import load_rows
+from visual_grammar import plan_visual
 
 
 class BenchmarkTests(unittest.TestCase):
@@ -81,6 +83,36 @@ class BenchmarkTests(unittest.TestCase):
         self.assertEqual(report["overall_score"], 90)
         self.assertEqual(report["passed_cases"], 1)
         self.assertEqual(report["dimensions"]["visual_grammar"]["pass_rate"], 0.5)
+
+    def test_semantic_labels_replace_field_tokens_without_corrupting_prose(self):
+        candidate = {
+            "fields_used": ["t", "g", "m1", "m2"],
+            "claim": "m2 outpaced m1 most in Quartz.",
+            "question": "Where did m2 diverge from m1 over time?",
+            "rationale": "Compare m2 with m1 while preserving time context.",
+        }
+        contract = {
+            "fields": {
+                "t": {"role": "time", "label": "Year"},
+                "g": {"role": "category", "label": "District"},
+                "m1": {"role": "measure", "label": "Wage index"},
+                "m2": {"role": "measure", "label": "Cost index"},
+            },
+            "notes": [],
+        }
+        decorated = decorate_semantics(candidate, contract)
+        self.assertEqual(decorated["claim"], "Cost index outpaced Wage index most in Quartz.")
+        self.assertIn("time context", decorated["rationale"])
+        self.assertNotIn("Yearime", decorated["rationale"])
+
+    def test_change_evidence_uses_group_change_visual_grammar(self):
+        plan = plan_visual({
+            "evidence": [{"kind": "change"}],
+            "visuals": [{"type": "line"}],
+            "production_mode": "scrollytelling",
+        })
+        self.assertEqual(plan["recommended_visual"], "small-multiple line chart")
+        self.assertEqual(plan["baseline_renderer"], "line")
 
 
 if __name__ == "__main__":
