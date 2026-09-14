@@ -71,11 +71,11 @@ def fetch_json(url: str) -> dict:
 def fetch_odata_rows(url: str) -> list[dict[str, Any]]:
     """Fetch all WHO OData pages, including endpoints without nextLink."""
     rows: list[dict[str, Any]] = []
-    page_size = 100
+    page_size = 100 if "$top=" in url else None
     skip = 0
     while True:
         separator = "&" if "?" in url else "?"
-        page_url = f"{url}{separator}$skip={skip}"
+        page_url = url if page_size is None else f"{url}{separator}$skip={skip}"
         payload = fetch_json(page_url)
         page = payload.get("value", [])
         if skip and page and rows and page[0].get("Id") == rows[0].get("Id"):
@@ -86,7 +86,7 @@ def fetch_odata_rows(url: str) -> list[dict[str, Any]]:
             url = continuation
             skip = 0
             continue
-        if len(page) < page_size:
+        if page_size is None or len(page) < page_size:
             break
         skip += page_size
     return rows
