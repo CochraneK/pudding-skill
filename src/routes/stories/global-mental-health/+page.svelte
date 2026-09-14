@@ -258,6 +258,7 @@
 					WHO GHO and Atlas country profiles expose workforce, financing and service-system indicators. Those can be
 					extracted into a country map without waiting for IHME.
 				</p>
+				<a class="atlas-link" href="/stories/global-mental-health/atlas">Explore the country capacity atlas →</a>
 				<code>python scripts/mental_health_story.py who</code>
 			</article>
 			<article>
@@ -503,4 +504,6 @@
 		.story-footer { flex-direction: column; }
 		.story-footer p { text-align: left; }
 	}
+
+	.atlas-link { display:inline-flex; min-height:44px; align-items:center; margin:.7rem 0; color:var(--accent); font:800 .82rem/1.2 var(--font-sans); text-decoration-thickness:1px; text-underline-offset:3px; }
 </style>
