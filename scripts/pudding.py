@@ -55,6 +55,15 @@ def review(args: argparse.Namespace) -> int:
     return run(command)
 
 
+def review_check(args: argparse.Namespace) -> int:
+    return run([
+        sys.executable,
+        "scripts/validate_agent_visual_review.py",
+        str(args.contract),
+        str(args.agent_review),
+    ])
+
+
 def refine(args: argparse.Namespace) -> int:
     command = [
         sys.executable,
@@ -104,6 +113,11 @@ def main() -> int:
     review_parser.add_argument("--markdown", type=Path, default=Path(".qa/visual-review.md"))
     review_parser.add_argument("--fail-on", choices=["never", "error", "warning"], default="error")
     review_parser.set_defaults(func=review)
+
+    review_check_parser = sub.add_parser("review-check", help="validate that an agent/editor reviewed every required screenshot")
+    review_check_parser.add_argument("agent_review", type=Path)
+    review_check_parser.add_argument("--contract", type=Path, default=Path(".qa/visual-review.json"))
+    review_check_parser.set_defaults(func=review_check)
 
     refine_parser = sub.add_parser("refine", help="plan/apply bounded visual refinements after screenshot review")
     refine_parser.add_argument("review", type=Path, nargs="?", default=Path(".qa/visual-review.json"))
