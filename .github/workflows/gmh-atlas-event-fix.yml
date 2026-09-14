@@ -1,0 +1,31 @@
+name: Modernize atlas click handler
+on:
+  push:
+    branches: [story/global-mental-health-capacity-atlas]
+permissions:
+  contents: write
+jobs:
+  patch:
+    if: github.actor != 'github-actions[bot]'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Use Svelte event attribute
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          p=Path('src/routes/stories/global-mental-health/atlas/+page.svelte')
+          s=p.read_text()
+          old='on:click={() => (selectedMetric = metric)}'
+          new='onclick={() => (selectedMetric = metric)}'
+          assert old in s
+          p.write_text(s.replace(old,new,1), encoding='utf-8')
+          PY
+      - name: Commit and self-delete
+        run: |
+          git config user.name github-actions[bot]
+          git config user.email 41898282+github-actions[bot]@users.noreply.github.com
+          git rm .github/workflows/gmh-atlas-event-fix.yml
+          git add src/routes/stories/global-mental-health/atlas/+page.svelte
+          git commit -m 'fix: use current Svelte click event syntax'
+          git push
