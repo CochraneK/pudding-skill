@@ -47,8 +47,8 @@ jobs:
             sleep 1
           done
           curl --fail --silent http://127.0.0.1:4173/ >/dev/null
-          npm run qa:browser -- --base-url http://127.0.0.1:4173 --out .qa --routes /,/generated,/lab,/benchmark,/stories/global-mental-health,/stories/global-mental-health/atlas
-          npm run qa:visual-probe -- --base-url http://127.0.0.1:4173 --out .qa/visual-probe.json --routes /,/generated,/lab,/benchmark,/stories/global-mental-health,/stories/global-mental-health/atlas
+          npm run qa:browser -- --base-url http://127.0.0.1:4173 --out .qa --routes /,/generated,/lab,/benchmark,/stories/global-mental-health,/stories/global-mental-health/atlas,/stories/global-mental-health/prototypes,/stories/global-mental-health/prototypes?focus=A,/stories/global-mental-health/prototypes?focus=B,/stories/global-mental-health/prototypes?focus=C
+          npm run qa:visual-probe -- --base-url http://127.0.0.1:4173 --out .qa/visual-probe.json --routes /,/generated,/lab,/benchmark,/stories/global-mental-health,/stories/global-mental-health/atlas,/stories/global-mental-health/prototypes
           npm run qa:visual
           npm run visual:refine
       - name: Upload QA evidence
