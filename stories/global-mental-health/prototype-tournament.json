@@ -1,0 +1,107 @@
+{
+  "status": "PROTOTYPES_REQUIRED",
+  "story_id": "global-mental-health",
+  "question": "全球精神障碍的负担有多大，而不同国家为治疗和照护准备了多少资源？",
+  "argument": "全球精神健康的核心不只是患病人数巨大，而是需求普遍存在、治疗能力却跨国家极不均衡；理解这种差距必须同时看到规模、资源与数据缺口。",
+  "concept_board": "stories/global-mental-health/concept-board.json",
+  "comparison_route": "/stories/global-mental-health/prototypes",
+  "instructions": "Build only the hardest claim-bearing moment for every concept. Capture the same desktop and mobile viewports, score the screenshots independently, eliminate hard-gate failures, then select, combine, pivot, or put the story down.",
+  "criteria": [
+    {
+      "id": "reader_realization",
+      "weight": 20,
+      "question": "Can a reader state the intended insight from the prototype?",
+      "scale": "1-5"
+    },
+    {
+      "id": "evidence_fidelity",
+      "weight": 20,
+      "question": "Does the prototype preserve units, caveats, missingness, and provenance?",
+      "scale": "1-5"
+    },
+    {
+      "id": "visual_necessity",
+      "weight": 15,
+      "question": "Does the visual treatment materially improve understanding over prose alone?",
+      "scale": "1-5"
+    },
+    {
+      "id": "interaction_economy",
+      "weight": 15,
+      "question": "Does the chosen interaction level, including none, earn its complexity?",
+      "scale": "1-5"
+    },
+    {
+      "id": "reader_effort",
+      "weight": 10,
+      "question": "Can the reader understand the claim without avoidable work or controls?",
+      "scale": "1-5"
+    },
+    {
+      "id": "mobile_viability",
+      "weight": 10,
+      "question": "Does the same conclusion survive a narrow viewport and touch input?",
+      "scale": "1-5"
+    },
+    {
+      "id": "accessibility_equivalence",
+      "weight": 10,
+      "question": "Is the same evidence and conclusion available without hover, motion, or vision-only cues?",
+      "scale": "1-5"
+    }
+  ],
+  "prototypes": [
+    {
+      "alias": "A",
+      "concept_id": "static-gap-atlas",
+      "form": "annotated_static",
+      "interaction_job": "none",
+      "prototype_route": "/stories/global-mental-health/prototypes?focus=A",
+      "desktop_screenshot": ".qa/stories-global-mental-health-prototypes-focus-A-desktop.png",
+      "mobile_screenshot": ".qa/stories-global-mental-health-prototypes-focus-A-mobile.png",
+      "judge": {
+        "scores": {},
+        "hard_failures": [],
+        "verdict": "PENDING",
+        "notes": ""
+      }
+    },
+    {
+      "alias": "B",
+      "concept_id": "care-capacity-ladder",
+      "form": "guided_sequence",
+      "interaction_job": "reveal",
+      "prototype_route": "/stories/global-mental-health/prototypes?focus=B",
+      "desktop_screenshot": ".qa/stories-global-mental-health-prototypes-focus-B-desktop.png",
+      "mobile_screenshot": ".qa/stories-global-mental-health-prototypes-focus-B-mobile.png",
+      "judge": {
+        "scores": {},
+        "hard_failures": [],
+        "verdict": "PENDING",
+        "notes": ""
+      }
+    },
+    {
+      "alias": "C",
+      "concept_id": "country-capacity-explorer",
+      "form": "explorable",
+      "interaction_job": "compare",
+      "prototype_route": "/stories/global-mental-health/prototypes?focus=C",
+      "desktop_screenshot": ".qa/stories-global-mental-health-prototypes-focus-C-desktop.png",
+      "mobile_screenshot": ".qa/stories-global-mental-health-prototypes-focus-C-mobile.png",
+      "judge": {
+        "scores": {},
+        "hard_failures": [],
+        "verdict": "PENDING",
+        "notes": ""
+      }
+    }
+  ],
+  "decision": {
+    "outcome": "PENDING",
+    "winner_concept_ids": [],
+    "reason": "",
+    "implementation_handoff": [],
+    "discarded_lessons": []
+  }
+}
