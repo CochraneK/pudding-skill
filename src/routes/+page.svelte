@@ -189,6 +189,6 @@
 	.architecture-grid h3 { margin:.3rem 0 .5rem; font-size:1.8rem; }
 	.architecture-grid p { max-width:56ch; margin:0; line-height:1.6; color:var(--muted); }
 	.hub-footer { display:flex; justify-content:space-between; gap:2rem; padding:2rem 0 4rem; border-top:1px solid var(--line); font:500 .82rem/1.4 var(--font-sans); color:var(--muted); }
-	.hub-footer nav { display:flex; gap:.35rem; flex-wrap:wrap; } .hub-footer a { display:inline-flex; align-items:center; min-height:44px; padding:0 .35rem; color:inherit; }
+	.hub-footer nav { display:flex; gap:.35rem; flex-wrap:wrap; } .hub-footer a { display:inline-flex; align-items:center; min-width:44px; min-height:44px; padding:0 .35rem; color:inherit; }
 	@media(max-width:760px){ .hero-meta,.section-head,.architecture,.stats{grid-template-columns:1fr}.hero-meta span+span,.stats>div+div{border-top:1px solid var(--line)}.stats>div{border-right:0}.section-head>p:last-child{margin-top:1rem}.report-card{grid-template-columns:1fr}.report-number{font-size:2rem}.report-topline,.hub-footer{flex-direction:column}.architecture-grid{margin-top:2rem} }
 </style>
