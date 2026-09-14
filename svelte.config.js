@@ -8,13 +8,18 @@ const preprocess = sveltePreprocess({
 	}
 });
 
+const base = process.env.BASE_PATH || "";
+
 const config = {
 	compilerOptions: {
 		runes: true
 	},
 	preprocess,
 	kit: {
-		adapter: adapterStatic({ strict: false })
+		adapter: adapterStatic({ strict: true }),
+		paths: {
+			base
+		}
 	}
 };
 
