@@ -16,21 +16,23 @@ Use this sequence:
 0. **Research when data is missing** — if the input is a domain/industry question rather than a trustworthy dataset, build a research dossier first: definitions → source map → primary evidence → numeric claims → conflict resolution → data acquisition plan. Do not invent a dataset to skip this step.
 1. **Audit input** — inspect fields, types, missingness, duplicates, ranges, units, analytical grain, and source limitations.
 2. **Resolve semantics** — use a data contract when roles/units are ambiguous. Never infer meaning from field names alone when that could change the claim.
-3. **Generate candidates** — derive multiple defensible analytical directions instead of stopping at the first matching chart pattern.
-4. **Rank, then judge** — use deterministic scoring for triage; apply editorial/domain judgment before publication.
-5. **Select with fallback** — reject candidates that fail story-spec, quality, or renderer gates and try the next one.
-6. **Design narrative beats** — hook → baseline → reveal → comparison/explanation → conclusion.
-7. **Choose visual grammar** — recommend the best editorial form while preserving a deterministic baseline renderer.
-8. **Verify claims independently** — recompute quantitative evidence from raw data.
-9. **Generate a first-draft package** — headline, dek, sections, annotations, methodology, caveats, and claim provenance.
-10. **Implement and inspect** — build the smallest Svelte experience that communicates the chosen story clearly.
-11. **Validate delivery** — data claims, build, mobile layout, accessibility, reduced motion, sourcing, attribution, dependency gate, and real-browser QA.
-12. **Review screenshots** — separate measurable browser evidence from visual/editorial judgment and inspect every desktop/mobile capture.
-13. **Refine safely** — apply only bounded automatic fixes; use agent/manual source edits for art direction, then rerun the full browser/visual loop.
-14. **Benchmark pipeline changes** — when candidate scoring, selection, claim verification, visual grammar, or provenance changes, run the curated regression corpus and explain any expectation change instead of weakening the gate.
+3. **Gate the concept** — when the work starts from a broad topic or ambitious bespoke story, run the Pudding DNA gate before expensive research/production. The valid result may be `CONTINUE`, `PIVOT`, `PIVOT_NONVISUAL`, or `PUT_DOWN`; the workflow is not required to ship a visual story.
+4. **Generate candidates** — derive multiple defensible analytical directions instead of stopping at the first matching chart pattern.
+5. **Rank, then judge** — use deterministic scoring for triage; apply editorial/domain judgment before publication.
+6. **Select with fallback** — reject candidates that fail story-spec, quality, or renderer gates and try the next one.
+7. **Design narrative beats** — hook → baseline → reveal → comparison/explanation → conclusion.
+8. **Choose visual grammar** — recommend the best editorial form while preserving a deterministic baseline renderer.
+9. **Verify claims independently** — recompute quantitative evidence from raw data.
+10. **Generate a first-draft package** — headline, dek, sections, annotations, methodology, caveats, and claim provenance.
+11. **Implement and inspect** — build the smallest Svelte experience that communicates the chosen story clearly.
+12. **Validate delivery** — data claims, build, mobile layout, accessibility, reduced motion, sourcing, attribution, dependency gate, and real-browser QA.
+13. **Review screenshots** — separate measurable browser evidence from visual/editorial judgment and inspect every desktop/mobile capture.
+14. **Refine safely** — apply only bounded automatic fixes; use agent/manual source edits for art direction, then rerun the full browser/visual loop.
+15. **Benchmark pipeline changes** — when candidate scoring, selection, claim verification, visual grammar, or provenance changes, run the curated regression corpus and explain any expectation change instead of weakening the gate.
 
 Read:
 
+- `references/pudding-dna.md` before committing an ambitious topic to a visual-story format; it defines the editorial gate, public-story study corpus, and continue/pivot/put-down policy;
 - `references/research-dossier.md` when the user starts with a topic/question but lacks a trustworthy dataset;
 - `references/editorial-workflow.md` for editorial sequencing;
 - `references/editorial-scoring.md` for candidate ranking limits;
@@ -43,6 +45,12 @@ Read:
 - `references/visual-refinement-loop.md` for screenshot review and bounded iteration;
 - `references/benchmark.md` for the v2.6 regression corpus, scoring dimensions, and baseline policy;
 - `references/quality-rubric.md` before delivery.
+
+## Pudding DNA gate and study corpus
+
+For a broad topic or bespoke visual essay, create a `story-concept.json` and run `python scripts/pudding.py pitch path/to/story-concept.json` before committing to production. A passing gate is only permission to investigate further. `PIVOT_NONVISUAL` and `PUT_DOWN` are successful editorial outcomes when the visual case or evidence path does not justify a story.
+
+Study `benchmarks/pudding-study-corpus.json` with `npm run pudding:study` before choosing an interaction pattern. Learn transferable editorial operations across multiple public stories—question, human stake, evidence strategy, visual necessity, interaction job, reader handoff, caveat strategy—and never retrieve a nearest-neighbor layout or imitate Pudding typography, colors, jokes, CSS, or assets. The separate `benchmarks/pudding-dna-corpus.json` is synthetic and exists only to regression-test gate decisions.
 
 ## Research-first workflow
 
