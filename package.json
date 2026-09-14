@@ -1,6 +1,6 @@
 {
 	"name": "pudding-skill",
-	"version": "2.7.0",
+	"version": "2.6.0",
 	"private": true,
 	"description": "Pudding-inspired editorial data-storytelling agent skill with evidence gates, contrastive concepts, prototype tournaments, claim auditing, and browser QA",
 	"scripts": {
@@ -44,7 +44,7 @@
 		"bits-ui": "^2.18.1",
 		"d3": "^7.9.0",
 		"lodash.debounce": "^4.0.8",
-		"postcss": "^10.5.0",
+		"postcss": "^8.5.15",
 		"prettier": "^3.8.3",
 		"prettier-plugin-svelte": "^3.5.2",
 		"rollup": "^4.60.4",
