@@ -3,6 +3,7 @@
 @import "font.css";
 @import "reset.css";
 @import "ui.css";
+@import "refinement.css";
 
 :root {
 	--font-sans: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
@@ -32,7 +33,7 @@
 	--color-fg-light: #615f59;
 	--color-primary: #171717;
 	--color-link: #171717;
-	--color-link-hover: #d94f2b;
+	--color-link-hover: #b7452a;
 	--color-focus: #8d3d26;
 	--color-mark: var(--color-yellow);
 	--color-selection: #ded8cc;

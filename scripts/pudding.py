@@ -40,6 +40,49 @@ def candidates(args: argparse.Namespace) -> int:
     return run(command)
 
 
+def review(args: argparse.Namespace) -> int:
+    command = [
+        sys.executable,
+        "scripts/visual_critic.py",
+        str(args.probe),
+        "--output",
+        str(args.output),
+        "--markdown",
+        str(args.markdown),
+        "--fail-on",
+        args.fail_on,
+    ]
+    return run(command)
+
+
+def review_check(args: argparse.Namespace) -> int:
+    return run([
+        sys.executable,
+        "scripts/validate_agent_visual_review.py",
+        str(args.contract),
+        str(args.agent_review),
+    ])
+
+
+def refine(args: argparse.Namespace) -> int:
+    command = [
+        sys.executable,
+        "scripts/refine_visual.py",
+        str(args.review),
+        "--output",
+        str(args.output),
+        "--css",
+        str(args.css),
+        "--iteration",
+        str(args.iteration),
+    ]
+    if args.agent_review:
+        command += ["--agent-review", str(args.agent_review)]
+    if args.apply:
+        command.append("--apply")
+    return run(command)
+
+
 def main() -> int:
     parser = argparse.ArgumentParser(prog="pudding", description="Evidence-first editorial data-storytelling CLI")
     sub = parser.add_subparsers(dest="command", required=True)
@@ -63,6 +106,27 @@ def main() -> int:
     story_parser.add_argument("--workdir", type=Path, default=Path("generated"))
     story_parser.add_argument("--limit", type=int, default=12)
     story_parser.set_defaults(func=story)
+
+    review_parser = sub.add_parser("review", help="turn visual-probe metrics into a screenshot review contract")
+    review_parser.add_argument("probe", type=Path, nargs="?", default=Path(".qa/visual-probe.json"))
+    review_parser.add_argument("--output", type=Path, default=Path(".qa/visual-review.json"))
+    review_parser.add_argument("--markdown", type=Path, default=Path(".qa/visual-review.md"))
+    review_parser.add_argument("--fail-on", choices=["never", "error", "warning"], default="error")
+    review_parser.set_defaults(func=review)
+
+    review_check_parser = sub.add_parser("review-check", help="validate that an agent/editor reviewed every required screenshot")
+    review_check_parser.add_argument("agent_review", type=Path)
+    review_check_parser.add_argument("--contract", type=Path, default=Path(".qa/visual-review.json"))
+    review_check_parser.set_defaults(func=review_check)
+
+    refine_parser = sub.add_parser("refine", help="plan/apply bounded visual refinements after screenshot review")
+    refine_parser.add_argument("review", type=Path, nargs="?", default=Path(".qa/visual-review.json"))
+    refine_parser.add_argument("--agent-review", type=Path)
+    refine_parser.add_argument("--output", type=Path, default=Path(".qa/refinement-plan.json"))
+    refine_parser.add_argument("--css", type=Path, default=Path("src/styles/refinement.css"))
+    refine_parser.add_argument("--iteration", type=int, default=1)
+    refine_parser.add_argument("--apply", action="store_true")
+    refine_parser.set_defaults(func=refine)
 
     args = parser.parse_args()
     return int(args.func(args))

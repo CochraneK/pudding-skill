@@ -175,7 +175,7 @@
 	}
 
 	.story-shell {
-		--accent: #d94f2b;
+		--accent: #b7452a;
 		--ink-soft: #615f59;
 		--line: rgba(23, 23, 23, 0.16);
 	}

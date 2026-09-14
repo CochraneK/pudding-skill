@@ -27,7 +27,7 @@
 
 <section class="lab-shell">
 	<header class="hero">
-		<p class="eyebrow">EDITORIAL LAB · V2.2</p>
+		<p class="eyebrow">EDITORIAL LAB</p>
 		<h1>Don’t generate the first story. <em>Compare the plausible ones.</em></h1>
 		<p class="dek">
 			The pipeline found {candidates.candidate_count} evidence-backed directions in <strong>{candidates.source_file}</strong>, scored them with transparent proxies, then selected the first candidate that passed structural, editorial, and renderer gates.
@@ -144,7 +144,7 @@
 	.status-row .pass { background: #e8f1e6; border-color: #b7cdb2; }
 	.selected-panel { display: grid; grid-template-columns: 1fr auto; gap: 2rem; align-items: end; border: 1px solid #d8d1c7; border-radius: 18px; padding: clamp(1.3rem, 3vw, 2.5rem); background: #fffdf8; box-shadow: 0 20px 60px rgba(40, 33, 25, .05); }
 	.selected-panel h2, .board-head h2, .quality-grid h2 { font-family: var(--font-serif); font-size: clamp(1.7rem, 3vw, 2.6rem); line-height: 1.08; margin: .35rem 0 .6rem; }
-	.selected-panel a { font-family: var(--font-sans); font-weight: 750; color: #b7452a; text-decoration: none; white-space: nowrap; }
+	.selected-panel a { display: inline-flex; align-items: center; min-height: 44px; font-family: var(--font-sans); font-weight: 750; color: #b7452a; text-decoration: none; white-space: nowrap; }
 	.note, .board-head > p { color: #6b665f; line-height: 1.5; }
 	.board { padding-top: 7rem; }
 	.board-head { display: grid; grid-template-columns: 1fr minmax(260px, 430px); gap: 3rem; align-items: end; padding-bottom: 1.5rem; border-bottom: 1px solid #d8d1c7; }

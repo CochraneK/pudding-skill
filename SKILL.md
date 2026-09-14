@@ -1,11 +1,11 @@
 ---
 name: pudding-scrolly
-description: Turn a research question and structured dataset into an evidence-audited editorial web story and publication-ready first draft. Use for Pudding-inspired data journalism, scrollytelling, annotated charts, interactive explainers, narrative visualization, or data-story prototyping in Svelte.
+description: Turn a research question and structured dataset into an evidence-audited editorial web story, publication-ready first draft, and screenshot-reviewed visual experience. Use for Pudding-inspired data journalism, scrollytelling, annotated charts, interactive explainers, narrative visualization, or data-story prototyping in Svelte.
 ---
 
 # Pudding Scrolly
 
-Build **Pudding-inspired editorial data stories**, not visual clones of The Pudding. Reproduce the useful reasoning pattern: question → evidence → competing story directions → editorial choice → visual grammar → independently verified claims → first draft → implementation → browser verification.
+Build **Pudding-inspired editorial data stories**, not visual clones of The Pudding. Reproduce the useful reasoning pattern: question → evidence → competing story directions → editorial choice → visual grammar → independently verified claims → first draft → implementation → browser verification → screenshot review → bounded refinement.
 
 ## Core rule
 
@@ -24,6 +24,8 @@ Use this sequence:
 9. **Generate a first-draft package** — headline, dek, sections, annotations, methodology, caveats, and claim provenance.
 10. **Implement and inspect** — build the smallest Svelte experience that communicates the chosen story clearly.
 11. **Validate delivery** — data claims, build, mobile layout, accessibility, reduced motion, sourcing, attribution, dependency gate, and real-browser QA.
+12. **Review screenshots** — separate measurable browser evidence from visual/editorial judgment and inspect every desktop/mobile capture.
+13. **Refine safely** — apply only bounded automatic fixes; use agent/manual source edits for art direction, then rerun the full browser/visual loop.
 
 Read:
 
@@ -34,11 +36,12 @@ Read:
 - `references/story-spec.md` for the analysis/rendering contract;
 - `references/claim-audit.md` for numeric verification;
 - `references/first-draft.md` for copy/provenance rules;
+- `references/visual-refinement-loop.md` for screenshot review and bounded iteration;
 - `references/quality-rubric.md` before delivery.
 
 ## Preferred structured-data workflow
 
-The unified v2.4 entry point is:
+The unified entry point is:
 
 ```bash
 python scripts/pudding.py story path/to/data.csv \
@@ -190,9 +193,34 @@ After the static checks and production build pass, test the built site in a real
 npm run qa:browser -- --base-url http://127.0.0.1:4173 --out .qa
 ```
 
-The browser gate visits `/`, `/generated`, and `/lab` at desktop and mobile widths with reduced motion enabled. It fails on uncaught exceptions, browser console errors, network failures, horizontal overflow, missing page structure, duplicate IDs, images without `alt`, unnamed interactive controls, or a broken keyboard Tab path. It also writes six PNG screenshots plus `.qa/browser-qa.json` so a human can inspect visual quality that cannot be reduced to deterministic rules.
+The browser gate visits `/`, `/generated`, and `/lab` at desktop and mobile widths with reduced motion enabled. It fails on uncaught exceptions, browser console errors, network failures, horizontal overflow, missing page structure, duplicate IDs, images without `alt`, unnamed interactive controls, or a broken keyboard Tab path. It also writes six PNG screenshots plus `.qa/browser-qa.json`.
 
-Browser QA is a delivery gate, not an aesthetic score. A passing report means the page is mechanically healthy at the tested states; it does not prove that the art direction or editorial pacing is good.
+Browser QA is a delivery gate, not an aesthetic score.
+
+## Screenshot-driven visual review
+
+While the same production preview is running, collect deterministic visual evidence:
+
+```bash
+npm run qa:visual-probe -- --base-url http://127.0.0.1:4173 --out .qa/visual-probe.json
+python scripts/pudding.py review .qa/visual-probe.json
+```
+
+This adds copy measure, leading, font size, heading hierarchy, touch-target size, clipping, computed contrast, visual aspect ratio, first-visual position, and sticky-density evidence.
+
+`visual-review.json` deliberately keeps `agent_review.status = PENDING` even when its deterministic score is 100. The agent/editor must inspect every screenshot and record a separate visual verdict. Never write “visual QA passed” based only on the deterministic score.
+
+For a review that calls for bounded fixes:
+
+```bash
+python scripts/pudding.py refine .qa/visual-review.json \
+  --agent-review .qa/agent-visual-review.json \
+  --apply
+```
+
+Automatic actions are restricted to readable copy width, copy leading, and coarse-pointer control height. They are written to `src/styles/refinement.css`. The refiner cannot change data, quantitative claims, chart transforms, Svelte structure, arbitrary colors, or bespoke art direction.
+
+After any refinement, rebuild and rerun browser QA + visual probe + screenshot inspection. Compare before/after evidence and keep the change only when the stated problem improves without regression. The automatic loop stops after two passes.
 
 ## Delivery checklist
 
@@ -207,12 +235,15 @@ Before declaring the story complete:
 7. Run `python scripts/qa_story.py --root .`.
 8. Run unit tests (`npm run test:skill`).
 9. Build with `npm run build`.
-10. Run browser delivery QA against the built preview and inspect its screenshots/report.
-11. Inspect desktop and mobile widths as editorial compositions, not just overflow checks.
-12. Verify every quantitative sentence against structured evidence.
-13. Test the first screen without scrolling.
-14. Test reduced motion and keyboard use.
-15. Confirm source attribution, caveats, and non-affiliation language.
-16. Confirm the npm audit gate has no high or critical advisories.
+10. Run browser delivery QA against the built preview.
+11. Run the visual probe and deterministic critic.
+12. Inspect all desktop/mobile screenshots and record a separate agent/editor visual verdict.
+13. If refinement is needed, apply only allowlisted auto-actions or an explicit source edit; then rerun the full visual loop.
+14. Inspect desktop and mobile widths as editorial compositions, not just overflow checks.
+15. Verify every quantitative sentence against structured evidence.
+16. Test the first screen without scrolling.
+17. Test reduced motion and keyboard use.
+18. Confirm source attribution, caveats, and non-affiliation language.
+19. Confirm the npm audit gate has no high or critical advisories.
 
 If any hard check fails, revise before delivery.
