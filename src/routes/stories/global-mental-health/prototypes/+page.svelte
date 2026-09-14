@@ -77,7 +77,7 @@
 	/>
 </svelte:head>
 
-<main id="content" class:focused={Boolean(focus)}>
+<div class="tournament-page" class:focused={Boolean(focus)}>
 	<header class="intro">
 		<a class="back" href={`${base}/stories/global-mental-health`}>← Back to story</a>
 		<p class="eyebrow">PROTOTYPE TOURNAMENT · LOW-FIDELITY ON PURPOSE</p>
@@ -85,9 +85,6 @@
 		<p class="dek">
 			These are not finished designs. Each direction implements only its hardest claim-bearing moment so the editorial form can be judged before bespoke code becomes sunk cost.
 		</p>
-		{#if focus}
-			<p class="focus-note">Screenshot focus: prototype {focus}. The alias is intentionally more prominent than the concept name during judging.</p>
-		{/if}
 	</header>
 
 	<section class="prototype-grid" aria-label="Prototype comparison">
@@ -199,7 +196,7 @@
 			All three directions are scored on reader realization, evidence fidelity, visual necessity, interaction economy, reader effort, mobile viability, and accessibility equivalence. A static prototype can win outright. Evidence, mobile, and accessibility failures are elimination gates.
 		</p>
 	</section>
-</main>
+</div>
 
 <style>
 	:global(body) {
@@ -208,7 +205,7 @@
 		color: #191917;
 	}
 
-	main {
+	.tournament-page {
 		--ink: #191917;
 		--card: #fffdf8;
 		--muted: #69655f;
@@ -216,6 +213,17 @@
 		--accent: #9d3d31;
 		min-height: 100vh;
 		padding: 2rem 20px 5rem;
+	}
+
+	.tournament-page.focused {
+		min-height: auto;
+		padding-top: 1rem;
+		padding-bottom: 1rem;
+	}
+
+	.focused .intro,
+	.focused .judge-note {
+		display: none;
 	}
 
 	.intro,
@@ -263,14 +271,6 @@
 		max-width: 760px;
 		font: 1.05rem/1.6 var(--font-sans);
 		color: var(--muted);
-	}
-
-	.focus-note {
-		max-width: 720px;
-		margin-top: 1.25rem;
-		padding: 0.8rem 1rem;
-		border-left: 3px solid var(--accent);
-		font: 0.9rem/1.5 var(--font-sans);
 	}
 
 	.prototype-grid {
@@ -513,8 +513,12 @@
 	}
 
 	@media (max-width: 560px) {
-		main {
+		.tournament-page {
 			padding-inline: 14px;
+		}
+
+		.tournament-page.focused {
+			padding-top: 0.5rem;
 		}
 
 		.intro {
@@ -527,6 +531,7 @@
 		}
 
 		.prototype {
+			gap: 1rem;
 			padding: 1rem;
 			border-radius: 14px;
 		}
@@ -541,7 +546,12 @@
 		}
 
 		.step-tabs {
-			grid-template-columns: 1fr;
+			grid-template-columns: repeat(3, 1fr);
+		}
+
+		.step-tabs button {
+			padding-inline: 0.3rem;
+			font-size: 0.7rem;
 		}
 
 		.static-hero strong,
