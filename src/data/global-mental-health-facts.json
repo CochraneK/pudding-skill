@@ -1,0 +1,60 @@
+{
+  "status": "EDITORIAL_REVIEW_REQUIRED",
+  "updated": "2026-09-14",
+  "headline": "The world's invisible burden",
+  "dek": "Mental disorders affect more than a billion people, but the capacity to provide care is distributed far less evenly than the burden itself.",
+  "facts": [
+    {
+      "id": "global-prevalence-2021",
+      "value": "1.1 billion",
+      "label": "people were living with a mental disorder in 2021",
+      "detail": "Nearly 1 in every 7 people worldwide.",
+      "source_id": "who-mental-disorders-2025"
+    },
+    {
+      "id": "anxiety-2021",
+      "value": "359 million",
+      "label": "people were living with an anxiety disorder in 2021",
+      "detail": "Anxiety disorders were among the most common mental disorders globally.",
+      "source_id": "who-mental-disorders-2025"
+    },
+    {
+      "id": "atlas-countries",
+      "value": "144",
+      "label": "countries contributed to WHO Mental Health Atlas 2024",
+      "detail": "The Atlas measures policies, financing, workforce and service delivery.",
+      "source_id": "who-mental-health-atlas-2024"
+    },
+    {
+      "id": "mental-health-spending",
+      "value": "2.1%",
+      "label": "global median share of government health expenditure allocated to mental health",
+      "detail": "WHO reports the same global median as in its 2017 and 2020 Atlas rounds.",
+      "source_id": "who-mental-health-atlas-2024"
+    },
+    {
+      "id": "mental-health-workforce",
+      "value": "13.5",
+      "label": "specialized mental-health workers per 100,000 people, global median",
+      "detail": "WHO reports roughly 1.1–2.4 per 100,000 in low- and lower-middle-income countries versus 67.2 in high-income countries.",
+      "source_id": "who-mental-health-atlas-2024"
+    },
+    {
+      "id": "community-transition",
+      "value": "<10%",
+      "label": "of responding countries had fully shifted from institution-based to community-based care",
+      "detail": "WHO says 52.9% remained in the early stage of transition.",
+      "source_id": "who-mental-health-atlas-2024"
+    }
+  ],
+  "sources": {
+    "who-mental-disorders-2025": {
+      "label": "WHO · Mental disorders fact sheet",
+      "url": "https://www.who.int/en/news-room/fact-sheets/detail/mental-disorders"
+    },
+    "who-mental-health-atlas-2024": {
+      "label": "WHO · Mental Health Atlas 2024",
+      "url": "https://www.who.int/publications/i/item/9789240114487"
+    }
+  }
+}
