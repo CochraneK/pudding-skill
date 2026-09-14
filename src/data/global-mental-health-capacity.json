@@ -1,0 +1,6931 @@
+{
+  "status": "EDITORIAL_REVIEW_REQUIRED",
+  "source": "WHO Global Health Observatory",
+  "source_base_url": "https://ghoapi.azureedge.net/api",
+  "country_area_universe": 234,
+  "metric_metadata": {
+    "total_mental_health_workforce_per_100k": {
+      "metric": "total_mental_health_workforce_per_100k",
+      "label": "Total mental-health workforce",
+      "unit": "per 100,000",
+      "indicator_code": "MH_21"
+    },
+    "psychiatrists_per_100k": {
+      "metric": "psychiatrists_per_100k",
+      "label": "Psychiatrists",
+      "unit": "per 100,000",
+      "indicator_code": "MH_6"
+    },
+    "mental_health_nurses_per_100k": {
+      "metric": "mental_health_nurses_per_100k",
+      "label": "Mental-health nurses",
+      "unit": "per 100,000",
+      "indicator_code": "MH_7"
+    },
+    "psychologists_per_100k": {
+      "metric": "psychologists_per_100k",
+      "label": "Psychologists",
+      "unit": "per 100,000",
+      "indicator_code": "MH_9"
+    },
+    "government_mental_health_spending_share": {
+      "metric": "government_mental_health_spending_share",
+      "label": "Government mental-health spending share",
+      "unit": "% of government health expenditure",
+      "indicator_code": "MH_4"
+    },
+    "mental_health_outpatient_facilities_per_100k": {
+      "metric": "mental_health_outpatient_facilities_per_100k",
+      "label": "Mental-health outpatient facilities",
+      "unit": "per 100,000",
+      "indicator_code": "MH_10"
+    },
+    "depression_prevalence_2015": {
+      "metric": "depression_prevalence_2015",
+      "label": "Depression prevalence estimate",
+      "unit": "% of population",
+      "indicator_code": "GDO_q35"
+    }
+  },
+  "summary": {
+    "total_mental_health_workforce_per_100k": {
+      "n": 0,
+      "median": null,
+      "q25": null,
+      "q75": null,
+      "min": null,
+      "max": null,
+      "year_min": null,
+      "year_max": null,
+      "year_median": null
+    },
+    "psychiatrists_per_100k": {
+      "n": 100,
+      "median": 1.574,
+      "q25": 0.22,
+      "q75": 7.472,
+      "min": 0.0,
+      "max": 48.04,
+      "year_min": 2013,
+      "year_max": 2017,
+      "year_median": 2016
+    },
+    "mental_health_nurses_per_100k": {
+      "n": 100,
+      "median": 4.585,
+      "q25": 0.929,
+      "q75": 15.474,
+      "min": 0.0,
+      "max": 125.692,
+      "year_min": 2013,
+      "year_max": 2017,
+      "year_median": 2016
+    },
+    "psychologists_per_100k": {
+      "n": 100,
+      "median": 1.253,
+      "q25": 0.288,
+      "q75": 5.75,
+      "min": 0.0,
+      "max": 222.572,
+      "year_min": 2013,
+      "year_max": 2017,
+      "year_median": 2016
+    },
+    "government_mental_health_spending_share": {
+      "n": 78,
+      "median": 2.79,
+      "q25": 1.118,
+      "q75": 4.987,
+      "min": 0.01,
+      "max": 12.91,
+      "year_min": 2011,
+      "year_max": 2011,
+      "year_median": 2011
+    },
+    "mental_health_outpatient_facilities_per_100k": {
+      "n": 100,
+      "median": 0.723,
+      "q25": 0.111,
+      "q75": 2.637,
+      "min": 0.006,
+      "max": 20.475,
+      "year_min": 2013,
+      "year_max": 2017,
+      "year_median": 2016
+    },
+    "depression_prevalence_2015": {
+      "n": 100,
+      "median": 4.426,
+      "q25": 4.024,
+      "q75": 4.956,
+      "min": 2.985,
+      "max": 6.314,
+      "year_min": 2015,
+      "year_max": 2015,
+      "year_median": 2015
+    }
+  },
+  "region_summaries": [
+    {
+      "region_code": "AFR",
+      "region": "Africa",
+      "country_area_count": 50,
+      "metrics": {
+        "total_mental_health_workforce_per_100k": {
+          "n": 0,
+          "median": null,
+          "q25": null,
+          "q75": null,
+          "year_median": null
+        },
+        "psychiatrists_per_100k": {
+          "n": 25,
+          "median": 0.072,
+          "q25": 0.054,
+          "q75": 0.2,
+          "year_median": 2016
+        },
+        "mental_health_nurses_per_100k": {
+          "n": 24,
+          "median": 0.383,
+          "q25": 0.269,
+          "q75": 1.389,
+          "year_median": 2016
+        },
+        "psychologists_per_100k": {
+          "n": 24,
+          "median": 0.128,
+          "q25": 0.04,
+          "q75": 0.398,
+          "year_median": 2016
+        },
+        "government_mental_health_spending_share": {
+          "n": 11,
+          "median": 1.0,
+          "q25": 0.3,
+          "q75": 1.955,
+          "year_median": 2011
+        },
+        "mental_health_outpatient_facilities_per_100k": {
+          "n": 20,
+          "median": 0.05,
+          "q25": 0.019,
+          "q75": 0.134,
+          "year_median": 2016
+        }
+      }
+    },
+    {
+      "region_code": "AMR",
+      "region": "Americas",
+      "country_area_count": 52,
+      "metrics": {
+        "total_mental_health_workforce_per_100k": {
+          "n": 0,
+          "median": null,
+          "q25": null,
+          "q75": null,
+          "year_median": null
+        },
+        "psychiatrists_per_100k": {
+          "n": 21,
+          "median": 1.835,
+          "q25": 0.887,
+          "q75": 3.931,
+          "year_median": 2016
+        },
+        "mental_health_nurses_per_100k": {
+          "n": 18,
+          "median": 5.281,
+          "q25": 1.363,
+          "q75": 15.041,
+          "year_median": 2016
+        },
+        "psychologists_per_100k": {
+          "n": 16,
+          "median": 7.63,
+          "q25": 0.609,
+          "q75": 33.935,
+          "year_median": 2016
+        },
+        "government_mental_health_spending_share": {
+          "n": 19,
+          "median": 1.46,
+          "q25": 0.825,
+          "q75": 3.065,
+          "year_median": 2011
+        },
+        "mental_health_outpatient_facilities_per_100k": {
+          "n": 20,
+          "median": 0.784,
+          "q25": 0.284,
+          "q75": 2.344,
+          "year_median": 2016
+        }
+      }
+    },
+    {
+      "region_code": "EMR",
+      "region": "Eastern Mediterranean",
+      "country_area_count": 23,
+      "metrics": {
+        "total_mental_health_workforce_per_100k": {
+          "n": 0,
+          "median": null,
+          "q25": null,
+          "q75": null,
+          "year_median": null
+        },
+        "psychiatrists_per_100k": {
+          "n": 10,
+          "median": 1.46,
+          "q25": 1.147,
+          "q75": 1.716,
+          "year_median": 2016
+        },
+        "mental_health_nurses_per_100k": {
+          "n": 11,
+          "median": 3.297,
+          "q25": 1.835,
+          "q75": 7.125,
+          "year_median": 2016
+        },
+        "psychologists_per_100k": {
+          "n": 15,
+          "median": 0.786,
+          "q25": 0.353,
+          "q75": 1.34,
+          "year_median": 2016
+        },
+        "government_mental_health_spending_share": {
+          "n": 6,
+          "median": 3.745,
+          "q25": 2.618,
+          "q75": 4.572,
+          "year_median": 2011
+        },
+        "mental_health_outpatient_facilities_per_100k": {
+          "n": 13,
+          "median": 0.513,
+          "q25": 0.063,
+          "q75": 1.239,
+          "year_median": 2016
+        }
+      }
+    },
+    {
+      "region_code": "EUR",
+      "region": "Europe",
+      "country_area_count": 58,
+      "metrics": {
+        "total_mental_health_workforce_per_100k": {
+          "n": 0,
+          "median": null,
+          "q25": null,
+          "q75": null,
+          "year_median": null
+        },
+        "psychiatrists_per_100k": {
+          "n": 29,
+          "median": 9.87,
+          "q25": 5.978,
+          "q75": 20.057,
+          "year_median": 2016
+        },
+        "mental_health_nurses_per_100k": {
+          "n": 23,
+          "median": 22.144,
+          "q25": 11.996,
+          "q75": 35.848,
+          "year_median": 2016
+        },
+        "psychologists_per_100k": {
+          "n": 29,
+          "median": 4.638,
+          "q25": 2.328,
+          "q75": 16.346,
+          "year_median": 2016
+        },
+        "government_mental_health_spending_share": {
+          "n": 27,
+          "median": 5.0,
+          "q25": 3.075,
+          "q75": 6.305,
+          "year_median": 2011
+        },
+        "mental_health_outpatient_facilities_per_100k": {
+          "n": 27,
+          "median": 2.332,
+          "q25": 0.93,
+          "q75": 4.525,
+          "year_median": 2016
+        }
+      }
+    },
+    {
+      "region_code": "SEAR",
+      "region": "South-East Asia",
+      "country_area_count": 10,
+      "metrics": {
+        "total_mental_health_workforce_per_100k": {
+          "n": 0,
+          "median": null,
+          "q25": null,
+          "q75": null,
+          "year_median": null
+        },
+        "psychiatrists_per_100k": {
+          "n": 6,
+          "median": 0.324,
+          "q25": 0.171,
+          "q75": 0.377,
+          "year_median": 2016
+        },
+        "mental_health_nurses_per_100k": {
+          "n": 7,
+          "median": 0.873,
+          "q25": 0.558,
+          "q75": 2.324,
+          "year_median": 2016
+        },
+        "psychologists_per_100k": {
+          "n": 5,
+          "median": 0.246,
+          "q25": 0.081,
+          "q75": 0.523,
+          "year_median": 2016
+        },
+        "government_mental_health_spending_share": {
+          "n": 3,
+          "median": 0.7,
+          "q25": 0.57,
+          "q75": 2.35,
+          "year_median": 2011
+        },
+        "mental_health_outpatient_facilities_per_100k": {
+          "n": 7,
+          "median": 1.302,
+          "q25": 0.144,
+          "q75": 1.381,
+          "year_median": 2016
+        }
+      }
+    },
+    {
+      "region_code": "UNK",
+      "region": "Unknown",
+      "country_area_count": 6,
+      "metrics": {
+        "total_mental_health_workforce_per_100k": {
+          "n": 0,
+          "median": null,
+          "q25": null,
+          "q75": null,
+          "year_median": null
+        },
+        "psychiatrists_per_100k": {
+          "n": 0,
+          "median": null,
+          "q25": null,
+          "q75": null,
+          "year_median": null
+        },
+        "mental_health_nurses_per_100k": {
+          "n": 0,
+          "median": null,
+          "q25": null,
+          "q75": null,
+          "year_median": null
+        },
+        "psychologists_per_100k": {
+          "n": 0,
+          "median": null,
+          "q25": null,
+          "q75": null,
+          "year_median": null
+        },
+        "government_mental_health_spending_share": {
+          "n": 0,
+          "median": null,
+          "q25": null,
+          "q75": null,
+          "year_median": null
+        },
+        "mental_health_outpatient_facilities_per_100k": {
+          "n": 0,
+          "median": null,
+          "q25": null,
+          "q75": null,
+          "year_median": null
+        }
+      }
+    },
+    {
+      "region_code": "WPR",
+      "region": "Western Pacific",
+      "country_area_count": 35,
+      "metrics": {
+        "total_mental_health_workforce_per_100k": {
+          "n": 0,
+          "median": null,
+          "q25": null,
+          "q75": null,
+          "year_median": null
+        },
+        "psychiatrists_per_100k": {
+          "n": 9,
+          "median": 1.048,
+          "q25": 0.378,
+          "q75": 5.793,
+          "year_median": 2016
+        },
+        "mental_health_nurses_per_100k": {
+          "n": 17,
+          "median": 6.838,
+          "q25": 2.669,
+          "q75": 15.088,
+          "year_median": 2016
+        },
+        "psychologists_per_100k": {
+          "n": 11,
+          "median": 1.88,
+          "q25": 0.957,
+          "q75": 4.033,
+          "year_median": 2016
+        },
+        "government_mental_health_spending_share": {
+          "n": 12,
+          "median": 1.6,
+          "q25": 0.617,
+          "q75": 4.34,
+          "year_median": 2011
+        },
+        "mental_health_outpatient_facilities_per_100k": {
+          "n": 13,
+          "median": 1.789,
+          "q25": 0.89,
+          "q75": 3.363,
+          "year_median": 2016
+        }
+      }
+    }
+  ],
+  "countries": [
+    {
+      "code": "AFG",
+      "name": "Afghanistan",
+      "region_code": "EMR",
+      "region": "Eastern Mediterranean",
+      "metrics": {
+        "mental_health_nurses_per_100k": {
+          "value": 0.09782,
+          "year": 2016,
+          "low": null,
+          "high": null,
+          "indicator_code": "MH_7"
+        },
+        "psychologists_per_100k": {
+          "value": 0.29641,
+          "year": 2016,
+          "low": null,
+          "high": null,
+          "indicator_code": "MH_9"
+        },
+        "mental_health_outpatient_facilities_per_100k": {
+          "value": 0.00593,
+          "year": 2016,
+          "low": null,
+          "high": null,
+          "indicator_code": "MH_10"
+        }
+      }
+    },
+    {
+      "code": "ALB",
+      "name": "Albania",
+      "region_code": "EUR",
+      "region": "Europe",
+      "metrics": {
+        "psychologists_per_100k": {
+          "value": 1.23146,
+          "year": 2016,
+          "low": null,
+          "high": null,
+          "indicator_code": "MH_9"
+        },
+        "mental_health_outpatient_facilities_per_100k": {
+          "value": 0.41049,
+          "year": 2016,
+          "low": null,
+          "high": null,
+          "indicator_code": "MH_10"
+        }
+      }
+    },
+    {
+      "code": "DZA",
+      "name": "Algeria",
+      "region_code": "AFR",
+      "region": "Africa",
+      "metrics": {
+        "government_mental_health_spending_share": {
+          "value": 7.37,
+          "year": 2011,
+          "low": null,
+          "high": null,
+          "indicator_code": "MH_4"
+        },
+        "mental_health_outpatient_facilities_per_100k": {
+          "value": 0.04765,
+          "year": 2016,
+          "low": null,
+          "high": null,
+          "indicator_code": "MH_10"
+        },
+        "depression_prevalence_2015": {
+          "value": 4.53159,
+          "year": 2015,
+          "low": 0.04532,
+          "high": null,
+          "indicator_code": "GDO_q35"
+        }
+      }
+    },
+    {
+      "code": "ASM",
+      "name": "American Samoa",
+      "region_code": "WPR",
+      "region": "Western Pacific",
+      "metrics": {}
+    },
+    {
+      "code": "AND",
+      "name": "Andorra",
+      "region_code": "EUR",
+      "region": "Europe",
+      "metrics": {}
+    },
+    {
+      "code": "AGO",
+      "name": "Angola",
+      "region_code": "AFR",
+      "region": "Africa",
+      "metrics": {
+        "mental_health_nurses_per_100k": {
+          "value": 0.66046,
+          "year": 2016,
+          "low": null,
+          "high": null,
+          "indicator_code": "MH_7"
+        },
+        "psychologists_per_100k": {
+          "value": 0.17947,
+          "year": 2016,
+          "low": null,
+          "high": null,
+          "indicator_code": "MH_9"
+        }
+      }
+    },
+    {
+      "code": "AIA",
+      "name": "Anguilla",
+      "region_code": "AMR",
+      "region": "Americas",
+      "metrics": {}
+    },
+    {
+      "code": "ATG",
+      "name": "Antigua and Barbuda",
+      "region_code": "AMR",
+      "region": "Americas",
+      "metrics": {
+        "mental_health_nurses_per_100k": {
+          "value": 7.00539,
+          "year": 2016,
+          "low": null,
+          "high": null,
+          "indicator_code": "MH_7"
+        },
+        "depression_prevalence_2015": {
+          "value": 5.05867,
+          "year": 2015,
+          "low": 0.05059,
+          "high": null,
+          "indicator_code": "GDO_q35"
+        }
+      }
+    },
+    {
+      "code": "ARG",
+      "name": "Argentina",
+      "region_code": "AMR",
+      "region": "Americas",
+      "metrics": {
+        "psychiatrists_per_100k": {
+          "value": 21.7054,
+          "year": 2016,
+          "low": null,
+          "high": null,
+          "indicator_code": "MH_6"
+        },
+        "psychologists_per_100k": {
+          "value": 222.57249,
+          "year": 2016,
+          "low": null,
+          "high": null,
+          "indicator_code": "MH_9"
+        },
+        "mental_health_outpatient_facilities_per_100k": {
+          "value": 1.72049,
+          "year": 2016,
+          "low": null,
+          "high": null,
+          "indicator_code": "MH_10"
+        }
+      }
+    },
+    {
+      "code": "ARM",
+      "name": "Armenia",
+      "region_code": "EUR",
+      "region": "Europe",
+      "metrics": {
+        "psychiatrists_per_100k": {
+          "value": 3.83963,
+          "year": 2016,
+          "low": null,
+          "high": null,
+          "indicator_code": "MH_6"
+        },
+        "mental_health_nurses_per_100k": {
+          "value": 11.24462,
+          "year": 2016,
+          "low": null,
+          "high": null,
+          "indicator_code": "MH_7"
+        },
+        "psychologists_per_100k": {
+          "value": 0.78849,
+          "year": 2016,
+          "low": null,
+          "high": null,
+          "indicator_code": "MH_9"
+        },
+        "government_mental_health_spending_share": {
+          "value": 3.38,
+          "year": 2011,
+          "low": null,
+          "high": null,
+          "indicator_code": "MH_4"
+        },
+        "mental_health_outpatient_facilities_per_100k": {
+          "value": 1.3713,
+          "year": 2016,
+          "low": null,
+          "high": null,
+          "indicator_code": "MH_10"
+        }
+      }
+    },
+    {
+      "code": "ABW",
+      "name": "Aruba",
+      "region_code": "AMR",
+      "region": "Americas",
+      "metrics": {}
+    },
+    {
+      "code": "AUS",
+      "name": "Australia",
+      "region_code": "WPR",
+      "region": "Western Pacific",
+      "metrics": {
+        "psychiatrists_per_100k": {
+          "value": 13.52546,
+          "year": 2015,
+          "low": null,
+          "high": null,
+          "indicator_code": "MH_6"
+        },
+        "mental_health_nurses_per_100k": {
+          "value": 90.58152,
+          "year": 2015,
+          "low": null,
+          "high": null,
+          "indicator_code": "MH_7"
+        },
+        "psychologists_per_100k": {
+          "value": 103.03554,
+          "year": 2015,
+          "low": null,
+          "high": null,
+          "indicator_code": "MH_9"
+        },
+        "government_mental_health_spending_share": {
+          "value": 7.64,
+          "year": 2011,
+          "low": null,
+          "high": null,
+          "indicator_code": "MH_4"
+        },
+        "depression_prevalence_2015": {
+          "value": 5.94026,
+          "year": 2015,
+          "low": 0.0594,
+          "high": null,
+          "indicator_code": "GDO_q35"
+        }
+      }
+    },
+    {
+      "code": "AUT",
+      "name": "Austria",
+      "region_code": "EUR",
+      "region": "Europe",
+      "metrics": {
+        "mental_health_outpatient_facilities_per_100k": {
+          "value": 3.45676,
+          "year": 2015,
+          "low": null,
+          "high": null,
+          "indicator_code": "MH_10"
+        }
+      }
+    },
+    {
+      "code": "AZE",
+      "name": "Azerbaijan",
+      "region_code": "EUR",
+      "region": "Europe",
+      "metrics": {
+        "psychiatrists_per_100k": {
+          "value": 3.45205,
+          "year": 2016,
+          "low": null,
+          "high": null,
+          "indicator_code": "MH_6"
+        },
+        "mental_health_nurses_per_100k": {
+          "value": 6.71693,
+          "year": 2016,
+          "low": null,
+          "high": null,
+          "indicator_code": "MH_7"
+        },
+        "government_mental_health_spending_share": {
+          "value": 2.5,
+          "year": 2011,
+          "low": null,
+          "high": null,
+          "indicator_code": "MH_4"
+        },
+        "depression_prevalence_2015": {
+          "value": 4.63536,
+          "year": 2015,
+          "low": 0.04635,
+          "high": null,
+          "indicator_code": "GDO_q35"
+        }
+      }
+    },
+    {
+      "code": "BHS",
+      "name": "Bahamas",
+      "region_code": "AMR",
+      "region": "Americas",
+      "metrics": {
+        "mental_health_outpatient_facilities_per_100k": {
+          "value": 0.51701,
+          "year": 2015,
+          "low": null,
+          "high": null,
+          "indicator_code": "MH_10"
+        },
+        "depression_prevalence_2015": {
+          "value": 5.1832,
+          "year": 2015,
+          "low": 0.05183,
+          "high": null,
+          "indicator_code": "GDO_q35"
+        }
+      }
+    },
+    {
+      "code": "BHR",
+      "name": "Bahrain",
+      "region_code": "EMR",
+      "region": "Eastern Mediterranean",
+      "metrics": {
+        "psychiatrists_per_100k": {
+          "value": 5.46705,
+          "year": 2017,
+          "low": null,
+          "high": null,
+          "indicator_code": "MH_6"
+        },
+        "mental_health_nurses_per_100k": {
+          "value": 27.9184,
+          "year": 2017,
+          "low": null,
+          "high": null,
+          "indicator_code": "MH_7"
+        },
+        "psychologists_per_100k": {
+          "value": 1.2392,
+          "year": 2017,
+          "low": null,
+          "high": null,
+          "indicator_code": "MH_9"
+        },
+        "mental_health_outpatient_facilities_per_100k": {
+          "value": 1.2392,
+          "year": 2017,
+          "low": null,
+          "high": null,
+          "indicator_code": "MH_10"
+        },
+        "depression_prevalence_2015": {
+          "value": 4.75979,
+          "year": 2015,
+          "low": 0.0476,
+          "high": null,
+          "indicator_code": "GDO_q35"
+        }
+      }
+    },
+    {
+      "code": "BGD",
+      "name": "Bangladesh",
+      "region_code": "SEAR",
+      "region": "South-East Asia",
+      "metrics": {
+        "psychiatrists_per_100k": {
+          "value": 0.13027,
+          "year": 2016,
+          "low": null,
+          "high": null,
+          "indicator_code": "MH_6"
+        },
+        "mental_health_nurses_per_100k": {
+          "value": 0.87282,
+          "year": 2016,
+          "low": null,
+          "high": null,
+          "indicator_code": "MH_7"
+        },
+        "government_mental_health_spending_share": {
+          "value": 0.44,
+          "year": 2011,
+          "low": null,
+          "high": null,
+          "indicator_code": "MH_4"
+        },
+        "mental_health_outpatient_facilities_per_100k": {
+          "value": 0.05521,
+          "year": 2016,
+          "low": null,
+          "high": null,
+          "indicator_code": "MH_10"
+        },
+        "depression_prevalence_2015": {
+          "value": 4.07197,
+          "year": 2015,
+          "low": 0.04072,
+          "high": null,
+          "indicator_code": "GDO_q35"
+        }
+      }
+    },
+    {
+      "code": "BRB",
+      "name": "Barbados",
+      "region_code": "AMR",
+      "region": "Americas",
+      "metrics": {
+        "mental_health_nurses_per_100k": {
+          "value": 63.33189,
+          "year": 2015,
+          "low": null,
+          "high": null,
+          "indicator_code": "MH_7"
+        }
+      }
+    },
+    {
+      "code": "BLR",
+      "name": "Belarus",
+      "region_code": "EUR",
+      "region": "Europe",
+      "metrics": {
+        "psychiatrists_per_100k": {
+          "value": 13.50444,
+          "year": 2016,
+          "low": null,
+          "high": null,
+          "indicator_code": "MH_6"
+        },
+        "psychologists_per_100k": {
+          "value": 5.51352,
+          "year": 2016,
+          "low": null,
+          "high": null,
+          "indicator_code": "MH_9"
+        },
+        "depression_prevalence_2015": {
+          "value": 5.57264,
+          "year": 2015,
+          "low": 0.05573,
+          "high": null,
+          "indicator_code": "GDO_q35"
+        }
+      }
+    },
+    {
+      "code": "BEL",
+      "name": "Belgium",
+      "region_code": "EUR",
+      "region": "Europe",
+      "metrics": {
+        "psychiatrists_per_100k": {
+          "value": 20.0568,
+          "year": 2013,
+          "low": null,
+          "high": null,
+          "indicator_code": "MH_6"
+        },
+        "mental_health_nurses_per_100k": {
+          "value": 125.69167,
+          "year": 2013,
+          "low": null,
+          "high": null,
+          "indicator_code": "MH_7"
+        },
+        "psychologists_per_100k": {
+          "value": 10.46249,
+          "year": 2013,
+          "low": null,
+          "high": null,
+          "indicator_code": "MH_9"
+        },
+        "depression_prevalence_2015": {
+          "value": 4.81365,
+          "year": 2015,
+          "low": 0.04814,
+          "high": null,
+          "indicator_code": "GDO_q35"
+        }
+      }
+    },
+    {
+      "code": "BLZ",
+      "name": "Belize",
+      "region_code": "AMR",
+      "region": "Americas",
+      "metrics": {
+        "psychiatrists_per_100k": {
+          "value": 1.39164,
+          "year": 2016,
+          "low": null,
+          "high": null,
+          "indicator_code": "MH_6"
+        },
+        "mental_health_nurses_per_100k": {
+          "value": 3.33994,
+          "year": 2016,
+          "low": null,
+          "high": null,
+          "indicator_code": "MH_7"
+        },
+        "mental_health_outpatient_facilities_per_100k": {
+          "value": 2.22663,
+          "year": 2016,
+          "low": null,
+          "high": null,
+          "indicator_code": "MH_10"
+        }
+      }
+    },
+    {
+      "code": "BEN",
+      "name": "Benin",
+      "region_code": "AFR",
+      "region": "Africa",
+      "metrics": {
+        "depression_prevalence_2015": {
+          "value": 3.85398,
+          "year": 2015,
+          "low": 0.03854,
+          "high": null,
+          "indicator_code": "GDO_q35"
+        }
+      }
+    },
+    {
+      "code": "BMU",
+      "name": "Bermuda",
+      "region_code": "AMR",
+      "region": "Americas",
+      "metrics": {}
+    },
+    {
+      "code": "BTN",
+      "name": "Bhutan",
+      "region_code": "SEAR",
+      "region": "South-East Asia",
+      "metrics": {
+        "mental_health_nurses_per_100k": {
+          "value": 0.127,
+          "year": 2016,
+          "low": null,
+          "high": null,
+          "indicator_code": "MH_7"
+        },
+        "depression_prevalence_2015": {
+          "value": 4.15376,
+          "year": 2015,
+          "low": 0.04154,
+          "high": null,
+          "indicator_code": "GDO_q35"
+        }
+      }
+    },
+    {
+      "code": "BOL",
+      "name": "Bolivia (Plurinational State of)",
+      "region_code": "AMR",
+      "region": "Americas",
+      "metrics": {
+        "psychiatrists_per_100k": {
+          "value": 1.12824,
+          "year": 2016,
+          "low": null,
+          "high": null,
+          "indicator_code": "MH_6"
+        }
+      }
+    },
+    {
+      "code": "BES",
+      "name": "Bonaire, Saint Eustatius and Saba",
+      "region_code": "AMR",
+      "region": "Americas",
+      "metrics": {}
+    },
+    {
+      "code": "BIH",
+      "name": "Bosnia and Herzegovina",
+      "region_code": "EUR",
+      "region": "Europe",
+      "metrics": {
+        "mental_health_nurses_per_100k": {
+          "value": 22.14391,
+          "year": 2015,
+          "low": null,
+          "high": null,
+          "indicator_code": "MH_7"
+        },
+        "mental_health_outpatient_facilities_per_100k": {
+          "value": 1.44232,
+          "year": 2015,
+          "low": null,
+          "high": null,
+          "indicator_code": "MH_10"
+        }
+      }
+    },
+    {
+      "code": "BWA",
+      "name": "Botswana",
+      "region_code": "AFR",
+      "region": "Africa",
+      "metrics": {
+        "mental_health_outpatient_facilities_per_100k": {
+          "value": 0.27159,
+          "year": 2017,
+          "low": null,
+          "high": null,
+          "indicator_code": "MH_10"
+        },
+        "depression_prevalence_2015": {
+          "value": 4.66097,
+          "year": 2015,
+          "low": 0.04661,
+          "high": null,
+          "indicator_code": "GDO_q35"
+        }
+      }
+    },
+    {
+      "code": "BRA",
+      "name": "Brazil",
+      "region_code": "AMR",
+      "region": "Americas",
+      "metrics": {
+        "psychiatrists_per_100k": {
+          "value": 3.16466,
+          "year": 2016,
+          "low": null,
+          "high": null,
+          "indicator_code": "MH_6"
+        },
+        "mental_health_nurses_per_100k": {
+          "value": 34.94769,
+          "year": 2016,
+          "low": null,
+          "high": null,
+          "indicator_code": "MH_7"
+        },
+        "psychologists_per_100k": {
+          "value": 12.36781,
+          "year": 2016,
+          "low": null,
+          "high": null,
+          "indicator_code": "MH_9"
+        },
+        "government_mental_health_spending_share": {
+          "value": 2.38,
+          "year": 2011,
+          "low": null,
+          "high": null,
+          "indicator_code": "MH_4"
+        }
+      }
+    },
+    {
+      "code": "VGB",
+      "name": "British Virgin Islands",
+      "region_code": "AMR",
+      "region": "Americas",
+      "metrics": {}
+    },
+    {
+      "code": "BRN",
+      "name": "Brunei Darussalam",
+      "region_code": "WPR",
+      "region": "Western Pacific",
+      "metrics": {
+        "mental_health_nurses_per_100k": {
+          "value": 15.0883,
+          "year": 2016,
+          "low": null,
+          "high": null,
+          "indicator_code": "MH_7"
+        },
+        "psychologists_per_100k": {
+          "value": 5.02943,
+          "year": 2016,
+          "low": null,
+          "high": null,
+          "indicator_code": "MH_9"
+        },
+        "mental_health_outpatient_facilities_per_100k": {
+          "value": 2.63447,
+          "year": 2016,
+          "low": null,
+          "high": null,
+          "indicator_code": "MH_10"
+        }
+      }
+    },
+    {
+      "code": "BGR",
+      "name": "Bulgaria",
+      "region_code": "EUR",
+      "region": "Europe",
+      "metrics": {
+        "psychiatrists_per_100k": {
+          "value": 7.20317,
+          "year": 2016,
+          "low": null,
+          "high": null,
+          "indicator_code": "MH_6"
+        },
+        "mental_health_nurses_per_100k": {
+          "value": 17.73624,
+          "year": 2016,
+          "low": null,
+          "high": null,
+          "indicator_code": "MH_7"
+        },
+        "psychologists_per_100k": {
+          "value": 1.86697,
+          "year": 2016,
+          "low": null,
+          "high": null,
+          "indicator_code": "MH_9"
+        },
+        "government_mental_health_spending_share": {
+          "value": 1.4,
+          "year": 2011,
+          "low": null,
+          "high": null,
+          "indicator_code": "MH_4"
+        },
+        "depression_prevalence_2015": {
+          "value": 5.1567,
+          "year": 2015,
+          "low": 0.05157,
+          "high": null,
+          "indicator_code": "GDO_q35"
+        }
+      }
+    },
+    {
+      "code": "BFA",
+      "name": "Burkina Faso",
+      "region_code": "AFR",
+      "region": "Africa",
+      "metrics": {
+        "psychiatrists_per_100k": {
+          "value": 0.03865,
+          "year": 2016,
+          "low": null,
+          "high": null,
+          "indicator_code": "MH_6"
+        },
+        "mental_health_nurses_per_100k": {
+          "value": 0.63499,
+          "year": 2016,
+          "low": null,
+          "high": null,
+          "indicator_code": "MH_7"
+        },
+        "psychologists_per_100k": {
+          "value": 0.02209,
+          "year": 2016,
+          "low": null,
+          "high": null,
+          "indicator_code": "MH_9"
+        },
+        "depression_prevalence_2015": {
+          "value": 3.60906,
+          "year": 2015,
+          "low": 0.03609,
+          "high": null,
+          "indicator_code": "GDO_q35"
+        }
+      }
+    },
+    {
+      "code": "BDI",
+      "name": "Burundi",
+      "region_code": "AFR",
+      "region": "Africa",
+      "metrics": {
+        "psychiatrists_per_100k": {
+          "value": 0.0098,
+          "year": 2017,
+          "low": null,
+          "high": null,
+          "indicator_code": "MH_6"
+        },
+        "mental_health_nurses_per_100k": {
+          "value": 0.04902,
+          "year": 2017,
+          "low": null,
+          "high": null,
+          "indicator_code": "MH_7"
+        },
+        "psychologists_per_100k": {
+          "value": 0.49023,
+          "year": 2017,
+          "low": null,
+          "high": null,
+          "indicator_code": "MH_9"
+        },
+        "government_mental_health_spending_share": {
+          "value": 0.34,
+          "year": 2011,
+          "low": null,
+          "high": null,
+          "indicator_code": "MH_4"
+        },
+        "mental_health_outpatient_facilities_per_100k": {
+          "value": 0.0098,
+          "year": 2017,
+          "low": null,
+          "high": null,
+          "indicator_code": "MH_10"
+        }
+      }
+    },
+    {
+      "code": "CPV",
+      "name": "Cabo Verde",
+      "region_code": "AFR",
+      "region": "Africa",
+      "metrics": {
+        "depression_prevalence_2015": {
+          "value": 4.92824,
+          "year": 2015,
+          "low": 0.04928,
+          "high": null,
+          "indicator_code": "GDO_q35"
+        }
+      }
+    },
+    {
+      "code": "KHM",
+      "name": "Cambodia",
+      "region_code": "WPR",
+      "region": "Western Pacific",
+      "metrics": {
+        "mental_health_nurses_per_100k": {
+          "value": 0.2771,
+          "year": 2016,
+          "low": null,
+          "high": null,
+          "indicator_code": "MH_7"
+        },
+        "mental_health_outpatient_facilities_per_100k": {
+          "value": 1.13419,
+          "year": 2016,
+          "low": null,
+          "high": null,
+          "indicator_code": "MH_10"
+        }
+      }
+    },
+    {
+      "code": "CMR",
+      "name": "Cameroon",
+      "region_code": "AFR",
+      "region": "Africa",
+      "metrics": {
+        "government_mental_health_spending_share": {
+          "value": 0.26,
+          "year": 2011,
+          "low": null,
+          "high": null,
+          "indicator_code": "MH_4"
+        }
+      }
+    },
+    {
+      "code": "CAN",
+      "name": "Canada",
+      "region_code": "AMR",
+      "region": "Americas",
+      "metrics": {
+        "psychiatrists_per_100k": {
+          "value": 14.67922,
+          "year": 2017,
+          "low": null,
+          "high": null,
+          "indicator_code": "MH_6"
+        },
+        "mental_health_nurses_per_100k": {
+          "value": 68.6595,
+          "year": 2017,
+          "low": null,
+          "high": null,
+          "indicator_code": "MH_7"
+        },
+        "psychologists_per_100k": {
+          "value": 48.74014,
+          "year": 2017,
+          "low": null,
+          "high": null,
+          "indicator_code": "MH_9"
+        },
+        "government_mental_health_spending_share": {
+          "value": 7.2,
+          "year": 2011,
+          "low": null,
+          "high": null,
+          "indicator_code": "MH_4"
+        },
+        "mental_health_outpatient_facilities_per_100k": {
+          "value": 0.33,
+          "year": 2017,
+          "low": null,
+          "high": null,
+          "indicator_code": "MH_10"
+        }
+      }
+    },
+    {
+      "code": "CYM",
+      "name": "Cayman Islands",
+      "region_code": "AMR",
+      "region": "Americas",
+      "metrics": {}
+    },
+    {
+      "code": "CAF",
+      "name": "Central African Republic",
+      "region_code": "AFR",
+      "region": "Africa",
+      "metrics": {
+        "psychiatrists_per_100k": {
+          "value": 0.022,
+          "year": 2017,
+          "low": null,
+          "high": null,
+          "indicator_code": "MH_6"
+        },
+        "mental_health_nurses_per_100k": {
+          "value": 0.022,
+          "year": 2017,
+          "low": null,
+          "high": null,
+          "indicator_code": "MH_7"
+        }
+      }
+    },
+    {
+      "code": "TCD",
+      "name": "Chad",
+      "region_code": "AFR",
+      "region": "Africa",
+      "metrics": {
+        "mental_health_nurses_per_100k": {
+          "value": 0.02141,
+          "year": 2016,
+          "low": null,
+          "high": null,
+          "indicator_code": "MH_7"
+        },
+        "mental_health_outpatient_facilities_per_100k": {
+          "value": 0.00714,
+          "year": 2016,
+          "low": null,
+          "high": null,
+          "indicator_code": "MH_10"
+        }
+      }
+    },
+    {
+      "code": "CHI",
+      "name": "Channel islands",
+      "region_code": null,
+      "region": null,
+      "metrics": {}
+    },
+    {
+      "code": "CHL",
+      "name": "Chile",
+      "region_code": "AMR",
+      "region": "Americas",
+      "metrics": {
+        "government_mental_health_spending_share": {
+          "value": 2.78,
+          "year": 2011,
+          "low": null,
+          "high": null,
+          "indicator_code": "MH_4"
+        },
+        "mental_health_outpatient_facilities_per_100k": {
+          "value": 0.83884,
+          "year": 2016,
+          "low": null,
+          "high": null,
+          "indicator_code": "MH_10"
+        }
+      }
+    },
+    {
+      "code": "CHN",
+      "name": "China",
+      "region_code": "WPR",
+      "region": "Western Pacific",
+      "metrics": {
+        "mental_health_nurses_per_100k": {
+          "value": 5.4233,
+          "year": 2015,
+          "low": null,
+          "high": null,
+          "indicator_code": "MH_7"
+        }
+      }
+    },
+    {
+      "code": "HKG",
+      "name": "China, Hong Kong Special Administrative Region",
+      "region_code": null,
+      "region": null,
+      "metrics": {}
+    },
+    {
+      "code": "MAC",
+      "name": "China, Macao Special Administrative Region",
+      "region_code": null,
+      "region": null,
+      "metrics": {}
+    },
+    {
+      "code": "COL",
+      "name": "Colombia",
+      "region_code": "AMR",
+      "region": "Americas",
+      "metrics": {
+        "psychiatrists_per_100k": {
+          "value": 1.83501,
+          "year": 2016,
+          "low": null,
+          "high": null,
+          "indicator_code": "MH_6"
+        },
+        "mental_health_nurses_per_100k": {
+          "value": 0.0,
+          "year": 2016,
+          "low": null,
+          "high": null,
+          "indicator_code": "MH_7"
+        },
+        "mental_health_outpatient_facilities_per_100k": {
+          "value": 0.29236,
+          "year": 2016,
+          "low": null,
+          "high": null,
+          "indicator_code": "MH_10"
+        }
+      }
+    },
+    {
+      "code": "COM",
+      "name": "Comoros",
+      "region_code": "AFR",
+      "region": "Africa",
+      "metrics": {
+        "mental_health_nurses_per_100k": {
+          "value": 0.38589,
+          "year": 2017,
+          "low": null,
+          "high": null,
+          "indicator_code": "MH_7"
+        },
+        "psychologists_per_100k": {
+          "value": 0.64315,
+          "year": 2017,
+          "low": null,
+          "high": null,
+          "indicator_code": "MH_9"
+        },
+        "depression_prevalence_2015": {
+          "value": 4.3628,
+          "year": 2015,
+          "low": 0.04363,
+          "high": null,
+          "indicator_code": "GDO_q35"
+        }
+      }
+    },
+    {
+      "code": "COG",
+      "name": "Congo",
+      "region_code": "AFR",
+      "region": "Africa",
+      "metrics": {
+        "psychologists_per_100k": {
+          "value": 0.02002,
+          "year": 2016,
+          "low": null,
+          "high": null,
+          "indicator_code": "MH_9"
+        },
+        "mental_health_outpatient_facilities_per_100k": {
+          "value": 0.02002,
+          "year": 2016,
+          "low": null,
+          "high": null,
+          "indicator_code": "MH_10"
+        },
+        "depression_prevalence_2015": {
+          "value": 3.94981,
+          "year": 2015,
+          "low": 0.0395,
+          "high": null,
+          "indicator_code": "GDO_q35"
+        }
+      }
+    },
+    {
+      "code": "COK",
+      "name": "Cook Islands",
+      "region_code": "WPR",
+      "region": "Western Pacific",
+      "metrics": {
+        "mental_health_nurses_per_100k": {
+          "value": 11.46197,
+          "year": 2016,
+          "low": null,
+          "high": null,
+          "indicator_code": "MH_7"
+        },
+        "psychologists_per_100k": {
+          "value": 11.46197,
+          "year": 2016,
+          "low": null,
+          "high": null,
+          "indicator_code": "MH_9"
+        },
+        "mental_health_outpatient_facilities_per_100k": {
+          "value": 5.73099,
+          "year": 2016,
+          "low": null,
+          "high": null,
+          "indicator_code": "MH_10"
+        }
+      }
+    },
+    {
+      "code": "CRI",
+      "name": "Costa Rica",
+      "region_code": "AMR",
+      "region": "Americas",
+      "metrics": {
+        "psychiatrists_per_100k": {
+          "value": 3.93107,
+          "year": 2016,
+          "low": null,
+          "high": null,
+          "indicator_code": "MH_6"
+        },
+        "psychologists_per_100k": {
+          "value": 142.01768,
+          "year": 2016,
+          "low": null,
+          "high": null,
+          "indicator_code": "MH_9"
+        },
+        "government_mental_health_spending_share": {
+          "value": 2.91,
+          "year": 2011,
+          "low": null,
+          "high": null,
+          "indicator_code": "MH_4"
+        },
+        "depression_prevalence_2015": {
+          "value": 4.69745,
+          "year": 2015,
+          "low": 0.04697,
+          "high": null,
+          "indicator_code": "GDO_q35"
+        }
+      }
+    },
+    {
+      "code": "CIV",
+      "name": "Cote d'Ivoire",
+      "region_code": "AFR",
+      "region": "Africa",
+      "metrics": {
+        "mental_health_nurses_per_100k": {
+          "value": 0.38081,
+          "year": 2016,
+          "low": null,
+          "high": null,
+          "indicator_code": "MH_7"
+        },
+        "mental_health_outpatient_facilities_per_100k": {
+          "value": 0.01731,
+          "year": 2016,
+          "low": null,
+          "high": null,
+          "indicator_code": "MH_10"
+        },
+        "depression_prevalence_2015": {
+          "value": 3.79018,
+          "year": 2015,
+          "low": 0.0379,
+          "high": null,
+          "indicator_code": "GDO_q35"
+        }
+      }
+    },
+    {
+      "code": "HRV",
+      "name": "Croatia",
+      "region_code": "EUR",
+      "region": "Europe",
+      "metrics": {
+        "psychologists_per_100k": {
+          "value": 4.36733,
+          "year": 2016,
+          "low": null,
+          "high": null,
+          "indicator_code": "MH_9"
+        },
+        "mental_health_outpatient_facilities_per_100k": {
+          "value": 3.09254,
+          "year": 2016,
+          "low": null,
+          "high": null,
+          "indicator_code": "MH_10"
+        },
+        "depression_prevalence_2015": {
+          "value": 5.07759,
+          "year": 2015,
+          "low": 0.05078,
+          "high": null,
+          "indicator_code": "GDO_q35"
+        }
+      }
+    },
+    {
+      "code": "CUB",
+      "name": "Cuba",
+      "region_code": "AMR",
+      "region": "Americas",
+      "metrics": {
+        "mental_health_nurses_per_100k": {
+          "value": 8.89941,
+          "year": 2016,
+          "low": null,
+          "high": null,
+          "indicator_code": "MH_7"
+        },
+        "mental_health_outpatient_facilities_per_100k": {
+          "value": 2.93157,
+          "year": 2016,
+          "low": null,
+          "high": null,
+          "indicator_code": "MH_10"
+        },
+        "depression_prevalence_2015": {
+          "value": 5.49024,
+          "year": 2015,
+          "low": 0.0549,
+          "high": null,
+          "indicator_code": "GDO_q35"
+        }
+      }
+    },
+    {
+      "code": "CUW",
+      "name": "Curaçao",
+      "region_code": "AMR",
+      "region": "Americas",
+      "metrics": {}
+    },
+    {
+      "code": "CYP",
+      "name": "Cyprus",
+      "region_code": "EUR",
+      "region": "Europe",
+      "metrics": {
+        "mental_health_nurses_per_100k": {
+          "value": 34.97031,
+          "year": 2015,
+          "low": null,
+          "high": null,
+          "indicator_code": "MH_7"
+        },
+        "government_mental_health_spending_share": {
+          "value": 4.82,
+          "year": 2011,
+          "low": null,
+          "high": null,
+          "indicator_code": "MH_4"
+        }
+      }
+    },
+    {
+      "code": "CZE",
+      "name": "Czechia",
+      "region_code": "EUR",
+      "region": "Europe",
+      "metrics": {
+        "psychologists_per_100k": {
+          "value": 2.51797,
+          "year": 2015,
+          "low": null,
+          "high": null,
+          "indicator_code": "MH_9"
+        },
+        "government_mental_health_spending_share": {
+          "value": 2.91,
+          "year": 2011,
+          "low": null,
+          "high": null,
+          "indicator_code": "MH_4"
+        },
+        "mental_health_outpatient_facilities_per_100k": {
+          "value": 10.94894,
+          "year": 2015,
+          "low": null,
+          "high": null,
+          "indicator_code": "MH_10"
+        }
+      }
+    },
+    {
+      "code": "PRK",
+      "name": "Democratic People's Republic of Korea",
+      "region_code": "SEAR",
+      "region": "South-East Asia",
+      "metrics": {}
+    },
+    {
+      "code": "COD",
+      "name": "Democratic Republic of the Congo",
+      "region_code": "AFR",
+      "region": "Africa",
+      "metrics": {
+        "depression_prevalence_2015": {
+          "value": 3.76623,
+          "year": 2015,
+          "low": 0.03766,
+          "high": null,
+          "indicator_code": "GDO_q35"
+        }
+      }
+    },
+    {
+      "code": "DNK",
+      "name": "Denmark",
+      "region_code": "EUR",
+      "region": "Europe",
+      "metrics": {
+        "depression_prevalence_2015": {
+          "value": 4.97833,
+          "year": 2015,
+          "low": 0.04978,
+          "high": null,
+          "indicator_code": "GDO_q35"
+        }
+      }
+    },
+    {
+      "code": "DJI",
+      "name": "Djibouti",
+      "region_code": "EMR",
+      "region": "Eastern Mediterranean",
+      "metrics": {}
+    },
+    {
+      "code": "DMA",
+      "name": "Dominica",
+      "region_code": "AMR",
+      "region": "Americas",
+      "metrics": {
+        "government_mental_health_spending_share": {
+          "value": 3.22,
+          "year": 2011,
+          "low": null,
+          "high": null,
+          "indicator_code": "MH_4"
+        }
+      }
+    },
+    {
+      "code": "DOM",
+      "name": "Dominican Republic",
+      "region_code": "AMR",
+      "region": "Americas",
+      "metrics": {
+        "psychiatrists_per_100k": {
+          "value": 2.27955,
+          "year": 2016,
+          "low": null,
+          "high": null,
+          "indicator_code": "MH_6"
+        },
+        "psychologists_per_100k": {
+          "value": 7.5985,
+          "year": 2016,
+          "low": null,
+          "high": null,
+          "indicator_code": "MH_9"
+        },
+        "government_mental_health_spending_share": {
+          "value": 0.61,
+          "year": 2011,
+          "low": null,
+          "high": null,
+          "indicator_code": "MH_4"
+        },
+        "mental_health_outpatient_facilities_per_100k": {
+          "value": 1.74765,
+          "year": 2016,
+          "low": null,
+          "high": null,
+          "indicator_code": "MH_10"
+        }
+      }
+    },
+    {
+      "code": "ECU",
+      "name": "Ecuador",
+      "region_code": "AMR",
+      "region": "Americas",
+      "metrics": {
+        "psychiatrists_per_100k": {
+          "value": 0.45836,
+          "year": 2016,
+          "low": null,
+          "high": null,
+          "indicator_code": "MH_6"
+        },
+        "mental_health_nurses_per_100k": {
+          "value": 0.05575,
+          "year": 2016,
+          "low": null,
+          "high": null,
+          "indicator_code": "MH_7"
+        },
+        "psychologists_per_100k": {
+          "value": 7.66211,
+          "year": 2016,
+          "low": null,
+          "high": null,
+          "indicator_code": "MH_9"
+        },
+        "government_mental_health_spending_share": {
+          "value": 1.2,
+          "year": 2011,
+          "low": null,
+          "high": null,
+          "indicator_code": "MH_4"
+        },
+        "mental_health_outpatient_facilities_per_100k": {
+          "value": 0.24157,
+          "year": 2016,
+          "low": null,
+          "high": null,
+          "indicator_code": "MH_10"
+        }
+      }
+    },
+    {
+      "code": "EGY",
+      "name": "Egypt",
+      "region_code": "EMR",
+      "region": "Eastern Mediterranean",
+      "metrics": {
+        "psychiatrists_per_100k": {
+          "value": 1.59952,
+          "year": 2016,
+          "low": null,
+          "high": null,
+          "indicator_code": "MH_6"
+        },
+        "mental_health_nurses_per_100k": {
+          "value": 4.79856,
+          "year": 2016,
+          "low": null,
+          "high": null,
+          "indicator_code": "MH_7"
+        },
+        "psychologists_per_100k": {
+          "value": 0.25592,
+          "year": 2016,
+          "low": null,
+          "high": null,
+          "indicator_code": "MH_9"
+        },
+        "government_mental_health_spending_share": {
+          "value": 2.29,
+          "year": 2011,
+          "low": null,
+          "high": null,
+          "indicator_code": "MH_4"
+        },
+        "mental_health_outpatient_facilities_per_100k": {
+          "value": 0.03092,
+          "year": 2016,
+          "low": null,
+          "high": null,
+          "indicator_code": "MH_10"
+        },
+        "depression_prevalence_2015": {
+          "value": 3.46338,
+          "year": 2015,
+          "low": 0.03463,
+          "high": null,
+          "indicator_code": "GDO_q35"
+        }
+      }
+    },
+    {
+      "code": "SLV",
+      "name": "El Salvador",
+      "region_code": "AMR",
+      "region": "Americas",
+      "metrics": {
+        "psychiatrists_per_100k": {
+          "value": 0.88713,
+          "year": 2016,
+          "low": null,
+          "high": null,
+          "indicator_code": "MH_6"
+        },
+        "mental_health_outpatient_facilities_per_100k": {
+          "value": 0.72872,
+          "year": 2016,
+          "low": null,
+          "high": null,
+          "indicator_code": "MH_10"
+        }
+      }
+    },
+    {
+      "code": "GNQ",
+      "name": "Equatorial Guinea",
+      "region_code": "AFR",
+      "region": "Africa",
+      "metrics": {
+        "mental_health_nurses_per_100k": {
+          "value": 5.10469,
+          "year": 2017,
+          "low": null,
+          "high": null,
+          "indicator_code": "MH_7"
+        },
+        "psychologists_per_100k": {
+          "value": 0.42539,
+          "year": 2017,
+          "low": null,
+          "high": null,
+          "indicator_code": "MH_9"
+        }
+      }
+    },
+    {
+      "code": "ERI",
+      "name": "Eritrea",
+      "region_code": "AFR",
+      "region": "Africa",
+      "metrics": {
+        "mental_health_nurses_per_100k": {
+          "value": 2.1663,
+          "year": 2016,
+          "low": null,
+          "high": null,
+          "indicator_code": "MH_7"
+        },
+        "psychologists_per_100k": {
+          "value": 0.08253,
+          "year": 2016,
+          "low": null,
+          "high": null,
+          "indicator_code": "MH_9"
+        },
+        "government_mental_health_spending_share": {
+          "value": 1.91,
+          "year": 2011,
+          "low": null,
+          "high": null,
+          "indicator_code": "MH_4"
+        },
+        "mental_health_outpatient_facilities_per_100k": {
+          "value": 0.22695,
+          "year": 2016,
+          "low": null,
+          "high": null,
+          "indicator_code": "MH_10"
+        },
+        "depression_prevalence_2015": {
+          "value": 4.33094,
+          "year": 2015,
+          "low": 0.04331,
+          "high": null,
+          "indicator_code": "GDO_q35"
+        }
+      }
+    },
+    {
+      "code": "EST",
+      "name": "Estonia",
+      "region_code": "EUR",
+      "region": "Europe",
+      "metrics": {
+        "mental_health_nurses_per_100k": {
+          "value": 23.48399,
+          "year": 2016,
+          "low": null,
+          "high": null,
+          "indicator_code": "MH_7"
+        },
+        "psychologists_per_100k": {
+          "value": 6.46,
+          "year": 2016,
+          "low": null,
+          "high": null,
+          "indicator_code": "MH_9"
+        },
+        "government_mental_health_spending_share": {
+          "value": 5.78,
+          "year": 2011,
+          "low": null,
+          "high": null,
+          "indicator_code": "MH_4"
+        },
+        "mental_health_outpatient_facilities_per_100k": {
+          "value": 14.81999,
+          "year": 2016,
+          "low": null,
+          "high": null,
+          "indicator_code": "MH_10"
+        },
+        "depression_prevalence_2015": {
+          "value": 5.90777,
+          "year": 2015,
+          "low": 0.05908,
+          "high": null,
+          "indicator_code": "GDO_q35"
+        }
+      }
+    },
+    {
+      "code": "SWZ",
+      "name": "Eswatini",
+      "region_code": "AFR",
+      "region": "Africa",
+      "metrics": {
+        "psychiatrists_per_100k": {
+          "value": 0.07581,
+          "year": 2017,
+          "low": null,
+          "high": null,
+          "indicator_code": "MH_6"
+        },
+        "mental_health_nurses_per_100k": {
+          "value": 9.09773,
+          "year": 2017,
+          "low": null,
+          "high": null,
+          "indicator_code": "MH_7"
+        },
+        "psychologists_per_100k": {
+          "value": 0.37907,
+          "year": 2017,
+          "low": null,
+          "high": null,
+          "indicator_code": "MH_9"
+        },
+        "depression_prevalence_2015": {
+          "value": 4.19445,
+          "year": 2015,
+          "low": 0.04194,
+          "high": null,
+          "indicator_code": "GDO_q35"
+        }
+      }
+    },
+    {
+      "code": "ETH",
+      "name": "Ethiopia",
+      "region_code": "AFR",
+      "region": "Africa",
+      "metrics": {
+        "psychiatrists_per_100k": {
+          "value": 0.0761,
+          "year": 2017,
+          "low": null,
+          "high": null,
+          "indicator_code": "MH_6"
+        },
+        "mental_health_nurses_per_100k": {
+          "value": 1.00127,
+          "year": 2017,
+          "low": null,
+          "high": null,
+          "indicator_code": "MH_7"
+        },
+        "psychologists_per_100k": {
+          "value": 0.04606,
+          "year": 2017,
+          "low": null,
+          "high": null,
+          "indicator_code": "MH_9"
+        }
+      }
+    },
+    {
+      "code": "FLK",
+      "name": "Falkland Islands (Malvinas)",
+      "region_code": "AMR",
+      "region": "Americas",
+      "metrics": {}
+    },
+    {
+      "code": "FRO",
+      "name": "Faroe Islands",
+      "region_code": "EUR",
+      "region": "Europe",
+      "metrics": {}
+    },
+    {
+      "code": "FJI",
+      "name": "Fiji",
+      "region_code": "WPR",
+      "region": "Western Pacific",
+      "metrics": {
+        "psychiatrists_per_100k": {
+          "value": 0.22418,
+          "year": 2016,
+          "low": null,
+          "high": null,
+          "indicator_code": "MH_6"
+        },
+        "mental_health_nurses_per_100k": {
+          "value": 1.45716,
+          "year": 2016,
+          "low": null,
+          "high": null,
+          "indicator_code": "MH_7"
+        },
+        "government_mental_health_spending_share": {
+          "value": 1.9,
+          "year": 2011,
+          "low": null,
+          "high": null,
+          "indicator_code": "MH_4"
+        },
+        "mental_health_outpatient_facilities_per_100k": {
+          "value": 3.36267,
+          "year": 2016,
+          "low": null,
+          "high": null,
+          "indicator_code": "MH_10"
+        },
+        "depression_prevalence_2015": {
+          "value": 3.49839,
+          "year": 2015,
+          "low": 0.03498,
+          "high": null,
+          "indicator_code": "GDO_q35"
+        }
+      }
+    },
+    {
+      "code": "FIN",
+      "name": "Finland",
+      "region_code": "EUR",
+      "region": "Europe",
+      "metrics": {
+        "psychologists_per_100k": {
+          "value": 109.48627,
+          "year": 2017,
+          "low": null,
+          "high": null,
+          "indicator_code": "MH_9"
+        },
+        "government_mental_health_spending_share": {
+          "value": 3.86,
+          "year": 2011,
+          "low": null,
+          "high": null,
+          "indicator_code": "MH_4"
+        },
+        "mental_health_outpatient_facilities_per_100k": {
+          "value": 7.51555,
+          "year": 2017,
+          "low": null,
+          "high": null,
+          "indicator_code": "MH_10"
+        },
+        "depression_prevalence_2015": {
+          "value": 5.61099,
+          "year": 2015,
+          "low": 0.05611,
+          "high": null,
+          "indicator_code": "GDO_q35"
+        }
+      }
+    },
+    {
+      "code": "FRA",
+      "name": "France",
+      "region_code": "EUR",
+      "region": "Europe",
+      "metrics": {
+        "psychiatrists_per_100k": {
+          "value": 20.9069,
+          "year": 2017,
+          "low": null,
+          "high": null,
+          "indicator_code": "MH_6"
+        },
+        "mental_health_nurses_per_100k": {
+          "value": 98.01698,
+          "year": 2017,
+          "low": null,
+          "high": null,
+          "indicator_code": "MH_7"
+        },
+        "psychologists_per_100k": {
+          "value": 48.70364,
+          "year": 2017,
+          "low": null,
+          "high": null,
+          "indicator_code": "MH_9"
+        },
+        "government_mental_health_spending_share": {
+          "value": 12.91,
+          "year": 2011,
+          "low": null,
+          "high": null,
+          "indicator_code": "MH_4"
+        },
+        "depression_prevalence_2015": {
+          "value": 4.84031,
+          "year": 2015,
+          "low": 0.0484,
+          "high": null,
+          "indicator_code": "GDO_q35"
+        }
+      }
+    },
+    {
+      "code": "GUF",
+      "name": "French Guiana",
+      "region_code": "AMR",
+      "region": "Americas",
+      "metrics": {}
+    },
+    {
+      "code": "PYF",
+      "name": "French Polynesia",
+      "region_code": "WPR",
+      "region": "Western Pacific",
+      "metrics": {}
+    },
+    {
+      "code": "GAB",
+      "name": "Gabon",
+      "region_code": "AFR",
+      "region": "Africa",
+      "metrics": {
+        "psychiatrists_per_100k": {
+          "value": 0.25904,
+          "year": 2016,
+          "low": null,
+          "high": null,
+          "indicator_code": "MH_6"
+        },
+        "psychologists_per_100k": {
+          "value": 0.77713,
+          "year": 2016,
+          "low": null,
+          "high": null,
+          "indicator_code": "MH_9"
+        },
+        "government_mental_health_spending_share": {
+          "value": 0.62,
+          "year": 2011,
+          "low": null,
+          "high": null,
+          "indicator_code": "MH_4"
+        },
+        "mental_health_outpatient_facilities_per_100k": {
+          "value": 0.05181,
+          "year": 2016,
+          "low": null,
+          "high": null,
+          "indicator_code": "MH_10"
+        },
+        "depression_prevalence_2015": {
+          "value": 4.289,
+          "year": 2015,
+          "low": 0.04289,
+          "high": null,
+          "indicator_code": "GDO_q35"
+        }
+      }
+    },
+    {
+      "code": "GMB",
+      "name": "Gambia",
+      "region_code": "AFR",
+      "region": "Africa",
+      "metrics": {
+        "psychiatrists_per_100k": {
+          "value": 0.10113,
+          "year": 2016,
+          "low": null,
+          "high": null,
+          "indicator_code": "MH_6"
+        },
+        "mental_health_nurses_per_100k": {
+          "value": 0.3034,
+          "year": 2016,
+          "low": null,
+          "high": null,
+          "indicator_code": "MH_7"
+        },
+        "depression_prevalence_2015": {
+          "value": 3.90598,
+          "year": 2015,
+          "low": 0.03906,
+          "high": null,
+          "indicator_code": "GDO_q35"
+        }
+      }
+    },
+    {
+      "code": "GEO",
+      "name": "Georgia",
+      "region_code": "EUR",
+      "region": "Europe",
+      "metrics": {
+        "mental_health_nurses_per_100k": {
+          "value": 5.92177,
+          "year": 2016,
+          "low": null,
+          "high": null,
+          "indicator_code": "MH_7"
+        },
+        "psychologists_per_100k": {
+          "value": 2.32822,
+          "year": 2016,
+          "low": null,
+          "high": null,
+          "indicator_code": "MH_9"
+        },
+        "government_mental_health_spending_share": {
+          "value": 2.83,
+          "year": 2011,
+          "low": null,
+          "high": null,
+          "indicator_code": "MH_4"
+        },
+        "mental_health_outpatient_facilities_per_100k": {
+          "value": 0.68328,
+          "year": 2016,
+          "low": null,
+          "high": null,
+          "indicator_code": "MH_10"
+        }
+      }
+    },
+    {
+      "code": "DEU",
+      "name": "Germany",
+      "region_code": "EUR",
+      "region": "Europe",
+      "metrics": {
+        "psychiatrists_per_100k": {
+          "value": 13.20192,
+          "year": 2015,
+          "low": null,
+          "high": null,
+          "indicator_code": "MH_6"
+        },
+        "psychologists_per_100k": {
+          "value": 49.55464,
+          "year": 2015,
+          "low": null,
+          "high": null,
+          "indicator_code": "MH_9"
+        },
+        "government_mental_health_spending_share": {
+          "value": 11.0,
+          "year": 2011,
+          "low": null,
+          "high": null,
+          "indicator_code": "MH_4"
+        },
+        "mental_health_outpatient_facilities_per_100k": {
+          "value": 0.0771,
+          "year": 2015,
+          "low": null,
+          "high": null,
+          "indicator_code": "MH_10"
+        }
+      }
+    },
+    {
+      "code": "GHA",
+      "name": "Ghana",
+      "region_code": "AFR",
+      "region": "Africa",
+      "metrics": {
+        "psychiatrists_per_100k": {
+          "value": 0.05801,
+          "year": 2016,
+          "low": null,
+          "high": null,
+          "indicator_code": "MH_6"
+        },
+        "psychologists_per_100k": {
+          "value": 0.06526,
+          "year": 2016,
+          "low": null,
+          "high": null,
+          "indicator_code": "MH_9"
+        },
+        "government_mental_health_spending_share": {
+          "value": 2.0,
+          "year": 2011,
+          "low": null,
+          "high": null,
+          "indicator_code": "MH_4"
+        },
+        "depression_prevalence_2015": {
+          "value": 4.15113,
+          "year": 2015,
+          "low": 0.04151,
+          "high": null,
+          "indicator_code": "GDO_q35"
+        }
+      }
+    },
+    {
+      "code": "GIB",
+      "name": "Gibraltar",
+      "region_code": "EUR",
+      "region": "Europe",
+      "metrics": {}
+    },
+    {
+      "code": "GRC",
+      "name": "Greece",
+      "region_code": "EUR",
+      "region": "Europe",
+      "metrics": {
+        "psychiatrists_per_100k": {
+          "value": 5.80328,
+          "year": 2016,
+          "low": null,
+          "high": null,
+          "indicator_code": "MH_6"
+        },
+        "mental_health_nurses_per_100k": {
+          "value": 12.7476,
+          "year": 2016,
+          "low": null,
+          "high": null,
+          "indicator_code": "MH_7"
+        },
+        "psychologists_per_100k": {
+          "value": 8.78069,
+          "year": 2016,
+          "low": null,
+          "high": null,
+          "indicator_code": "MH_9"
+        },
+        "government_mental_health_spending_share": {
+          "value": 4.43,
+          "year": 2011,
+          "low": null,
+          "high": null,
+          "indicator_code": "MH_4"
+        },
+        "mental_health_outpatient_facilities_per_100k": {
+          "value": 1.34607,
+          "year": 2016,
+          "low": null,
+          "high": null,
+          "indicator_code": "MH_10"
+        },
+        "depression_prevalence_2015": {
+          "value": 5.74446,
+          "year": 2015,
+          "low": 0.05744,
+          "high": null,
+          "indicator_code": "GDO_q35"
+        }
+      }
+    },
+    {
+      "code": "GRL",
+      "name": "Greenland",
+      "region_code": "EUR",
+      "region": "Europe",
+      "metrics": {}
+    },
+    {
+      "code": "GRD",
+      "name": "Grenada",
+      "region_code": "AMR",
+      "region": "Americas",
+      "metrics": {
+        "psychiatrists_per_100k": {
+          "value": 1.87226,
+          "year": 2016,
+          "low": null,
+          "high": null,
+          "indicator_code": "MH_6"
+        },
+        "mental_health_nurses_per_100k": {
+          "value": 0.93613,
+          "year": 2016,
+          "low": null,
+          "high": null,
+          "indicator_code": "MH_7"
+        },
+        "mental_health_outpatient_facilities_per_100k": {
+          "value": 10.29741,
+          "year": 2016,
+          "low": null,
+          "high": null,
+          "indicator_code": "MH_10"
+        },
+        "depression_prevalence_2015": {
+          "value": 4.70431,
+          "year": 2015,
+          "low": 0.04704,
+          "high": null,
+          "indicator_code": "GDO_q35"
+        }
+      }
+    },
+    {
+      "code": "GLP",
+      "name": "Guadeloupe",
+      "region_code": "AMR",
+      "region": "Americas",
+      "metrics": {}
+    },
+    {
+      "code": "GUM",
+      "name": "Guam",
+      "region_code": "WPR",
+      "region": "Western Pacific",
+      "metrics": {}
+    },
+    {
+      "code": "GTM",
+      "name": "Guatemala",
+      "region_code": "AMR",
+      "region": "Americas",
+      "metrics": {
+        "psychiatrists_per_100k": {
+          "value": 0.49223,
+          "year": 2016,
+          "low": null,
+          "high": null,
+          "indicator_code": "MH_6"
+        },
+        "mental_health_nurses_per_100k": {
+          "value": 1.07061,
+          "year": 2016,
+          "low": null,
+          "high": null,
+          "indicator_code": "MH_7"
+        },
+        "psychologists_per_100k": {
+          "value": 46.14695,
+          "year": 2016,
+          "low": null,
+          "high": null,
+          "indicator_code": "MH_9"
+        },
+        "government_mental_health_spending_share": {
+          "value": 1.46,
+          "year": 2011,
+          "low": null,
+          "high": null,
+          "indicator_code": "MH_4"
+        },
+        "mental_health_outpatient_facilities_per_100k": {
+          "value": 1.43363,
+          "year": 2016,
+          "low": null,
+          "high": null,
+          "indicator_code": "MH_10"
+        }
+      }
+    },
+    {
+      "code": "GIN",
+      "name": "Guinea",
+      "region_code": "AFR",
+      "region": "Africa",
+      "metrics": {
+        "psychologists_per_100k": {
+          "value": 0.00827,
+          "year": 2016,
+          "low": null,
+          "high": null,
+          "indicator_code": "MH_9"
+        }
+      }
+    },
+    {
+      "code": "GNB",
+      "name": "Guinea-Bissau",
+      "region_code": "AFR",
+      "region": "Africa",
+      "metrics": {
+        "psychologists_per_100k": {
+          "value": 0.11296,
+          "year": 2016,
+          "low": null,
+          "high": null,
+          "indicator_code": "MH_9"
+        }
+      }
+    },
+    {
+      "code": "GUY",
+      "name": "Guyana",
+      "region_code": "AMR",
+      "region": "Americas",
+      "metrics": {
+        "psychiatrists_per_100k": {
+          "value": 0.91085,
+          "year": 2016,
+          "low": null,
+          "high": null,
+          "indicator_code": "MH_6"
+        },
+        "psychologists_per_100k": {
+          "value": 0.0,
+          "year": 2016,
+          "low": null,
+          "high": null,
+          "indicator_code": "MH_9"
+        },
+        "government_mental_health_spending_share": {
+          "value": 1.35,
+          "year": 2011,
+          "low": null,
+          "high": null,
+          "indicator_code": "MH_4"
+        },
+        "mental_health_outpatient_facilities_per_100k": {
+          "value": 0.26024,
+          "year": 2016,
+          "low": null,
+          "high": null,
+          "indicator_code": "MH_10"
+        },
+        "depression_prevalence_2015": {
+          "value": 4.54976,
+          "year": 2015,
+          "low": 0.0455,
+          "high": null,
+          "indicator_code": "GDO_q35"
+        }
+      }
+    },
+    {
+      "code": "HTI",
+      "name": "Haiti",
+      "region_code": "AMR",
+      "region": "Americas",
+      "metrics": {
+        "psychiatrists_per_100k": {
+          "value": 0.07469,
+          "year": 2016,
+          "low": null,
+          "high": null,
+          "indicator_code": "MH_6"
+        },
+        "mental_health_nurses_per_100k": {
+          "value": 0.2334,
+          "year": 2016,
+          "low": null,
+          "high": null,
+          "indicator_code": "MH_7"
+        },
+        "psychologists_per_100k": {
+          "value": 0.56017,
+          "year": 2016,
+          "low": null,
+          "high": null,
+          "indicator_code": "MH_9"
+        },
+        "government_mental_health_spending_share": {
+          "value": 0.61,
+          "year": 2011,
+          "low": null,
+          "high": null,
+          "indicator_code": "MH_4"
+        }
+      }
+    },
+    {
+      "code": "HND",
+      "name": "Honduras",
+      "region_code": "AMR",
+      "region": "Americas",
+      "metrics": {
+        "psychologists_per_100k": {
+          "value": 0.62494,
+          "year": 2014,
+          "low": null,
+          "high": null,
+          "indicator_code": "MH_9"
+        },
+        "government_mental_health_spending_share": {
+          "value": 1.61,
+          "year": 2011,
+          "low": null,
+          "high": null,
+          "indicator_code": "MH_4"
+        },
+        "mental_health_outpatient_facilities_per_100k": {
+          "value": 0.14508,
+          "year": 2014,
+          "low": null,
+          "high": null,
+          "indicator_code": "MH_10"
+        }
+      }
+    },
+    {
+      "code": "HUN",
+      "name": "Hungary",
+      "region_code": "EUR",
+      "region": "Europe",
+      "metrics": {
+        "mental_health_nurses_per_100k": {
+          "value": 33.73902,
+          "year": 2016,
+          "low": null,
+          "high": null,
+          "indicator_code": "MH_7"
+        },
+        "psychologists_per_100k": {
+          "value": 2.48367,
+          "year": 2016,
+          "low": null,
+          "high": null,
+          "indicator_code": "MH_9"
+        },
+        "government_mental_health_spending_share": {
+          "value": 5.1,
+          "year": 2011,
+          "low": null,
+          "high": null,
+          "indicator_code": "MH_4"
+        },
+        "mental_health_outpatient_facilities_per_100k": {
+          "value": 8.26867,
+          "year": 2016,
+          "low": null,
+          "high": null,
+          "indicator_code": "MH_10"
+        },
+        "depression_prevalence_2015": {
+          "value": 5.09956,
+          "year": 2015,
+          "low": 0.051,
+          "high": null,
+          "indicator_code": "GDO_q35"
+        }
+      }
+    },
+    {
+      "code": "ISL",
+      "name": "Iceland",
+      "region_code": "EUR",
+      "region": "Europe",
+      "metrics": {
+        "government_mental_health_spending_share": {
+          "value": 8.69,
+          "year": 2011,
+          "low": null,
+          "high": null,
+          "indicator_code": "MH_4"
+        },
+        "depression_prevalence_2015": {
+          "value": 4.09296,
+          "year": 2015,
+          "low": 0.04093,
+          "high": null,
+          "indicator_code": "GDO_q35"
+        }
+      }
+    },
+    {
+      "code": "IND",
+      "name": "India",
+      "region_code": "SEAR",
+      "region": "South-East Asia",
+      "metrics": {
+        "psychiatrists_per_100k": {
+          "value": 0.29235,
+          "year": 2016,
+          "low": null,
+          "high": null,
+          "indicator_code": "MH_6"
+        },
+        "mental_health_nurses_per_100k": {
+          "value": 0.79584,
+          "year": 2016,
+          "low": null,
+          "high": null,
+          "indicator_code": "MH_7"
+        },
+        "psychologists_per_100k": {
+          "value": 0.0686,
+          "year": 2016,
+          "low": null,
+          "high": null,
+          "indicator_code": "MH_9"
+        },
+        "mental_health_outpatient_facilities_per_100k": {
+          "value": 0.17631,
+          "year": 2016,
+          "low": null,
+          "high": null,
+          "indicator_code": "MH_10"
+        },
+        "depression_prevalence_2015": {
+          "value": 4.4544,
+          "year": 2015,
+          "low": 0.04454,
+          "high": null,
+          "indicator_code": "GDO_q35"
+        }
+      }
+    },
+    {
+      "code": "IDN",
+      "name": "Indonesia",
+      "region_code": "WPR",
+      "region": "Western Pacific",
+      "metrics": {
+        "mental_health_nurses_per_100k": {
+          "value": 2.5178,
+          "year": 2016,
+          "low": null,
+          "high": null,
+          "indicator_code": "MH_7"
+        },
+        "psychologists_per_100k": {
+          "value": 0.1747,
+          "year": 2016,
+          "low": null,
+          "high": null,
+          "indicator_code": "MH_9"
+        }
+      }
+    },
+    {
+      "code": "IRN",
+      "name": "Iran (Islamic Republic of)",
+      "region_code": "EMR",
+      "region": "Eastern Mediterranean",
+      "metrics": {
+        "mental_health_nurses_per_100k": {
+          "value": 9.45055,
+          "year": 2017,
+          "low": null,
+          "high": null,
+          "indicator_code": "MH_7"
+        },
+        "psychologists_per_100k": {
+          "value": 5.1663,
+          "year": 2017,
+          "low": null,
+          "high": null,
+          "indicator_code": "MH_9"
+        },
+        "government_mental_health_spending_share": {
+          "value": 3.6,
+          "year": 2011,
+          "low": null,
+          "high": null,
+          "indicator_code": "MH_4"
+        },
+        "mental_health_outpatient_facilities_per_100k": {
+          "value": 5.08943,
+          "year": 2017,
+          "low": null,
+          "high": null,
+          "indicator_code": "MH_10"
+        }
+      }
+    },
+    {
+      "code": "IRQ",
+      "name": "Iraq",
+      "region_code": "EMR",
+      "region": "Eastern Mediterranean",
+      "metrics": {
+        "mental_health_nurses_per_100k": {
+          "value": 1.21831,
+          "year": 2017,
+          "low": null,
+          "high": null,
+          "indicator_code": "MH_7"
+        },
+        "psychologists_per_100k": {
+          "value": 0.11076,
+          "year": 2017,
+          "low": null,
+          "high": null,
+          "indicator_code": "MH_9"
+        },
+        "mental_health_outpatient_facilities_per_100k": {
+          "value": 1.70563,
+          "year": 2017,
+          "low": null,
+          "high": null,
+          "indicator_code": "MH_10"
+        }
+      }
+    },
+    {
+      "code": "IRL",
+      "name": "Ireland",
+      "region_code": "EUR",
+      "region": "Europe",
+      "metrics": {
+        "mental_health_outpatient_facilities_per_100k": {
+          "value": 3.8297,
+          "year": 2016,
+          "low": null,
+          "high": null,
+          "indicator_code": "MH_10"
+        }
+      }
+    },
+    {
+      "code": "IMN",
+      "name": "Isle of Man",
+      "region_code": "EUR",
+      "region": "Europe",
+      "metrics": {}
+    },
+    {
+      "code": "ISR",
+      "name": "Israel",
+      "region_code": "EUR",
+      "region": "Europe",
+      "metrics": {
+        "psychiatrists_per_100k": {
+          "value": 9.87036,
+          "year": 2016,
+          "low": null,
+          "high": null,
+          "indicator_code": "MH_6"
+        },
+        "psychologists_per_100k": {
+          "value": 88.08926,
+          "year": 2016,
+          "low": null,
+          "high": null,
+          "indicator_code": "MH_9"
+        },
+        "depression_prevalence_2015": {
+          "value": 4.61045,
+          "year": 2015,
+          "low": 0.0461,
+          "high": null,
+          "indicator_code": "GDO_q35"
+        }
+      }
+    },
+    {
+      "code": "ITA",
+      "name": "Italy",
+      "region_code": "EUR",
+      "region": "Europe",
+      "metrics": {
+        "psychiatrists_per_100k": {
+          "value": 5.97773,
+          "year": 2015,
+          "low": null,
+          "high": null,
+          "indicator_code": "MH_6"
+        },
+        "government_mental_health_spending_share": {
+          "value": 5.0,
+          "year": 2011,
+          "low": null,
+          "high": null,
+          "indicator_code": "MH_4"
+        },
+        "mental_health_outpatient_facilities_per_100k": {
+          "value": 3.58126,
+          "year": 2015,
+          "low": null,
+          "high": null,
+          "indicator_code": "MH_10"
+        },
+        "depression_prevalence_2015": {
+          "value": 5.14039,
+          "year": 2015,
+          "low": 0.0514,
+          "high": null,
+          "indicator_code": "GDO_q35"
+        }
+      }
+    },
+    {
+      "code": "JAM",
+      "name": "Jamaica",
+      "region_code": "AMR",
+      "region": "Americas",
+      "metrics": {
+        "mental_health_nurses_per_100k": {
+          "value": 10.27182,
+          "year": 2015,
+          "low": null,
+          "high": null,
+          "indicator_code": "MH_7"
+        },
+        "psychologists_per_100k": {
+          "value": 0.38302,
+          "year": 2015,
+          "low": null,
+          "high": null,
+          "indicator_code": "MH_9"
+        },
+        "government_mental_health_spending_share": {
+          "value": 6.04,
+          "year": 2011,
+          "low": null,
+          "high": null,
+          "indicator_code": "MH_4"
+        },
+        "mental_health_outpatient_facilities_per_100k": {
+          "value": 6.09345,
+          "year": 2015,
+          "low": null,
+          "high": null,
+          "indicator_code": "MH_10"
+        },
+        "depression_prevalence_2015": {
+          "value": 4.81777,
+          "year": 2015,
+          "low": 0.04818,
+          "high": null,
+          "indicator_code": "GDO_q35"
+        }
+      }
+    },
+    {
+      "code": "JPN",
+      "name": "Japan",
+      "region_code": "WPR",
+      "region": "Western Pacific",
+      "metrics": {
+        "mental_health_nurses_per_100k": {
+          "value": 83.80546,
+          "year": 2016,
+          "low": null,
+          "high": null,
+          "indicator_code": "MH_7"
+        },
+        "psychologists_per_100k": {
+          "value": 3.03653,
+          "year": 2016,
+          "low": null,
+          "high": null,
+          "indicator_code": "MH_9"
+        },
+        "government_mental_health_spending_share": {
+          "value": 4.94,
+          "year": 2011,
+          "low": null,
+          "high": null,
+          "indicator_code": "MH_4"
+        },
+        "depression_prevalence_2015": {
+          "value": 4.24113,
+          "year": 2015,
+          "low": 0.04241,
+          "high": null,
+          "indicator_code": "GDO_q35"
+        }
+      }
+    },
+    {
+      "code": "JOR",
+      "name": "Jordan",
+      "region_code": "EMR",
+      "region": "Eastern Mediterranean",
+      "metrics": {
+        "psychiatrists_per_100k": {
+          "value": 1.12454,
+          "year": 2016,
+          "low": null,
+          "high": null,
+          "indicator_code": "MH_6"
+        },
+        "mental_health_nurses_per_100k": {
+          "value": 3.29719,
+          "year": 2016,
+          "low": null,
+          "high": null,
+          "indicator_code": "MH_7"
+        },
+        "psychologists_per_100k": {
+          "value": 1.26647,
+          "year": 2016,
+          "low": null,
+          "high": null,
+          "indicator_code": "MH_9"
+        },
+        "mental_health_outpatient_facilities_per_100k": {
+          "value": 0.51314,
+          "year": 2016,
+          "low": null,
+          "high": null,
+          "indicator_code": "MH_10"
+        },
+        "depression_prevalence_2015": {
+          "value": 4.02768,
+          "year": 2015,
+          "low": 0.04028,
+          "high": null,
+          "indicator_code": "GDO_q35"
+        }
+      }
+    },
+    {
+      "code": "KAZ",
+      "name": "Kazakhstan",
+      "region_code": "EUR",
+      "region": "Europe",
+      "metrics": {
+        "depression_prevalence_2015": {
+          "value": 4.35178,
+          "year": 2015,
+          "low": 0.04352,
+          "high": null,
+          "indicator_code": "GDO_q35"
+        }
+      }
+    },
+    {
+      "code": "KEN",
+      "name": "Kenya",
+      "region_code": "AFR",
+      "region": "Africa",
+      "metrics": {
+        "mental_health_outpatient_facilities_per_100k": {
+          "value": 0.06774,
+          "year": 2016,
+          "low": null,
+          "high": null,
+          "indicator_code": "MH_10"
+        },
+        "depression_prevalence_2015": {
+          "value": 4.39751,
+          "year": 2015,
+          "low": 0.04398,
+          "high": null,
+          "indicator_code": "GDO_q35"
+        }
+      }
+    },
+    {
+      "code": "KIR",
+      "name": "Kiribati",
+      "region_code": "WPR",
+      "region": "Western Pacific",
+      "metrics": {
+        "mental_health_nurses_per_100k": {
+          "value": 2.66887,
+          "year": 2015,
+          "low": null,
+          "high": null,
+          "indicator_code": "MH_7"
+        },
+        "mental_health_outpatient_facilities_per_100k": {
+          "value": 0.88962,
+          "year": 2015,
+          "low": null,
+          "high": null,
+          "indicator_code": "MH_10"
+        }
+      }
+    },
+    {
+      "code": "XKX",
+      "name": "Kosovo (in accordance with UN Security Council resolution 1244 (1999))",
+      "region_code": null,
+      "region": null,
+      "metrics": {}
+    },
+    {
+      "code": "KWT",
+      "name": "Kuwait",
+      "region_code": "EMR",
+      "region": "Eastern Mediterranean",
+      "metrics": {}
+    },
+    {
+      "code": "KGZ",
+      "name": "Kyrgyzstan",
+      "region_code": "EUR",
+      "region": "Europe",
+      "metrics": {
+        "mental_health_nurses_per_100k": {
+          "value": 7.36523,
+          "year": 2016,
+          "low": null,
+          "high": null,
+          "indicator_code": "MH_7"
+        },
+        "psychologists_per_100k": {
+          "value": 0.40918,
+          "year": 2016,
+          "low": null,
+          "high": null,
+          "indicator_code": "MH_9"
+        },
+        "government_mental_health_spending_share": {
+          "value": 4.0,
+          "year": 2011,
+          "low": null,
+          "high": null,
+          "indicator_code": "MH_4"
+        },
+        "mental_health_outpatient_facilities_per_100k": {
+          "value": 1.15934,
+          "year": 2016,
+          "low": null,
+          "high": null,
+          "indicator_code": "MH_10"
+        },
+        "depression_prevalence_2015": {
+          "value": 4.0983,
+          "year": 2015,
+          "low": 0.04098,
+          "high": null,
+          "indicator_code": "GDO_q35"
+        }
+      }
+    },
+    {
+      "code": "LAO",
+      "name": "Lao People's Democratic Republic",
+      "region_code": "WPR",
+      "region": "Western Pacific",
+      "metrics": {
+        "depression_prevalence_2015": {
+          "value": 3.21059,
+          "year": 2015,
+          "low": 0.03211,
+          "high": null,
+          "indicator_code": "GDO_q35"
+        }
+      }
+    },
+    {
+      "code": "LVA",
+      "name": "Latvia",
+      "region_code": "EUR",
+      "region": "Europe",
+      "metrics": {
+        "psychiatrists_per_100k": {
+          "value": 9.98664,
+          "year": 2015,
+          "low": null,
+          "high": null,
+          "indicator_code": "MH_6"
+        },
+        "mental_health_nurses_per_100k": {
+          "value": 22.83377,
+          "year": 2015,
+          "low": null,
+          "high": null,
+          "indicator_code": "MH_7"
+        },
+        "government_mental_health_spending_share": {
+          "value": 5.9,
+          "year": 2011,
+          "low": null,
+          "high": null,
+          "indicator_code": "MH_4"
+        },
+        "mental_health_outpatient_facilities_per_100k": {
+          "value": 20.47511,
+          "year": 2015,
+          "low": null,
+          "high": null,
+          "indicator_code": "MH_10"
+        }
+      }
+    },
+    {
+      "code": "LBN",
+      "name": "Lebanon",
+      "region_code": "EMR",
+      "region": "Eastern Mediterranean",
+      "metrics": {
+        "psychiatrists_per_100k": {
+          "value": 1.21337,
+          "year": 2015,
+          "low": null,
+          "high": null,
+          "indicator_code": "MH_6"
+        },
+        "mental_health_nurses_per_100k": {
+          "value": 3.1445,
+          "year": 2015,
+          "low": null,
+          "high": null,
+          "indicator_code": "MH_7"
+        },
+        "psychologists_per_100k": {
+          "value": 3.29831,
+          "year": 2015,
+          "low": null,
+          "high": null,
+          "indicator_code": "MH_9"
+        },
+        "government_mental_health_spending_share": {
+          "value": 4.8,
+          "year": 2011,
+          "low": null,
+          "high": null,
+          "indicator_code": "MH_4"
+        },
+        "mental_health_outpatient_facilities_per_100k": {
+          "value": 0.71777,
+          "year": 2015,
+          "low": null,
+          "high": null,
+          "indicator_code": "MH_10"
+        },
+        "depression_prevalence_2015": {
+          "value": 4.67358,
+          "year": 2015,
+          "low": 0.04674,
+          "high": null,
+          "indicator_code": "GDO_q35"
+        }
+      }
+    },
+    {
+      "code": "LSO",
+      "name": "Lesotho",
+      "region_code": "AFR",
+      "region": "Africa",
+      "metrics": {
+        "government_mental_health_spending_share": {
+          "value": 1.8,
+          "year": 2011,
+          "low": null,
+          "high": null,
+          "indicator_code": "MH_4"
+        },
+        "depression_prevalence_2015": {
+          "value": 4.77315,
+          "year": 2015,
+          "low": 0.04773,
+          "high": null,
+          "indicator_code": "GDO_q35"
+        }
+      }
+    },
+    {
+      "code": "LBR",
+      "name": "Liberia",
+      "region_code": "AFR",
+      "region": "Africa",
+      "metrics": {
+        "mental_health_nurses_per_100k": {
+          "value": 6.40054,
+          "year": 2016,
+          "low": null,
+          "high": null,
+          "indicator_code": "MH_7"
+        }
+      }
+    },
+    {
+      "code": "LBY",
+      "name": "Libya",
+      "region_code": "EMR",
+      "region": "Eastern Mediterranean",
+      "metrics": {
+        "depression_prevalence_2015": {
+          "value": 4.50522,
+          "year": 2015,
+          "low": 0.04505,
+          "high": null,
+          "indicator_code": "GDO_q35"
+        }
+      }
+    },
+    {
+      "code": "LIE",
+      "name": "Liechtenstein",
+      "region_code": "EUR",
+      "region": "Europe",
+      "metrics": {}
+    },
+    {
+      "code": "LTU",
+      "name": "Lithuania",
+      "region_code": "EUR",
+      "region": "Europe",
+      "metrics": {
+        "psychiatrists_per_100k": {
+          "value": 18.45203,
+          "year": 2016,
+          "low": null,
+          "high": null,
+          "indicator_code": "MH_6"
+        },
+        "mental_health_nurses_per_100k": {
+          "value": 49.76251,
+          "year": 2016,
+          "low": null,
+          "high": null,
+          "indicator_code": "MH_7"
+        },
+        "psychologists_per_100k": {
+          "value": 15.85988,
+          "year": 2016,
+          "low": null,
+          "high": null,
+          "indicator_code": "MH_9"
+        }
+      }
+    },
+    {
+      "code": "LUX",
+      "name": "Luxembourg",
+      "region_code": "EUR",
+      "region": "Europe",
+      "metrics": {
+        "psychiatrists_per_100k": {
+          "value": 17.82119,
+          "year": 2015,
+          "low": null,
+          "high": null,
+          "indicator_code": "MH_6"
+        },
+        "mental_health_outpatient_facilities_per_100k": {
+          "value": 3.17605,
+          "year": 2015,
+          "low": null,
+          "high": null,
+          "indicator_code": "MH_10"
+        },
+        "depression_prevalence_2015": {
+          "value": 5.03728,
+          "year": 2015,
+          "low": 0.05037,
+          "high": null,
+          "indicator_code": "GDO_q35"
+        }
+      }
+    },
+    {
+      "code": "MDG",
+      "name": "Madagascar",
+      "region_code": "AFR",
+      "region": "Africa",
+      "metrics": {
+        "psychiatrists_per_100k": {
+          "value": 0.05777,
+          "year": 2016,
+          "low": null,
+          "high": null,
+          "indicator_code": "MH_6"
+        },
+        "mental_health_nurses_per_100k": {
+          "value": 0.31361,
+          "year": 2016,
+          "low": null,
+          "high": null,
+          "indicator_code": "MH_7"
+        },
+        "psychologists_per_100k": {
+          "value": 0.0619,
+          "year": 2016,
+          "low": null,
+          "high": null,
+          "indicator_code": "MH_9"
+        },
+        "depression_prevalence_2015": {
+          "value": 4.37075,
+          "year": 2015,
+          "low": 0.04371,
+          "high": null,
+          "indicator_code": "GDO_q35"
+        }
+      }
+    },
+    {
+      "code": "MWI",
+      "name": "Malawi",
+      "region_code": "AFR",
+      "region": "Africa",
+      "metrics": {
+        "government_mental_health_spending_share": {
+          "value": 1.0,
+          "year": 2011,
+          "low": null,
+          "high": null,
+          "indicator_code": "MH_4"
+        },
+        "depression_prevalence_2015": {
+          "value": 4.10307,
+          "year": 2015,
+          "low": 0.04103,
+          "high": null,
+          "indicator_code": "GDO_q35"
+        }
+      }
+    },
+    {
+      "code": "MYS",
+      "name": "Malaysia",
+      "region_code": "WPR",
+      "region": "Western Pacific",
+      "metrics": {
+        "psychiatrists_per_100k": {
+          "value": 1.04807,
+          "year": 2016,
+          "low": null,
+          "high": null,
+          "indicator_code": "MH_6"
+        },
+        "mental_health_nurses_per_100k": {
+          "value": 6.83849,
+          "year": 2016,
+          "low": null,
+          "high": null,
+          "indicator_code": "MH_7"
+        },
+        "psychologists_per_100k": {
+          "value": 1.02854,
+          "year": 2016,
+          "low": null,
+          "high": null,
+          "indicator_code": "MH_9"
+        },
+        "government_mental_health_spending_share": {
+          "value": 0.39,
+          "year": 2011,
+          "low": null,
+          "high": null,
+          "indicator_code": "MH_4"
+        }
+      }
+    },
+    {
+      "code": "MDV",
+      "name": "Maldives",
+      "region_code": "SEAR",
+      "region": "South-East Asia",
+      "metrics": {
+        "psychiatrists_per_100k": {
+          "value": 2.39004,
+          "year": 2017,
+          "low": null,
+          "high": null,
+          "indicator_code": "MH_6"
+        },
+        "mental_health_outpatient_facilities_per_100k": {
+          "value": 1.43402,
+          "year": 2017,
+          "low": null,
+          "high": null,
+          "indicator_code": "MH_10"
+        }
+      }
+    },
+    {
+      "code": "MLI",
+      "name": "Mali",
+      "region_code": "AFR",
+      "region": "Africa",
+      "metrics": {
+        "psychiatrists_per_100k": {
+          "value": 0.02862,
+          "year": 2016,
+          "low": null,
+          "high": null,
+          "indicator_code": "MH_6"
+        },
+        "mental_health_nurses_per_100k": {
+          "value": 0.0916,
+          "year": 2016,
+          "low": null,
+          "high": null,
+          "indicator_code": "MH_7"
+        },
+        "depression_prevalence_2015": {
+          "value": 3.56806,
+          "year": 2015,
+          "low": 0.03568,
+          "high": null,
+          "indicator_code": "GDO_q35"
+        }
+      }
+    },
+    {
+      "code": "MLT",
+      "name": "Malta",
+      "region_code": "EUR",
+      "region": "Europe",
+      "metrics": {
+        "government_mental_health_spending_share": {
+          "value": 6.71,
+          "year": 2011,
+          "low": null,
+          "high": null,
+          "indicator_code": "MH_4"
+        },
+        "depression_prevalence_2015": {
+          "value": 5.07386,
+          "year": 2015,
+          "low": 0.05074,
+          "high": null,
+          "indicator_code": "GDO_q35"
+        }
+      }
+    },
+    {
+      "code": "MHL",
+      "name": "Marshall Islands",
+      "region_code": "WPR",
+      "region": "Western Pacific",
+      "metrics": {
+        "psychiatrists_per_100k": {
+          "value": 0.0,
+          "year": 2017,
+          "low": null,
+          "high": null,
+          "indicator_code": "MH_6"
+        },
+        "mental_health_nurses_per_100k": {
+          "value": 3.77401,
+          "year": 2017,
+          "low": null,
+          "high": null,
+          "indicator_code": "MH_7"
+        },
+        "psychologists_per_100k": {
+          "value": 1.88701,
+          "year": 2017,
+          "low": null,
+          "high": null,
+          "indicator_code": "MH_9"
+        },
+        "government_mental_health_spending_share": {
+          "value": 0.4,
+          "year": 2011,
+          "low": null,
+          "high": null,
+          "indicator_code": "MH_4"
+        }
+      }
+    },
+    {
+      "code": "MTQ",
+      "name": "Martinique",
+      "region_code": "AMR",
+      "region": "Americas",
+      "metrics": {}
+    },
+    {
+      "code": "MRT",
+      "name": "Mauritania",
+      "region_code": "AFR",
+      "region": "Africa",
+      "metrics": {
+        "psychiatrists_per_100k": {
+          "value": 0.07173,
+          "year": 2013,
+          "low": null,
+          "high": null,
+          "indicator_code": "MH_6"
+        },
+        "mental_health_nurses_per_100k": {
+          "value": 0.21519,
+          "year": 2013,
+          "low": null,
+          "high": null,
+          "indicator_code": "MH_7"
+        },
+        "psychologists_per_100k": {
+          "value": 0.14346,
+          "year": 2013,
+          "low": null,
+          "high": null,
+          "indicator_code": "MH_9"
+        },
+        "mental_health_outpatient_facilities_per_100k": {
+          "value": 0.04782,
+          "year": 2013,
+          "low": null,
+          "high": null,
+          "indicator_code": "MH_10"
+        }
+      }
+    },
+    {
+      "code": "MUS",
+      "name": "Mauritius",
+      "region_code": "AFR",
+      "region": "Africa",
+      "metrics": {
+        "psychiatrists_per_100k": {
+          "value": 2.38198,
+          "year": 2017,
+          "low": null,
+          "high": null,
+          "indicator_code": "MH_6"
+        },
+        "mental_health_outpatient_facilities_per_100k": {
+          "value": 1.42919,
+          "year": 2017,
+          "low": null,
+          "high": null,
+          "indicator_code": "MH_10"
+        },
+        "depression_prevalence_2015": {
+          "value": 4.35239,
+          "year": 2015,
+          "low": 0.04352,
+          "high": null,
+          "indicator_code": "GDO_q35"
+        }
+      }
+    },
+    {
+      "code": "MYT",
+      "name": "Mayotte",
+      "region_code": "AFR",
+      "region": "Africa",
+      "metrics": {}
+    },
+    {
+      "code": "MEX",
+      "name": "Mexico",
+      "region_code": "AMR",
+      "region": "Americas",
+      "metrics": {
+        "psychiatrists_per_100k": {
+          "value": 0.20732,
+          "year": 2016,
+          "low": null,
+          "high": null,
+          "indicator_code": "MH_6"
+        },
+        "mental_health_nurses_per_100k": {
+          "value": 2.23924,
+          "year": 2016,
+          "low": null,
+          "high": null,
+          "indicator_code": "MH_7"
+        },
+        "government_mental_health_spending_share": {
+          "value": 0.65,
+          "year": 2011,
+          "low": null,
+          "high": null,
+          "indicator_code": "MH_4"
+        },
+        "mental_health_outpatient_facilities_per_100k": {
+          "value": 0.1263,
+          "year": 2016,
+          "low": null,
+          "high": null,
+          "indicator_code": "MH_10"
+        }
+      }
+    },
+    {
+      "code": "FSM",
+      "name": "Micronesia (Federated States of)",
+      "region_code": "WPR",
+      "region": "Western Pacific",
+      "metrics": {
+        "depression_prevalence_2015": {
+          "value": 3.14832,
+          "year": 2015,
+          "low": 0.03148,
+          "high": null,
+          "indicator_code": "GDO_q35"
+        }
+      }
+    },
+    {
+      "code": "MCO",
+      "name": "Monaco",
+      "region_code": "EUR",
+      "region": "Europe",
+      "metrics": {
+        "psychiatrists_per_100k": {
+          "value": 31.32587,
+          "year": 2016,
+          "low": null,
+          "high": null,
+          "indicator_code": "MH_6"
+        },
+        "mental_health_nurses_per_100k": {
+          "value": 83.53565,
+          "year": 2016,
+          "low": null,
+          "high": null,
+          "indicator_code": "MH_7"
+        },
+        "mental_health_outpatient_facilities_per_100k": {
+          "value": 5.22098,
+          "year": 2016,
+          "low": null,
+          "high": null,
+          "indicator_code": "MH_10"
+        }
+      }
+    },
+    {
+      "code": "MNG",
+      "name": "Mongolia",
+      "region_code": "WPR",
+      "region": "Western Pacific",
+      "metrics": {
+        "psychologists_per_100k": {
+          "value": 0.10078,
+          "year": 2016,
+          "low": null,
+          "high": null,
+          "indicator_code": "MH_9"
+        },
+        "government_mental_health_spending_share": {
+          "value": 2.0,
+          "year": 2011,
+          "low": null,
+          "high": null,
+          "indicator_code": "MH_4"
+        },
+        "mental_health_outpatient_facilities_per_100k": {
+          "value": 0.06718,
+          "year": 2016,
+          "low": null,
+          "high": null,
+          "indicator_code": "MH_10"
+        }
+      }
+    },
+    {
+      "code": "MNE",
+      "name": "Montenegro",
+      "region_code": "EUR",
+      "region": "Europe",
+      "metrics": {
+        "psychiatrists_per_100k": {
+          "value": 8.27791,
+          "year": 2016,
+          "low": null,
+          "high": null,
+          "indicator_code": "MH_6"
+        },
+        "mental_health_nurses_per_100k": {
+          "value": 18.30691,
+          "year": 2016,
+          "low": null,
+          "high": null,
+          "indicator_code": "MH_7"
+        }
+      }
+    },
+    {
+      "code": "MSR",
+      "name": "Montserrat",
+      "region_code": "AMR",
+      "region": "Americas",
+      "metrics": {}
+    },
+    {
+      "code": "MAR",
+      "name": "Morocco",
+      "region_code": "EMR",
+      "region": "Eastern Mediterranean",
+      "metrics": {
+        "mental_health_nurses_per_100k": {
+          "value": 2.45092,
+          "year": 2016,
+          "low": null,
+          "high": null,
+          "indicator_code": "MH_7"
+        },
+        "psychologists_per_100k": {
+          "value": 0.57466,
+          "year": 2016,
+          "low": null,
+          "high": null,
+          "indicator_code": "MH_9"
+        },
+        "mental_health_outpatient_facilities_per_100k": {
+          "value": 0.37065,
+          "year": 2016,
+          "low": null,
+          "high": null,
+          "indicator_code": "MH_10"
+        },
+        "depression_prevalence_2015": {
+          "value": 4.52795,
+          "year": 2015,
+          "low": 0.04528,
+          "high": null,
+          "indicator_code": "GDO_q35"
+        }
+      }
+    },
+    {
+      "code": "MOZ",
+      "name": "Mozambique",
+      "region_code": "AFR",
+      "region": "Africa",
+      "metrics": {
+        "psychiatrists_per_100k": {
+          "value": 0.04641,
+          "year": 2016,
+          "low": null,
+          "high": null,
+          "indicator_code": "MH_6"
+        },
+        "psychologists_per_100k": {
+          "value": 0.38914,
+          "year": 2016,
+          "low": null,
+          "high": null,
+          "indicator_code": "MH_9"
+        },
+        "government_mental_health_spending_share": {
+          "value": 0.16,
+          "year": 2011,
+          "low": null,
+          "high": null,
+          "indicator_code": "MH_4"
+        },
+        "depression_prevalence_2015": {
+          "value": 4.0952,
+          "year": 2015,
+          "low": 0.04095,
+          "high": null,
+          "indicator_code": "GDO_q35"
+        }
+      }
+    },
+    {
+      "code": "MMR",
+      "name": "Myanmar",
+      "region_code": "SEAR",
+      "region": "South-East Asia",
+      "metrics": {
+        "psychiatrists_per_100k": {
+          "value": 0.38356,
+          "year": 2016,
+          "low": null,
+          "high": null,
+          "indicator_code": "MH_6"
+        },
+        "mental_health_nurses_per_100k": {
+          "value": 0.32059,
+          "year": 2016,
+          "low": null,
+          "high": null,
+          "indicator_code": "MH_7"
+        },
+        "depression_prevalence_2015": {
+          "value": 3.68631,
+          "year": 2015,
+          "low": 0.03686,
+          "high": null,
+          "indicator_code": "GDO_q35"
+        }
+      }
+    },
+    {
+      "code": "NAM",
+      "name": "Namibia",
+      "region_code": "AFR",
+      "region": "Africa",
+      "metrics": {
+        "psychiatrists_per_100k": {
+          "value": 0.37105,
+          "year": 2016,
+          "low": null,
+          "high": null,
+          "indicator_code": "MH_6"
+        },
+        "mental_health_nurses_per_100k": {
+          "value": 0.90701,
+          "year": 2016,
+          "low": null,
+          "high": null,
+          "indicator_code": "MH_7"
+        },
+        "mental_health_outpatient_facilities_per_100k": {
+          "value": 0.08246,
+          "year": 2016,
+          "low": null,
+          "high": null,
+          "indicator_code": "MH_10"
+        }
+      }
+    },
+    {
+      "code": "NRU",
+      "name": "Naoero",
+      "region_code": "WPR",
+      "region": "Western Pacific",
+      "metrics": {
+        "mental_health_nurses_per_100k": {
+          "value": 8.88099,
+          "year": 2016,
+          "low": null,
+          "high": null,
+          "indicator_code": "MH_7"
+        },
+        "government_mental_health_spending_share": {
+          "value": 0.69,
+          "year": 2011,
+          "low": null,
+          "high": null,
+          "indicator_code": "MH_4"
+        },
+        "mental_health_outpatient_facilities_per_100k": {
+          "value": 8.88099,
+          "year": 2016,
+          "low": null,
+          "high": null,
+          "indicator_code": "MH_10"
+        }
+      }
+    },
+    {
+      "code": "NPL",
+      "name": "Nepal",
+      "region_code": "SEAR",
+      "region": "South-East Asia",
+      "metrics": {
+        "psychiatrists_per_100k": {
+          "value": 0.35594,
+          "year": 2016,
+          "low": null,
+          "high": null,
+          "indicator_code": "MH_6"
+        },
+        "psychologists_per_100k": {
+          "value": 0.52345,
+          "year": 2016,
+          "low": null,
+          "high": null,
+          "indicator_code": "MH_9"
+        },
+        "government_mental_health_spending_share": {
+          "value": 0.7,
+          "year": 2011,
+          "low": null,
+          "high": null,
+          "indicator_code": "MH_4"
+        },
+        "mental_health_outpatient_facilities_per_100k": {
+          "value": 0.11167,
+          "year": 2016,
+          "low": null,
+          "high": null,
+          "indicator_code": "MH_10"
+        }
+      }
+    },
+    {
+      "code": "NLD",
+      "name": "Netherlands (Kingdom of the)",
+      "region_code": "EUR",
+      "region": "Europe",
+      "metrics": {
+        "psychiatrists_per_100k": {
+          "value": 20.86962,
+          "year": 2015,
+          "low": null,
+          "high": null,
+          "indicator_code": "MH_6"
+        },
+        "psychologists_per_100k": {
+          "value": 123.4643,
+          "year": 2015,
+          "low": null,
+          "high": null,
+          "indicator_code": "MH_9"
+        },
+        "government_mental_health_spending_share": {
+          "value": 10.65,
+          "year": 2011,
+          "low": null,
+          "high": null,
+          "indicator_code": "MH_4"
+        },
+        "depression_prevalence_2015": {
+          "value": 4.69105,
+          "year": 2015,
+          "low": 0.04691,
+          "high": null,
+          "indicator_code": "GDO_q35"
+        }
+      }
+    },
+    {
+      "code": "NCL",
+      "name": "New Caledonia",
+      "region_code": "WPR",
+      "region": "Western Pacific",
+      "metrics": {}
+    },
+    {
+      "code": "NZL",
+      "name": "New Zealand",
+      "region_code": "WPR",
+      "region": "Western Pacific",
+      "metrics": {
+        "psychiatrists_per_100k": {
+          "value": 28.54027,
+          "year": 2016,
+          "low": null,
+          "high": null,
+          "indicator_code": "MH_6"
+        },
+        "mental_health_nurses_per_100k": {
+          "value": 75.13221,
+          "year": 2016,
+          "low": null,
+          "high": null,
+          "indicator_code": "MH_7"
+        },
+        "government_mental_health_spending_share": {
+          "value": 10.0,
+          "year": 2011,
+          "low": null,
+          "high": null,
+          "indicator_code": "MH_4"
+        },
+        "depression_prevalence_2015": {
+          "value": 5.3526,
+          "year": 2015,
+          "low": 0.05353,
+          "high": null,
+          "indicator_code": "GDO_q35"
+        }
+      }
+    },
+    {
+      "code": "NIC",
+      "name": "Nicaragua",
+      "region_code": "AMR",
+      "region": "Americas",
+      "metrics": {
+        "psychologists_per_100k": {
+          "value": 1.79216,
+          "year": 2017,
+          "low": null,
+          "high": null,
+          "indicator_code": "MH_9"
+        },
+        "government_mental_health_spending_share": {
+          "value": 1.0,
+          "year": 2011,
+          "low": null,
+          "high": null,
+          "indicator_code": "MH_4"
+        }
+      }
+    },
+    {
+      "code": "NER",
+      "name": "Niger",
+      "region_code": "AFR",
+      "region": "Africa",
+      "metrics": {
+        "psychiatrists_per_100k": {
+          "value": 0.01397,
+          "year": 2016,
+          "low": null,
+          "high": null,
+          "indicator_code": "MH_6"
+        },
+        "psychologists_per_100k": {
+          "value": 0.01862,
+          "year": 2016,
+          "low": null,
+          "high": null,
+          "indicator_code": "MH_9"
+        },
+        "depression_prevalence_2015": {
+          "value": 3.41637,
+          "year": 2015,
+          "low": 0.03416,
+          "high": null,
+          "indicator_code": "GDO_q35"
+        }
+      }
+    },
+    {
+      "code": "NGA",
+      "name": "Nigeria",
+      "region_code": "AFR",
+      "region": "Africa",
+      "metrics": {}
+    },
+    {
+      "code": "NIU",
+      "name": "Niue",
+      "region_code": "WPR",
+      "region": "Western Pacific",
+      "metrics": {}
+    },
+    {
+      "code": "MKD",
+      "name": "North Macedonia",
+      "region_code": "EUR",
+      "region": "Europe",
+      "metrics": {
+        "psychologists_per_100k": {
+          "value": 2.40465,
+          "year": 2017,
+          "low": null,
+          "high": null,
+          "indicator_code": "MH_9"
+        },
+        "mental_health_outpatient_facilities_per_100k": {
+          "value": 0.09619,
+          "year": 2017,
+          "low": null,
+          "high": null,
+          "indicator_code": "MH_10"
+        },
+        "depression_prevalence_2015": {
+          "value": 4.95301,
+          "year": 2015,
+          "low": 0.04953,
+          "high": null,
+          "indicator_code": "GDO_q35"
+        }
+      }
+    },
+    {
+      "code": "MNP",
+      "name": "Northern Mariana Islands",
+      "region_code": "WPR",
+      "region": "Western Pacific",
+      "metrics": {}
+    },
+    {
+      "code": "NOR",
+      "name": "Norway",
+      "region_code": "EUR",
+      "region": "Europe",
+      "metrics": {
+        "psychiatrists_per_100k": {
+          "value": 48.03998,
+          "year": 2016,
+          "low": null,
+          "high": null,
+          "indicator_code": "MH_6"
+        },
+        "psychologists_per_100k": {
+          "value": 73.52155,
+          "year": 2016,
+          "low": null,
+          "high": null,
+          "indicator_code": "MH_9"
+        },
+        "mental_health_outpatient_facilities_per_100k": {
+          "value": 1.30773,
+          "year": 2016,
+          "low": null,
+          "high": null,
+          "indicator_code": "MH_10"
+        }
+      }
+    },
+    {
+      "code": "OMN",
+      "name": "Oman",
+      "region_code": "EMR",
+      "region": "Eastern Mediterranean",
+      "metrics": {
+        "psychiatrists_per_100k": {
+          "value": 1.73817,
+          "year": 2015,
+          "low": null,
+          "high": null,
+          "indicator_code": "MH_6"
+        },
+        "psychologists_per_100k": {
+          "value": 0.78575,
+          "year": 2015,
+          "low": null,
+          "high": null,
+          "indicator_code": "MH_9"
+        },
+        "depression_prevalence_2015": {
+          "value": 4.65574,
+          "year": 2015,
+          "low": 0.04656,
+          "high": null,
+          "indicator_code": "GDO_q35"
+        }
+      }
+    },
+    {
+      "code": "PAK",
+      "name": "Pakistan",
+      "region_code": "EMR",
+      "region": "Eastern Mediterranean",
+      "metrics": {
+        "mental_health_outpatient_facilities_per_100k": {
+          "value": 2.30013,
+          "year": 2016,
+          "low": null,
+          "high": null,
+          "indicator_code": "MH_10"
+        },
+        "depression_prevalence_2015": {
+          "value": 4.19295,
+          "year": 2015,
+          "low": 0.04193,
+          "high": null,
+          "indicator_code": "GDO_q35"
+        }
+      }
+    },
+    {
+      "code": "PLW",
+      "name": "Palau",
+      "region_code": "WPR",
+      "region": "Western Pacific",
+      "metrics": {
+        "government_mental_health_spending_share": {
+          "value": 0.82,
+          "year": 2011,
+          "low": null,
+          "high": null,
+          "indicator_code": "MH_4"
+        }
+      }
+    },
+    {
+      "code": "PAN",
+      "name": "Panama",
+      "region_code": "AMR",
+      "region": "Americas",
+      "metrics": {
+        "psychiatrists_per_100k": {
+          "value": 4.03099,
+          "year": 2016,
+          "low": null,
+          "high": null,
+          "indicator_code": "MH_6"
+        },
+        "mental_health_nurses_per_100k": {
+          "value": 3.45153,
+          "year": 2016,
+          "low": null,
+          "high": null,
+          "indicator_code": "MH_7"
+        },
+        "psychologists_per_100k": {
+          "value": 7.33136,
+          "year": 2016,
+          "low": null,
+          "high": null,
+          "indicator_code": "MH_9"
+        },
+        "mental_health_outpatient_facilities_per_100k": {
+          "value": 2.69572,
+          "year": 2016,
+          "low": null,
+          "high": null,
+          "indicator_code": "MH_10"
+        }
+      }
+    },
+    {
+      "code": "PNG",
+      "name": "Papua New Guinea",
+      "region_code": "WPR",
+      "region": "Western Pacific",
+      "metrics": {
+        "government_mental_health_spending_share": {
+          "value": 0.1,
+          "year": 2011,
+          "low": null,
+          "high": null,
+          "indicator_code": "MH_4"
+        },
+        "depression_prevalence_2015": {
+          "value": 2.98459,
+          "year": 2015,
+          "low": 0.02985,
+          "high": null,
+          "indicator_code": "GDO_q35"
+        }
+      }
+    },
+    {
+      "code": "PRY",
+      "name": "Paraguay",
+      "region_code": "AMR",
+      "region": "Americas",
+      "metrics": {
+        "government_mental_health_spending_share": {
+          "value": 0.31,
+          "year": 2011,
+          "low": null,
+          "high": null,
+          "indicator_code": "MH_4"
+        },
+        "depression_prevalence_2015": {
+          "value": 5.23426,
+          "year": 2015,
+          "low": 0.05234,
+          "high": null,
+          "indicator_code": "GDO_q35"
+        }
+      }
+    },
+    {
+      "code": "PER",
+      "name": "Peru",
+      "region_code": "AMR",
+      "region": "Americas",
+      "metrics": {
+        "psychiatrists_per_100k": {
+          "value": 2.94805,
+          "year": 2016,
+          "low": null,
+          "high": null,
+          "indicator_code": "MH_6"
+        },
+        "mental_health_nurses_per_100k": {
+          "value": 5.9949,
+          "year": 2016,
+          "low": null,
+          "high": null,
+          "indicator_code": "MH_7"
+        },
+        "psychologists_per_100k": {
+          "value": 9.50706,
+          "year": 2016,
+          "low": null,
+          "high": null,
+          "indicator_code": "MH_9"
+        },
+        "government_mental_health_spending_share": {
+          "value": 0.27,
+          "year": 2011,
+          "low": null,
+          "high": null,
+          "indicator_code": "MH_4"
+        },
+        "mental_health_outpatient_facilities_per_100k": {
+          "value": 0.16573,
+          "year": 2016,
+          "low": null,
+          "high": null,
+          "indicator_code": "MH_10"
+        },
+        "depression_prevalence_2015": {
+          "value": 4.7578,
+          "year": 2015,
+          "low": 0.04758,
+          "high": null,
+          "indicator_code": "GDO_q35"
+        }
+      }
+    },
+    {
+      "code": "PHL",
+      "name": "Philippines",
+      "region_code": "WPR",
+      "region": "Western Pacific",
+      "metrics": {
+        "psychiatrists_per_100k": {
+          "value": 0.51811,
+          "year": 2016,
+          "low": null,
+          "high": null,
+          "indicator_code": "MH_6"
+        },
+        "psychologists_per_100k": {
+          "value": 0.88481,
+          "year": 2016,
+          "low": null,
+          "high": null,
+          "indicator_code": "MH_9"
+        },
+        "depression_prevalence_2015": {
+          "value": 3.3429,
+          "year": 2015,
+          "low": 0.03343,
+          "high": null,
+          "indicator_code": "GDO_q35"
+        }
+      }
+    },
+    {
+      "code": "POL",
+      "name": "Poland",
+      "region_code": "EUR",
+      "region": "Europe",
+      "metrics": {
+        "psychiatrists_per_100k": {
+          "value": 24.176,
+          "year": 2016,
+          "low": null,
+          "high": null,
+          "indicator_code": "MH_6"
+        },
+        "mental_health_nurses_per_100k": {
+          "value": 30.9158,
+          "year": 2016,
+          "low": null,
+          "high": null,
+          "indicator_code": "MH_7"
+        },
+        "psychologists_per_100k": {
+          "value": 16.34643,
+          "year": 2016,
+          "low": null,
+          "high": null,
+          "indicator_code": "MH_9"
+        },
+        "government_mental_health_spending_share": {
+          "value": 5.08,
+          "year": 2011,
+          "low": null,
+          "high": null,
+          "indicator_code": "MH_4"
+        },
+        "mental_health_outpatient_facilities_per_100k": {
+          "value": 3.20657,
+          "year": 2016,
+          "low": null,
+          "high": null,
+          "indicator_code": "MH_10"
+        }
+      }
+    },
+    {
+      "code": "PRT",
+      "name": "Portugal",
+      "region_code": "EUR",
+      "region": "Europe",
+      "metrics": {
+        "government_mental_health_spending_share": {
+          "value": 5.24,
+          "year": 2011,
+          "low": null,
+          "high": null,
+          "indicator_code": "MH_4"
+        },
+        "mental_health_outpatient_facilities_per_100k": {
+          "value": 0.70068,
+          "year": 2016,
+          "low": null,
+          "high": null,
+          "indicator_code": "MH_10"
+        },
+        "depression_prevalence_2015": {
+          "value": 5.66945,
+          "year": 2015,
+          "low": 0.05669,
+          "high": null,
+          "indicator_code": "GDO_q35"
+        }
+      }
+    },
+    {
+      "code": "PRS",
+      "name": "Pristina",
+      "region_code": null,
+      "region": null,
+      "metrics": {}
+    },
+    {
+      "code": "PRI",
+      "name": "Puerto Rico",
+      "region_code": "AMR",
+      "region": "Americas",
+      "metrics": {}
+    },
+    {
+      "code": "QAT",
+      "name": "Qatar",
+      "region_code": "EMR",
+      "region": "Eastern Mediterranean",
+      "metrics": {
+        "psychiatrists_per_100k": {
+          "value": 2.71237,
+          "year": 2016,
+          "low": null,
+          "high": null,
+          "indicator_code": "MH_6"
+        },
+        "psychologists_per_100k": {
+          "value": 1.41349,
+          "year": 2016,
+          "low": null,
+          "high": null,
+          "indicator_code": "MH_9"
+        },
+        "depression_prevalence_2015": {
+          "value": 5.06574,
+          "year": 2015,
+          "low": 0.05066,
+          "high": null,
+          "indicator_code": "GDO_q35"
+        }
+      }
+    },
+    {
+      "code": "KOR",
+      "name": "Republic of Korea",
+      "region_code": "WPR",
+      "region": "Western Pacific",
+      "metrics": {
+        "psychiatrists_per_100k": {
+          "value": 5.79322,
+          "year": 2016,
+          "low": null,
+          "high": null,
+          "indicator_code": "MH_6"
+        },
+        "mental_health_nurses_per_100k": {
+          "value": 13.66179,
+          "year": 2016,
+          "low": null,
+          "high": null,
+          "indicator_code": "MH_7"
+        },
+        "psychologists_per_100k": {
+          "value": 1.59111,
+          "year": 2016,
+          "low": null,
+          "high": null,
+          "indicator_code": "MH_9"
+        },
+        "mental_health_outpatient_facilities_per_100k": {
+          "value": 1.78876,
+          "year": 2016,
+          "low": null,
+          "high": null,
+          "indicator_code": "MH_10"
+        },
+        "depression_prevalence_2015": {
+          "value": 4.10342,
+          "year": 2015,
+          "low": 0.04103,
+          "high": null,
+          "indicator_code": "GDO_q35"
+        }
+      }
+    },
+    {
+      "code": "MDA",
+      "name": "Republic of Moldova",
+      "region_code": "EUR",
+      "region": "Europe",
+      "metrics": {
+        "mental_health_nurses_per_100k": {
+          "value": 14.83037,
+          "year": 2015,
+          "low": null,
+          "high": null,
+          "indicator_code": "MH_7"
+        },
+        "psychologists_per_100k": {
+          "value": 0.90999,
+          "year": 2015,
+          "low": null,
+          "high": null,
+          "indicator_code": "MH_9"
+        },
+        "government_mental_health_spending_share": {
+          "value": 3.24,
+          "year": 2011,
+          "low": null,
+          "high": null,
+          "indicator_code": "MH_4"
+        }
+      }
+    },
+    {
+      "code": "REU",
+      "name": "Reunion",
+      "region_code": "AFR",
+      "region": "Africa",
+      "metrics": {}
+    },
+    {
+      "code": "ROU",
+      "name": "Romania",
+      "region_code": "EUR",
+      "region": "Europe",
+      "metrics": {
+        "psychiatrists_per_100k": {
+          "value": 5.66495,
+          "year": 2016,
+          "low": null,
+          "high": null,
+          "indicator_code": "MH_6"
+        },
+        "mental_health_nurses_per_100k": {
+          "value": 18.71042,
+          "year": 2016,
+          "low": null,
+          "high": null,
+          "indicator_code": "MH_7"
+        },
+        "psychologists_per_100k": {
+          "value": 1.47912,
+          "year": 2016,
+          "low": null,
+          "high": null,
+          "indicator_code": "MH_9"
+        },
+        "depression_prevalence_2015": {
+          "value": 4.98819,
+          "year": 2015,
+          "low": 0.04988,
+          "high": null,
+          "indicator_code": "GDO_q35"
+        }
+      }
+    },
+    {
+      "code": "RUS",
+      "name": "Russian Federation",
+      "region_code": "EUR",
+      "region": "Europe",
+      "metrics": {
+        "psychiatrists_per_100k": {
+          "value": 8.47882,
+          "year": 2015,
+          "low": null,
+          "high": null,
+          "indicator_code": "MH_6"
+        },
+        "psychologists_per_100k": {
+          "value": 4.63833,
+          "year": 2015,
+          "low": null,
+          "high": null,
+          "indicator_code": "MH_9"
+        },
+        "mental_health_outpatient_facilities_per_100k": {
+          "value": 2.33237,
+          "year": 2015,
+          "low": null,
+          "high": null,
+          "indicator_code": "MH_10"
+        }
+      }
+    },
+    {
+      "code": "RWA",
+      "name": "Rwanda",
+      "region_code": "AFR",
+      "region": "Africa",
+      "metrics": {
+        "psychiatrists_per_100k": {
+          "value": 0.06019,
+          "year": 2016,
+          "low": null,
+          "high": null,
+          "indicator_code": "MH_6"
+        },
+        "mental_health_nurses_per_100k": {
+          "value": 1.37581,
+          "year": 2016,
+          "low": null,
+          "high": null,
+          "indicator_code": "MH_7"
+        },
+        "psychologists_per_100k": {
+          "value": 0.38695,
+          "year": 2016,
+          "low": null,
+          "high": null,
+          "indicator_code": "MH_9"
+        }
+      }
+    },
+    {
+      "code": "KNA",
+      "name": "Saint Kitts and Nevis",
+      "region_code": "AMR",
+      "region": "Americas",
+      "metrics": {
+        "government_mental_health_spending_share": {
+          "value": 1.09,
+          "year": 2011,
+          "low": null,
+          "high": null,
+          "indicator_code": "MH_4"
+        }
+      }
+    },
+    {
+      "code": "LCA",
+      "name": "Saint Lucia",
+      "region_code": "AMR",
+      "region": "Americas",
+      "metrics": {
+        "psychiatrists_per_100k": {
+          "value": 0.56431,
+          "year": 2016,
+          "low": null,
+          "high": null,
+          "indicator_code": "MH_6"
+        },
+        "mental_health_nurses_per_100k": {
+          "value": 50.78835,
+          "year": 2016,
+          "low": null,
+          "high": null,
+          "indicator_code": "MH_7"
+        },
+        "government_mental_health_spending_share": {
+          "value": 4.13,
+          "year": 2011,
+          "low": null,
+          "high": null,
+          "indicator_code": "MH_4"
+        },
+        "depression_prevalence_2015": {
+          "value": 4.94737,
+          "year": 2015,
+          "low": 0.04947,
+          "high": null,
+          "indicator_code": "GDO_q35"
+        }
+      }
+    },
+    {
+      "code": "SPM",
+      "name": "Saint Pierre and Miquelon",
+      "region_code": "AMR",
+      "region": "Americas",
+      "metrics": {}
+    },
+    {
+      "code": "VCT",
+      "name": "Saint Vincent and the Grenadines",
+      "region_code": "AMR",
+      "region": "Americas",
+      "metrics": {
+        "mental_health_nurses_per_100k": {
+          "value": 4.56809,
+          "year": 2017,
+          "low": null,
+          "high": null,
+          "indicator_code": "MH_7"
+        },
+        "government_mental_health_spending_share": {
+          "value": 5.6,
+          "year": 2011,
+          "low": null,
+          "high": null,
+          "indicator_code": "MH_4"
+        },
+        "mental_health_outpatient_facilities_per_100k": {
+          "value": 3.65447,
+          "year": 2017,
+          "low": null,
+          "high": null,
+          "indicator_code": "MH_10"
+        }
+      }
+    },
+    {
+      "code": "WSM",
+      "name": "Samoa",
+      "region_code": "WPR",
+      "region": "Western Pacific",
+      "metrics": {
+        "psychiatrists_per_100k": {
+          "value": 1.54832,
+          "year": 2016,
+          "low": null,
+          "high": null,
+          "indicator_code": "MH_6"
+        },
+        "mental_health_nurses_per_100k": {
+          "value": 1.54832,
+          "year": 2016,
+          "low": null,
+          "high": null,
+          "indicator_code": "MH_7"
+        },
+        "mental_health_outpatient_facilities_per_100k": {
+          "value": 12.38652,
+          "year": 2016,
+          "low": null,
+          "high": null,
+          "indicator_code": "MH_10"
+        },
+        "depression_prevalence_2015": {
+          "value": 3.17485,
+          "year": 2015,
+          "low": 0.03175,
+          "high": null,
+          "indicator_code": "GDO_q35"
+        }
+      }
+    },
+    {
+      "code": "SMR",
+      "name": "San Marino",
+      "region_code": "EUR",
+      "region": "Europe",
+      "metrics": {
+        "government_mental_health_spending_share": {
+          "value": 2.8,
+          "year": 2011,
+          "low": null,
+          "high": null,
+          "indicator_code": "MH_4"
+        }
+      }
+    },
+    {
+      "code": "STP",
+      "name": "Sao Tome and Principe",
+      "region_code": "AFR",
+      "region": "Africa",
+      "metrics": {
+        "psychiatrists_per_100k": {
+          "value": 0.51137,
+          "year": 2016,
+          "low": null,
+          "high": null,
+          "indicator_code": "MH_6"
+        },
+        "mental_health_nurses_per_100k": {
+          "value": 4.60233,
+          "year": 2016,
+          "low": null,
+          "high": null,
+          "indicator_code": "MH_7"
+        },
+        "psychologists_per_100k": {
+          "value": 3.06822,
+          "year": 2016,
+          "low": null,
+          "high": null,
+          "indicator_code": "MH_9"
+        },
+        "mental_health_outpatient_facilities_per_100k": {
+          "value": 0.51137,
+          "year": 2016,
+          "low": null,
+          "high": null,
+          "indicator_code": "MH_10"
+        },
+        "depression_prevalence_2015": {
+          "value": 3.89881,
+          "year": 2015,
+          "low": 0.03899,
+          "high": null,
+          "indicator_code": "GDO_q35"
+        }
+      }
+    },
+    {
+      "code": "SAU",
+      "name": "Saudi Arabia",
+      "region_code": "EMR",
+      "region": "Eastern Mediterranean",
+      "metrics": {
+        "psychiatrists_per_100k": {
+          "value": 1.32141,
+          "year": 2016,
+          "low": null,
+          "high": null,
+          "indicator_code": "MH_6"
+        },
+        "mental_health_nurses_per_100k": {
+          "value": 10.66003,
+          "year": 2016,
+          "low": null,
+          "high": null,
+          "indicator_code": "MH_7"
+        },
+        "psychologists_per_100k": {
+          "value": 2.0344,
+          "year": 2016,
+          "low": null,
+          "high": null,
+          "indicator_code": "MH_9"
+        },
+        "government_mental_health_spending_share": {
+          "value": 3.89,
+          "year": 2011,
+          "low": null,
+          "high": null,
+          "indicator_code": "MH_4"
+        },
+        "mental_health_outpatient_facilities_per_100k": {
+          "value": 0.50702,
+          "year": 2016,
+          "low": null,
+          "high": null,
+          "indicator_code": "MH_10"
+        },
+        "depression_prevalence_2015": {
+          "value": 4.51654,
+          "year": 2015,
+          "low": 0.04517,
+          "high": null,
+          "indicator_code": "GDO_q35"
+        }
+      }
+    },
+    {
+      "code": "SEN",
+      "name": "Senegal",
+      "region_code": "AFR",
+      "region": "Africa",
+      "metrics": {
+        "psychiatrists_per_100k": {
+          "value": 0.20031,
+          "year": 2016,
+          "low": null,
+          "high": null,
+          "indicator_code": "MH_6"
+        },
+        "mental_health_nurses_per_100k": {
+          "value": 0.26708,
+          "year": 2016,
+          "low": null,
+          "high": null,
+          "indicator_code": "MH_7"
+        },
+        "psychologists_per_100k": {
+          "value": 0.02003,
+          "year": 2016,
+          "low": null,
+          "high": null,
+          "indicator_code": "MH_9"
+        },
+        "mental_health_outpatient_facilities_per_100k": {
+          "value": 0.04006,
+          "year": 2016,
+          "low": null,
+          "high": null,
+          "indicator_code": "MH_10"
+        },
+        "depression_prevalence_2015": {
+          "value": 3.86937,
+          "year": 2015,
+          "low": 0.03869,
+          "high": null,
+          "indicator_code": "GDO_q35"
+        }
+      }
+    },
+    {
+      "code": "SRB",
+      "name": "Serbia",
+      "region_code": "EUR",
+      "region": "Europe",
+      "metrics": {
+        "psychiatrists_per_100k": {
+          "value": 8.64282,
+          "year": 2017,
+          "low": null,
+          "high": null,
+          "indicator_code": "MH_6"
+        },
+        "psychologists_per_100k": {
+          "value": 4.55301,
+          "year": 2017,
+          "low": null,
+          "high": null,
+          "indicator_code": "MH_9"
+        },
+        "depression_prevalence_2015": {
+          "value": 4.97538,
+          "year": 2015,
+          "low": 0.04975,
+          "high": null,
+          "indicator_code": "GDO_q35"
+        }
+      }
+    },
+    {
+      "code": "SYC",
+      "name": "Seychelles",
+      "region_code": "AFR",
+      "region": "Africa",
+      "metrics": {
+        "psychiatrists_per_100k": {
+          "value": 2.13352,
+          "year": 2016,
+          "low": null,
+          "high": null,
+          "indicator_code": "MH_6"
+        },
+        "psychologists_per_100k": {
+          "value": 3.20027,
+          "year": 2016,
+          "low": null,
+          "high": null,
+          "indicator_code": "MH_9"
+        },
+        "depression_prevalence_2015": {
+          "value": 3.96046,
+          "year": 2015,
+          "low": 0.0396,
+          "high": null,
+          "indicator_code": "GDO_q35"
+        }
+      }
+    },
+    {
+      "code": "SLE",
+      "name": "Sierra Leone",
+      "region_code": "AFR",
+      "region": "Africa",
+      "metrics": {
+        "mental_health_nurses_per_100k": {
+          "value": 0.33163,
+          "year": 2017,
+          "low": null,
+          "high": null,
+          "indicator_code": "MH_7"
+        },
+        "mental_health_outpatient_facilities_per_100k": {
+          "value": 0.01382,
+          "year": 2017,
+          "low": null,
+          "high": null,
+          "indicator_code": "MH_10"
+        }
+      }
+    },
+    {
+      "code": "SGP",
+      "name": "Singapore",
+      "region_code": "WPR",
+      "region": "Western Pacific",
+      "metrics": {
+        "government_mental_health_spending_share": {
+          "value": 4.14,
+          "year": 2011,
+          "low": null,
+          "high": null,
+          "indicator_code": "MH_4"
+        },
+        "mental_health_outpatient_facilities_per_100k": {
+          "value": 0.21679,
+          "year": 2016,
+          "low": null,
+          "high": null,
+          "indicator_code": "MH_10"
+        },
+        "depression_prevalence_2015": {
+          "value": 4.56847,
+          "year": 2015,
+          "low": 0.04568,
+          "high": null,
+          "indicator_code": "GDO_q35"
+        }
+      }
+    },
+    {
+      "code": "SXM",
+      "name": "Sint Maarten (Dutch part)",
+      "region_code": "AMR",
+      "region": "Americas",
+      "metrics": {}
+    },
+    {
+      "code": "SVK",
+      "name": "Slovakia",
+      "region_code": "EUR",
+      "region": "Europe",
+      "metrics": {}
+    },
+    {
+      "code": "SVN",
+      "name": "Slovenia",
+      "region_code": "EUR",
+      "region": "Europe",
+      "metrics": {
+        "psychiatrists_per_100k": {
+          "value": 11.95303,
+          "year": 2016,
+          "low": null,
+          "high": null,
+          "indicator_code": "MH_6"
+        },
+        "mental_health_nurses_per_100k": {
+          "value": 36.72664,
+          "year": 2016,
+          "low": null,
+          "high": null,
+          "indicator_code": "MH_7"
+        },
+        "psychologists_per_100k": {
+          "value": 9.30216,
+          "year": 2016,
+          "low": null,
+          "high": null,
+          "indicator_code": "MH_9"
+        },
+        "government_mental_health_spending_share": {
+          "value": 8.0,
+          "year": 2011,
+          "low": null,
+          "high": null,
+          "indicator_code": "MH_4"
+        },
+        "mental_health_outpatient_facilities_per_100k": {
+          "value": 5.83192,
+          "year": 2016,
+          "low": null,
+          "high": null,
+          "indicator_code": "MH_10"
+        }
+      }
+    },
+    {
+      "code": "SLB",
+      "name": "Solomon Islands",
+      "region_code": "WPR",
+      "region": "Western Pacific",
+      "metrics": {
+        "government_mental_health_spending_share": {
+          "value": 1.3,
+          "year": 2011,
+          "low": null,
+          "high": null,
+          "indicator_code": "MH_4"
+        }
+      }
+    },
+    {
+      "code": "SOM",
+      "name": "Somalia",
+      "region_code": "EMR",
+      "region": "Eastern Mediterranean",
+      "metrics": {
+        "mental_health_outpatient_facilities_per_100k": {
+          "value": 0.00719,
+          "year": 2017,
+          "low": null,
+          "high": null,
+          "indicator_code": "MH_10"
+        },
+        "depression_prevalence_2015": {
+          "value": 3.96365,
+          "year": 2015,
+          "low": 0.03964,
+          "high": null,
+          "indicator_code": "GDO_q35"
+        }
+      }
+    },
+    {
+      "code": "ZAF",
+      "name": "South Africa",
+      "region_code": "AFR",
+      "region": "Africa",
+      "metrics": {
+        "psychiatrists_per_100k": {
+          "value": 1.52104,
+          "year": 2016,
+          "low": null,
+          "high": null,
+          "indicator_code": "MH_6"
+        },
+        "mental_health_outpatient_facilities_per_100k": {
+          "value": 0.11032,
+          "year": 2016,
+          "low": null,
+          "high": null,
+          "indicator_code": "MH_10"
+        }
+      }
+    },
+    {
+      "code": "SSD",
+      "name": "South Sudan",
+      "region_code": "AFR",
+      "region": "Africa",
+      "metrics": {
+        "psychologists_per_100k": {
+          "value": 0.2609,
+          "year": 2016,
+          "low": null,
+          "high": null,
+          "indicator_code": "MH_9"
+        },
+        "mental_health_outpatient_facilities_per_100k": {
+          "value": 0.00842,
+          "year": 2016,
+          "low": null,
+          "high": null,
+          "indicator_code": "MH_10"
+        }
+      }
+    },
+    {
+      "code": "ESP",
+      "name": "Spain",
+      "region_code": "EUR",
+      "region": "Europe",
+      "metrics": {
+        "psychiatrists_per_100k": {
+          "value": 9.69445,
+          "year": 2015,
+          "low": null,
+          "high": null,
+          "indicator_code": "MH_6"
+        },
+        "mental_health_nurses_per_100k": {
+          "value": 2.87299,
+          "year": 2015,
+          "low": null,
+          "high": null,
+          "indicator_code": "MH_7"
+        },
+        "government_mental_health_spending_share": {
+          "value": 5.0,
+          "year": 2011,
+          "low": null,
+          "high": null,
+          "indicator_code": "MH_4"
+        },
+        "mental_health_outpatient_facilities_per_100k": {
+          "value": 2.04536,
+          "year": 2015,
+          "low": null,
+          "high": null,
+          "indicator_code": "MH_10"
+        }
+      }
+    },
+    {
+      "code": "LKA",
+      "name": "Sri Lanka",
+      "region_code": "SEAR",
+      "region": "South-East Asia",
+      "metrics": {
+        "mental_health_nurses_per_100k": {
+          "value": 3.27797,
+          "year": 2017,
+          "low": null,
+          "high": null,
+          "indicator_code": "MH_7"
+        },
+        "psychologists_per_100k": {
+          "value": 0.24621,
+          "year": 2017,
+          "low": null,
+          "high": null,
+          "indicator_code": "MH_9"
+        },
+        "mental_health_outpatient_facilities_per_100k": {
+          "value": 1.3276,
+          "year": 2017,
+          "low": null,
+          "high": null,
+          "indicator_code": "MH_10"
+        },
+        "depression_prevalence_2015": {
+          "value": 4.05868,
+          "year": 2015,
+          "low": 0.04059,
+          "high": null,
+          "indicator_code": "GDO_q35"
+        }
+      }
+    },
+    {
+      "code": "SHN",
+      "name": "St Helena, Ascension and Tristan da Cunha",
+      "region_code": "AFR",
+      "region": "Africa",
+      "metrics": {}
+    },
+    {
+      "code": "SDN",
+      "name": "Sudan",
+      "region_code": "EMR",
+      "region": "Eastern Mediterranean",
+      "metrics": {}
+    },
+    {
+      "code": "SDN736",
+      "name": "Sudan (former)",
+      "region_code": "EMR",
+      "region": "Eastern Mediterranean",
+      "metrics": {}
+    },
+    {
+      "code": "SUR",
+      "name": "Suriname",
+      "region_code": "AMR",
+      "region": "Americas",
+      "metrics": {
+        "psychiatrists_per_100k": {
+          "value": 1.26535,
+          "year": 2016,
+          "low": null,
+          "high": null,
+          "indicator_code": "MH_6"
+        },
+        "mental_health_nurses_per_100k": {
+          "value": 16.63027,
+          "year": 2016,
+          "low": null,
+          "high": null,
+          "indicator_code": "MH_7"
+        },
+        "psychologists_per_100k": {
+          "value": 0.54229,
+          "year": 2016,
+          "low": null,
+          "high": null,
+          "indicator_code": "MH_9"
+        },
+        "depression_prevalence_2015": {
+          "value": 4.8084,
+          "year": 2015,
+          "low": 0.04808,
+          "high": null,
+          "indicator_code": "GDO_q35"
+        }
+      }
+    },
+    {
+      "code": "SWE",
+      "name": "Sweden",
+      "region_code": "EUR",
+      "region": "Europe",
+      "metrics": {
+        "psychiatrists_per_100k": {
+          "value": 20.86328,
+          "year": 2016,
+          "low": null,
+          "high": null,
+          "indicator_code": "MH_6"
+        },
+        "mental_health_nurses_per_100k": {
+          "value": 50.56555,
+          "year": 2016,
+          "low": null,
+          "high": null,
+          "indicator_code": "MH_7"
+        },
+        "government_mental_health_spending_share": {
+          "value": 10.0,
+          "year": 2011,
+          "low": null,
+          "high": null,
+          "indicator_code": "MH_4"
+        }
+      }
+    },
+    {
+      "code": "CHE",
+      "name": "Switzerland",
+      "region_code": "EUR",
+      "region": "Europe",
+      "metrics": {
+        "psychiatrists_per_100k": {
+          "value": 43.95555,
+          "year": 2015,
+          "low": null,
+          "high": null,
+          "indicator_code": "MH_6"
+        },
+        "psychologists_per_100k": {
+          "value": 84.13695,
+          "year": 2015,
+          "low": null,
+          "high": null,
+          "indicator_code": "MH_9"
+        }
+      }
+    },
+    {
+      "code": "SYR",
+      "name": "Syrian Arab Republic",
+      "region_code": "EMR",
+      "region": "Eastern Mediterranean",
+      "metrics": {
+        "psychiatrists_per_100k": {
+          "value": 0.36829,
+          "year": 2016,
+          "low": null,
+          "high": null,
+          "indicator_code": "MH_6"
+        },
+        "mental_health_nurses_per_100k": {
+          "value": 1.06752,
+          "year": 2016,
+          "low": null,
+          "high": null,
+          "indicator_code": "MH_7"
+        },
+        "psychologists_per_100k": {
+          "value": 1.06752,
+          "year": 2016,
+          "low": null,
+          "high": null,
+          "indicator_code": "MH_9"
+        },
+        "government_mental_health_spending_share": {
+          "value": 2.0,
+          "year": 2011,
+          "low": null,
+          "high": null,
+          "indicator_code": "MH_4"
+        }
+      }
+    },
+    {
+      "code": "TJK",
+      "name": "Tajikistan",
+      "region_code": "EUR",
+      "region": "Europe",
+      "metrics": {
+        "psychiatrists_per_100k": {
+          "value": 1.39203,
+          "year": 2016,
+          "low": null,
+          "high": null,
+          "indicator_code": "MH_6"
+        },
+        "government_mental_health_spending_share": {
+          "value": 1.22,
+          "year": 2011,
+          "low": null,
+          "high": null,
+          "indicator_code": "MH_4"
+        }
+      }
+    },
+    {
+      "code": "THA",
+      "name": "Thailand",
+      "region_code": "SEAR",
+      "region": "South-East Asia",
+      "metrics": {
+        "mental_health_nurses_per_100k": {
+          "value": 7.41797,
+          "year": 2016,
+          "low": null,
+          "high": null,
+          "indicator_code": "MH_7"
+        },
+        "psychologists_per_100k": {
+          "value": 1.74926,
+          "year": 2016,
+          "low": null,
+          "high": null,
+          "indicator_code": "MH_9"
+        },
+        "government_mental_health_spending_share": {
+          "value": 4.0,
+          "year": 2011,
+          "low": null,
+          "high": null,
+          "indicator_code": "MH_4"
+        },
+        "mental_health_outpatient_facilities_per_100k": {
+          "value": 1.30211,
+          "year": 2016,
+          "low": null,
+          "high": null,
+          "indicator_code": "MH_10"
+        },
+        "depression_prevalence_2015": {
+          "value": 4.39177,
+          "year": 2015,
+          "low": 0.04392,
+          "high": null,
+          "indicator_code": "GDO_q35"
+        }
+      }
+    },
+    {
+      "code": "ME1",
+      "name": "The former state union Serbia and Montenegro",
+      "region_code": null,
+      "region": null,
+      "metrics": {}
+    },
+    {
+      "code": "TLS",
+      "name": "Timor-Leste",
+      "region_code": "SEAR",
+      "region": "South-East Asia",
+      "metrics": {
+        "psychiatrists_per_100k": {
+          "value": 0.08058,
+          "year": 2016,
+          "low": null,
+          "high": null,
+          "indicator_code": "MH_6"
+        },
+        "mental_health_nurses_per_100k": {
+          "value": 1.36989,
+          "year": 2016,
+          "low": null,
+          "high": null,
+          "indicator_code": "MH_7"
+        },
+        "psychologists_per_100k": {
+          "value": 0.08058,
+          "year": 2016,
+          "low": null,
+          "high": null,
+          "indicator_code": "MH_9"
+        },
+        "mental_health_outpatient_facilities_per_100k": {
+          "value": 6.52712,
+          "year": 2016,
+          "low": null,
+          "high": null,
+          "indicator_code": "MH_10"
+        },
+        "depression_prevalence_2015": {
+          "value": 2.98918,
+          "year": 2015,
+          "low": 0.02989,
+          "high": null,
+          "indicator_code": "GDO_q35"
+        }
+      }
+    },
+    {
+      "code": "TGO",
+      "name": "Togo",
+      "region_code": "AFR",
+      "region": "Africa",
+      "metrics": {
+        "psychiatrists_per_100k": {
+          "value": 0.05393,
+          "year": 2016,
+          "low": null,
+          "high": null,
+          "indicator_code": "MH_6"
+        },
+        "mental_health_nurses_per_100k": {
+          "value": 0.26966,
+          "year": 2016,
+          "low": null,
+          "high": null,
+          "indicator_code": "MH_7"
+        },
+        "mental_health_outpatient_facilities_per_100k": {
+          "value": 0.04045,
+          "year": 2016,
+          "low": null,
+          "high": null,
+          "indicator_code": "MH_10"
+        },
+        "depression_prevalence_2015": {
+          "value": 3.92564,
+          "year": 2015,
+          "low": 0.03926,
+          "high": null,
+          "indicator_code": "GDO_q35"
+        }
+      }
+    },
+    {
+      "code": "TKL",
+      "name": "Tokelau",
+      "region_code": "WPR",
+      "region": "Western Pacific",
+      "metrics": {}
+    },
+    {
+      "code": "TON",
+      "name": "Tonga",
+      "region_code": "WPR",
+      "region": "Western Pacific",
+      "metrics": {
+        "mental_health_nurses_per_100k": {
+          "value": 16.92302,
+          "year": 2016,
+          "low": null,
+          "high": null,
+          "indicator_code": "MH_7"
+        },
+        "psychologists_per_100k": {
+          "value": 1.88034,
+          "year": 2016,
+          "low": null,
+          "high": null,
+          "indicator_code": "MH_9"
+        },
+        "mental_health_outpatient_facilities_per_100k": {
+          "value": 0.94017,
+          "year": 2016,
+          "low": null,
+          "high": null,
+          "indicator_code": "MH_10"
+        },
+        "depression_prevalence_2015": {
+          "value": 3.18038,
+          "year": 2015,
+          "low": 0.0318,
+          "high": null,
+          "indicator_code": "GDO_q35"
+        }
+      }
+    },
+    {
+      "code": "TTO",
+      "name": "Trinidad and Tobago",
+      "region_code": "AMR",
+      "region": "Americas",
+      "metrics": {
+        "mental_health_outpatient_facilities_per_100k": {
+          "value": 0.66172,
+          "year": 2017,
+          "low": null,
+          "high": null,
+          "indicator_code": "MH_10"
+        },
+        "depression_prevalence_2015": {
+          "value": 5.17747,
+          "year": 2015,
+          "low": 0.05177,
+          "high": null,
+          "indicator_code": "GDO_q35"
+        }
+      }
+    },
+    {
+      "code": "TUN",
+      "name": "Tunisia",
+      "region_code": "EMR",
+      "region": "Eastern Mediterranean",
+      "metrics": {
+        "psychologists_per_100k": {
+          "value": 0.00887,
+          "year": 2017,
+          "low": null,
+          "high": null,
+          "indicator_code": "MH_9"
+        },
+        "government_mental_health_spending_share": {
+          "value": 4.95,
+          "year": 2011,
+          "low": null,
+          "high": null,
+          "indicator_code": "MH_4"
+        }
+      }
+    },
+    {
+      "code": "TKM",
+      "name": "Turkmenistan",
+      "region_code": "EUR",
+      "region": "Europe",
+      "metrics": {
+        "depression_prevalence_2015": {
+          "value": 4.2337,
+          "year": 2015,
+          "low": 0.04234,
+          "high": null,
+          "indicator_code": "GDO_q35"
+        }
+      }
+    },
+    {
+      "code": "TCA",
+      "name": "Turks and Caicos Islands",
+      "region_code": "AMR",
+      "region": "Americas",
+      "metrics": {}
+    },
+    {
+      "code": "TUV",
+      "name": "Tuvalu",
+      "region_code": "WPR",
+      "region": "Western Pacific",
+      "metrics": {}
+    },
+    {
+      "code": "TUR",
+      "name": "Türkiye",
+      "region_code": "EUR",
+      "region": "Europe",
+      "metrics": {
+        "psychiatrists_per_100k": {
+          "value": 1.63661,
+          "year": 2016,
+          "low": null,
+          "high": null,
+          "indicator_code": "MH_6"
+        },
+        "psychologists_per_100k": {
+          "value": 2.53732,
+          "year": 2016,
+          "low": null,
+          "high": null,
+          "indicator_code": "MH_9"
+        },
+        "mental_health_outpatient_facilities_per_100k": {
+          "value": 0.19036,
+          "year": 2016,
+          "low": null,
+          "high": null,
+          "indicator_code": "MH_10"
+        }
+      }
+    },
+    {
+      "code": "UGA",
+      "name": "Uganda",
+      "region_code": "AFR",
+      "region": "Africa",
+      "metrics": {
+        "psychiatrists_per_100k": {
+          "value": 0.0822,
+          "year": 2016,
+          "low": null,
+          "high": null,
+          "indicator_code": "MH_6"
+        }
+      }
+    },
+    {
+      "code": "UKR",
+      "name": "Ukraine",
+      "region_code": "EUR",
+      "region": "Europe",
+      "metrics": {
+        "psychiatrists_per_100k": {
+          "value": 6.9305,
+          "year": 2016,
+          "low": null,
+          "high": null,
+          "indicator_code": "MH_6"
+        },
+        "mental_health_outpatient_facilities_per_100k": {
+          "value": 0.04926,
+          "year": 2016,
+          "low": null,
+          "high": null,
+          "indicator_code": "MH_10"
+        },
+        "depression_prevalence_2015": {
+          "value": 6.31443,
+          "year": 2015,
+          "low": 0.06314,
+          "high": null,
+          "indicator_code": "GDO_q35"
+        }
+      }
+    },
+    {
+      "code": "ARE",
+      "name": "United Arab Emirates",
+      "region_code": "EMR",
+      "region": "Eastern Mediterranean",
+      "metrics": {
+        "psychiatrists_per_100k": {
+          "value": 1.6495,
+          "year": 2016,
+          "low": null,
+          "high": null,
+          "indicator_code": "MH_6"
+        },
+        "mental_health_nurses_per_100k": {
+          "value": 4.36953,
+          "year": 2016,
+          "low": null,
+          "high": null,
+          "indicator_code": "MH_7"
+        },
+        "psychologists_per_100k": {
+          "value": 0.76467,
+          "year": 2016,
+          "low": null,
+          "high": null,
+          "indicator_code": "MH_9"
+        },
+        "mental_health_outpatient_facilities_per_100k": {
+          "value": 0.52434,
+          "year": 2016,
+          "low": null,
+          "high": null,
+          "indicator_code": "MH_10"
+        },
+        "depression_prevalence_2015": {
+          "value": 5.11804,
+          "year": 2015,
+          "low": 0.05118,
+          "high": null,
+          "indicator_code": "GDO_q35"
+        }
+      }
+    },
+    {
+      "code": "GBR",
+      "name": "United Kingdom of Great Britain and Northern Ireland",
+      "region_code": "EUR",
+      "region": "Europe",
+      "metrics": {}
+    },
+    {
+      "code": "TZA",
+      "name": "United Republic of Tanzania",
+      "region_code": "AFR",
+      "region": "Africa",
+      "metrics": {
+        "psychiatrists_per_100k": {
+          "value": 0.05568,
+          "year": 2015,
+          "low": null,
+          "high": null,
+          "indicator_code": "MH_6"
+        },
+        "mental_health_nurses_per_100k": {
+          "value": 0.36192,
+          "year": 2015,
+          "low": null,
+          "high": null,
+          "indicator_code": "MH_7"
+        },
+        "psychologists_per_100k": {
+          "value": 0.00928,
+          "year": 2015,
+          "low": null,
+          "high": null,
+          "indicator_code": "MH_9"
+        },
+        "government_mental_health_spending_share": {
+          "value": 2.4,
+          "year": 2011,
+          "low": null,
+          "high": null,
+          "indicator_code": "MH_4"
+        },
+        "depression_prevalence_2015": {
+          "value": 4.14388,
+          "year": 2015,
+          "low": 0.04144,
+          "high": null,
+          "indicator_code": "GDO_q35"
+        }
+      }
+    },
+    {
+      "code": "USA",
+      "name": "United States of America",
+      "region_code": "AMR",
+      "region": "Americas",
+      "metrics": {
+        "psychiatrists_per_100k": {
+          "value": 10.54202,
+          "year": 2016,
+          "low": null,
+          "high": null,
+          "indicator_code": "MH_6"
+        },
+        "psychologists_per_100k": {
+          "value": 29.86442,
+          "year": 2016,
+          "low": null,
+          "high": null,
+          "indicator_code": "MH_9"
+        }
+      }
+    },
+    {
+      "code": "URY",
+      "name": "Uruguay",
+      "region_code": "AMR",
+      "region": "Americas",
+      "metrics": {
+        "psychiatrists_per_100k": {
+          "value": 14.13355,
+          "year": 2016,
+          "low": null,
+          "high": null,
+          "indicator_code": "MH_6"
+        },
+        "depression_prevalence_2015": {
+          "value": 4.96401,
+          "year": 2015,
+          "low": 0.04964,
+          "high": null,
+          "indicator_code": "GDO_q35"
+        }
+      }
+    },
+    {
+      "code": "UZB",
+      "name": "Uzbekistan",
+      "region_code": "EUR",
+      "region": "Europe",
+      "metrics": {
+        "psychiatrists_per_100k": {
+          "value": 2.6117,
+          "year": 2016,
+          "low": null,
+          "high": null,
+          "indicator_code": "MH_6"
+        },
+        "mental_health_nurses_per_100k": {
+          "value": 9.21358,
+          "year": 2016,
+          "low": null,
+          "high": null,
+          "indicator_code": "MH_7"
+        },
+        "psychologists_per_100k": {
+          "value": 0.09039,
+          "year": 2016,
+          "low": null,
+          "high": null,
+          "indicator_code": "MH_9"
+        },
+        "government_mental_health_spending_share": {
+          "value": 2.32,
+          "year": 2011,
+          "low": null,
+          "high": null,
+          "indicator_code": "MH_4"
+        },
+        "depression_prevalence_2015": {
+          "value": 4.23486,
+          "year": 2015,
+          "low": 0.04235,
+          "high": null,
+          "indicator_code": "GDO_q35"
+        }
+      }
+    },
+    {
+      "code": "VUT",
+      "name": "Vanuatu",
+      "region_code": "WPR",
+      "region": "Western Pacific",
+      "metrics": {
+        "psychiatrists_per_100k": {
+          "value": 0.37792,
+          "year": 2016,
+          "low": null,
+          "high": null,
+          "indicator_code": "MH_6"
+        },
+        "mental_health_nurses_per_100k": {
+          "value": 4.5351,
+          "year": 2016,
+          "low": null,
+          "high": null,
+          "indicator_code": "MH_7"
+        },
+        "mental_health_outpatient_facilities_per_100k": {
+          "value": 2.64547,
+          "year": 2016,
+          "low": null,
+          "high": null,
+          "indicator_code": "MH_10"
+        },
+        "depression_prevalence_2015": {
+          "value": 3.0919,
+          "year": 2015,
+          "low": 0.03092,
+          "high": null,
+          "indicator_code": "GDO_q35"
+        }
+      }
+    },
+    {
+      "code": "VEN",
+      "name": "Venezuela (Bolivarian Republic of)",
+      "region_code": "AMR",
+      "region": "Americas",
+      "metrics": {}
+    },
+    {
+      "code": "VNM",
+      "name": "Viet Nam",
+      "region_code": "WPR",
+      "region": "Western Pacific",
+      "metrics": {
+        "mental_health_outpatient_facilities_per_100k": {
+          "value": 0.00855,
+          "year": 2016,
+          "low": null,
+          "high": null,
+          "indicator_code": "MH_10"
+        }
+      }
+    },
+    {
+      "code": "VIR",
+      "name": "Virgin Islands (USA)",
+      "region_code": "AMR",
+      "region": "Americas",
+      "metrics": {}
+    },
+    {
+      "code": "WLF",
+      "name": "Wallis and Futuna Islands",
+      "region_code": "WPR",
+      "region": "Western Pacific",
+      "metrics": {}
+    },
+    {
+      "code": "YEM",
+      "name": "Yemen",
+      "region_code": "EMR",
+      "region": "Eastern Mediterranean",
+      "metrics": {
+        "psychiatrists_per_100k": {
+          "value": 0.20062,
+          "year": 2016,
+          "low": null,
+          "high": null,
+          "indicator_code": "MH_6"
+        },
+        "psychologists_per_100k": {
+          "value": 0.40868,
+          "year": 2016,
+          "low": null,
+          "high": null,
+          "indicator_code": "MH_9"
+        },
+        "mental_health_outpatient_facilities_per_100k": {
+          "value": 0.06316,
+          "year": 2016,
+          "low": null,
+          "high": null,
+          "indicator_code": "MH_10"
+        }
+      }
+    },
+    {
+      "code": "ZMB",
+      "name": "Zambia",
+      "region_code": "AFR",
+      "region": "Africa",
+      "metrics": {
+        "psychiatrists_per_100k": {
+          "value": 0.0559,
+          "year": 2016,
+          "low": null,
+          "high": null,
+          "indicator_code": "MH_6"
+        },
+        "mental_health_nurses_per_100k": {
+          "value": 1.42852,
+          "year": 2016,
+          "low": null,
+          "high": null,
+          "indicator_code": "MH_7"
+        },
+        "mental_health_outpatient_facilities_per_100k": {
+          "value": 0.20496,
+          "year": 2016,
+          "low": null,
+          "high": null,
+          "indicator_code": "MH_10"
+        },
+        "depression_prevalence_2015": {
+          "value": 4.01352,
+          "year": 2015,
+          "low": 0.04014,
+          "high": null,
+          "indicator_code": "GDO_q35"
+        }
+      }
+    },
+    {
+      "code": "ZWE",
+      "name": "Zimbabwe",
+      "region_code": "AFR",
+      "region": "Africa",
+      "metrics": {
+        "psychiatrists_per_100k": {
+          "value": 0.09507,
+          "year": 2016,
+          "low": null,
+          "high": null,
+          "indicator_code": "MH_6"
+        },
+        "psychologists_per_100k": {
+          "value": 0.05704,
+          "year": 2016,
+          "low": null,
+          "high": null,
+          "indicator_code": "MH_9"
+        },
+        "government_mental_health_spending_share": {
+          "value": 0.01,
+          "year": 2011,
+          "low": null,
+          "high": null,
+          "indicator_code": "MH_4"
+        },
+        "mental_health_outpatient_facilities_per_100k": {
+          "value": 0.05704,
+          "year": 2016,
+          "low": null,
+          "high": null,
+          "indicator_code": "MH_10"
+        },
+        "depression_prevalence_2015": {
+          "value": 4.03884,
+          "year": 2015,
+          "low": 0.04039,
+          "high": null,
+          "indicator_code": "GDO_q35"
+        }
+      }
+    },
+    {
+      "code": "PSE",
+      "name": "occupied Palestinian territory, including east Jerusalem",
+      "region_code": "EMR",
+      "region": "Eastern Mediterranean",
+      "metrics": {}
+    }
+  ],
+  "historical_mismatch_lens": {
+    "status": "DESCRIPTIVE_ONLY",
+    "need_metric": "depression_prevalence_2015",
+    "capacity_metric": "psychiatrists_per_100k",
+    "overlap_n": 57,
+    "need_median": 4.454,
+    "capacity_median": 1.548,
+    "pairs": [
+      {
+        "code": "AUS",
+        "name": "Australia",
+        "region": "Western Pacific",
+        "depression_prevalence": 5.94026,
+        "depression_year": 2015,
+        "capacity_value": 13.52546,
+        "capacity_year": 2015,
+        "quadrant": "higher_depression_higher_capacity"
+      },
+      {
+        "code": "AZE",
+        "name": "Azerbaijan",
+        "region": "Europe",
+        "depression_prevalence": 4.63536,
+        "depression_year": 2015,
+        "capacity_value": 3.45205,
+        "capacity_year": 2016,
+        "quadrant": "higher_depression_higher_capacity"
+      },
+      {
+        "code": "BHR",
+        "name": "Bahrain",
+        "region": "Eastern Mediterranean",
+        "depression_prevalence": 4.75979,
+        "depression_year": 2015,
+        "capacity_value": 5.46705,
+        "capacity_year": 2017,
+        "quadrant": "higher_depression_higher_capacity"
+      },
+      {
+        "code": "BGD",
+        "name": "Bangladesh",
+        "region": "South-East Asia",
+        "depression_prevalence": 4.07197,
+        "depression_year": 2015,
+        "capacity_value": 0.13027,
+        "capacity_year": 2016,
+        "quadrant": "lower_depression_lower_capacity"
+      },
+      {
+        "code": "BLR",
+        "name": "Belarus",
+        "region": "Europe",
+        "depression_prevalence": 5.57264,
+        "depression_year": 2015,
+        "capacity_value": 13.50444,
+        "capacity_year": 2016,
+        "quadrant": "higher_depression_higher_capacity"
+      },
+      {
+        "code": "BEL",
+        "name": "Belgium",
+        "region": "Europe",
+        "depression_prevalence": 4.81365,
+        "depression_year": 2015,
+        "capacity_value": 20.0568,
+        "capacity_year": 2013,
+        "quadrant": "higher_depression_higher_capacity"
+      },
+      {
+        "code": "BGR",
+        "name": "Bulgaria",
+        "region": "Europe",
+        "depression_prevalence": 5.1567,
+        "depression_year": 2015,
+        "capacity_value": 7.20317,
+        "capacity_year": 2016,
+        "quadrant": "higher_depression_higher_capacity"
+      },
+      {
+        "code": "BFA",
+        "name": "Burkina Faso",
+        "region": "Africa",
+        "depression_prevalence": 3.60906,
+        "depression_year": 2015,
+        "capacity_value": 0.03865,
+        "capacity_year": 2016,
+        "quadrant": "lower_depression_lower_capacity"
+      },
+      {
+        "code": "CRI",
+        "name": "Costa Rica",
+        "region": "Americas",
+        "depression_prevalence": 4.69745,
+        "depression_year": 2015,
+        "capacity_value": 3.93107,
+        "capacity_year": 2016,
+        "quadrant": "higher_depression_higher_capacity"
+      },
+      {
+        "code": "EGY",
+        "name": "Egypt",
+        "region": "Eastern Mediterranean",
+        "depression_prevalence": 3.46338,
+        "depression_year": 2015,
+        "capacity_value": 1.59952,
+        "capacity_year": 2016,
+        "quadrant": "lower_depression_higher_capacity"
+      },
+      {
+        "code": "SWZ",
+        "name": "Eswatini",
+        "region": "Africa",
+        "depression_prevalence": 4.19445,
+        "depression_year": 2015,
+        "capacity_value": 0.07581,
+        "capacity_year": 2017,
+        "quadrant": "lower_depression_lower_capacity"
+      },
+      {
+        "code": "FJI",
+        "name": "Fiji",
+        "region": "Western Pacific",
+        "depression_prevalence": 3.49839,
+        "depression_year": 2015,
+        "capacity_value": 0.22418,
+        "capacity_year": 2016,
+        "quadrant": "lower_depression_lower_capacity"
+      },
+      {
+        "code": "FRA",
+        "name": "France",
+        "region": "Europe",
+        "depression_prevalence": 4.84031,
+        "depression_year": 2015,
+        "capacity_value": 20.9069,
+        "capacity_year": 2017,
+        "quadrant": "higher_depression_higher_capacity"
+      },
+      {
+        "code": "GAB",
+        "name": "Gabon",
+        "region": "Africa",
+        "depression_prevalence": 4.289,
+        "depression_year": 2015,
+        "capacity_value": 0.25904,
+        "capacity_year": 2016,
+        "quadrant": "lower_depression_lower_capacity"
+      },
+      {
+        "code": "GMB",
+        "name": "Gambia",
+        "region": "Africa",
+        "depression_prevalence": 3.90598,
+        "depression_year": 2015,
+        "capacity_value": 0.10113,
+        "capacity_year": 2016,
+        "quadrant": "lower_depression_lower_capacity"
+      },
+      {
+        "code": "GHA",
+        "name": "Ghana",
+        "region": "Africa",
+        "depression_prevalence": 4.15113,
+        "depression_year": 2015,
+        "capacity_value": 0.05801,
+        "capacity_year": 2016,
+        "quadrant": "lower_depression_lower_capacity"
+      },
+      {
+        "code": "GRC",
+        "name": "Greece",
+        "region": "Europe",
+        "depression_prevalence": 5.74446,
+        "depression_year": 2015,
+        "capacity_value": 5.80328,
+        "capacity_year": 2016,
+        "quadrant": "higher_depression_higher_capacity"
+      },
+      {
+        "code": "GRD",
+        "name": "Grenada",
+        "region": "Americas",
+        "depression_prevalence": 4.70431,
+        "depression_year": 2015,
+        "capacity_value": 1.87226,
+        "capacity_year": 2016,
+        "quadrant": "higher_depression_higher_capacity"
+      },
+      {
+        "code": "GUY",
+        "name": "Guyana",
+        "region": "Americas",
+        "depression_prevalence": 4.54976,
+        "depression_year": 2015,
+        "capacity_value": 0.91085,
+        "capacity_year": 2016,
+        "quadrant": "higher_depression_lower_capacity"
+      },
+      {
+        "code": "IND",
+        "name": "India",
+        "region": "South-East Asia",
+        "depression_prevalence": 4.4544,
+        "depression_year": 2015,
+        "capacity_value": 0.29235,
+        "capacity_year": 2016,
+        "quadrant": "higher_depression_lower_capacity"
+      },
+      {
+        "code": "ISR",
+        "name": "Israel",
+        "region": "Europe",
+        "depression_prevalence": 4.61045,
+        "depression_year": 2015,
+        "capacity_value": 9.87036,
+        "capacity_year": 2016,
+        "quadrant": "higher_depression_higher_capacity"
+      },
+      {
+        "code": "ITA",
+        "name": "Italy",
+        "region": "Europe",
+        "depression_prevalence": 5.14039,
+        "depression_year": 2015,
+        "capacity_value": 5.97773,
+        "capacity_year": 2015,
+        "quadrant": "higher_depression_higher_capacity"
+      },
+      {
+        "code": "JOR",
+        "name": "Jordan",
+        "region": "Eastern Mediterranean",
+        "depression_prevalence": 4.02768,
+        "depression_year": 2015,
+        "capacity_value": 1.12454,
+        "capacity_year": 2016,
+        "quadrant": "lower_depression_lower_capacity"
+      },
+      {
+        "code": "LBN",
+        "name": "Lebanon",
+        "region": "Eastern Mediterranean",
+        "depression_prevalence": 4.67358,
+        "depression_year": 2015,
+        "capacity_value": 1.21337,
+        "capacity_year": 2015,
+        "quadrant": "higher_depression_lower_capacity"
+      },
+      {
+        "code": "LUX",
+        "name": "Luxembourg",
+        "region": "Europe",
+        "depression_prevalence": 5.03728,
+        "depression_year": 2015,
+        "capacity_value": 17.82119,
+        "capacity_year": 2015,
+        "quadrant": "higher_depression_higher_capacity"
+      },
+      {
+        "code": "MDG",
+        "name": "Madagascar",
+        "region": "Africa",
+        "depression_prevalence": 4.37075,
+        "depression_year": 2015,
+        "capacity_value": 0.05777,
+        "capacity_year": 2016,
+        "quadrant": "lower_depression_lower_capacity"
+      },
+      {
+        "code": "MLI",
+        "name": "Mali",
+        "region": "Africa",
+        "depression_prevalence": 3.56806,
+        "depression_year": 2015,
+        "capacity_value": 0.02862,
+        "capacity_year": 2016,
+        "quadrant": "lower_depression_lower_capacity"
+      },
+      {
+        "code": "MUS",
+        "name": "Mauritius",
+        "region": "Africa",
+        "depression_prevalence": 4.35239,
+        "depression_year": 2015,
+        "capacity_value": 2.38198,
+        "capacity_year": 2017,
+        "quadrant": "lower_depression_higher_capacity"
+      },
+      {
+        "code": "MOZ",
+        "name": "Mozambique",
+        "region": "Africa",
+        "depression_prevalence": 4.0952,
+        "depression_year": 2015,
+        "capacity_value": 0.04641,
+        "capacity_year": 2016,
+        "quadrant": "lower_depression_lower_capacity"
+      },
+      {
+        "code": "MMR",
+        "name": "Myanmar",
+        "region": "South-East Asia",
+        "depression_prevalence": 3.68631,
+        "depression_year": 2015,
+        "capacity_value": 0.38356,
+        "capacity_year": 2016,
+        "quadrant": "lower_depression_lower_capacity"
+      },
+      {
+        "code": "NLD",
+        "name": "Netherlands (Kingdom of the)",
+        "region": "Europe",
+        "depression_prevalence": 4.69105,
+        "depression_year": 2015,
+        "capacity_value": 20.86962,
+        "capacity_year": 2015,
+        "quadrant": "higher_depression_higher_capacity"
+      },
+      {
+        "code": "NZL",
+        "name": "New Zealand",
+        "region": "Western Pacific",
+        "depression_prevalence": 5.3526,
+        "depression_year": 2015,
+        "capacity_value": 28.54027,
+        "capacity_year": 2016,
+        "quadrant": "higher_depression_higher_capacity"
+      },
+      {
+        "code": "NER",
+        "name": "Niger",
+        "region": "Africa",
+        "depression_prevalence": 3.41637,
+        "depression_year": 2015,
+        "capacity_value": 0.01397,
+        "capacity_year": 2016,
+        "quadrant": "lower_depression_lower_capacity"
+      },
+      {
+        "code": "OMN",
+        "name": "Oman",
+        "region": "Eastern Mediterranean",
+        "depression_prevalence": 4.65574,
+        "depression_year": 2015,
+        "capacity_value": 1.73817,
+        "capacity_year": 2015,
+        "quadrant": "higher_depression_higher_capacity"
+      },
+      {
+        "code": "PER",
+        "name": "Peru",
+        "region": "Americas",
+        "depression_prevalence": 4.7578,
+        "depression_year": 2015,
+        "capacity_value": 2.94805,
+        "capacity_year": 2016,
+        "quadrant": "higher_depression_higher_capacity"
+      },
+      {
+        "code": "PHL",
+        "name": "Philippines",
+        "region": "Western Pacific",
+        "depression_prevalence": 3.3429,
+        "depression_year": 2015,
+        "capacity_value": 0.51811,
+        "capacity_year": 2016,
+        "quadrant": "lower_depression_lower_capacity"
+      },
+      {
+        "code": "QAT",
+        "name": "Qatar",
+        "region": "Eastern Mediterranean",
+        "depression_prevalence": 5.06574,
+        "depression_year": 2015,
+        "capacity_value": 2.71237,
+        "capacity_year": 2016,
+        "quadrant": "higher_depression_higher_capacity"
+      },
+      {
+        "code": "KOR",
+        "name": "Republic of Korea",
+        "region": "Western Pacific",
+        "depression_prevalence": 4.10342,
+        "depression_year": 2015,
+        "capacity_value": 5.79322,
+        "capacity_year": 2016,
+        "quadrant": "lower_depression_higher_capacity"
+      },
+      {
+        "code": "ROU",
+        "name": "Romania",
+        "region": "Europe",
+        "depression_prevalence": 4.98819,
+        "depression_year": 2015,
+        "capacity_value": 5.66495,
+        "capacity_year": 2016,
+        "quadrant": "higher_depression_higher_capacity"
+      },
+      {
+        "code": "LCA",
+        "name": "Saint Lucia",
+        "region": "Americas",
+        "depression_prevalence": 4.94737,
+        "depression_year": 2015,
+        "capacity_value": 0.56431,
+        "capacity_year": 2016,
+        "quadrant": "higher_depression_lower_capacity"
+      },
+      {
+        "code": "WSM",
+        "name": "Samoa",
+        "region": "Western Pacific",
+        "depression_prevalence": 3.17485,
+        "depression_year": 2015,
+        "capacity_value": 1.54832,
+        "capacity_year": 2016,
+        "quadrant": "lower_depression_higher_capacity"
+      },
+      {
+        "code": "STP",
+        "name": "Sao Tome and Principe",
+        "region": "Africa",
+        "depression_prevalence": 3.89881,
+        "depression_year": 2015,
+        "capacity_value": 0.51137,
+        "capacity_year": 2016,
+        "quadrant": "lower_depression_lower_capacity"
+      },
+      {
+        "code": "SAU",
+        "name": "Saudi Arabia",
+        "region": "Eastern Mediterranean",
+        "depression_prevalence": 4.51654,
+        "depression_year": 2015,
+        "capacity_value": 1.32141,
+        "capacity_year": 2016,
+        "quadrant": "higher_depression_lower_capacity"
+      },
+      {
+        "code": "SEN",
+        "name": "Senegal",
+        "region": "Africa",
+        "depression_prevalence": 3.86937,
+        "depression_year": 2015,
+        "capacity_value": 0.20031,
+        "capacity_year": 2016,
+        "quadrant": "lower_depression_lower_capacity"
+      },
+      {
+        "code": "SRB",
+        "name": "Serbia",
+        "region": "Europe",
+        "depression_prevalence": 4.97538,
+        "depression_year": 2015,
+        "capacity_value": 8.64282,
+        "capacity_year": 2017,
+        "quadrant": "higher_depression_higher_capacity"
+      },
+      {
+        "code": "SYC",
+        "name": "Seychelles",
+        "region": "Africa",
+        "depression_prevalence": 3.96046,
+        "depression_year": 2015,
+        "capacity_value": 2.13352,
+        "capacity_year": 2016,
+        "quadrant": "lower_depression_higher_capacity"
+      },
+      {
+        "code": "SUR",
+        "name": "Suriname",
+        "region": "Americas",
+        "depression_prevalence": 4.8084,
+        "depression_year": 2015,
+        "capacity_value": 1.26535,
+        "capacity_year": 2016,
+        "quadrant": "higher_depression_lower_capacity"
+      },
+      {
+        "code": "TLS",
+        "name": "Timor-Leste",
+        "region": "South-East Asia",
+        "depression_prevalence": 2.98918,
+        "depression_year": 2015,
+        "capacity_value": 0.08058,
+        "capacity_year": 2016,
+        "quadrant": "lower_depression_lower_capacity"
+      },
+      {
+        "code": "TGO",
+        "name": "Togo",
+        "region": "Africa",
+        "depression_prevalence": 3.92564,
+        "depression_year": 2015,
+        "capacity_value": 0.05393,
+        "capacity_year": 2016,
+        "quadrant": "lower_depression_lower_capacity"
+      },
+      {
+        "code": "UKR",
+        "name": "Ukraine",
+        "region": "Europe",
+        "depression_prevalence": 6.31443,
+        "depression_year": 2015,
+        "capacity_value": 6.9305,
+        "capacity_year": 2016,
+        "quadrant": "higher_depression_higher_capacity"
+      },
+      {
+        "code": "ARE",
+        "name": "United Arab Emirates",
+        "region": "Eastern Mediterranean",
+        "depression_prevalence": 5.11804,
+        "depression_year": 2015,
+        "capacity_value": 1.6495,
+        "capacity_year": 2016,
+        "quadrant": "higher_depression_higher_capacity"
+      },
+      {
+        "code": "TZA",
+        "name": "United Republic of Tanzania",
+        "region": "Africa",
+        "depression_prevalence": 4.14388,
+        "depression_year": 2015,
+        "capacity_value": 0.05568,
+        "capacity_year": 2015,
+        "quadrant": "lower_depression_lower_capacity"
+      },
+      {
+        "code": "URY",
+        "name": "Uruguay",
+        "region": "Americas",
+        "depression_prevalence": 4.96401,
+        "depression_year": 2015,
+        "capacity_value": 14.13355,
+        "capacity_year": 2016,
+        "quadrant": "higher_depression_higher_capacity"
+      },
+      {
+        "code": "UZB",
+        "name": "Uzbekistan",
+        "region": "Europe",
+        "depression_prevalence": 4.23486,
+        "depression_year": 2015,
+        "capacity_value": 2.6117,
+        "capacity_year": 2016,
+        "quadrant": "lower_depression_higher_capacity"
+      },
+      {
+        "code": "VUT",
+        "name": "Vanuatu",
+        "region": "Western Pacific",
+        "depression_prevalence": 3.0919,
+        "depression_year": 2015,
+        "capacity_value": 0.37792,
+        "capacity_year": 2016,
+        "quadrant": "lower_depression_lower_capacity"
+      },
+      {
+        "code": "ZMB",
+        "name": "Zambia",
+        "region": "Africa",
+        "depression_prevalence": 4.01352,
+        "depression_year": 2015,
+        "capacity_value": 0.0559,
+        "capacity_year": 2016,
+        "quadrant": "lower_depression_lower_capacity"
+      },
+      {
+        "code": "ZWE",
+        "name": "Zimbabwe",
+        "region": "Africa",
+        "depression_prevalence": 4.03884,
+        "depression_year": 2015,
+        "capacity_value": 0.09507,
+        "capacity_year": 2016,
+        "quadrant": "lower_depression_lower_capacity"
+      }
+    ],
+    "caveat": "This pairs WHO's 2015 modeled depression-prevalence estimate with each country's latest available WHO capacity observation, which can come from a different year. It is a historical descriptive lens, not a current need score, causal estimate, or country ranking."
+  },
+  "editorial_guardrails": [
+    "Missing observations remain missing and are never converted to zero.",
+    "Country observations come from different reporting years; every displayed country value must show its year.",
+    "A workforce or facility count measures reported system capacity, not quality of care or access by itself.",
+    "The 2015 depression-prevalence estimate is historical and cannot stand in for total current mental-disorder burden.",
+    "Do not combine heterogeneous indicators into a synthetic country score without a separately justified methodology."
+  ]
+}
