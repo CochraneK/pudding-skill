@@ -1,10 +1,12 @@
 <script>
+	import { base } from '$app/paths';
+
 	let { title = "pudding-skill" } = $props();
 </script>
 
 <header>
 	<div class="title">
-		<a href="/" aria-label="Home">{title}</a>
+		<a href={`${base}/`} aria-label="Home">{title}</a>
 	</div>
 </header>
 

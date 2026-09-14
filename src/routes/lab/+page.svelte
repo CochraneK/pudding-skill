@@ -1,4 +1,5 @@
 <script>
+	import { base } from '$app/paths';
 	import Meta from "$components/Meta.svelte";
 	import candidates from "$data/story-candidates.json";
 	import selection from "$data/story-selection.json";
@@ -46,7 +47,7 @@
 			<h2>{candidates.candidates.find((d) => d.id === selection.selected_candidate_id)?.claim}</h2>
 			<p class="note">{selection.note}</p>
 		</div>
-		<a href="/generated">Open generated story →</a>
+		<a href={`${base}/generated`}>Open generated story →</a>
 	</section>
 
 	<section class="board">

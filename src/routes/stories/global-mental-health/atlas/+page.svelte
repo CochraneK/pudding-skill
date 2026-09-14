@@ -1,4 +1,5 @@
 <script>
+	import { base } from '$app/paths';
 	import { geoNaturalEarth1, geoPath, scaleLinear, scaleSymlog } from 'd3';
 	import capacity from '$data/global-mental-health-capacity.json';
 	import worldRaw from '$data/world-110m.geojson?raw';
@@ -76,7 +77,7 @@
 
 <article class="atlas-shell">
 	<header class="atlas-hero">
-		<a class="back-link" href="/stories/global-mental-health">← Return to the field story</a>
+		<a class="back-link" href={`${base}/stories/global-mental-health`}>← Return to the field story</a>
 		<p class="kicker">GLOBAL MENTAL HEALTH · CAPACITY ATLAS</p>
 		<h1>Where does the system have <em>room to respond?</em></h1>
 		<p class="dek">
@@ -232,7 +233,7 @@
 			<strong>{capacity.status}</strong>
 			<p>Source: WHO Global Health Observatory. Country values preserve their reporting year. Natural Earth public-domain geometry is used only for geographic shapes.</p>
 		</div>
-		<a href="/stories/global-mental-health">Continue the main story →</a>
+		<a href={`${base}/stories/global-mental-health`}>Continue the main story →</a>
 	</footer>
 </article>
 
