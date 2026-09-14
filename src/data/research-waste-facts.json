@@ -1,0 +1,88 @@
+{
+  "observed_publications": {
+    "2010": 2000000,
+    "2021": 3117036,
+    "2023": 3275079
+  },
+  "publication_growth_cagr_2010_2023": 0.038666898285255824,
+  "retraction_anchors": {
+    "2010": 540,
+    "2021": 3600,
+    "2023_minimum": 10000
+  },
+  "retraction_growth_cagr_2010_2021": 0.1882307703012065,
+  "retraction_growth_cagr_2010_2023_spike_inclusive": 0.2517228270608789,
+  "retraction_database_total_2026": 65000,
+  "estimated_retraction_criterion_share": 0.02,
+  "peer_review_hours_2020": 100000000,
+  "irreproducible_preclinical_cost_usd": 28000000000,
+  "post_retraction_citation_contexts": 13252,
+  "post_retraction_contexts_acknowledging_retraction": 722,
+  "post_retraction_acknowledgement_share": 0.054,
+  "paper_mill_hallmark_papers_2000_2022": 400000,
+  "paper_mill_submission_share_estimate": 0.02,
+  "fabrication_falsification_self_report_share": 0.0197,
+  "questionable_practice_self_report_max_share": 0.337,
+  "sources": [
+    {
+      "id": "nsf-publications-2025",
+      "label": "U.S. National Science Board / NCSES — Discovery: R&D Activity and Research Publications",
+      "url": "https://ncses.nsf.gov/pubs/nsb20257/publication-output-by-geography-and-scientific-field",
+      "note": "Scopus-indexed S&E publication output: 2.0M in 2010, 3.117M in 2021, 3.275M in 2023."
+    },
+    {
+      "id": "nature-retractions-2023",
+      "label": "Nature — More than 10,000 research papers were retracted in 2023",
+      "url": "https://www.nature.com/articles/d41586-023-03974-8",
+      "note": "2023 passed 10,000 retractions; most of the exceptional spike came from Hindawi cleanup."
+    },
+    {
+      "id": "nature-retractions-2022",
+      "label": "Nature — Retractions are increasing, but not enough",
+      "url": "https://www.nature.com/articles/d41586-022-02071-6",
+      "note": "About 45 retractions/month in 2010, nearly 300/month in 2021; commentary estimates roughly 1 in 50 papers could meet at least one COPE retraction criterion while observed retraction remained below 0.1% at the time."
+    },
+    {
+      "id": "retraction-watch-2026",
+      "label": "Retraction Watch — database status",
+      "url": "https://retractionwatch.com/",
+      "note": "Database reported over 65,000 retractions in 2026."
+    },
+    {
+      "id": "peer-review-time",
+      "label": "Aczel et al. — A billion-dollar donation: estimating the cost of researchers' time spent on peer review",
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC8591820/",
+      "note": "More than 100 million reviewer hours globally in 2020, equivalent to more than 15,000 24-hour years; estimates are intentionally conservative."
+    },
+    {
+      "id": "reproducibility-cost",
+      "label": "Freedman, Cockburn & Simcoe — The Economics of Reproducibility in Preclinical Research",
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC4461318/",
+      "note": "Estimated more than 50% cumulative irreproducibility in US preclinical life science and about $28B/year in direct spending associated with irreproducible work; this is not a global all-discipline estimate."
+    },
+    {
+      "id": "post-retraction-citations",
+      "label": "Hsiao & Schneider — Continued use of retracted papers",
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC9520488/",
+      "note": "Among 13,252 post-retraction citation contexts, only 722 (5.4%) acknowledged the retraction."
+    },
+    {
+      "id": "misconduct-meta-analysis",
+      "label": "Fanelli — How Many Scientists Fabricate and Falsify Research?",
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC2685008/",
+      "note": "2009 meta-analysis: 1.97% self-reported fabrication/falsification/modification at least once; up to 33.7% self-reported other questionable practices. These are survey prevalence estimates, not paper-level fraud rates."
+    },
+    {
+      "id": "paper-mills",
+      "label": "Nature — Stamp out paper mills",
+      "url": "https://www.nature.com/articles/d41586-025-00212-1",
+      "note": "Cites an estimate that at least 400,000 papers published 2000–2022 show paper-mill hallmarks."
+    },
+    {
+      "id": "paper-mill-submissions",
+      "label": "Porter & McIntosh — Identifying fabricated networks within authorship-for-sale enterprises",
+      "url": "https://www.nature.com/articles/s41598-024-71230-8",
+      "note": "Reports an estimate that about 2% of journal submissions across disciplines originate from paper mills."
+    }
+  ]
+}

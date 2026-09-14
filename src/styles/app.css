@@ -109,3 +109,20 @@ svg {
 	width: 100%;
 	height: auto;
 }
+
+/* Research-waste story: keep long caveats readable and mobile controls genuinely tappable. */
+article[data-story-kind="research-waste"] .utility a {
+	display: inline-flex;
+	align-items: center;
+	min-height: 44px;
+	padding-inline: 0.25rem;
+}
+
+article[data-story-kind="research-waste"] .calculator input[type="range"] {
+	min-height: 44px;
+}
+
+article[data-story-kind="research-waste"] .caveat {
+	max-width: 72ch;
+	font-size: 1rem;
+}

@@ -26,7 +26,7 @@
 			cards: [
 				['统一入口', '首页只负责发现与进入。每个正式报告拥有自己的完整叙事空间。'],
 				['双语注册表', '标题、摘要、关键数字和路由集中维护，中英文从同一份元数据生成。'],
-				['引导 + 探索', '报告先用滚动叙事建立论点，再把真实数据交给读者自由探索。']
+				['静态 / 引导 / 探索', '形式由编辑任务决定：能静态讲清就不强加交互；只有交互真正增加理解时，才加入引导或探索。']
 			],
 			footer: 'Built with pudding-skill · 可审计证据驱动的数据叙事。'
 		},
@@ -46,7 +46,7 @@
 			cards: [
 				['One public entrance', 'The homepage handles discovery. Each published report keeps its own full narrative space.'],
 				['Bilingual registry', 'Titles, summaries, key figures, and routes live in one registry and render in Chinese or English.'],
-				['Guide + explore', 'Reports establish the argument through scroll-driven narrative, then hand real data back to the reader for exploration.']
+				['Static / guided / explorable', 'Form follows the editorial task: stay static when that is enough, and add guidance or exploration only when interaction earns its complexity.']
 			],
 			footer: 'Built with pudding-skill · auditable evidence-driven data storytelling.'
 		}

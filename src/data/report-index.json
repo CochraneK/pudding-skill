@@ -42,7 +42,7 @@
           }
         }
       ],
-      "tags": ["WHO", "GBD", "mental health", "health systems", "scrollytelling"],
+      "tags": ["WHO", "GBD", "mental health", "health systems", "static-first"],
       "stats": [
         {
           "value": "1.095B",
@@ -59,10 +59,60 @@
           }
         },
         {
-          "value": "13.5",
+          "value": "1,647×",
           "label": {
-            "zh": "每 10 万人专业精神健康工作人员全球中位数",
-            "en": "specialized mental-health workers per 100k, global median"
+            "zh": "低收入与高收入国家政府精神健康人均支出中位数差距",
+            "en": "gap between low- and high-income median government mental-health spending per person"
+          }
+        }
+      ]
+    },
+    {
+      "id": "research-waste",
+      "eyebrow": {
+        "zh": "研究浪费与科研诚信 · 2026",
+        "en": "RESEARCH WASTE + INTEGRITY · 2026"
+      },
+      "title": {
+        "zh": "我们发表得比任何人能读的都快",
+        "en": "We publish faster than anyone can read"
+      },
+      "subtitle": {
+        "zh": "论文洪水、撤稿、不可重复与被消耗的人类注意力",
+        "en": "Paper floods, retractions, irreproducibility, and consumed human attention"
+      },
+      "dek": {
+        "zh": "每年数百万篇新论文进入知识库。真正的危机不是一个夸张的“垃圾率”，而是纠错、筛选和阅读能力能否追上生产速度，以及错误研究会消耗多少后续时间与资源。",
+        "en": "Millions of papers enter the literature each year. The sharper crisis is not a single sensational junk rate, but whether correction, filtering, and human reading can keep up—and how much downstream time and capacity flawed work consumes."
+      },
+      "status": {
+        "zh": "已发布",
+        "en": "Published"
+      },
+      "published": "2026-09-14",
+      "primary_route": "/stories/research-waste",
+      "secondary_routes": [],
+      "tags": ["research integrity", "retractions", "peer review", "reproducibility", "paper mills"],
+      "stats": [
+        {
+          "value": "3.275M",
+          "label": {
+            "zh": "2023 年全球 Scopus 科学与工程论文",
+            "en": "Scopus-indexed global S&E articles in 2023"
+          }
+        },
+        {
+          "value": "10k+",
+          "label": {
+            "zh": "2023 年发出的撤稿数量",
+            "en": "retractions issued in 2023"
+          }
+        },
+        {
+          "value": "100M+ h",
+          "label": {
+            "zh": "估计 2020 年全球同行评审投入时间",
+            "en": "estimated global peer-review time in 2020"
           }
         }
       ]
