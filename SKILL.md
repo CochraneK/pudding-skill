@@ -1,11 +1,11 @@
 ---
 name: pudding-scrolly
-description: Turn a research question and structured dataset into an evidence-audited editorial web story, publication-ready first draft, and screenshot-reviewed visual experience. Use for Pudding-inspired data journalism, scrollytelling, annotated charts, interactive explainers, narrative visualization, or data-story prototyping in Svelte.
+description: Turn a domain or industry question into an auditable research dossier when data is missing, then turn trustworthy structured evidence into an editorial web story, publication-ready first draft, and screenshot-reviewed visual experience. Use for industry research, source and numeric-evidence audits, data acquisition planning, Pudding-inspired data journalism, scrollytelling, annotated charts, interactive explainers, narrative visualization, or data-story prototyping in Svelte.
 ---
 
 # Pudding Scrolly
 
-Build **Pudding-inspired editorial data stories**, not visual clones of The Pudding. Reproduce the useful reasoning pattern: question → evidence → competing story directions → editorial choice → visual grammar → independently verified claims → first draft → implementation → browser verification → screenshot review → bounded refinement.
+Build **Pudding-inspired editorial data stories**, not visual clones of The Pudding. When trustworthy structured data does not yet exist, first build an auditable research dossier. Reproduce the useful reasoning pattern: question → research dossier when needed → evidence → competing story directions → editorial choice → visual grammar → independently verified claims → first draft → implementation → browser verification → screenshot review → bounded refinement.
 
 ## Core rule
 
@@ -13,6 +13,7 @@ Do not start by choosing a chart, writing a headline, or generating Svelte. Firs
 
 Use this sequence:
 
+0. **Research when data is missing** — if the input is a domain/industry question rather than a trustworthy dataset, build a research dossier first: definitions → source map → primary evidence → numeric claims → conflict resolution → data acquisition plan. Do not invent a dataset to skip this step.
 1. **Audit input** — inspect fields, types, missingness, duplicates, ranges, units, analytical grain, and source limitations.
 2. **Resolve semantics** — use a data contract when roles/units are ambiguous. Never infer meaning from field names alone when that could change the claim.
 3. **Generate candidates** — derive multiple defensible analytical directions instead of stopping at the first matching chart pattern.
@@ -30,6 +31,7 @@ Use this sequence:
 
 Read:
 
+- `references/research-dossier.md` when the user starts with a topic/question but lacks a trustworthy dataset;
 - `references/editorial-workflow.md` for editorial sequencing;
 - `references/editorial-scoring.md` for candidate ranking limits;
 - `references/data-contract.md` for explicit field semantics;
@@ -40,6 +42,24 @@ Read:
 - `references/visual-refinement-loop.md` for screenshot review and bounded iteration;
 - `references/benchmark.md` for the v2.6 regression corpus, scoring dimensions, and baseline policy;
 - `references/quality-rubric.md` before delivery.
+
+## Research-first workflow
+
+Use this when the user has a topic or industry question but no reliable structured dataset yet. The Agent performs the browsing/retrieval; the deterministic module records provenance and compiles the handoff.
+
+```bash
+python scripts/pudding.py research init \
+  --topic "Global mental health" \
+  --question "Where does treatment capacity lag behind need?"
+
+# After the agent populates sources, claims, conflicts, and data targets:
+python scripts/pudding.py research validate generated/research/research-dossier.json
+python scripts/pudding.py research compile generated/research/research-dossier.json
+```
+
+The compiled research package contains `research-report.md`, `source-ledger.json`, `numeric-evidence.csv`, `data-acquisition-plan.md`, and the canonical `research-dossier.json`. Only VERIFIED and QUALIFIED numeric claims enter `numeric-evidence.csv`; conflict/lead-only/rejected figures remain visible but cannot silently become story input.
+
+A material numeric claim should carry its value, unit, geography, period, population/denominator, source IDs, locator (page/table/figure/query), definition/method note, uncertainty when available, license note, status, and confidence. Prefer primary sources and preserve query parameters for dynamic data tools.
 
 ## Preferred structured-data workflow
 
