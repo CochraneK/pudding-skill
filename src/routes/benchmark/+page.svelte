@@ -16,7 +16,7 @@
 	<meta name="description" content="The deterministic v2.6 regression corpus for pudding-skill." />
 </svelte:head>
 
-<main class="benchmark-shell">
+<div class="benchmark-shell">
 	<header class="hero">
 		<p class="eyebrow">EDITORIAL BENCHMARK · V2.6</p>
 		<h1>Can the pipeline find the <em>right kind of story</em> repeatedly?</h1>
@@ -78,7 +78,7 @@
 			causal validity, prose craft, or whether a visual is aesthetically successful. Those remain separate editorial and screenshot-review steps.
 		</p>
 	</section>
-</main>
+</div>
 
 <style>
 	.benchmark-shell { --ink: #171717; --muted: #6b665f; --paper: #f7f3eb; --line: #d8d1c7; color: var(--ink); background: var(--paper); min-height: 100vh; padding: clamp(2rem, 5vw, 5rem) clamp(1.1rem, 5vw, 6rem) 7rem; }
