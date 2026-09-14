@@ -40,6 +40,26 @@ def candidates(args: argparse.Namespace) -> int:
     return run(command)
 
 
+def research(args: argparse.Namespace) -> int:
+    command = [sys.executable, "scripts/research_dossier.py", args.research_command]
+    if args.research_command == "init":
+        command += [
+            "--question",
+            args.question,
+            "--topic",
+            args.topic,
+            "--audience",
+            args.audience,
+            "--output",
+            str(args.output),
+        ]
+    elif args.research_command == "validate":
+        command.append(str(args.dossier))
+    elif args.research_command == "compile":
+        command += [str(args.dossier), "--outdir", str(args.outdir)]
+    return run(command)
+
+
 def benchmark(args: argparse.Namespace) -> int:
     command = [
         sys.executable,
@@ -124,6 +144,28 @@ def main() -> int:
     story_parser.add_argument("--workdir", type=Path, default=Path("generated"))
     story_parser.add_argument("--limit", type=int, default=12)
     story_parser.set_defaults(func=story)
+
+    research_parser = sub.add_parser(
+        "research",
+        help="build an auditable source/claim/data-acquisition dossier before structured data exists",
+    )
+    research_sub = research_parser.add_subparsers(dest="research_command", required=True)
+
+    research_init = research_sub.add_parser("init", help="create a research dossier scaffold")
+    research_init.add_argument("--question", required=True)
+    research_init.add_argument("--topic", required=True)
+    research_init.add_argument("--audience", default="general audience")
+    research_init.add_argument("--output", type=Path, default=Path("generated/research/research-dossier.json"))
+    research_init.set_defaults(func=research)
+
+    research_validate = research_sub.add_parser("validate", help="validate source and numeric-evidence provenance")
+    research_validate.add_argument("dossier", type=Path)
+    research_validate.set_defaults(func=research)
+
+    research_compile = research_sub.add_parser("compile", help="compile a dossier into report, ledgers, and story-ready evidence")
+    research_compile.add_argument("dossier", type=Path)
+    research_compile.add_argument("--outdir", type=Path, default=Path("generated/research"))
+    research_compile.set_defaults(func=research)
 
     benchmark_parser = sub.add_parser("benchmark", help="run the curated editorial regression corpus")
     benchmark_parser.add_argument("--corpus", type=Path, default=Path("benchmarks/corpus.json"))

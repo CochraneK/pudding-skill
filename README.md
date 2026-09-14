@@ -6,6 +6,18 @@ This project is not a visual clone of [The Pudding](https://pudding.cool/). It b
 
 > The Svelte starter is derived from [`the-pudding/svelte-starter`](https://github.com/the-pudding/svelte-starter) under the MIT License. This project is not affiliated with The Pudding and does not ship or hotlink The Pudding logos or proprietary fonts.
 
+## Research dossier mode: from a question to auditable evidence
+
+`pudding-skill` no longer has to start with a ready-made CSV. When a project starts with an industry/domain question, use the research dossier workflow to map definitions, papers, official reports, white papers, manuals, source conflicts, numeric claims, licensing constraints, and concrete data-acquisition steps before entering the story pipeline.
+
+```bash
+python scripts/pudding.py research init --topic "Global mental health" --question "Where does treatment capacity lag behind need?"
+python scripts/pudding.py research validate generated/research/research-dossier.json
+python scripts/pudding.py research compile generated/research/research-dossier.json
+```
+
+Compilation produces an executable research package: `research-report.md`, `source-ledger.json`, `numeric-evidence.csv`, and `data-acquisition-plan.md`. Material numbers retain source and scope metadata; unresolved conflicts and discovery-only figures are kept out of story-ready numeric evidence. See `references/research-dossier.md`.
+
 ## v2.6: editorial benchmark and regression corpus
 
 v2.6 adds a curated regression suite so changes to scoring, selection, claim verification, visual grammar, or provenance can be measured across multiple data/story shapes rather than a single demo.
