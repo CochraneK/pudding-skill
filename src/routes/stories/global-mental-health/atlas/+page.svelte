@@ -53,8 +53,7 @@
 	let regionRows = $derived(capacity.region_summaries
 		.map((row) => ({ ...row, metric: row.metrics[selectedMetric] }))
 		.filter((row) => row.metric?.n)
-		.sort((a, b) => (b.metric.median ?? -Infinity) - (a.metric.median ?? -Infinity));
-	);
+		.sort((a, b) => (b.metric.median ?? -Infinity) - (a.metric.median ?? -Infinity)));
 
 	const mismatch = capacity.historical_mismatch_lens;
 	const mismatchPairs = mismatch.pairs;
