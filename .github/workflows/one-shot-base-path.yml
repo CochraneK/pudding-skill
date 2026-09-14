@@ -25,6 +25,7 @@ jobs:
           root = Path('src')
           changed = []
           pattern = re.compile(r'(?P<attr>href|src)="/(?P<path>[^"{]*)"')
+          base_expr = '$' + '{base}'
 
           for path in root.rglob('*.svelte'):
               text = path.read_text(encoding='utf-8')
@@ -39,7 +40,10 @@ jobs:
                   else:
                       text = "<script>\n\timport { base } from '$app/paths';\n</script>\n\n" + text
 
-              text = pattern.sub(lambda m: f'{m.group("attr")}={{`${{base}}/{m.group("path")}`}}', text)
+              text = pattern.sub(
+                  lambda m: f'{m.group("attr")}={{`{base_expr}/{m.group("path")}`}}',
+                  text
+              )
               path.write_text(text, encoding='utf-8')
               changed.append(str(path))
 
