@@ -3,6 +3,7 @@
 @import "font.css";
 @import "reset.css";
 @import "ui.css";
+@import "refinement.css";
 
 :root {
 	--font-sans: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
