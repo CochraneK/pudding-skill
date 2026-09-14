@@ -1,0 +1,29 @@
+{
+  "site_title": "Pudding Reports",
+  "site_dek": "A public shelf for evidence-audited data stories built with pudding-skill. New reports are added here first, so the homepage remains the single entry point.",
+  "reports": [
+    {
+      "id": "global-mental-health",
+      "eyebrow": "GLOBAL MENTAL HEALTH · 2026",
+      "title": "世界的隐形负担",
+      "subtitle": "The world's invisible burden",
+      "dek": "全球精神障碍的负担有多大？真正的不平等，不只在患病率，也在资金、专业人员与社区照护能力是否跟得上需要。",
+      "status": "Published",
+      "published": "2026-09-14",
+      "primary_route": "/stories/global-mental-health",
+      "secondary_routes": [
+        {
+          "label": "Capacity Atlas",
+          "route": "/stories/global-mental-health/atlas",
+          "description": "WHO country-level workforce, spending and service-capacity explorer"
+        }
+      ],
+      "tags": ["WHO", "GBD", "mental health", "health systems"],
+      "stats": [
+        { "value": "1.095B", "label": "people living with a mental disorder in 2021" },
+        { "value": "2.1%", "label": "median government health spending allocated to mental health" },
+        { "value": "13.5", "label": "specialized mental-health workers per 100k, global median" }
+      ]
+    }
+  ]
+}
