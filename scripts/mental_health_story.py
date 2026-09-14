@@ -3,7 +3,6 @@ from __future__ import annotations
 import argparse
 import csv
 import json
-import urllib.parse
 import urllib.request
 from pathlib import Path
 
@@ -40,8 +39,9 @@ def normalize_gho_record(record: dict, metric: str) -> dict:
 def fetch_who_workforce(output: Path) -> None:
     rows: list[dict] = []
     for code, metric in WHO_INDICATORS.items():
-        params = urllib.parse.urlencode({"$filter": "SpatialDimType eq 'COUNTRY'", "$format": "json"})
-        payload = fetch_json(f"{WHO_GHO_BASE}/{code}?{params}")
+        # Indicator endpoints already return JSON. Avoid filtering on optional OData fields
+        # that differ across older mental-health indicator tables.
+        payload = fetch_json(f"{WHO_GHO_BASE}/{code}?$top=10000")
         for record in payload.get("value", []):
             normalized = normalize_gho_record(record, metric)
             if normalized["country_code"] and normalized["value"] is not None:
@@ -63,7 +63,7 @@ def import_ihme(input_path: Path, output: Path) -> None:
     """Normalize a user-supplied IHME/GBD CSV without redistributing the source data.
 
     The exporter has changed column labels across releases, so this importer accepts common
-    country/year/value aliases and preserves unrecognized fields in `raw_dimensions`.
+    country/year/value aliases while retaining the dimensions needed for later filtering.
     """
     with input_path.open(newline="", encoding="utf-8-sig") as handle:
         reader = csv.DictReader(handle)
