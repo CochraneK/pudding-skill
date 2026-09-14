@@ -1,510 +1,464 @@
 <script>
 	import { base } from '$app/paths';
 	import facts from '$data/global-mental-health-facts.json';
+	import LanguageToggle from '$components/LanguageToggle.svelte';
+	import GlobalMentalHealthScrolly from '$components/GlobalMentalHealthScrolly.svelte';
+	import GlobalMentalHealthExplorer from '$components/GlobalMentalHealthExplorer.svelte';
+	import { language } from '$lib/language.js';
 
-	const byId = Object.fromEntries(facts.facts.map((fact) => [fact.id, fact]));
 	const source = (id) => facts.sources[id];
 
-	const treatmentRows = [
-		{
-			label: 'Mental-health service use',
-			high: 33,
-			low: 8,
-			highDetail: byId['mdd-service-hic'].detail,
-			lowDetail: byId['mdd-service-low'].detail
+	const copy = {
+		zh: {
+			back: '← 返回报告库',
+			eyebrow: '全球精神健康 · 研究档案数据故事',
+			titleLead: '世界的',
+			titleEm: '隐形负担',
+			dek: '超过 10 亿人生活在精神障碍之中。更尖锐的全球差距，不只是“哪里患病率高”，而是谁拥有足够的资金、专业人员与社区服务去回应需要。',
+			heroLabel: '2021 年全球精神障碍患者',
+			heroDetail: 'WHO 报告年龄标化患病率约 13.6%，接近每 7 人就有 1 人。',
+			scrollCue: '向下滚动，让同一张图一步一步改变。',
+			transitionEyebrow: '从作者引导 → 读者探索',
+			transitionTitle: 'Pudding 式交互，不应该止于动画。',
+			transitionBody: '前半段由滚动控制视觉状态，让读者按叙事顺序建立尺度感；到了这里，控制权交还给读者。接下来的地图可以自己切换指标、查看国家和年份。引导与探索使用的是同一套经过审计的数据，而不是两个互不相干的“图表页面”。',
+			methodEyebrow: '别让交互制造虚假的确定性',
+			methodTitle: '这张地图能比较系统能力，但不能给国家贴“心理健康好坏”的标签。',
+			methodCards: [
+				['患病率 ≠ 诊断率', 'GBD/WHO 的患病率是模型估计，不是已诊断病例登记，也不是国家幸福度评分。'],
+				['缺失 ≠ 0', 'WHO 指标覆盖率不同。没有报告的数据保持灰色，不用插值或 0 替代。'],
+				['年份必须一起看', '国家级人力和服务指标主要来自较早 Atlas/GHO 轮次。跨国比较前先看报告年份。'],
+				['相关 ≠ 因果', '需求高、资源少可能同时出现，但这张图本身不能证明资源不足造成了某个患病率。']
+			],
+			sourcesEyebrow: '来源与证据链',
+			sourcesTitle: '每个关键数字都能追溯回原始来源。',
+			sourceNote: '报告中的数字来自 WHO、IHME/GBD 与同行评议研究。完整的 source ledger、numeric evidence 和 data-acquisition plan 保存在仓库的 Research Dossier 中。',
+			standalone: '打开独立 Capacity Atlas →',
+			status: '研究支持的交互式数据故事 · 数据、口径和缺失保持可见'
 		},
-		{
-			label: 'Minimally adequate treatment',
-			high: 23,
-			low: 3,
-			highDetail: byId['mdd-mat-hic'].detail,
-			lowDetail: byId['mdd-mat-low'].detail
+		en: {
+			back: '← Back to report library',
+			eyebrow: 'GLOBAL MENTAL HEALTH · RESEARCH DOSSIER STORY',
+			titleLead: "The world's",
+			titleEm: 'invisible burden',
+			dek: 'More than a billion people live with mental disorders. The sharper global divide is not simply where prevalence is higher, but whether care systems have the money, people and community services to respond.',
+			heroLabel: 'people living with a mental disorder in 2021',
+			heroDetail: 'WHO reports an age-standardized prevalence of 13.6% — nearly one in seven people worldwide.',
+			scrollCue: 'Scroll down. The same graphic will change one argument at a time.',
+			transitionEyebrow: 'FROM AUTHOR GUIDANCE → READER EXPLORATION',
+			transitionTitle: 'Pudding-style interaction should not stop at animation.',
+			transitionBody: 'The first half lets scrolling control visual state so the reader builds context in a deliberate order. Here, control shifts back to the reader. The map below lets you switch indicators and inspect countries and reporting years. Guidance and exploration use the same audited evidence rather than two disconnected chart pages.',
+			methodEyebrow: 'DO NOT LET INTERACTION CREATE FALSE CERTAINTY',
+			methodTitle: 'This map compares system capacity. It does not rank countries by “mental health.”',
+			methodCards: [
+				['Prevalence ≠ diagnosis', 'GBD/WHO prevalence is modeled evidence, not a registry of diagnosed cases and not a national wellbeing score.'],
+				['Missing ≠ zero', 'WHO indicator coverage differs. Missing observations stay gray; they are never imputed or silently converted to zero.'],
+				['Read the year', 'Country workforce and service indicators largely come from earlier Atlas/GHO rounds. Read reporting year before comparing countries.'],
+				['Association ≠ causation', 'High need and low capacity can coexist, but this visualization cannot prove that resource scarcity caused a prevalence level.']
+			],
+			sourcesEyebrow: 'SOURCES + PROVENANCE',
+			sourcesTitle: 'Every material number can be traced back to its source.',
+			sourceNote: 'The story uses WHO, IHME/GBD, and peer-reviewed evidence. The repository keeps the full source ledger, numeric evidence table, and data-acquisition plan in the Research Dossier.',
+			standalone: 'Open the standalone Capacity Atlas →',
+			status: 'Research-backed interactive data story · data, definitions, and missingness remain visible'
 		}
-	];
+	};
+
+	const t = () => copy[$language];
 </script>
 
 <svelte:head>
-	<title>{facts.headline} · pudding-skill</title>
+	<title>{t().titleLead} {t().titleEm} · pudding-skill</title>
 	<meta
 		name="description"
-		content="An evidence-audited data story about the global mental-disorder burden and the unequal capacity to provide care."
+		content={t().dek}
 	/>
+	<meta property="og:title" content={`${t().titleLead} ${t().titleEm}`} />
+	<meta property="og:description" content={t().dek} />
+	<meta name="theme-color" content="#f5f0e7" />
+	<link rel="canonical" href="https://cochranek.github.io/pudding-skill/stories/global-mental-health/" />
 </svelte:head>
 
 <article class="story-shell">
 	<section class="hero">
-		<p class="kicker">GLOBAL MENTAL HEALTH · RESEARCH DOSSIER STORY</p>
-		<h1>The world's <em>invisible burden</em></h1>
-		<p class="dek">{facts.dek}</p>
+		<div class="utility-row">
+			<a href={`${base}/`}>{t().back}</a>
+			<LanguageToggle />
+		</div>
+		<p class="kicker">{t().eyebrow}</p>
+		<h1>{t().titleLead}<br /><em>{t().titleEm}</em></h1>
+		<p class="dek">{t().dek}</p>
 
-		<div class="hero-number" aria-label="Global mental disorder prevalence in 2021">
+		<div class="hero-number" aria-label={t().heroLabel}>
 			<strong>1.095</strong>
 			<div>
-				<span>billion people</span>
-				<p>{byId['global-prevalence-2021'].detail}</p>
+				<span>billion</span>
+				<p>{t().heroLabel}</p>
+				<small>{t().heroDetail}</small>
 			</div>
 		</div>
 
-		<p class="source-line">
-			Source:
-			<a href={source('who-world-mental-health-2025').url}>{source('who-world-mental-health-2025').label}</a>
-		</p>
-	</section>
-
-	<section class="conditions" aria-labelledby="conditions-title">
-		<div class="section-copy narrow">
-			<p class="eyebrow">WHAT SITS INSIDE 1.095 BILLION</p>
-			<h2 id="conditions-title">The largest categories are familiar — but the scale is easy to miss.</h2>
-		</div>
-		<div class="condition-pair">
-			<article>
-				<p>Anxiety disorders</p>
-				<strong>{byId['anxiety-2021'].value}</strong>
-				<span>{byId['anxiety-2021'].detail}</span>
-			</article>
-			<article>
-				<p>Depressive disorders</p>
-				<strong>{byId['depression-2021'].value}</strong>
-				<span>{byId['depression-2021'].detail}</span>
-			</article>
-		</div>
-		<p class="source-line">
-			Source:
-			<a href={source('who-world-mental-health-2025').url}>{source('who-world-mental-health-2025').label}</a>
-		</p>
-	</section>
-
-	<section class="burden" aria-labelledby="burden-title">
-		<div class="burden-copy">
-			<p class="eyebrow">WHY DEATHS MISS THE STORY</p>
-			<h2 id="burden-title">Mental disorders take healthy years more often than they take lives directly.</h2>
-			<p>
-				GBD 2021 attributes <strong>155 million disability-adjusted life years</strong> to mental disorders — about
-				<strong>5.4% of all global DALYs</strong>. The source says almost all of that burden came from years lived with
-				disability rather than years of life lost.
-			</p>
-		</div>
-		<div class="burden-stats" aria-label="Mental disorder disability burden in 2021">
-			<div>
-				<strong>{byId['mental-disorder-dalys'].value}</strong>
-				<span>DALYs</span>
-				<p>95% uncertainty interval: 117–198 million.</p>
-			</div>
-			<div>
-				<strong>{byId['mental-disorder-daly-share'].value}</strong>
-				<span>of global DALYs</span>
-				<p>95% uncertainty interval: 4.3–6.5%.</p>
-			</div>
-		</div>
-		<p class="source-line dark-source">
-			Source:
-			<a href={source('ihme-gbd-2021-mental-disorders').url}>{source('ihme-gbd-2021-mental-disorders').label}</a>
-		</p>
-	</section>
-
-	<section class="turn" aria-labelledby="turn-title">
-		<p class="eyebrow">THE TURN</p>
-		<h2 id="turn-title">A billion-person need meets a system with very uneven capacity.</h2>
-		<p class="lead">
-			The next question is not which country can be labeled “more mentally healthy.” It is whether the systems
-			around people have the money, workforce and community services to respond.
-		</p>
-
-		<div class="fact-grid">
-			<article>
-				<strong>{byId['mental-health-spending'].value}</strong>
-				<h3>of government health spending</h3>
-				<p>{byId['mental-health-spending'].detail}</p>
-			</article>
-			<article>
-				<strong>{byId['mental-health-workforce'].value}</strong>
-				<h3>specialized workers / 100k</h3>
-				<p>{byId['mental-health-workforce'].detail}</p>
-			</article>
-			<article>
-				<strong>{byId['community-transition'].value}</strong>
-				<h3>fully community-based</h3>
-				<p>{byId['community-transition'].detail}</p>
-			</article>
-		</div>
-		<p class="source-line">
-			Source:
-			<a href={source('who-mental-health-atlas-2024').url}>{source('who-mental-health-atlas-2024').label}</a>
-		</p>
-	</section>
-
-	<section class="money" aria-labelledby="money-title">
-		<div class="section-copy">
-			<p class="eyebrow">FINANCING</p>
-			<h2 id="money-title">“2.1%” is only the beginning of the funding gap.</h2>
-			<p>
-				Among 75 countries reporting expenditure data, WHO found a global median of just
-				<strong>US$2.69 per person</strong> in government mental-health spending. Income-group medians stretch from
-				<strong>US$0.04</strong> in low-income countries to <strong>US$65.89</strong> in high-income countries.
-			</p>
-		</div>
-		<div class="money-gap" aria-label="Median government mental health spending per person by income group">
-			<div class="money-end low-end">
-				<span>Low income</span>
-				<strong>{byId['mental-health-spend-lic'].value}</strong>
-				<p>per person</p>
-			</div>
-			<div class="gap-line" aria-hidden="true"><i></i><b></b></div>
-			<div class="money-end high-end">
-				<span>High income</span>
-				<strong>{byId['mental-health-spend-hic'].value}</strong>
-				<p>per person</p>
-			</div>
-		</div>
-		<p class="median-note">Global median among reporting countries: <strong>{byId['mental-health-spend-global'].value}</strong> per person.</p>
-	</section>
-
-	<section class="workforce" aria-labelledby="workforce-title">
-		<div class="section-copy">
-			<p class="eyebrow">WORKFORCE</p>
-			<h2 id="workforce-title">A global median can hide an enormous staffing divide.</h2>
-			<p>
-				WHO reports a global median of 13.5 specialized mental-health workers per 100,000 people. Across low- and
-				lower-middle-income settings, the summary range is only 1.1–2.4. In high-income settings, the median is 67.2.
-			</p>
-		</div>
-		<div class="workforce-scale" aria-label="Specialized mental-health workers per 100,000 people">
-			<div class="scale-row">
-				<div class="scale-label"><span>Low + lower-middle income</span><strong>1.1–2.4</strong></div>
-				<div class="track"><i style="width: 4%"></i></div>
-			</div>
-			<div class="scale-row">
-				<div class="scale-label"><span>Global median</span><strong>13.5</strong></div>
-				<div class="track"><i style="width: 20%"></i></div>
-			</div>
-			<div class="scale-row featured">
-				<div class="scale-label"><span>High income</span><strong>67.2</strong></div>
-				<div class="track"><i style="width: 100%"></i></div>
-			</div>
+		<div class="scroll-cue" aria-hidden="true">
+			<i></i>
+			<span>{t().scrollCue}</span>
 		</div>
 	</section>
 
-	<section class="treatment" aria-labelledby="treatment-title">
-		<div class="section-copy narrow">
-			<p class="eyebrow">THE GAP REACHES THE PATIENT</p>
-			<h2 id="treatment-title">For depression, access falls — and adequate treatment falls further.</h2>
-			<p>
-				A systematic review and Bayesian meta-regression covering 149 studies in 84 countries found stark income
-				differences in treatment for major depressive disorder. The uncertainty is wide, especially in lower-resource
-				settings, but the direction is consistent.
-			</p>
-		</div>
+	<GlobalMentalHealthScrolly />
 
-		<div class="treatment-chart" aria-label="Modeled depression treatment rates by income group">
-			{#each treatmentRows as row}
-				<div class="treatment-row">
-					<h3>{row.label}</h3>
-					<div class="treatment-series">
-						<div class="treatment-item">
-							<div class="treatment-label"><span>High income</span><strong>{row.high}%</strong></div>
-							<div class="treatment-track"><i style={`width:${(row.high / 40) * 100}%`}></i></div>
-						</div>
-						<div class="treatment-item low-resource">
-							<div class="treatment-label"><span>Low + lower-middle income</span><strong>{row.low}%</strong></div>
-							<div class="treatment-track"><i style={`width:${(row.low / 40) * 100}%`}></i></div>
-						</div>
-					</div>
-				</div>
-			{/each}
-		</div>
-		<div class="caveat-box">
-			<strong>Do not over-read the decimals.</strong>
-			<p>
-				The review reports wide uncertainty intervals and explicitly notes sparse evidence from low- and
-				lower-middle-income countries. These estimates establish a treatment gap; they are not precise country scores.
-			</p>
-		</div>
-		<p class="source-line">
-			Source:
-			<a href={source('plos-mdd-treatment-gap').url}>{source('plos-mdd-treatment-gap').label}</a>
-		</p>
+	<section class="handoff">
+		<p class="eyebrow">{t().transitionEyebrow}</p>
+		<h2>{t().transitionTitle}</h2>
+		<p>{t().transitionBody}</p>
 	</section>
 
-	<section class="system" aria-labelledby="system-title">
-		<div class="section-copy">
-			<p class="eyebrow">SERVICE DESIGN</p>
-			<h2 id="system-title">More money and staff are not the only transition still unfinished.</h2>
-			<p>
-				Fewer than 10% of responding countries had fully shifted from institution-based care to community-based
-				models. WHO says 52.9% were still in the early stage of that transition.
-			</p>
-		</div>
-		<div class="transition-block" aria-label="Community mental health service transition">
-			<div class="transition-primary">
-				<strong>&lt;10%</strong>
-				<span>fully transitioned</span>
-			</div>
-			<div class="transition-secondary">
-				<strong>52.9%</strong>
-				<span>still at an early stage</span>
-			</div>
-		</div>
-	</section>
-
-	<section class="next-layer" aria-labelledby="next-title">
-		<div>
-			<p class="eyebrow">NEXT DATA LAYER · NOT A BLOCKER</p>
-			<h2 id="next-title">The country burden map is now optional, not the thing holding the story hostage.</h2>
-		</div>
-		<div class="next-grid">
-			<article>
-				<span>AVAILABLE NOW</span>
-				<h3>WHO capacity map</h3>
-				<p>
-					WHO GHO and Atlas country profiles expose workforce, financing and service-system indicators. Those can be
-					extracted into a country map without waiting for IHME.
-				</p>
-				<a class="atlas-link" href={`${base}/stories/global-mental-health/atlas`}>Explore the country capacity atlas →</a>
-				<code>python scripts/mental_health_story.py who</code>
-			</article>
-			<article>
-				<span>OPTIONAL ENHANCEMENT</span>
-				<h3>IHME 1990–2023 burden layer</h3>
-				<p>
-					If the final editorial question still needs country-level prevalence or YLD trends, submit a narrower IHME
-					request and normalize the resulting export locally.
-				</p>
-				<code>python scripts/mental_health_story.py ihme-import YOUR_GBD_EXPORT.csv</code>
-			</article>
-		</div>
-	</section>
+	<GlobalMentalHealthExplorer />
 
 	<section class="method" aria-labelledby="method-title">
-		<p class="eyebrow">READ THE NUMBERS CAREFULLY</p>
-		<h2 id="method-title">Burden, diagnosis, treatment and system capacity are different measurements.</h2>
+		<div class="method-head">
+			<p class="eyebrow">{t().methodEyebrow}</p>
+			<h2 id="method-title">{t().methodTitle}</h2>
+		</div>
 		<div class="method-grid">
-			<p>
-				GBD prevalence is modeled from surveys, records and other evidence. It is not a registry of diagnosed cases,
-				and a higher modeled prevalence should not be treated as proof that a country is simply “less mentally healthy.”
-			</p>
-			<p>
-				WHO Atlas medians describe responding countries, not population-weighted global averages. Missing country
-				responses are missing — never zero. Treatment estimates carry their own sampling and modeling uncertainty.
-			</p>
-			<p>
-				The 2024 Atlas estimate of roughly 40% psychosis service coverage is based on only 22 countries with sufficient
-				data. It is not directly comparable to the 29% figure in WHO's fact sheet based on the 2020 Atlas.
-			</p>
-			<p>
-				The full source ledger, numeric evidence table, conflict note and acquisition plan are kept in the story's
-				Research Dossier so every material number can be traced back to scope and source.
-			</p>
+			{#each t().methodCards as card, i}
+				<article>
+					<span>0{i + 1}</span>
+					<h3>{card[0]}</h3>
+					<p>{card[1]}</p>
+				</article>
+			{/each}
 		</div>
 	</section>
 
-	<section class="economic" aria-labelledby="economic-title">
-		<p class="eyebrow">ONE LAST SCALE CHECK</p>
-		<h2 id="economic-title">The burden also appears in lost time.</h2>
-		<div class="economic-pair">
-			<div>
-				<strong>{byId['workdays-lost'].value}</strong>
-				<span>productive work days lost each year</span>
-			</div>
-			<div>
-				<strong>{byId['productivity-cost'].value}</strong>
-				<span>estimated annual productivity cost</span>
-			</div>
+	<section class="sources" aria-labelledby="sources-title">
+		<div>
+			<p class="eyebrow">{t().sourcesEyebrow}</p>
+			<h2 id="sources-title">{t().sourcesTitle}</h2>
+			<p class="source-intro">{t().sourceNote}</p>
 		</div>
-		<p class="economic-note">
-			WHO's 2025 report cites a 2016 analysis for these estimates. They are included as scale, not as a fresh 2025
-			administrative count.
-		</p>
+		<div class="source-list">
+			<a href={source('who-world-mental-health-2025').url} target="_blank" rel="noreferrer"><span>01</span>{source('who-world-mental-health-2025').label}<b>↗</b></a>
+			<a href={source('who-mental-health-atlas-2024').url} target="_blank" rel="noreferrer"><span>02</span>{source('who-mental-health-atlas-2024').label}<b>↗</b></a>
+			<a href={source('ihme-gbd-2021-mental-disorders').url} target="_blank" rel="noreferrer"><span>03</span>{source('ihme-gbd-2021-mental-disorders').label}<b>↗</b></a>
+			<a href={source('plos-mdd-treatment-gap').url} target="_blank" rel="noreferrer"><span>04</span>{source('plos-mdd-treatment-gap').label}<b>↗</b></a>
+		</div>
+		<p class="atlas-note"><a href={`${base}/stories/global-mental-health/atlas`}>{t().standalone}</a></p>
 	</section>
 
 	<footer class="story-footer">
 		<span>{facts.status}</span>
-		<p>
-			Research-backed field story · source ledger, numeric evidence and data-acquisition plan live under
-			<code>stories/global-mental-health/research/</code>.
-		</p>
+		<p>{t().status}</p>
 	</footer>
 </article>
 
 <style>
+	:global(body) {
+		background: #f5f0e7;
+		color: #171715;
+	}
+
 	.story-shell {
 		--ink: #171715;
 		--muted: #68645d;
 		--paper: #f5f0e7;
 		--panel: #fffaf2;
 		--accent: #a33f32;
-		--deep: #1d211f;
 		--line: #d7cfc2;
-		color: var(--ink);
-		background: var(--paper);
 		min-height: 100vh;
-	}
-	.hero,
-	.conditions,
-	.turn,
-	.money,
-	.workforce,
-	.treatment,
-	.system,
-	.next-layer,
-	.method,
-	.economic,
-	.story-footer {
-		max-width: 1180px;
-		margin-inline: auto;
-		padding-inline: clamp(1rem, 5vw, 5rem);
-	}
-	.hero { padding-top: clamp(5rem, 10vw, 10rem); padding-bottom: 8rem; }
-	.kicker,
-	.eyebrow { font: 800 0.76rem/1.2 var(--font-sans); letter-spacing: 0.14em; color: var(--accent); }
-	h1,
-	h2,
-	h3 { font-family: var(--font-serif); }
-	h1 { max-width: 960px; margin: 0.8rem 0 1.5rem; font-size: clamp(4rem, 11vw, 9.5rem); line-height: 0.86; letter-spacing: -0.065em; }
-	h1 em { color: var(--accent); font-weight: 400; }
-	.dek { max-width: 790px; margin: 0; font-size: clamp(1.15rem, 2vw, 1.55rem); line-height: 1.55; color: var(--muted); }
-	.hero-number { margin-top: 6rem; padding-top: 2rem; border-top: 1px solid var(--line); display: grid; grid-template-columns: minmax(0, 1fr) minmax(280px, 0.75fr); gap: 2rem; align-items: end; }
-	.hero-number > strong { font: 800 clamp(6rem, 18vw, 15rem)/0.72 var(--font-sans); letter-spacing: -0.08em; color: var(--accent); }
-	.hero-number span { font: 800 clamp(1.4rem, 3vw, 2.4rem)/1 var(--font-sans); }
-	.hero-number p { max-width: 42ch; margin: 1rem 0 0; color: var(--muted); line-height: 1.55; }
-	.source-line { margin-top: 1.2rem; color: var(--muted); font: 600 0.8rem/1.4 var(--font-sans); }
-	.source-line a { color: inherit; }
-	.conditions,
-	.turn,
-	.money,
-	.workforce,
-	.treatment,
-	.system,
-	.next-layer,
-	.method,
-	.economic { padding-top: 7rem; padding-bottom: 7rem; border-top: 1px solid var(--line); }
-	.section-copy.narrow { max-width: 880px; }
-	.section-copy h2,
-	.turn h2,
-	.burden h2,
-	.method h2,
-	.economic h2,
-	.next-layer h2 { max-width: 920px; margin: 0.8rem 0; font-size: clamp(2.6rem, 6vw, 5.8rem); line-height: 0.95; letter-spacing: -0.045em; }
-	.section-copy > p:last-child,
-	.burden-copy > p:last-child,
-	.economic-note { color: var(--muted); line-height: 1.65; max-width: 68ch; }
-	.condition-pair { margin-top: 4rem; display: grid; grid-template-columns: 1fr 1fr; border: 1px solid var(--line); background: var(--panel); }
-	.condition-pair article { padding: clamp(1.5rem, 4vw, 3rem); }
-	.condition-pair article + article { border-left: 1px solid var(--line); }
-	.condition-pair p { margin: 0 0 1.3rem; color: var(--muted); font: 750 0.8rem/1.3 var(--font-sans); letter-spacing: 0.08em; text-transform: uppercase; }
-	.condition-pair strong { display: block; font: 800 clamp(3.4rem, 8vw, 7rem)/0.9 var(--font-sans); color: var(--accent); letter-spacing: -0.055em; }
-	.condition-pair span { display: block; margin-top: 1.4rem; max-width: 48ch; color: var(--muted); line-height: 1.55; }
-	.burden { max-width: none; padding: 7rem max(1rem, calc((100vw - 1180px) / 2 + clamp(1rem, 5vw, 5rem))); background: var(--deep); color: #f7f3eb; }
-	.burden-copy { max-width: 950px; }
-	.burden-copy .eyebrow { color: #ef9986; }
-	.burden-copy > p:last-child { color: #c6c9c2; font-size: 1.12rem; }
-	.burden-stats { margin-top: 4rem; display: grid; grid-template-columns: 1.25fr 0.75fr; border-top: 1px solid #4a514d; border-bottom: 1px solid #4a514d; }
-	.burden-stats > div { padding: 2.5rem 2rem 2.5rem 0; }
-	.burden-stats > div + div { padding-left: 2rem; border-left: 1px solid #4a514d; }
-	.burden-stats strong { display: block; font: 800 clamp(4rem, 10vw, 9rem)/0.85 var(--font-sans); letter-spacing: -0.07em; color: #ef9986; }
-	.burden-stats span { display: block; margin-top: 1rem; font: 750 1rem/1.2 var(--font-sans); }
-	.burden-stats p { color: #aeb5b0; line-height: 1.5; }
-	.dark-source { color: #aeb5b0; }
-	.lead { max-width: 760px; color: var(--muted); font-size: 1.25rem; line-height: 1.55; }
-	.fact-grid { margin-top: 4rem; display: grid; grid-template-columns: repeat(3, 1fr); border: 1px solid var(--line); background: var(--panel); }
-	.fact-grid article { padding: 1.6rem; border-right: 1px solid var(--line); }
-	.fact-grid article:last-child { border-right: 0; }
-	.fact-grid strong { font: 800 clamp(3rem, 7vw, 6rem)/1 var(--font-sans); color: var(--accent); }
-	.fact-grid h3 { margin: 1rem 0 0.7rem; font-size: 1.35rem; }
-	.fact-grid p { margin: 0; color: var(--muted); line-height: 1.5; }
-	.money { display: grid; grid-template-columns: 0.9fr 1.1fr; gap: 5rem; align-items: center; }
-	.money-gap { min-height: 300px; display: grid; grid-template-columns: 1fr minmax(100px, 0.45fr) 1fr; align-items: center; border: 1px solid var(--line); background: var(--panel); padding: clamp(1.5rem, 4vw, 3rem); }
-	.money-end { text-align: center; }
-	.money-end span { color: var(--muted); font: 750 0.8rem/1.2 var(--font-sans); text-transform: uppercase; letter-spacing: 0.08em; }
-	.money-end strong { display: block; margin-top: 1rem; font: 800 clamp(3rem, 6vw, 6rem)/0.9 var(--font-sans); color: var(--accent); letter-spacing: -0.06em; }
-	.money-end p { margin: 0.8rem 0 0; color: var(--muted); }
-	.gap-line { height: 2px; background: var(--line); position: relative; }
-	.gap-line i,
-	.gap-line b { position: absolute; top: 50%; width: 12px; height: 12px; border-radius: 50%; background: var(--accent); transform: translateY(-50%); }
-	.gap-line i { left: 0; }
-	.gap-line b { right: 0; }
-	.median-note { grid-column: 2; margin: -2rem 0 0; color: var(--muted); font-size: 0.9rem; text-align: right; }
-	.workforce { display: grid; grid-template-columns: 0.85fr 1.15fr; gap: 5rem; align-items: center; }
-	.workforce-scale { display: grid; gap: 1.8rem; }
-	.scale-label { display: flex; justify-content: space-between; gap: 1rem; align-items: baseline; font-family: var(--font-sans); }
-	.scale-label span { color: var(--muted); font-weight: 650; }
-	.scale-label strong { font-size: 1.4rem; }
-	.track { height: 18px; margin-top: 0.55rem; border-radius: 999px; overflow: hidden; background: #dfd7cb; }
-	.track i { display: block; height: 100%; min-width: 10px; border-radius: inherit; background: var(--accent); }
-	.treatment-chart { margin-top: 4rem; border: 1px solid var(--line); background: var(--panel); }
-	.treatment-row { padding: 2rem; }
-	.treatment-row + .treatment-row { border-top: 1px solid var(--line); }
-	.treatment-row h3 { margin: 0 0 1.6rem; font-size: 1.4rem; }
-	.treatment-series { display: grid; gap: 1.2rem; }
-	.treatment-label { display: flex; justify-content: space-between; gap: 1rem; font: 650 0.92rem/1.3 var(--font-sans); }
-	.treatment-label span { color: var(--muted); }
-	.treatment-label strong { font-size: 1.25rem; }
-	.treatment-track { height: 22px; margin-top: 0.45rem; background: #dfd7cb; border-radius: 999px; overflow: hidden; }
-	.treatment-track i { display: block; height: 100%; background: var(--accent); border-radius: inherit; min-width: 6px; }
-	.low-resource .treatment-track i { opacity: 0.48; }
-	.caveat-box { margin: 1.5rem 0 0 auto; max-width: 720px; border-left: 4px solid var(--accent); padding: 1rem 0 1rem 1.4rem; }
-	.caveat-box strong { font-family: var(--font-sans); }
-	.caveat-box p { margin: 0.45rem 0 0; color: var(--muted); line-height: 1.55; }
-	.system { display: grid; grid-template-columns: 1fr 0.85fr; gap: 5rem; align-items: center; }
-	.transition-block { border: 1px solid var(--line); background: var(--panel); }
-	.transition-primary,
-	.transition-secondary { padding: 2rem; display: flex; justify-content: space-between; align-items: baseline; gap: 1.5rem; }
-	.transition-primary { border-bottom: 1px solid var(--line); }
-	.transition-block strong { font: 800 clamp(3rem, 7vw, 6rem)/0.9 var(--font-sans); color: var(--accent); }
-	.transition-block span { max-width: 13ch; color: var(--muted); font: 700 0.9rem/1.35 var(--font-sans); text-align: right; }
-	.next-layer { background: #ebe4d8; max-width: none; padding-left: max(1rem, calc((100vw - 1180px) / 2 + clamp(1rem, 5vw, 5rem))); padding-right: max(1rem, calc((100vw - 1180px) / 2 + clamp(1rem, 5vw, 5rem))); }
-	.next-grid { margin-top: 3rem; display: grid; grid-template-columns: 1fr 1fr; gap: 1px; background: #cfc5b7; border: 1px solid #cfc5b7; }
-	.next-grid article { background: var(--paper); padding: clamp(1.5rem, 4vw, 3rem); }
-	.next-grid span { color: var(--accent); font: 800 0.72rem/1.2 var(--font-sans); letter-spacing: 0.1em; }
-	.next-grid h3 { margin: 0.7rem 0; font-size: 2rem; }
-	.next-grid p { color: var(--muted); line-height: 1.6; }
-	.next-grid code { display: block; overflow-wrap: anywhere; color: var(--accent); font-size: 0.78rem; line-height: 1.5; }
-	.method-grid { margin-top: 3rem; display: grid; grid-template-columns: 1fr 1fr; gap: 3rem 4rem; }
-	.method-grid p { color: var(--muted); line-height: 1.7; font-size: 1.03rem; }
-	.economic { border-top: 1px solid var(--line); }
-	.economic-pair { margin-top: 3rem; display: grid; grid-template-columns: 1fr 1fr; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
-	.economic-pair > div { padding: 2rem 2rem 2rem 0; }
-	.economic-pair > div + div { padding-left: 2rem; border-left: 1px solid var(--line); }
-	.economic-pair strong { display: block; font: 800 clamp(3.5rem, 8vw, 7rem)/0.9 var(--font-sans); letter-spacing: -0.06em; color: var(--accent); }
-	.economic-pair span { display: block; margin-top: 1rem; color: var(--muted); font-weight: 650; }
-	.economic-note { margin-top: 1.5rem; }
-	.story-footer { padding-top: 2rem; padding-bottom: 5rem; border-top: 1px solid var(--line); display: flex; justify-content: space-between; gap: 2rem; color: var(--muted); font: 650 0.78rem/1.45 var(--font-sans); }
-	.story-footer span { color: var(--accent); white-space: nowrap; }
-	.story-footer p { margin: 0; max-width: 70ch; text-align: right; }
-	.story-footer code { font-size: inherit; }
-	@media (max-width: 760px) {
-		.hero { padding-bottom: 5rem; }
-		.hero-number,
-		.condition-pair,
-		.burden-stats,
-		.money,
-		.workforce,
-		.system,
-		.next-grid,
-		.method-grid,
-		.economic-pair { grid-template-columns: 1fr; }
-		.hero-number { margin-top: 4rem; }
-		.hero-number > strong { font-size: clamp(6.3rem, 31vw, 9rem); }
-		.condition-pair article + article,
-		.burden-stats > div + div,
-		.economic-pair > div + div { border-left: 0; border-top: 1px solid var(--line); }
-		.burden-stats > div + div { border-color: #4a514d; padding-left: 0; }
-		.money { gap: 2.5rem; }
-		.money-gap { grid-template-columns: 1fr; gap: 1.5rem; }
-		.gap-line { width: 2px; height: 64px; margin: auto; }
-		.gap-line i { top: 0; left: 50%; transform: translate(-50%, 0); }
-		.gap-line b { top: auto; bottom: 0; right: auto; left: 50%; transform: translate(-50%, 0); }
-		.median-note { grid-column: 1; margin: 0; text-align: left; }
-		.workforce,
-		.system { gap: 2.5rem; }
-		.fact-grid { grid-template-columns: 1fr; }
-		.fact-grid article { border-right: 0; border-bottom: 1px solid var(--line); }
-		.fact-grid article:last-child { border-bottom: 0; }
-		.transition-primary,
-		.transition-secondary { align-items: flex-end; }
-		.economic-pair > div { padding: 2rem 0; }
-		.story-footer { flex-direction: column; }
-		.story-footer p { text-align: left; }
+		background: var(--paper);
+		color: var(--ink);
 	}
 
-	.atlas-link { display:inline-flex; min-height:44px; align-items:center; margin:.7rem 0; color:var(--accent); font:800 .82rem/1.2 var(--font-sans); text-decoration-thickness:1px; text-underline-offset:3px; }
+	.hero,
+	.handoff,
+	.method,
+	.sources,
+	.story-footer {
+		width: min(1180px, calc(100% - 40px));
+		margin: 0 auto;
+	}
+
+	.hero {
+		padding: clamp(2rem, 5vw, 4rem) 0 clamp(6rem, 11vw, 10rem);
+	}
+
+	.utility-row {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		gap: 1rem;
+		margin-bottom: clamp(5rem, 10vw, 9rem);
+		font: 700 0.78rem/1 var(--font-sans);
+	}
+
+	.utility-row > a {
+		color: var(--ink);
+		text-decoration: none;
+	}
+
+	.kicker,
+	.eyebrow {
+		font: 800 0.74rem/1.2 var(--font-mono);
+		letter-spacing: 0.11em;
+		text-transform: uppercase;
+		color: var(--accent);
+	}
+
+	h1,
+	h2,
+	h3 {
+		font-family: var(--font-serif);
+	}
+
+	h1 {
+		max-width: 1080px;
+		margin: 0.55rem 0 1.4rem;
+		font-size: clamp(4.6rem, 12vw, 10.5rem);
+		font-weight: 600;
+		line-height: 0.82;
+		letter-spacing: -0.07em;
+	}
+
+	h1 em {
+		color: var(--accent);
+		font-weight: 400;
+	}
+
+	.dek {
+		max-width: 780px;
+		margin: 0;
+		font: 500 clamp(1.15rem, 2vw, 1.5rem)/1.6 var(--font-sans);
+		color: var(--muted);
+	}
+
+	.hero-number {
+		display: grid;
+		grid-template-columns: minmax(0, 1.1fr) minmax(280px, 0.6fr);
+		gap: 2rem;
+		align-items: end;
+		margin-top: clamp(5rem, 9vw, 8rem);
+		padding-top: 2rem;
+		border-top: 1px solid var(--line);
+	}
+
+	.hero-number > strong {
+		font: 800 clamp(6rem, 18vw, 15rem)/0.72 var(--font-sans);
+		letter-spacing: -0.08em;
+		color: var(--accent);
+	}
+
+	.hero-number span,
+	.hero-number p,
+	.hero-number small {
+		display: block;
+	}
+
+	.hero-number span {
+		font: 800 clamp(2rem, 4vw, 3.5rem)/0.95 var(--font-sans);
+		letter-spacing: -0.04em;
+	}
+
+	.hero-number p {
+		margin: 0.8rem 0 0;
+		font: 700 0.9rem/1.4 var(--font-sans);
+	}
+
+	.hero-number small {
+		max-width: 46ch;
+		margin-top: 0.7rem;
+		font: 500 0.8rem/1.5 var(--font-sans);
+		color: var(--muted);
+	}
+
+	.scroll-cue {
+		display: flex;
+		align-items: center;
+		gap: 0.8rem;
+		margin-top: 4rem;
+		font: 650 0.76rem/1.35 var(--font-sans);
+		color: var(--muted);
+	}
+
+	.scroll-cue i {
+		position: relative;
+		width: 1px;
+		height: 44px;
+		background: var(--ink);
+	}
+
+	.scroll-cue i::after {
+		content: '';
+		position: absolute;
+		bottom: 0;
+		left: -3px;
+		width: 7px;
+		height: 7px;
+		border-right: 1px solid var(--ink);
+		border-bottom: 1px solid var(--ink);
+		transform: rotate(45deg);
+	}
+
+	.handoff {
+		padding: clamp(7rem, 12vw, 12rem) 0;
+		border-bottom: 1px solid var(--line);
+	}
+
+	.handoff h2,
+	.method h2,
+	.sources h2 {
+		max-width: 1000px;
+		margin: 0.55rem 0 1.2rem;
+		font-size: clamp(3rem, 7vw, 6.7rem);
+		font-weight: 600;
+		line-height: 0.94;
+		letter-spacing: -0.052em;
+	}
+
+	.handoff > p:last-child,
+	.source-intro {
+		max-width: 760px;
+		margin: 0;
+		font: 500 1.06rem/1.7 var(--font-sans);
+		color: var(--muted);
+	}
+
+	.method {
+		padding: clamp(7rem, 11vw, 10rem) 0;
+		border-top: 1px solid var(--line);
+	}
+
+	.method-grid {
+		display: grid;
+		grid-template-columns: repeat(2, 1fr);
+		margin-top: 4rem;
+		border-top: 1px solid var(--line);
+		border-left: 1px solid var(--line);
+	}
+
+	.method-grid article {
+		padding: clamp(1.4rem, 3vw, 2.3rem);
+		border-right: 1px solid var(--line);
+		border-bottom: 1px solid var(--line);
+		background: rgba(255, 250, 242, 0.5);
+	}
+
+	.method-grid span {
+		font: 750 0.72rem/1 var(--font-mono);
+		color: var(--accent);
+	}
+
+	.method-grid h3 {
+		margin: 1.5rem 0 0.7rem;
+		font-size: clamp(1.6rem, 3vw, 2.7rem);
+		line-height: 1.05;
+	}
+
+	.method-grid p {
+		margin: 0;
+		font: 500 0.95rem/1.65 var(--font-sans);
+		color: var(--muted);
+	}
+
+	.sources {
+		display: grid;
+		grid-template-columns: 0.85fr 1.15fr;
+		gap: 5vw;
+		padding: clamp(7rem, 11vw, 10rem) 0;
+		border-top: 1px solid var(--line);
+	}
+
+	.sources h2 {
+		font-size: clamp(2.7rem, 5vw, 5rem);
+	}
+
+	.source-list {
+		border-top: 1px solid var(--line);
+	}
+
+	.source-list a {
+		display: grid;
+		grid-template-columns: 36px 1fr 24px;
+		gap: 0.8rem;
+		align-items: center;
+		min-height: 68px;
+		padding: 0.8rem 0;
+		border-bottom: 1px solid var(--line);
+		color: var(--ink);
+		text-decoration: none;
+		font: 650 0.86rem/1.45 var(--font-sans);
+	}
+
+	.source-list a:hover {
+		color: var(--accent);
+	}
+
+	.source-list span {
+		font: 700 0.68rem/1 var(--font-mono);
+		color: var(--muted);
+	}
+
+	.source-list b {
+		font-weight: 400;
+		text-align: right;
+	}
+
+	.atlas-note {
+		grid-column: 2;
+		margin: 1.5rem 0 0;
+	}
+
+	.atlas-note a {
+		font: 750 0.84rem/1.3 var(--font-sans);
+		color: var(--accent);
+	}
+
+	.story-footer {
+		display: flex;
+		justify-content: space-between;
+		gap: 2rem;
+		padding: 2rem 0 4rem;
+		border-top: 1px solid var(--line);
+		font: 550 0.72rem/1.45 var(--font-sans);
+		color: var(--muted);
+	}
+
+	.story-footer span {
+		font-family: var(--font-mono);
+	}
+
+	.story-footer p {
+		margin: 0;
+		text-align: right;
+	}
+
+	@media (max-width: 760px) {
+		.hero-number,
+		.sources,
+		.method-grid {
+			grid-template-columns: 1fr;
+		}
+
+		.hero-number {
+			gap: 1.4rem;
+		}
+
+		.method-grid {
+			border-left: 0;
+		}
+
+		.method-grid article {
+			border-left: 1px solid var(--line);
+		}
+
+		.atlas-note {
+			grid-column: 1;
+		}
+
+		.story-footer {
+			flex-direction: column;
+		}
+
+		.story-footer p {
+			text-align: left;
+		}
+	}
 </style>
