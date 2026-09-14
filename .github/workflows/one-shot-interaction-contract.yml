@@ -1,0 +1,50 @@
+name: One-shot interaction contract patch
+
+on:
+  push:
+    branches: [feat/bilingual-pudding-interaction]
+    paths:
+      - .github/workflows/one-shot-interaction-contract.yml
+
+permissions:
+  contents: write
+
+jobs:
+  patch:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          ref: feat/bilingual-pudding-interaction
+      - name: Add interaction grammar to the skill contract
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+
+          path = Path('SKILL.md')
+          text = path.read_text(encoding='utf-8')
+
+          old = '- `references/visual-grammar.md` for visual selection;\n'
+          new = old + '- `references/interaction-grammar.md` for guided scrollytelling, reader handoff, exploration, bilingual interaction, and no-scroll-jacking rules;\n'
+          if new not in text:
+              if old not in text:
+                  raise SystemExit('visual grammar reference marker not found')
+              text = text.replace(old, new, 1)
+
+          marker = 'Avoid it for simple lookup, ranking, or free exploration.\n'
+          addition = '''Avoid it for simple lookup, ranking, or free exploration.\n\nWhen scrollytelling is justified, use a **guide → handoff → explore** contract by default: keep one stable graphic frame, make every scroll state explicit and re-entrant, advance one narrative operation per step, then return control to the reader with a purposeful explorable when free comparison adds value. Do not equate interactivity with a dashboard full of controls.\n\nNever scroll-jack. Observe natural scrolling with IntersectionObserver/Scrollama-style triggers. Language switching is presentation state: it must not reset selected metrics, countries, scroll state, or evidence.\n'''
+          if addition not in text:
+              if marker not in text:
+                  raise SystemExit('scrollytelling marker not found')
+              text = text.replace(marker, addition, 1)
+
+          path.write_text(text, encoding='utf-8')
+          PY
+      - name: Remove one-shot workflow and commit
+        run: |
+          rm .github/workflows/one-shot-interaction-contract.yml
+          git config user.name github-actions[bot]
+          git config user.email 41898282+github-actions[bot]@users.noreply.github.com
+          git add SKILL.md .github/workflows/one-shot-interaction-contract.yml
+          git commit -m "docs: codify guide handoff explore interaction"
+          git push origin HEAD:feat/bilingual-pudding-interaction
