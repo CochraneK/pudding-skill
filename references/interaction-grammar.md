@@ -107,6 +107,7 @@ For a mobile sticky version:
 - interactive SVG regions need accessible names when keyboard focusable;
 - every mouse interaction needs an equivalent touch/keyboard path when it carries information;
 - hover is an enhancement, not the sole access path;
+- for dense maps, prefer hover as a desktop enhancement and provide a select/search/pin control for keyboard and touch rather than making every tiny geography a fake button;
 - pinned/selected state must be visible without relying on color alone where practical;
 - dynamic visual state changes should not spam live regions;
 - source and caveat text remain regular HTML.
