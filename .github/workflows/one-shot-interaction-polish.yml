@@ -1,0 +1,103 @@
+name: One-shot interaction polish
+
+on:
+  push:
+    branches: [feat/bilingual-pudding-interaction]
+    paths:
+      - .github/workflows/one-shot-interaction-polish.yml
+
+permissions:
+  contents: write
+
+jobs:
+  patch:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          ref: feat/bilingual-pudding-interaction
+      - name: Polish guided and explorer interaction
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          import re
+
+          scrolly = Path('src/components/GlobalMentalHealthScrolly.svelte')
+          text = scrolly.read_text(encoding='utf-8')
+          text = text.replace('<div class="graphic-wrap" aria-live="polite">', '<div class="graphic-wrap">')
+          text = text.replace('<div class="graphic" data-active={active}>', '<figure class="graphic" data-active={active}>', 1)
+          text = text.replace('\n\t</div>\n\t</div>\n\n\t<div class="steps">', '\n\t</figure>\n\t</div>\n\n\t<div class="steps">', 1)
+          text = text.replace('<h3>{step.title}</h3>', '<h2>{step.title}</h2>')
+          text = text.replace('\t.step h3 {', '\t.step h2 {')
+          text = text.replace('\t.graphic {\n\t\twidth:', '\t.graphic {\n\t\tmargin: 0;\n\t\twidth:', 1)
+          scrolly.write_text(text, encoding='utf-8')
+
+          explorer = Path('src/components/GlobalMentalHealthExplorer.svelte')
+          text = explorer.read_text(encoding='utf-8')
+          text = text.replace("\tconst countryByCode = new Map(capacity.countries.map((country) => [country.code, country]));", "\tconst countryByCode = new Map(capacity.countries.map((country) => [country.code, country]));\n\tconst selectableCountries = [...capacity.countries].sort((a, b) => a.name.localeCompare(b.name));")
+
+          pattern = re.compile(r'''\t\t\t\t\t<path\n\t\t\t\t\t\td=\{path\(feature\)\}.*?\t\t\t\t\t></path>''', re.S)
+          replacement = '''\t\t\t\t\t<path
+\t\t\t\t\t\td={path(feature)}
+\t\t\t\t\t\tclass={`country ${binFor(metricValue, selectedMetric)}`}
+\t\t\t\t\t\tclass:focused={focusCode && focusCode === code}
+\t\t\t\t\t\taria-label={country ? `${country.name}: ${formatValue(metricValue, selectedMetric)}` : feature.properties?.name}
+\t\t\t\t\t\tonpointerenter={() => (hoveredCode = country ? code : null)}
+\t\t\t\t\t\tonpointerleave={() => (hoveredCode = null)}
+\t\t\t\t\t>
+\t\t\t\t\t\t<title>{country?.name || feature.properties?.name || 'Unknown'} — {formatValue(metricValue, selectedMetric)}</title>
+\t\t\t\t\t</path>'''
+          text, count = pattern.subn(replacement, text, count=1)
+          if count != 1:
+              raise SystemExit(f'country path block replacement count={count}')
+
+          marker = '''\t</div>\n\n\t<div class="explorer-grid">'''
+          picker = '''\t</div>\n\n\t<div class="country-picker">
+\t\t<label for="country-select">{$language === 'zh' ? '选择国家 / 地区' : 'Choose a country / area'}</label>
+\t\t<select
+\t\t\tid="country-select"
+\t\t\tvalue={selectedCode || ''}
+\t\t\tonchange={(event) => (selectedCode = event.currentTarget.value || null)}
+\t\t>
+\t\t\t<option value="">{$language === 'zh' ? '— 选择后锁定详情 —' : '— Select to pin details —'}</option>
+\t\t\t{#each selectableCountries as country}
+\t\t\t\t<option value={country.code}>{country.name}</option>
+\t\t\t{/each}
+\t\t</select>
+\t\t<span>{$language === 'zh' ? '桌面端也可直接把鼠标移到地图上快速查看。' : 'On desktop, hover the map for quick inspection.'}</span>
+\t</div>\n\n\t<div class="explorer-grid">'''
+          if marker not in text:
+              raise SystemExit('explorer grid marker not found')
+          text = text.replace(marker, picker, 1)
+
+          css_marker = '\t.explorer-grid { display: grid; grid-template-columns:'
+          css = '''\t.country-picker { display: grid; grid-template-columns: auto minmax(220px, 360px) 1fr; gap: 0.8rem; align-items: center; margin: 0 0 1rem; padding: 0.85rem 1rem; border: 1px solid var(--line); background: rgba(255, 250, 242, 0.55); }
+\t.country-picker label { font: 750 0.78rem/1.3 var(--font-sans); }
+\t.country-picker select { min-height: 44px; width: 100%; padding: 0.55rem 2rem 0.55rem 0.7rem; border: 1px solid var(--ink); border-radius: 0; background: var(--panel); color: var(--ink); font: 600 0.82rem/1.2 var(--font-sans); }
+\t.country-picker span { color: var(--muted); font: 500 0.72rem/1.4 var(--font-sans); }
+
+'''
+          if css_marker not in text:
+              raise SystemExit('explorer CSS marker not found')
+          text = text.replace(css_marker, css + css_marker, 1)
+          text = text.replace('\t\t.explorer-head, .explorer-grid { grid-template-columns: 1fr; }', '\t\t.explorer-head, .explorer-grid { grid-template-columns: 1fr; }\n\t\t.country-picker { grid-template-columns: 1fr; }')
+          explorer.write_text(text, encoding='utf-8')
+
+          story = Path('src/routes/stories/global-mental-health/+page.svelte')
+          text = story.read_text(encoding='utf-8')
+          text = text.replace('''\t.utility-row > a {\n\t\tcolor: var(--ink);''', '''\t.utility-row > a {\n\t\tdisplay: inline-flex;\n\t\talign-items: center;\n\t\tmin-height: 44px;\n\t\tcolor: var(--ink);''')
+          story.write_text(text, encoding='utf-8')
+
+          home = Path('src/routes/+page.svelte')
+          text = home.read_text(encoding='utf-8')
+          text = text.replace('\t.hub-footer nav { display:flex; gap:1rem; } .hub-footer a { color:inherit; }', '\t.hub-footer nav { display:flex; gap:.35rem; flex-wrap:wrap; } .hub-footer a { display:inline-flex; align-items:center; min-height:44px; padding:0 .35rem; color:inherit; }')
+          home.write_text(text, encoding='utf-8')
+          PY
+      - name: Remove one-shot workflow and commit
+        run: |
+          rm .github/workflows/one-shot-interaction-polish.yml
+          git config user.name github-actions[bot]
+          git config user.email 41898282+github-actions[bot]@users.noreply.github.com
+          git add src .github/workflows/one-shot-interaction-polish.yml
+          git commit -m "fix: polish interactive accessibility and semantics"
+          git push origin HEAD:feat/bilingual-pudding-interaction
