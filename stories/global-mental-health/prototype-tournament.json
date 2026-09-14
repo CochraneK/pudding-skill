@@ -135,6 +135,62 @@
     "discarded_lessons": [
       "Prototype B showed that sequencing need, public priority, and capacity is editorially useful even though the stepper itself was unnecessary for the main claim.",
       "Prototype C showed that additional capacity metrics can deepen the story, but a selector should not hide the thesis or become mandatory work for first-pass comprehension."
-    ]
+    ],
+    "production_contract": {
+      "route": "/stories/global-mental-health",
+      "primary_form": "annotated_static",
+      "primary_interaction_job": "none",
+      "required_sequence": [
+        "need",
+        "priority",
+        "capacity"
+      ],
+      "required_claims": [
+        {
+          "id": "need-scale",
+          "tokens": [
+            "1.095",
+            "billion",
+            "13.6%"
+          ]
+        },
+        {
+          "id": "public-priority",
+          "tokens": [
+            "2.1%"
+          ]
+        },
+        {
+          "id": "spending-gap",
+          "tokens": [
+            "1,647×",
+            "$0.04",
+            "$65.89"
+          ]
+        }
+      ],
+      "borrowed_lessons": [
+        {
+          "from_concept_id": "care-capacity-ladder",
+          "keep": "Need → priority → capacity as a static editorial sequence",
+          "reject_interaction_job": "reveal"
+        }
+      ],
+      "optional_depth": [
+        {
+          "from_concept_id": "country-capacity-explorer",
+          "route": "/stories/global-mental-health/atlas",
+          "interaction_job": "compare"
+        }
+      ],
+      "forbidden_primary_interaction_jobs": [
+        "reveal",
+        "compare"
+      ],
+      "forbidden_source_tokens": [
+        "GlobalMentalHealthScrolly",
+        "GlobalMentalHealthExplorer"
+      ]
+    }
   }
 }

@@ -1,0 +1,72 @@
+{
+  "schema_version": 1,
+  "status": "PRODUCTION_CONTRACT",
+  "story_id": "global-mental-health",
+  "tournament_fingerprint": "1d63f0b9adc82e9a265d11d2eb4b00f4f6725af94711f721ad5dca63310152e9",
+  "decision": {
+    "outcome": "SELECT",
+    "winner_concept_ids": [
+      "static-gap-atlas"
+    ],
+    "selected_forms": [
+      "annotated_static"
+    ],
+    "selected_interaction_jobs": [
+      "none"
+    ]
+  },
+  "route": "/stories/global-mental-health",
+  "primary_form": "annotated_static",
+  "primary_interaction_job": "none",
+  "required_sequence": [
+    "need",
+    "priority",
+    "capacity"
+  ],
+  "required_claims": [
+    {
+      "id": "need-scale",
+      "tokens": [
+        "1.095",
+        "billion",
+        "13.6%"
+      ]
+    },
+    {
+      "id": "public-priority",
+      "tokens": [
+        "2.1%"
+      ]
+    },
+    {
+      "id": "spending-gap",
+      "tokens": [
+        "1,647×",
+        "$0.04",
+        "$65.89"
+      ]
+    }
+  ],
+  "borrowed_lessons": [
+    {
+      "from_concept_id": "care-capacity-ladder",
+      "keep": "Need → priority → capacity as a static editorial sequence",
+      "reject_interaction_job": "reveal"
+    }
+  ],
+  "optional_depth": [
+    {
+      "from_concept_id": "country-capacity-explorer",
+      "route": "/stories/global-mental-health/atlas",
+      "interaction_job": "compare"
+    }
+  ],
+  "forbidden_primary_interaction_jobs": [
+    "reveal",
+    "compare"
+  ],
+  "forbidden_source_tokens": [
+    "GlobalMentalHealthScrolly",
+    "GlobalMentalHealthExplorer"
+  ]
+}

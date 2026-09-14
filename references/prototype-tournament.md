@@ -13,7 +13,9 @@ score independently + apply hard gates
         ↓
 SELECT / COMBINE / PIVOT / PUT_DOWN
         ↓
-implementation handoff
+structured production contract
+        ↓
+production implementation + runtime contract QA
 ```
 
 ## Prototype only the risky moment
@@ -110,7 +112,7 @@ python scripts/pudding.py tournament validate stories/example/prototype-tourname
   --stage evidence --evidence-root .
 ```
 
-The generated Markdown report is a compact screenshot matrix plus ranking and decision record. The JSON remains the canonical handoff.
+The generated Markdown report is a compact screenshot matrix plus ranking and decision record. The JSON remains the canonical decision record.
 
 ## Implementation handoff
 
@@ -122,3 +124,24 @@ A selected outcome must retain at least two explicit constraints learned from th
 - keep reporting-year and missingness cues adjacent to the marks because hiding them caused an evidence-fidelity failure.
 
 Do not hand off “make it prettier” or “build concept B”. The purpose of the tournament is to preserve **why** the concept won and **what not to lose** during production.
+
+For a `SELECT` or `COMBINE` outcome that proceeds to code, also add a machine-readable `decision.production_contract`. It should name the production route, winning form and interaction job, required beat order, material claim tokens, useful lessons borrowed from losing concepts, optional secondary-depth routes, and forbidden primary interaction patterns. Then compile and commit the normalized artifact:
+
+```bash
+python scripts/production_handoff.py compile \
+  stories/example/prototype-tournament.json \
+  --output stories/example/production-contract.json
+```
+
+Before production can pass CI, validate both the committed artifact and the production source:
+
+```bash
+python scripts/production_handoff.py validate \
+  stories/example/prototype-tournament.json \
+  stories/example/production-contract.json \
+  --source src/routes/stories/example/+page.svelte
+```
+
+CI should additionally run the browser contract against the built production route. This catches cases where component composition reintroduces controls or hides required evidence even though the source-level markers still look correct.
+
+Read `references/production-handoff.md` for the complete schema, drift policy, and browser contract. If a redesign materially changes the winner's editorial job, rerun the relevant prototypes instead of weakening the contract to make the new implementation pass.
