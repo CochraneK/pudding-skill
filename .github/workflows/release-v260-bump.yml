@@ -1,0 +1,29 @@
+name: Prepare v2.6.0 metadata
+
+on:
+  push:
+    branches: [release/v2.6.0]
+
+permissions:
+  contents: write
+
+jobs:
+  bump:
+    if: github.actor != 'github-actions[bot]'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: release/v2.6.0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Bump package metadata and remove one-shot workflow
+        run: |
+          npm version 2.6.0 --no-git-tag-version
+          git rm .github/workflows/release-v260-bump.yml
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add package.json package-lock.json
+          git commit -m "chore: bump package metadata to v2.6.0"
+          git push origin HEAD:release/v2.6.0
