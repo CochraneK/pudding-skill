@@ -36,6 +36,7 @@ Read:
 - `references/editorial-scoring.md` for candidate ranking limits;
 - `references/data-contract.md` for explicit field semantics;
 - `references/visual-grammar.md` for visual selection;
+- `references/interaction-grammar.md` for guided scrollytelling, reader handoff, exploration, bilingual interaction, and no-scroll-jacking rules;
 - `references/story-spec.md` for the analysis/rendering contract;
 - `references/claim-audit.md` for numeric verification;
 - `references/first-draft.md` for copy/provenance rules;
@@ -188,6 +189,10 @@ Use sticky scroll only when at least one is true:
 - the story depends on a meaningful reveal.
 
 Avoid it for simple lookup, ranking, or free exploration.
+
+When scrollytelling is justified, use a **guide → handoff → explore** contract by default: keep one stable graphic frame, make every scroll state explicit and re-entrant, advance one narrative operation per step, then return control to the reader with a purposeful explorable when free comparison adds value. Do not equate interactivity with a dashboard full of controls.
+
+Never scroll-jack. Observe natural scrolling with IntersectionObserver/Scrollama-style triggers. Language switching is presentation state: it must not reset selected metrics, countries, scroll state, or evidence.
 
 ## Implementation constraints
 
