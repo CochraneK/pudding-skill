@@ -107,7 +107,7 @@
 					type="button"
 					class:active={selectedMetric === metric}
 					aria-pressed={selectedMetric === metric}
-					on:click={() => (selectedMetric = metric)}
+					onclick={() => (selectedMetric = metric)}
 				>
 					{meta(metric).label}
 				</button>
