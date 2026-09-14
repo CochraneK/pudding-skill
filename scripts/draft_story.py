@@ -11,7 +11,6 @@ import json
 from pathlib import Path
 from typing import Any
 
-from data_contract import label_for
 from visual_grammar import plan_visual
 
 
@@ -96,7 +95,7 @@ def build_draft(spec: dict[str, Any], claim_audit: dict[str, Any] | None = None)
             continue
         field_glossary.append({
             "field": field,
-            "label": meta.get("label") or label_for(field, metadata),
+            "label": meta.get("label") or field.replace("_", " "),
             "unit": meta.get("unit"),
             "description": meta.get("description"),
         })
