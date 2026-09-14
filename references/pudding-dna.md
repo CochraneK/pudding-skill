@@ -10,6 +10,7 @@ Primary public references:
 - Continue / pivot / put it down: https://pudding.cool/process/pivot-continue-down/
 - Responsive scrollytelling: https://pudding.cool/process/responsive-scrollytelling/
 - The Pudding's AI story experiment: https://pudding.cool/2024/07/ai/
+- The Pudding resources index: https://pudding.cool/resources/
 
 ## The key shift
 
@@ -94,7 +95,7 @@ The pitch should contain a specific surprise, contradiction, test, or unusually 
 
 No interaction is a valid choice. A static annotated visual can score as well as an explorable.
 
-Interaction only earns credit when it has a cognitive/editorial job such as compare, reveal, highlight, zoom, annotate, accumulate, morph, explore, lookup, simulate, or play. “Make it feel interactive” earns nothing.
+Interaction only earns credit when it has a cognitive/editorial job such as compare, reveal, highlight, zoom, annotate, accumulate, morph, explore, lookup, simulate, play, or personalize. “Make it feel interactive” earns nothing.
 
 ### 7. Iteration before implementation
 
@@ -153,16 +154,71 @@ A concept file should contain at least:
 }
 ```
 
-## Corpus and holdout policy
+## Two corpora, two different jobs
 
-`benchmarks/pudding-dna-corpus.json` contains two kinds of cases:
+Do not mix public-story study with deterministic gate testing.
 
-1. concise analytical annotations of public Pudding stories;
-2. synthetic anti-pattern pitches.
+### A. Synthetic decision corpus
 
-Some cases are marked `calibration`; others are `holdout`. The holdout is deliberately kept in the same committed corpus so CI can verify behavior, but weights should not be weakened merely to make one failing case green. If expectations change, explain the editorial reason in the PR.
+`benchmarks/pudding-dna-corpus.json` contains compact synthetic pitches with expected decisions. Some are calibration cases and some are holdouts. Its only purpose is to catch regressions in the **internal decision contract** of `pudding_gate.py`.
 
-The benchmark is intentionally modest: it verifies **decision consistency**, not taste acquisition. Real taste still requires reading projects, generating alternatives, screenshot/prototype review, and human editorial judgment.
+It does **not** prove taste acquisition and should never be described as a dataset of Pudding stories. Weights must not be weakened merely to make a failing case green; if an expectation changes, document the editorial reason in the PR.
+
+### B. Public-story study corpus
+
+`benchmarks/pudding-study-corpus.json` is a separate qualitative corpus built from selected public The Pudding story pages. It stores only titles, URLs, coarse metadata, and original annotations about:
+
+- the motivating question;
+- argument pattern;
+- human angle;
+- data-collection strategy;
+- why the story benefits from a visual form;
+- the cognitive job of interaction;
+- design move and pacing;
+- caveat strategy;
+- the editorial lesson;
+- an explicit anti-copy guardrail.
+
+It intentionally does **not** store copied article prose, screenshots, brand assets, CSS, fonts, or a recipe for surface imitation. The point is to learn *operations*, not style signatures.
+
+Run:
+
+```bash
+python scripts/pudding_corpus.py validate
+python scripts/pudding_corpus.py report
+# or
+npm run pudding:study
+```
+
+The corpus validator requires diversity across story families, data strategies, interaction jobs, and interaction modes. This is a deliberate defense against reducing “Pudding-like” to sticky scroll.
+
+## How to study a reference story
+
+For each reference, answer in this order:
+
+```text
+what made someone curious?
+  ↓
+what is the actual argument?
+  ↓
+what human recognition / obsession gives it soul?
+  ↓
+what evidence had to be collected or constructed?
+  ↓
+why does seeing / hearing / manipulating evidence add meaning?
+  ↓
+what cognitive job does each interaction perform?
+  ↓
+where does the reader get agency?
+  ↓
+what uncertainty or caveat remains visible?
+  ↓
+what principle transfers to a new story?
+  ↓
+what surface treatment must NOT be copied?
+```
+
+A new pitch should be compared against **multiple operations across multiple stories**, never against one reference's appearance. If the answer is “make it look like the pockets story” or “add a Pudding-style scrolly,” the study failed.
 
 ## Workflow integration
 
@@ -187,5 +243,7 @@ PIVOT_NONVISUAL
 PUT_DOWN
   → stop; preserve notes; do not manufacture a story to satisfy the pipeline
 ```
+
+When the concept passes, study the public-story corpus **before** choosing a production pattern. Use it to generate several structurally different concepts, not to retrieve a nearest-neighbor layout.
 
 This gate sits **before** `research` and `story`. Passing it never replaces source verification, claim audit, browser QA, screenshot review, or editorial review.
