@@ -6,6 +6,25 @@ This project is not a visual clone of [The Pudding](https://pudding.cool/). It b
 
 > The Svelte starter is derived from [`the-pudding/svelte-starter`](https://github.com/the-pudding/svelte-starter) under the MIT License. This project is not affiliated with The Pudding and does not ship or hotlink The Pudding logos or proprietary fonts.
 
+## v2.4: arbitrary data to publication-ready first draft
+
+v2.4 extends the evidence-audited v2.3 pipeline through an editable first-draft layer. The preferred entry point is now:
+
+```bash
+python scripts/pudding.py story data.csv --question "What changed?" --schema data-schema.json
+```
+
+New in v2.4:
+
+- accepts CSV, TSV, row-oriented JSON, JSONL, and NDJSON;
+- emits `visual-plan.json` with a richer editorial recommendation while preserving a deterministic baseline renderer;
+- emits `story-draft.json` and `story-draft.md` with headline, dek, narrative sections, annotations, methodology, caveats, sources, field glossary, and claim provenance;
+- maps quantitative copy back to verified structured evidence through `claim_ref` / `evidence_index`;
+- adds a unified `pudding.py` CLI for data inspection, candidate ranking, and full story generation;
+- expands regression coverage to 13 tests while retaining production build, dependency-audit, and 6/6 real-browser delivery gates.
+
+Generated copy remains `EDITORIAL_REVIEW_REQUIRED`. A richer visual recommendation never silently replaces the tested baseline renderer, and changing the numerical meaning of prose requires claim re-verification.
+
 ## v2.3: evidence-to-browser delivery gates
 
 v2.3 keeps the v2.2 editorial decision system and closes the delivery gap between “the numbers are defensible” and “the published experience actually works.”

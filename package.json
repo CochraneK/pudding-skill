@@ -1,6 +1,6 @@
 {
 	"name": "pudding-skill",
-	"version": "2.3.0",
+	"version": "2.4.0",
 	"private": true,
 	"description": "Pudding-inspired editorial data-storytelling agent skill with candidate ranking, claim auditing, data contracts, visual grammar, first-draft generation, and browser QA",
 	"scripts": {
