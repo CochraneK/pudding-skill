@@ -1,11 +1,15 @@
 <script>
 	import { base } from '$app/paths';
-	import { page } from '$app/state';
+	import { onMount } from 'svelte';
 	import facts from '$data/global-mental-health-facts.json';
 
 	const fact = (id) => facts.facts.find((row) => row.id === id);
 	const number = (id) => Number(String(fact(id)?.value || '').replace(/[^0-9.]/g, ''));
-	const focus = $derived((page.url.searchParams.get('focus') || '').toUpperCase());
+
+	let focus = $state('');
+	onMount(() => {
+		focus = (new URL(window.location.href).searchParams.get('focus') || '').toUpperCase();
+	});
 	const show = (alias) => !focus || focus === alias;
 
 	const lowSpend = number('mental-health-spend-lic');
@@ -73,7 +77,7 @@
 	/>
 </svelte:head>
 
-<main class:focused={Boolean(focus)}>
+<main id="content" class:focused={Boolean(focus)}>
 	<header class="intro">
 		<a class="back" href={`${base}/stories/global-mental-health`}>← Back to story</a>
 		<p class="eyebrow">PROTOTYPE TOURNAMENT · LOW-FIDELITY ON PURPOSE</p>
@@ -88,7 +92,7 @@
 
 	<section class="prototype-grid" aria-label="Prototype comparison">
 		{#if show('A')}
-			<article class="prototype static" data-prototype-alias="A" id="prototype-a">
+			<article class="prototype" data-prototype-alias="A" id="prototype-a">
 				<div class="prototype-head">
 					<span class="alias">A</span>
 					<div>
@@ -118,7 +122,7 @@
 		{/if}
 
 		{#if show('B')}
-			<article class="prototype guided" data-prototype-alias="B" id="prototype-b">
+			<article class="prototype" data-prototype-alias="B" id="prototype-b">
 				<div class="prototype-head">
 					<span class="alias">B</span>
 					<div>
@@ -151,7 +155,7 @@
 		{/if}
 
 		{#if show('C')}
-			<article class="prototype explorer" data-prototype-alias="C" id="prototype-c">
+			<article class="prototype" data-prototype-alias="C" id="prototype-c">
 				<div class="prototype-head">
 					<span class="alias">C</span>
 					<div>
@@ -206,7 +210,6 @@
 
 	main {
 		--ink: #191917;
-		--paper: #f1eee7;
 		--card: #fffdf8;
 		--muted: #69655f;
 		--line: #d6d0c5;
@@ -477,7 +480,6 @@
 	.compare-pair i {
 		grid-column: 1 / -1;
 		height: 14px;
-		background: var(--accent);
 	}
 
 	.metric-note {
