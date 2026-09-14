@@ -12,7 +12,7 @@
 		'mental_health_outpatient_facilities_per_100k',
 		'government_mental_health_spending_share'
 	];
-	let selectedMetric = 'psychiatrists_per_100k';
+	let selectedMetric = $state('psychiatrists_per_100k');
 
 	const projection = geoNaturalEarth1().fitExtent(
 		[
@@ -47,13 +47,14 @@
 		return 'q4';
 	};
 
-	$: selectedMeta = meta(selectedMetric);
-	$: selectedSummary = summary(selectedMetric);
-	$: coveragePct = Math.round((selectedSummary.n / capacity.country_area_universe) * 100);
-	$: regionRows = capacity.region_summaries
+	let selectedMeta = $derived(meta(selectedMetric));
+	let selectedSummary = $derived(summary(selectedMetric));
+	let coveragePct = $derived(Math.round((selectedSummary.n / capacity.country_area_universe) * 100));
+	let regionRows = $derived(capacity.region_summaries
 		.map((row) => ({ ...row, metric: row.metrics[selectedMetric] }))
 		.filter((row) => row.metric?.n)
 		.sort((a, b) => (b.metric.median ?? -Infinity) - (a.metric.median ?? -Infinity));
+	);
 
 	const mismatch = capacity.historical_mismatch_lens;
 	const mismatchPairs = mismatch.pairs;
