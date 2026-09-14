@@ -1,0 +1,240 @@
+{
+  "version": 1,
+  "purpose": "Decision-consistency corpus for the Pudding-inspired pitch gate. Real-story entries are concise analytical annotations of public Pudding projects, not reproductions of article text. Anti-pattern entries are synthetic.",
+  "warning": "Passing this corpus does not mean the system has learned The Pudding's taste. It only checks that the operational gate preserves intended continue/pivot/put-down distinctions.",
+  "sources": [
+    "https://pudding.cool/pitch/",
+    "https://pudding.cool/process/pivot-continue-down/",
+    "https://pudding.cool/process/responsive-scrollytelling/",
+    "https://pudding.cool/2024/07/ai/"
+  ],
+  "cases": [
+    {
+      "id": "wonky",
+      "split": "calibration",
+      "kind": "reference_story",
+      "source_url": "https://pudding.cool/2023/06/groove/",
+      "expected_decision": "CONTINUE",
+      "pitch": {
+        "argument": "Off-grid timing can make a beat feel more human and distinctive even when conventional notation treats the deviations as errors.",
+        "why_you": "I want to understand why tiny timing shifts change how groove feels in the body, not only how it looks in notation.",
+        "human_angle": "The reader can connect an abstract timing measurement to the physical experience of hearing a beat move around the grid.",
+        "tone_or_obsession": "music-nerd curiosity about rhythmic imperfections",
+        "aha": "The deviations are systematic enough to see and hear, yet subtle enough to vanish in ordinary averages.",
+        "distinctive_entry_point": "The story treats sound itself as evidence and lets the reader compare timing rather than only reading an explanation.",
+        "data_plan": {"status": "verified", "sources": ["timing measurements and audio"], "method": "Align measured note timing with an explicit rhythmic grid and verify the compared excerpts.", "fallback": "Narrow to the best-verified excerpts."},
+        "visual_case": {"why_visual": "The claim is perceptual: readers need synchronized sound and timing marks so they can see and hear the same microtiming difference.", "first_whiteboard": "Sketch a beat grid whose marks move relative to a metronomic baseline.", "visual_concepts": ["aligned note grid plus waveform", "animated beat dots against a metronomic grid", "small multiples of timing signatures"]},
+        "interaction": {"job": "play", "rationale": "Playback lets the reader perform the same perceptual comparison that the argument depends on."},
+        "prototype_plan": "Build low-fidelity static timing frames and one synchronized audio prototype before production.",
+        "iteration_plan": "Compare multiple timing encodings and keep the one whose change is easiest to hear and see on desktop and mobile.",
+        "kill_conditions": ["The timing differences cannot be measured reproducibly.", "The audio/visual comparison does not change reader understanding beyond prose."]
+      }
+    },
+    {
+      "id": "anthem-divas",
+      "split": "calibration",
+      "kind": "reference_story",
+      "source_url": "https://pudding.cool/2024/02/anthems/",
+      "expected_decision": "CONTINUE",
+      "pitch": {
+        "argument": "National-anthem performances differ in measurable kinds of vocal embellishment, and those choices can be compared as a playful performance style rather than as a single duration ranking.",
+        "why_you": "I am curious about the exact moments when a familiar ceremonial song turns into an individual performance.",
+        "human_angle": "The human tension is between a fixed national ritual and a singer making the song unmistakably their own.",
+        "tone_or_obsession": "loving but slightly ridiculous obsession with diva flourishes",
+        "aha": "A custom score can separate different kinds of embellishment that a simple longest-anthem list would collapse.",
+        "distinctive_entry_point": "Instead of ranking singers on one obvious metric, the entry point is a playful composite idea whose ingredients stay inspectable.",
+        "data_plan": {"status": "verified", "sources": ["performance audio and derived pitch traces"], "method": "Measure comparable vocal features by phrase, preserve the ingredients, and audit the composite score.", "fallback": "Publish phrase-level comparisons without the composite score."},
+        "visual_case": {"why_visual": "Pitch traces and synchronized audio make vocal choices legible at the exact phrases where they happen; prose alone cannot reproduce that listening comparison.", "first_whiteboard": "Draw the same anthem phrase for several singers with pitch movement and embellishments aligned.", "visual_concepts": ["phrase-by-phrase pitch trace", "score ingredient small multiples", "guided audio clips followed by singer explorer"]},
+        "interaction": {"job": "play", "rationale": "Audio controls let readers hear the specific pitch movement that the graphic highlights."},
+        "prototype_plan": "Prototype one phrase with two singers before scaling the score and explorer.",
+        "iteration_plan": "Test several encodings for pitch and ornament, then remove any scoring ingredient that readers cannot interpret.",
+        "kill_conditions": ["Comparable performances cannot be aligned reliably.", "The custom score hides more than it explains."]
+      }
+    },
+    {
+      "id": "birthday-effect",
+      "split": "calibration",
+      "kind": "reference_story",
+      "source_url": "https://pudding.cool/2025/04/birthday-effect/",
+      "expected_decision": "CONTINUE",
+      "pitch": {
+        "argument": "Apparent birthday-related mortality patterns can look spooky in raw counts, but careful baselines and uncertainty tests show which effects survive statistical scrutiny.",
+        "why_you": "I want to test a folk claim that sounds plausible enough to repeat but strong enough to deserve skepticism.",
+        "human_angle": "People attach meaning to birthdays and anniversaries even when population structure can create misleading patterns.",
+        "tone_or_obsession": "skeptical curiosity about a statistical superstition",
+        "aha": "An initially suggestive pattern weakens or changes once the correct comparison group and uncertainty are introduced.",
+        "distinctive_entry_point": "The story begins with a claim many readers can intuit, then teaches why the denominator and null expectation matter.",
+        "data_plan": {"status": "verified", "sources": ["large mortality microdata"], "method": "Construct observed and expected birthday-distance distributions and test uncertainty against explicit baselines.", "fallback": "Use a narrower geography with complete dates and document representativeness."},
+        "visual_case": {"why_visual": "The statistical argument is sequential; charts can reveal the raw pattern, expected baseline, and uncertainty in the same frame so the correction is perceptible.", "first_whiteboard": "Start with a raw histogram, overlay the expected distribution, then reveal uncertainty.", "visual_concepts": ["raw birthday-distance histogram", "observed-versus-expected overlay", "simulation and uncertainty sequence"]},
+        "interaction": {"job": "reveal", "rationale": "Staged reveals prevent the baseline correction from being lost in a dense all-at-once chart."},
+        "prototype_plan": "Storyboard raw, baseline, and uncertainty states before writing the final statistical explainer.",
+        "iteration_plan": "Test whether each new layer changes the interpretation and remove any transition that only adds animation.",
+        "kill_conditions": ["Dates or denominators are too incomplete to form the baseline.", "The apparent effect disappears before there is a meaningful teaching point."]
+      }
+    },
+    {
+      "id": "similes",
+      "split": "holdout",
+      "kind": "reference_story",
+      "source_url": "https://pudding.cool/2026/05/similes/",
+      "expected_decision": "CONTINUE",
+      "pitch": {
+        "argument": "Common similes are far less fixed than memory suggests: a large corpus shows both formulaic defaults and imaginative alternatives around the same prompts.",
+        "why_you": "I am curious why some comparisons feel inevitable in speech while others instantly reveal a speaker's voice.",
+        "human_angle": "Readers can try to finish a phrase before seeing how thousands of other people actually completed it.",
+        "tone_or_obsession": "language-pattern obsession with a game-like reveal",
+        "aha": "Comparing your own completion with the long tail of corpus answers shows where cliché ends and invention begins.",
+        "distinctive_entry_point": "The reader commits to an answer before the dataset reveals the distribution, making expectation part of the evidence.",
+        "data_plan": {"status": "verified", "sources": ["large simile corpus"], "method": "Normalize prompts and completions, preserve counts, and audit clustering before presenting the distribution.", "fallback": "Use only prompts with enough observations to support stable comparisons."},
+        "visual_case": {"why_visual": "The story depends on distributions of language completions and the contrast between a reader guess and corpus patterns; interactive reveal makes that difference felt.", "first_whiteboard": "Ask for one completion, freeze the answer, then unfold the ranked corpus around it.", "visual_concepts": ["reader input before reveal", "ranked completion distribution", "semantic clusters of alternatives"]},
+        "interaction": {"job": "reveal", "rationale": "Committing an answer before the reveal turns the reader's expectation into a meaningful comparison, not decorative input."},
+        "prototype_plan": "Test one prompt end to end, including input, reveal, and a no-JavaScript textual equivalent.",
+        "iteration_plan": "Try multiple reveal timings and cluster layouts, then keep the version that makes the expectation gap clearest.",
+        "kill_conditions": ["The corpus is too biased to support the intended generalization.", "Reader input does not materially change the reveal."]
+      }
+    },
+    {
+      "id": "ethical-champions",
+      "split": "holdout",
+      "kind": "reference_story",
+      "source_url": "https://pudding.cool/2026/06/ethical-champions/",
+      "expected_decision": "CONTINUE",
+      "pitch": {
+        "argument": "A championship can be judged through an explicitly subjective ethical lens as long as the chosen criteria, weights, jokes, and limitations remain visible instead of masquerading as objective truth.",
+        "why_you": "I want to interrogate sports celebration with a deliberately opinionated metric and see what happens when moral discomfort enters a familiar ranking ritual.",
+        "human_angle": "Fans know the conflict: winning feels emotionally simple while the people and institutions behind it are not.",
+        "tone_or_obsession": "provocative sports fandom with transparent subjectivity",
+        "aha": "The interesting result is not one universal winner but how rankings swing when the ethical choices embedded in the score are inspected.",
+        "distinctive_entry_point": "The story makes its normative assumptions part of the entertainment rather than hiding them behind pseudo-objective statistics.",
+        "data_plan": {"status": "obtainable", "sources": ["team records and documented ethical criteria"], "method": "Define every criterion, link supporting records, expose weights, and test sensitivity instead of presenting the score as objective fact.", "fallback": "Publish the component evidence without an overall ranking if the composite becomes misleading."},
+        "visual_case": {"why_visual": "A custom score needs visible components, annotations, and sensitivity to weights so readers can inspect how the judgment changes instead of accepting one magic number.", "first_whiteboard": "Place component scorecards beside a rank that visibly moves as assumptions change.", "visual_concepts": ["component scorecards", "rank transition under criteria changes", "illustrated team-by-team audit"]},
+        "interaction": {"job": "explore", "rationale": "Exploration exposes the subjectivity of the ranking by letting readers inspect components and sensitivity rather than hiding it."},
+        "prototype_plan": "Prototype a few teams with all assumptions visible before scoring the full league.",
+        "iteration_plan": "Stress-test the weights, remove criteria that cannot be defended, and compare a non-ranked alternative before production.",
+        "kill_conditions": ["The evidence behind key criteria cannot be sourced consistently.", "The composite score implies a false objectivity that annotations cannot repair."]
+      }
+    },
+    {
+      "id": "love-story",
+      "split": "holdout",
+      "kind": "reference_story",
+      "source_url": "https://pudding.cool/2026/06/love-story/",
+      "expected_decision": "CONTINUE",
+      "pitch": {
+        "argument": "Relationships that look similar in a snapshot can follow very different emotional trajectories, and repeated survey responses reveal those paths better than a single satisfaction score.",
+        "why_you": "I want to see relationships as changing stories rather than reducing them to one average about happiness or longevity.",
+        "human_angle": "Readers recognize uncertainty, repair, drift, and stability in individual trajectories rather than abstract demographic rows.",
+        "tone_or_obsession": "curiosity about narrative hidden inside longitudinal data",
+        "aha": "The same endpoint can be reached through very different sequences, so averages can erase the shape of a relationship.",
+        "distinctive_entry_point": "Longitudinal responses are treated as stories with turning points rather than as rows in a summary table.",
+        "data_plan": {"status": "verified", "sources": ["longitudinal relationship survey"], "method": "Preserve respondent trajectories, define comparable measures, and protect privacy while auditing attrition and missing waves.", "fallback": "Use aggregate archetypes when individual trajectories cannot be shown safely."},
+        "visual_case": {"why_visual": "The evidence is temporal and individual: trajectories and annotated transitions let readers perceive patterns that a prose summary or aggregate table would flatten.", "first_whiteboard": "Draw several relationships as parallel timelines that diverge, recover, or remain stable.", "visual_concepts": ["individual trajectory ribbons", "small multiples of relationship paths", "guided archetypes followed by trajectory explorer"]},
+        "interaction": {"job": "explore", "rationale": "After guided archetypes, exploration lets readers compare paths without reducing every relationship to one rank."},
+        "prototype_plan": "Prototype a small anonymized set of paths before deciding how much individuality can be safely retained.",
+        "iteration_plan": "Compare individual paths, archetypes, and aggregate summaries and keep only the level that remains legible and ethically defensible.",
+        "kill_conditions": ["Attrition makes trajectory comparisons misleading.", "Privacy constraints prevent a responsible representation of individual change."]
+      }
+    },
+    {
+      "id": "topic-dashboard",
+      "split": "calibration",
+      "kind": "anti_pattern",
+      "expected_decision": "PIVOT",
+      "pitch": {
+        "question": "What is happening in the global EV industry?",
+        "argument": "",
+        "why_you": "I want a comprehensive overview of this large market for a general audience.",
+        "human_angle": "",
+        "tone_or_obsession": "",
+        "aha": "",
+        "distinctive_entry_point": "",
+        "data_plan": {"status": "verified", "sources": ["industry CSV"], "method": "Combine country production, sales, and market-share tables into a normalized dataset.", "fallback": ""},
+        "visual_case": {"why_visual": "There are many numbers and charts.", "first_whiteboard": "A dashboard with eight charts.", "visual_concepts": ["bar chart", "line chart"]},
+        "interaction": {"job": "filter", "rationale": "Users can filter the dashboard."},
+        "prototype_plan": "",
+        "iteration_plan": "",
+        "kill_conditions": []
+      }
+    },
+    {
+      "id": "blocked-data",
+      "split": "calibration",
+      "kind": "anti_pattern",
+      "expected_decision": "PUT_DOWN",
+      "pitch": {
+        "argument": "A proprietary dataset would reveal which private clinics have the largest untreated mental-health demand, making access gaps visible at neighborhood scale.",
+        "why_you": "I care about the mismatch between need and care because national averages hide the dead ends patients encounter locally.",
+        "human_angle": "Patients experience access as a local wait, distance, or closed door rather than as one national statistic.",
+        "tone_or_obsession": "access-bottleneck obsession",
+        "aha": "The intended reveal is a neighborhood mismatch between demand and capacity that national aggregates cannot expose.",
+        "distinctive_entry_point": "The entry point follows a patient's local search for care rather than beginning with a national prevalence ranking.",
+        "data_plan": {"status": "blocked", "sources": [], "method": "", "fallback": ""},
+        "visual_case": {"why_visual": "A local map would make demand and clinic capacity mismatch visible block by block and expose distance as part of the access problem.", "first_whiteboard": "Overlay demand, clinic capacity, and travel-time catchments.", "visual_concepts": ["demand-capacity map", "travel-time isochrones", "clinic wait-time scatter"]},
+        "interaction": {"job": "explore", "rationale": "Exploration would let readers inspect the local mismatch at neighborhood scale."},
+        "prototype_plan": "Prototype with a tiny authorized sample before any public implementation.",
+        "iteration_plan": "Compare map and non-map forms once a lawful dataset exists.",
+        "kill_conditions": ["The proprietary data remains inaccessible.", "No lawful public fallback can answer the same question."]
+      }
+    },
+    {
+      "id": "nonvisual-essay",
+      "split": "holdout",
+      "kind": "anti_pattern",
+      "expected_decision": "PIVOT_NONVISUAL",
+      "pitch": {
+        "argument": "A newly published tax rule creates a hidden paperwork burden for freelancers because its definition conflicts with the language used by the most common filing guidance.",
+        "why_you": "I keep seeing freelancers misunderstand the same sentence and want to explain the contradiction precisely.",
+        "human_angle": "The human angle is the anxiety of ordinary people reading two official texts that seem to tell them different things.",
+        "tone_or_obsession": "close-reading obsession with bureaucratic language",
+        "aha": "The central reveal is a legal-definition mismatch visible only after comparing the wording and exceptions carefully.",
+        "distinctive_entry_point": "The entry point is one contradictory sentence experienced repeatedly by people filing taxes.",
+        "data_plan": {"status": "verified", "sources": ["official rule", "official filing guidance"], "method": "Trace definitions and exceptions to the controlling texts and verify examples against the rule.", "fallback": "Narrow the piece to the exact conflict if broader impact counts are unavailable."},
+        "visual_case": {"why_visual": "No essential visual case.", "first_whiteboard": "", "visual_concepts": ["annotated quotation"]},
+        "interaction": {"job": "none", "rationale": ""},
+        "prototype_plan": "Test whether a text-only explainer is clearer than any visual treatment.",
+        "iteration_plan": "Compare a prose memo with one annotated-document prototype before choosing format.",
+        "kill_conditions": ["The texts do not actually conflict after legal review.", "The claimed burden cannot be supported beyond anecdote."]
+      }
+    },
+    {
+      "id": "interaction-garnish",
+      "split": "holdout",
+      "kind": "anti_pattern",
+      "expected_decision": "PIVOT",
+      "pitch": {
+        "argument": "City recycling rates have diverged since 2018, with policy timing explaining part of the difference between otherwise comparable municipalities.",
+        "why_you": "I want to understand why some cities improved while similar neighbors stalled after adopting different collection rules.",
+        "human_angle": "",
+        "tone_or_obsession": "",
+        "aha": "The divergence begins near specific policy changes rather than moving smoothly with income.",
+        "distinctive_entry_point": "Pair cities that look similar before the policy change and follow them as rules diverge.",
+        "data_plan": {"status": "verified", "sources": ["municipal open data"], "method": "Normalize recycling tonnage and households, align policy dates, and validate comparable denominators.", "fallback": "Use only city pairs with stable definitions."},
+        "visual_case": {"why_visual": "A paired time series can make divergence and policy timing visible in the same frame.", "first_whiteboard": "Two paired lines with policy annotations.", "visual_concepts": ["paired lines", "small multiples"]},
+        "interaction": {"job": "spin", "rationale": "A 3D wheel makes the page feel more interactive."},
+        "prototype_plan": "",
+        "iteration_plan": "",
+        "kill_conditions": []
+      }
+    },
+    {
+      "id": "chart-first",
+      "split": "holdout",
+      "kind": "anti_pattern",
+      "expected_decision": "PIVOT",
+      "pitch": {
+        "argument": "Housing affordability has worsened fastest where rent growth outran local wages after 2020.",
+        "why_you": "",
+        "human_angle": "",
+        "tone_or_obsession": "",
+        "aha": "Some cities with moderate rent levels still deteriorated fastest because wages lagged.",
+        "distinctive_entry_point": "",
+        "data_plan": {"status": "verified", "sources": ["rent dataset", "wage dataset"], "method": "Join annual rent and wage series on consistent geographies and recompute change from the raw data.", "fallback": "Use the common geography subset."},
+        "visual_case": {"why_visual": "The divergence can be seen in a slopegraph or paired time series.", "first_whiteboard": "Make charts for every metric.", "visual_concepts": ["slopegraph", "line chart", "map"]},
+        "interaction": {"job": "none", "rationale": ""},
+        "prototype_plan": "Build one static slopegraph before implementation.",
+        "iteration_plan": "",
+        "kill_conditions": []
+      }
+    }
+  ]
+}
