@@ -47,11 +47,11 @@ jobs:
             sleep 1
           done
           curl --fail --silent http://127.0.0.1:4173/ >/dev/null
-          npm run qa:browser -- --base-url http://127.0.0.1:4173 --out .qa --routes /,/generated,/lab,/benchmark,/stories/global-mental-health,/stories/global-mental-health/atlas,/stories/global-mental-health/prototypes,/stories/global-mental-health/prototypes?focus=A,/stories/global-mental-health/prototypes?focus=B,/stories/global-mental-health/prototypes?focus=C,/stories/research-waste
+          npm run qa:browser -- --base-url http://127.0.0.1:4173 --out .qa --routes /,/generated,/lab,/benchmark,/demo/scrolly-shell,/stories/global-mental-health,/stories/global-mental-health/atlas,/stories/global-mental-health/prototypes,/stories/global-mental-health/prototypes?focus=A,/stories/global-mental-health/prototypes?focus=B,/stories/global-mental-health/prototypes?focus=C,/stories/research-waste
           npm run qa:prototypes -- http://127.0.0.1:4173 .qa
           python scripts/prototype_tournament.py validate stories/global-mental-health/prototype-tournament.json --stage evidence --evidence-root .
           npm run qa:production-contract -- --base-url http://127.0.0.1:4173 --contract stories/global-mental-health/production-contract.json --out .qa/production-contract-browser.json
-          npm run qa:visual-probe -- --base-url http://127.0.0.1:4173 --out .qa/visual-probe.json --routes /,/generated,/lab,/benchmark,/stories/global-mental-health,/stories/global-mental-health/atlas,/stories/global-mental-health/prototypes,/stories/research-waste
+          npm run qa:visual-probe -- --base-url http://127.0.0.1:4173 --out .qa/visual-probe.json --routes /,/generated,/lab,/benchmark,/demo/scrolly-shell,/stories/global-mental-health,/stories/global-mental-health/atlas,/stories/global-mental-health/prototypes,/stories/research-waste
           npm run qa:visual
           npm run visual:refine
       - name: Upload QA evidence
