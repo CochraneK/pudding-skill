@@ -1,0 +1,47 @@
+{
+  "story_id": "global-mental-health",
+  "title": "The world's invisible burden",
+  "sources": [
+    {
+      "id": "who-mental-disorders-2025",
+      "publisher": "World Health Organization",
+      "title": "Mental disorders",
+      "url": "https://www.who.int/en/news-room/fact-sheets/detail/mental-disorders",
+      "use": "Global prevalence framing and condition totals",
+      "notes": "WHO reports that nearly 1 in 7 people (1.1 billion) were living with a mental disorder in 2021; anxiety and depressive disorders were most common."
+    },
+    {
+      "id": "who-mental-health-atlas-2024",
+      "publisher": "World Health Organization",
+      "title": "Mental Health Atlas 2024",
+      "url": "https://www.who.int/publications/i/item/9789240114487",
+      "use": "Mental-health financing, workforce and service-system comparisons",
+      "license": "CC BY-NC-SA 3.0 IGO",
+      "notes": "Published 2 September 2025; survey coverage: 144 countries."
+    },
+    {
+      "id": "who-gho-mental-health-workers",
+      "publisher": "World Health Organization",
+      "title": "Global Health Observatory: Mental health workers",
+      "url": "https://www.who.int/data/gho/data/themes/topics/indicator-groups/indicator-group-details/GHO/mental-health-workers",
+      "use": "Country-level workforce indicators",
+      "api_indicators": ["MH_21", "MH_6", "MH_7", "MH_9"]
+    },
+    {
+      "id": "ihme-gbd-2025",
+      "publisher": "Institute for Health Metrics and Evaluation",
+      "title": "Global Burden of Disease 2025 release / 1990–2023 estimates",
+      "url": "https://vizhub.healthdata.org/gbd-results/",
+      "use": "Country-year mental-disorder burden, prevalence and condition-specific trends",
+      "redistribution": "Do not commit or redistribute downloaded IHME data unless its license explicitly permits it. Keep raw exports local and use scripts/mental_health_story.py ihme-import to normalize a user-supplied export.",
+      "reference_view": "https://ourworldindata.org/grapher/share-with-mental-and-substance-disorders"
+    }
+  ],
+  "editorial_rules": [
+    "Do not frame modeled prevalence as a simple ranking of which countries are mentally healthier.",
+    "Separate measured service resources from modeled disorder prevalence and explain their different data-generating processes.",
+    "Prefer age-standardized rates for cross-country comparisons when available.",
+    "Keep suicide separate from the mental-disorder prevalence total unless the metric definition explicitly includes it.",
+    "Every numeric narrative claim must retain a source or claim_ref before publication."
+  ]
+}

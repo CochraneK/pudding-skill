@@ -1,5 +1,5 @@
 <script>
-	let { title = "Scrollytelling Story" } = $props();
+	let { title = "pudding-skill" } = $props();
 </script>
 
 <header>
