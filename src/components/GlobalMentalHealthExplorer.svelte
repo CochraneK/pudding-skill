@@ -35,7 +35,7 @@
 			coverage: '国家/地区有可用观测',
 			years: '观测年份',
 			missing: '无 WHO 可用观测',
-			click: '点击国家可锁定；再次点击同一国家取消。',
+			click: '用上方选择器锁定国家；桌面端悬停地图可快速查看。',
 			quartiles: ['较低四分位', '中低四分位', '中高四分位', '较高四分位'],
 			metricLabels: {
 				psychiatrists_per_100k: '精神科医生',
@@ -59,7 +59,7 @@
 			coverage: 'countries/areas with usable observations',
 			years: 'observation years',
 			missing: 'No usable WHO observation',
-			click: 'Click a country to pin it; click the same country again to clear.',
+			click: 'Use the country picker to pin details; on desktop, hover the map for a quick look.',
 			quartiles: ['Lower quartile', 'Lower-middle quartile', 'Upper-middle quartile', 'Upper quartile'],
 			metricLabels: {
 				psychiatrists_per_100k: 'Psychiatrists',
@@ -109,10 +109,6 @@
 	let focusCountry = $derived(focusCode ? countryByCode.get(focusCode) : null);
 	let focusObservation = $derived(focusCountry ? observation(focusCountry, selectedMetric) : null);
 
-	function chooseCountry(code) {
-		if (!code) return;
-		selectedCode = selectedCode === code ? null : code;
-	}
 </script>
 
 <section class="explorer" aria-labelledby="capacity-explorer-title">
@@ -175,6 +171,7 @@
 						d={path(feature)}
 						class={`country ${binFor(metricValue, selectedMetric)}`}
 						class:focused={focusCode && focusCode === code}
+						role="img"
 						aria-label={country ? `${country.name}: ${formatValue(metricValue, selectedMetric)}` : feature.properties?.name}
 						onpointerenter={() => (hoveredCode = country ? code : null)}
 						onpointerleave={() => (hoveredCode = null)}
