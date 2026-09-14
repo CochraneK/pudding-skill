@@ -111,7 +111,7 @@
 		padding: clamp(1.5rem, 4vw, 3rem);
 		border: 1px solid var(--color-border);
 		border-radius: 1.5rem;
-		background: color-mix(in srgb, var(--color-bg) 76%, white);
+		background: var(--color-bg);
 		box-shadow: 0 2rem 5rem rgb(0 0 0 / 0.08);
 	}
 
