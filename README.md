@@ -6,6 +6,25 @@ This project is not a visual clone of [The Pudding](https://pudding.cool/). It b
 
 > The Svelte starter is derived from [`the-pudding/svelte-starter`](https://github.com/the-pudding/svelte-starter) under the MIT License. This project is not affiliated with The Pudding and does not ship or hotlink The Pudding logos or proprietary fonts.
 
+## v2.5: screenshot-driven visual refinement
+
+v2.5 extends the data/claim/browser pipeline into a bounded visual self-review loop. It deliberately keeps mechanical browser health, deterministic visual diagnostics, agent screenshot judgment, and automatic refinement as separate evidence layers.
+
+After a production build and browser QA, run:
+
+```bash
+npm run qa:visual-probe -- --base-url http://127.0.0.1:4173 --out .qa/visual-probe.json
+python scripts/pudding.py review .qa/visual-probe.json
+```
+
+The visual probe evaluates `/`, `/generated`, and `/lab` at desktop and mobile widths and captures both top-of-page and mid-page states, producing **12 screenshots** plus structured metrics. The critic checks measurable properties such as long-form copy measure, leading, heading hierarchy, touch targets, clipping, contrast, visual aspect, and sticky density.
+
+A deterministic `100/100` is still **not** aesthetic approval. `agent_review.status` remains pending until an agent/editor explicitly inspects every required screenshot. `python scripts/pudding.py review-check agent-visual-review.json` verifies screenshot coverage and prevents an agent PASS from overriding a deterministic hard failure.
+
+If review identifies a low-risk issue, `pudding refine` can only apply three allowlisted changes: readable copy width, text leading, and coarse-pointer target height. It never changes data, claims, chart transforms, arbitrary colors, or Svelte structure, and the automatic loop stops after two passes. Every applied change requires a fresh build, browser QA, visual probe, and before/after screenshot comparison.
+
+The v2.5 baseline is validated with 21 regression tests, 6/6 browser-delivery cases, 6 visual-probe route/viewport cases, 12 reviewed screenshots, a deterministic visual score of 100/100 with zero findings, and the existing high/critical dependency-audit gate.
+
 ## v2.4: arbitrary data to publication-ready first draft
 
 v2.4 extends the evidence-audited v2.3 pipeline through an editable first-draft layer. The preferred entry point is now:
