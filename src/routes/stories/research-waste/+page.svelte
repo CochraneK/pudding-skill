@@ -3,6 +3,7 @@
 	import { base } from '$app/paths';
 	import facts from '$data/research-waste-facts.json';
 	import LanguageToggle from '$components/LanguageToggle.svelte';
+	import ScrollyShell from '$components/ScrollyShell.svelte';
 	import { language } from '$lib/language.js';
 
 	const observed2023 = facts.observed_publications['2023'];
@@ -15,11 +16,26 @@
 		return baseYear + Math.log(publications / retractions) / Math.log(relative);
 	};
 
-	const longCross = Math.round(crossingYear(2021, facts.observed_publications['2021'], facts.retraction_anchors['2021'], facts.retraction_growth_cagr_2010_2021));
-	const spikeCross = Math.round(crossingYear(2023, observed2023, facts.retraction_anchors['2023_minimum'], facts.retraction_growth_cagr_2010_2023_spike_inclusive));
+	const longCross = Math.round(
+		crossingYear(
+			2021,
+			facts.observed_publications['2021'],
+			facts.retraction_anchors['2021'],
+			facts.retraction_growth_cagr_2010_2021
+		)
+	);
+	const spikeCross = Math.round(
+		crossingYear(
+			2023,
+			observed2023,
+			facts.retraction_anchors['2023_minimum'],
+			facts.retraction_growth_cagr_2010_2023_spike_inclusive
+		)
+	);
 	const hiddenCriterionPapers = Math.round(observed2023 * facts.estimated_retraction_criterion_share);
 	const reviewerFteYears = Math.round(facts.peer_review_hours_2020 / 2000);
 	const millionDollarGrants = Math.round(facts.irreproducible_preclinical_cost_usd / 1_000_000);
+	const postRetractionUnacknowledged = 1 - facts.post_retraction_acknowledgement_share;
 
 	let currentYear = $state(2026);
 	let modeledAnnual = $state(annualForYear(currentYear));
@@ -33,6 +49,7 @@
 	let pagesPerPaper = $state(10);
 	let printCopies = $state(1);
 	let deviceWhPerPaper = $state(60);
+	let scrollProgress = $state(0);
 
 	let perSecond = $derived(modeledAnnual / secondsPerYear);
 	let perDay = $derived(modeledAnnual / 365.2425);
@@ -43,12 +60,195 @@
 	let lifetimeVsOneYear = $derived((lifetimeRead / modeledAnnual) * 100);
 	let worldDuringReadingYears = $derived(modeledAnnual * readingYears);
 	let activeCross = $derived(scenario === 'long' ? longCross : spikeCross);
-	let activeRetGrowth = $derived(scenario === 'long' ? facts.retraction_growth_cagr_2010_2021 : facts.retraction_growth_cagr_2010_2023_spike_inclusive);
-	let paperKg = $derived((facts.retraction_anchors['2023_minimum'] * pagesPerPaper * printCopies * 5) / 1000);
-	let deviceKwh = $derived((facts.retraction_anchors['2023_minimum'] * deviceWhPerPaper) / 1000);
+	let activeRetGrowth = $derived(
+		scenario === 'long'
+			? facts.retraction_growth_cagr_2010_2021
+			: facts.retraction_growth_cagr_2010_2023_spike_inclusive
+	);
+	let paperKg = $derived(
+		(facts.retraction_anchors['2023_minimum'] * pagesPerPaper * printCopies * 5) / 1000
+	);
+	let deviceKwh = $derived(
+		(facts.retraction_anchors['2023_minimum'] * deviceWhPerPaper) / 1000
+	);
 
-	const fmt = (n, digits = 0) => new Intl.NumberFormat($language === 'zh' ? 'zh-CN' : 'en-US', { maximumFractionDigits: digits }).format(n);
+	const fmt = (n, digits = 0) =>
+		new Intl.NumberFormat($language === 'zh' ? 'zh-CN' : 'en-US', {
+			maximumFractionDigits: digits
+		}).format(n);
 	const pct = (n, digits = 2) => `${fmt(n, digits)}%`;
+
+	const copy = {
+		zh: {
+			back: '← 返回报告库',
+			eyebrow: '研究浪费 · 科研诚信 · 论文洪水',
+			titleLead: '我们发表得比',
+			titleEm: '任何人能读的都快',
+			dek: '这不是一个“垃圾论文占多少”的简单故事。它追问的是：论文生产线有多快、错误和低价值研究如何漏过筛选、撤稿之后污染为何仍会传播，以及人类把多少时间和资源交给了这个系统。',
+			scrollCue: '向下滚动 · 同一张舞台，七次换证据',
+			model: '节奏模型，不是实时数据库',
+			openSince: '从你打开页面以来',
+			papers: '篇',
+			statusObserved: 'OBSERVED · 观察值',
+			statusEstimate: 'LITERATURE ESTIMATE · 文献估计',
+			statusDerived: 'DERIVED · 派生计算',
+			statusScenario: 'SCENARIO · 情景外推',
+			statusAssumption: 'ASSUMPTION · 假设',
+			steps: {
+				volume: {
+					kicker: '01 · 论文洪水',
+					title: '先感受这台机器的速度。',
+					body: '2023 年，Scopus 收录的全球科学与工程论文约 327.5 万篇。把 2010–2023 的历史增速机械延长到当前年份，模型约为 367 万篇/年——平均每 8.6 秒又多一篇。',
+					note: '今天、今年、打开页面以来的数字都是节奏模型，不是实时抓取论文数据库。'
+				},
+				reading: {
+					kicker: '02 · 一个人读不完',
+					title: '一天读 N 篇，一辈子仍只碰到知识海洋的一小层。',
+					body: '把你的阅读速度放进同一台生产线：你可以读得更勤奋，但个人吞吐量和全球发表量根本不在一个数量级。',
+					daily: '每天完整读',
+					years: '持续阅读年数'
+				},
+				boundary: {
+					kicker: '03 · 先把词拆开',
+					title: '“无用学术”不是一个可直接统计的变量。',
+					body: '撤稿、造假、不可重复、论文工厂、低价值研究会重叠，但不是同义词。把它们揉成一个“垃圾论文率”，本身就是坏统计。'
+				},
+				hidden: {
+					kicker: '04 · 冰山',
+					title: '被正式撤稿的，只是可见的表层。',
+					body: '一篇 Nature 评论曾给出约 1/50 论文可能符合至少一项 COPE 撤稿标准的数量级估计。机械套到 2023 年产量，是约 6.55 万篇；它不是“6.55 万篇造假论文”，也不能直接减去 2023 年撤稿数。'
+				},
+				contamination: {
+					kicker: '05 · 污染会继续走',
+					title: '撤稿按钮，不会自动切断知识传播。',
+					body: '一项数据库级研究分析 13,252 个撤稿后引用语境，只有 722 个——5.4%——明确提到被引论文已经撤稿。其余引用不全等于误用，但说明“已撤稿”并不会自动从下游研究里消失。'
+				},
+				cost: {
+					kicker: '06 · 最贵的是人和机会',
+					title: '真正昂贵的不是 PDF，而是注意力和研发资源。',
+					body: '2020 年全球同行评审被估计投入超过 1 亿小时；按 2,000 小时一个全职研究年，约等于 5 万个 FTE 年。另一项研究估计，美国临床前生命科学每年约 280 亿美元与不可重复研究相关。两者都不是“全球学术浪费总额”。'
+				},
+				crossing: {
+					kicker: '07 · 恐怖交叉点',
+					title: '“撤稿何时跑赢发表？”答案可以被你的假设移动 17 年。',
+					body: '用 2010→2021 的撤稿增速机械外推，交叉点约在 2071；把 2023 年 Hindawi 集中清理造成的异常高峰也当成永久趋势，交叉点会被提前到约 2054。这个差异比任一单独年份更重要。',
+					long: '长期窗口 · 2071',
+					spike: '含 2023 高峰 · 2054'
+				}
+			},
+			boundaryCards: [
+				['已撤稿', '正式撤回的可观察子集；撤稿也可能来自诚实错误。', 'OBSERVED'],
+				['应撤未撤', '“约 1/50”是撤稿标准的风险数量级，不是已证实造假。', 'LITERATURE ESTIMATE'],
+				['不可重复', '无法可靠重现的原因很多，并不自动等于故意不端。', 'LITERATURE ESTIMATE'],
+				['低价值研究', '“重要不重要”依赖领域和目的，没有可信的全球统一无用率。', 'VALUE JUDGMENT']
+			],
+			labEyebrow: '假设实验室',
+			labTitle: '纸张、电费可以算，但只能当透明情景。',
+			labDek: '这些物理成本不是主结论。保留它们，是为了示范：当没有直接测量时，把假设放在滑块上，而不是藏在一句确定性很强的话里。',
+			pagesPerPaper: '每篇打印页数',
+			printCopies: '每篇打印份数',
+			deviceWh: '每篇数字阅读耗电（Wh）',
+			paperResult: '按 10,000 篇撤稿论文计算，纸张情景约',
+			energyResult: '数字阅读情景约',
+			kg: 'kg 纸',
+			kwh: 'kWh',
+			closeEyebrow: '真正的危机不是某个年份',
+			closeTitle: '当生产、检查和纠错的速度长期失衡，知识系统会背上复利式的质量债。',
+			closeBody: '所以不要把 2054 或 2071 当预言。更值得监测的是：论文产量、撤稿与纠错能力、同行评审负荷、论文工厂渗透率，以及错误被下游继续使用的时间。',
+			sources: '来源与边界',
+			sourcesDek: '观察值、文献估计、派生计算和情景外推在页面中分开标注。来源保留原始链接与限定条件。'
+		},
+		en: {
+			back: '← Back to report library',
+			eyebrow: 'RESEARCH WASTE · INTEGRITY · PUBLICATION FLOOD',
+			titleLead: 'We publish faster than',
+			titleEm: 'any person can read',
+			dek: 'This is not a simple story about a universal “junk-paper rate.” It asks how fast the publication machine runs, how errors and low-value work pass through filters, why contamination continues after retraction, and how much human attention the system consumes.',
+			scrollCue: 'Scroll · one stage, seven evidence states',
+			model: 'Pace model, not a live literature database',
+			openSince: 'Since you opened this page',
+			papers: 'papers',
+			statusObserved: 'OBSERVED',
+			statusEstimate: 'LITERATURE ESTIMATE',
+			statusDerived: 'DERIVED',
+			statusScenario: 'SCENARIO',
+			statusAssumption: 'ASSUMPTION',
+			steps: {
+				volume: {
+					kicker: '01 · THE FLOOD',
+					title: 'First, feel the speed of the machine.',
+					body: 'Scopus indexed about 3.275 million science and engineering papers worldwide in 2023. Extending the 2010–2023 historical growth rate mechanically to the current year gives roughly 3.67 million a year — about one paper every 8.6 seconds.',
+					note: 'Today, this year and since-open counts are a pace model, not a live query of publication databases.'
+				},
+				reading: {
+					kicker: '02 · ONE READER',
+					title: 'Read N papers a day and a lifetime still reaches only a thin layer.',
+					body: 'Put your reading speed against the same production line. You can read harder, but an individual and the global publication system operate at fundamentally different scales.',
+					daily: 'Full papers per day',
+					years: 'Reading-career years'
+				},
+				boundary: {
+					kicker: '03 · SEPARATE THE TERMS',
+					title: '“Useless research” is not a directly countable variable.',
+					body: 'Retractions, fraud, irreproducibility, paper mills and low-value research overlap, but they are not synonyms. Compressing them into one global junk-paper percentage would itself be bad statistics.'
+				},
+				hidden: {
+					kicker: '04 · THE ICEBERG',
+					title: 'Formally retracted papers are only the visible layer.',
+					body: 'A Nature commentary offered a rough estimate that about 1 in 50 papers might meet at least one COPE retraction criterion. Applying 2% mechanically to 2023 output gives about 65,500 papers. That is not “65,500 fraudulent papers,” and it cannot simply be subtracted from 2023 retractions.'
+				},
+				contamination: {
+					kicker: '05 · CONTAMINATION TRAVELS',
+					title: 'A retraction button does not automatically cut the knowledge chain.',
+					body: 'A database-scale study examined 13,252 post-retraction citation contexts. Only 722 — 5.4% — explicitly acknowledged that the cited paper had been retracted. The rest are not all misuse, but retraction status clearly does not erase downstream use.'
+				},
+				cost: {
+					kicker: '06 · PEOPLE + OPPORTUNITY',
+					title: 'The expensive part is not the PDF. It is attention and research capacity.',
+					body: 'Global peer review was estimated to consume more than 100 million hours in 2020 — roughly 50,000 full-time research years at 2,000 hours each. A separate study estimated about $28B/year associated with irreproducible US preclinical life-science research. Neither number is a global total of wasted science.'
+				},
+				crossing: {
+					kicker: '07 · THE SCARY CROSSING',
+					title: '“When do retractions overtake publications?” can move 17 years with one assumption.',
+					body: 'Mechanically extending 2010→2021 retraction growth yields a crossing around 2071. Treating the exceptional 2023 Hindawi cleanup spike as permanent growth pulls it forward to about 2054. The instability of the date is the point.',
+					long: 'Longer window · 2071',
+					spike: 'Include 2023 spike · 2054'
+				}
+			},
+			boundaryCards: [
+				['Retracted', 'The formally withdrawn subset; retractions can also follow honest error.', 'OBSERVED'],
+				['Retractable but not retracted', '“About 1 in 50” is a risk-scale estimate, not confirmed fraud.', 'LITERATURE ESTIMATE'],
+				['Irreproducible', 'Many causes can prevent reliable replication; intent is not implied.', 'LITERATURE ESTIMATE'],
+				['Low value', 'Importance depends on domain and purpose; there is no credible universal global rate.', 'VALUE JUDGMENT']
+			],
+			labEyebrow: 'ASSUMPTION LAB',
+			labTitle: 'Paper and electricity can be modeled — but only as transparent scenarios.',
+			labDek: 'These physical costs are not the central claim. The controls demonstrate a rule: when direct measurement is missing, expose assumptions instead of hiding them inside a confident sentence.',
+			pagesPerPaper: 'Printed pages per paper',
+			printCopies: 'Printed copies per paper',
+			deviceWh: 'Digital-reading energy per paper (Wh)',
+			paperResult: 'For 10,000 retracted papers, the paper scenario is about',
+			energyResult: 'The digital-reading scenario is about',
+			kg: 'kg paper',
+			kwh: 'kWh',
+			closeEyebrow: 'THE CRISIS IS NOT ONE DATE',
+			closeTitle: 'When production, checking and correction remain out of balance, the knowledge system accumulates compounding quality debt.',
+			closeBody: 'So do not treat 2054 or 2071 as predictions. Watch the rates that generate the risk: publication output, correction capacity, peer-review load, paper-mill penetration and how long retracted work remains active downstream.',
+			sources: 'Sources + boundaries',
+			sourcesDek: 'Observed values, literature estimates, derived calculations and scenarios are labeled separately. Source links retain their original scope and limitations.'
+		}
+	};
+
+	const t = () => copy[$language];
+	const stepData = () => [
+		{ id: 'volume', status: t().statusObserved, ...t().steps.volume },
+		{ id: 'reading', status: t().statusDerived, ...t().steps.reading },
+		{ id: 'boundary', status: t().statusEstimate, ...t().steps.boundary },
+		{ id: 'hidden', status: t().statusEstimate, ...t().steps.hidden },
+		{ id: 'contamination', status: t().statusObserved, ...t().steps.contamination },
+		{ id: 'cost', status: t().statusEstimate, ...t().steps.cost },
+		{ id: 'crossing', status: t().statusScenario, ...t().steps.crossing }
+	];
 
 	onMount(() => {
 		const opened = new Date();
@@ -64,125 +264,22 @@
 			todayCount = ((now.getTime() - startOfDay) / 1000) * (modeledAnnual / secondsPerYear);
 			sinceOpen = ((now.getTime() - openedAt) / 1000) * (modeledAnnual / secondsPerYear);
 		};
+		const updateProgress = () => {
+			const root = document.documentElement;
+			const distance = Math.max(1, root.scrollHeight - root.clientHeight);
+			scrollProgress = Math.min(1, Math.max(0, root.scrollTop / distance));
+		};
 		tick();
+		updateProgress();
 		const timer = window.setInterval(tick, 1000);
-		return () => window.clearInterval(timer);
+		window.addEventListener('scroll', updateProgress, { passive: true });
+		window.addEventListener('resize', updateProgress);
+		return () => {
+			window.clearInterval(timer);
+			window.removeEventListener('scroll', updateProgress);
+			window.removeEventListener('resize', updateProgress);
+		};
 	});
-
-	const sourceNotesZh = {
-		'nsf-publications-2025': 'Scopus 收录的全球科学与工程论文：2010 年约 200 万篇，2021 年 311.7 万篇，2023 年 327.5 万篇。',
-		'nature-retractions-2023': '2023 年撤稿数突破 1 万篇；这一异常高峰很大部分来自 Hindawi 集中清理。',
-		'nature-retractions-2022': '2010 年约每月 45 篇撤稿，2021 年接近每月 300 篇；作者估计约 1/50 论文可能符合至少一项 COPE 撤稿标准。',
-		'retraction-watch-2026': 'Retraction Watch 数据库在 2026 年已超过 6.5 万条撤稿记录。',
-		'peer-review-time': '估计 2020 年全球同行评审投入超过 1 亿小时；研究明确说明这很可能仍是低估。',
-		'reproducibility-cost': '估计美国临床前生命科学中不可重复研究每年直接关联约 280 亿美元支出；不能外推为所有学科的全球损失。',
-		'post-retraction-citations': '13,252 个撤稿后引用语境中，只有 722 个（5.4%）明确提到撤稿。',
-		'misconduct-meta-analysis': '2009 年元分析：1.97% 科学家自报曾至少一次伪造、篡改或修改数据/结果；这不是“1.97% 论文造假率”。',
-		'paper-mills': 'Nature 引述估计：2000–2022 年至少 40 万篇论文呈现论文工厂特征。',
-		'paper-mill-submissions': '一项 2024 年研究引述估计：跨学科约 2% 的期刊投稿来自论文工厂。'
-	};
-
-	const copy = {
-		zh: {
-			back: '← 返回报告库',
-			eyebrow: '研究浪费 · 科研诚信 · 论文洪水',
-			titleLead: '我们发表得比',
-			titleEm: '任何人能读的都快',
-			dek: '真正的问题不是“有多少垃圾论文”这么简单，而是：我们每年制造多少知识、多少错误或低价值研究漏过筛选、多少时间和资金被它们吸走，以及错误在撤稿之后还会传播多久。',
-			baseline: '可核验基线',
-			baselineTitle: '2023 年，Scopus 收录的全球科学与工程论文约 327.5 万篇。',
-			modelNote: '下面的“今天 / 今年 / 打开页面以来”不是实时数据库查询，而是把 2010–2023 年的历史增长率继续到当前年份后的节奏模型。',
-			today: '模型估计：今天已经发表',
-			year: '模型估计：今年打开页面前已经发表',
-			since: '从你打开这个页面以来',
-			papers: '篇',
-			perYear: '篇 / 年（当前趋势模型）',
-			perDay: '篇 / 天',
-			perSecond: '篇 / 秒',
-			every: '平均每',
-			seconds: '秒一篇',
-			readEyebrow: '个人阅读能力 vs. 论文生产线',
-			readTitle: '一天读 N 篇，一辈子仍然只碰到知识海洋的一小层。',
-			readPerDay: '每天完整读',
-			readYears: '持续阅读年数',
-			annualShare: '你每年能读完当年论文的',
-			lifetime: '这段“学术阅读生涯”共读',
-			lifetimeOneYear: '只相当于当前一年产量的',
-			worldProduces: '如果产量不再增长，同期世界仍会新增约',
-			boundaryEyebrow: '先把概念分开',
-			boundaryTitle: '“无用学术”不是一个可以直接统计的变量。',
-			boundaryDek: '撤稿、造假、不可重复、论文工厂、低价值研究彼此重叠，但不是同义词。把它们混成一个百分比，本身就是坏统计。',
-			boundaries: [
-				['已撤稿', '已经被期刊正式撤回的可观察子集；撤稿也可能源于诚实错误，并不等于造假。'],
-				['应撤未撤', 'Retraction Watch 创办者曾估计约 1/50 论文可能符合至少一项 COPE 撤稿标准；这是粗略风险估计，不是已证实造假。'],
-				['不可重复', '结果无法被可靠重现，原因可能是设计、材料、统计、报告或环境差异；同样不等于故意不端。'],
-				['低价值 / 无效问题', '研究问题不重要、设计无法回答问题、结果无法影响决策等。它高度依赖领域和目的，不存在可信的全球统一“无用率”。']
-			],
-			hiddenEyebrow: '被发现的只是表层',
-			hiddenTitle: '如果“1/50 可能达到撤稿标准”的估计只是数量级正确，一年就是约 6.55 万篇。',
-			hiddenDek: '把 2% 机械套到 2023 年 327.5 万篇产量，得到约 65,500 篇“可能达到至少一项撤稿标准”的论文。这个数字不能和 2023 年 1 万篇撤稿直接相减，因为撤稿发生在不同发表年份，而且 2023 年本身是一次异常集中清理。',
-			retracted2023: '2023 年撤稿 >10,000',
-			dbTotal: '2026 年数据库累计 >65,000',
-			paperMill: '2000–2022 年约 400,000 篇呈论文工厂特征（估计）',
-			contamEyebrow: '错误不会在撤稿按钮处停止',
-			contamTitle: '撤稿后，论文仍然会进入后续研究的参考文献。',
-			contamDek: '一项数据库级生物医学研究分析了 13,252 个撤稿后引用语境，只有 5.4% 明确提到被引论文已经撤稿。剩余引用并不都等于“误用”，但它说明撤稿标签没有自动切断知识传播。',
-			ack: '明确承认撤稿',
-			noAck: '没有明确承认撤稿',
-			downstream: ['论文', '综述 / Meta', '学生论文', '新实验', '基金申请', '政策 / 临床线索'],
-			costEyebrow: '真正昂贵的不是 PDF',
-			costTitle: '时间与研发资源的机会成本，远大于纸张本身。',
-			peerTitle: '同行评审劳动',
-			peerBody: '2020 年全球同行评审被估计投入超过 1 亿小时。按每个全职研究年 2,000 小时换算，约等于 5 万个 FTE 年。这里不是说这些时间“全浪费”，而是显示发表系统本身吞吐了多少人类注意力。',
-			moneyTitle: '不可重复的临床前研究',
-			moneyBody: '2015 年研究估计，美国临床前生命科学每年约 280 亿美元花在不可重复研究上。它是特定领域、特定年代的估计，不应冒充“全球学术浪费总额”。',
-			opportunity: '容量等价，而不是价值预测',
-			opportunityBody: '280 亿美元相当于 28,000 个每项 100 万美元的研究项目；1 亿小时相当于约 50,000 个 2,000 小时的研究年。我们可以比较“还能做多少事”，但不能声称这些资源一定会创造某个固定社会回报。',
-			materialEyebrow: '纸张、电费：只做透明情景，不伪装成测量',
-			materialTitle: '如果你一定要算物理资源，先把假设摆在桌面上。',
-			pages: '每篇打印页数',
-			copies: '每篇打印份数',
-			device: '每篇数字阅读耗电（Wh）',
-			paperResult: '按 10,000 篇撤稿论文计算，纸张约',
-			energyResult: '数字阅读耗电约',
-			materialNote: '默认按 A4 80gsm 约 5g/张估算。这里只算最终论文的一次打印/阅读，不包括实验设备、服务器、训练、差旅、草稿和重复实验，因此绝不能把这个数叫作“总环境成本”。',
-			crossEyebrow: '“撤稿什么时候跑赢发表？”',
-			crossTitle: '答案可以差 17 年——只因为你选了不同的增长窗口。',
-			crossDek: '这是故意做的反误导演示：交叉点是指数外推的数学结果，不是对未来学术系统的预测。撤稿增长也可能意味着筛查能力变强，而不只是造假变多。',
-			long: '长期、避开 2023 清理峰值',
-			spike: '把 2023 清理峰值也当长期趋势',
-			retGrowth: '撤稿年增长假设',
-			pubGrowth: '论文年增长基线',
-			crossAt: '机械交叉点',
-			crossWarning: '如果看到有人只展示“2054 年撤稿超过发表”而不展示窗口选择，这个数字本身就是需要审稿的。',
-			endingEyebrow: '真正的危机不是某一天曲线相交',
-			endingTitle: '危机是筛选、纠错与阅读能力，长期追不上生产速度。',
-			endingDek: '科学不需要停止发表，而需要让“值得做的问题、透明的方法、可复核的证据、及时的纠错”获得比单纯论文数量更高的奖励。否则我们制造的不是知识库，而是越来越昂贵的搜索问题。',
-			sources: '来源与计算边界',
-			sourcesTitle: '所有冲击性数字，都把“观察值 / 估计 / 情景”分开。'
-		},
-		en: {
-			back: '← Back to report library',
-			eyebrow: 'RESEARCH WASTE · INTEGRITY · PAPER FLOOD',
-			titleLead: 'We publish faster than',
-			titleEm: 'anyone can read',
-			dek: 'The real question is not simply “how much research is junk?” It is how much knowledge we produce, how much error or low-value work survives filtering, how much time and money it absorbs, and how long flawed work keeps propagating after correction.',
-			baseline: 'AUDITED BASELINE', baselineTitle: 'In 2023, Scopus indexed about 3.275 million science and engineering articles worldwide.',
-			modelNote: 'The “today / this year / since open” counters are not live publication-database queries. They extend the observed 2010–2023 growth rate into the current year as a pace model.',
-			today: 'Modeled papers published today', year: 'Modeled papers published this year before you opened the page', since: 'Since you opened this page', papers: 'papers',
-			perYear: 'papers / year (current trend model)', perDay: 'papers / day', perSecond: 'papers / second', every: 'about one every', seconds: 'seconds',
-			readEyebrow: 'ONE READER VS. THE PAPER MACHINE', readTitle: 'Read N papers a day and a lifetime still touches only a thin layer of the literature.', readPerDay: 'Full papers per day', readYears: 'Years at that pace', annualShare: 'Share of one year you can read', lifetime: 'Papers across that reading life', lifetimeOneYear: 'Equivalent to this share of just one current year', worldProduces: 'Even with zero future growth, the world would add about',
-			boundaryEyebrow: 'SEPARATE THE CATEGORIES FIRST', boundaryTitle: '“Useless research” is not one measurable variable.', boundaryDek: 'Retraction, fraud, irreproducibility, paper mills, and low-value research overlap but are not synonyms. Collapsing them into one percentage would itself be bad measurement.',
-			boundaries: [['Retracted', 'The observable set formally withdrawn by journals. Retractions can also result from honest error; retraction is not synonymous with fraud.'], ['Retraction-worthy but undiscovered', 'Retraction Watch’s co-founder has estimated roughly 1 in 50 papers could meet at least one COPE retraction criterion. This is a rough risk estimate, not proven fraud.'], ['Irreproducible', 'Results cannot be reliably reproduced for reasons that may include design, materials, statistics, reporting, or context. Again, not equivalent to intent.'], ['Low-value / low-utility', 'Questions that do not matter, designs that cannot answer them, or findings unlikely to change decisions. This is purpose- and field-dependent; there is no credible global “uselessness rate.”']],
-			hiddenEyebrow: 'WHAT WE SEE IS THE SURFACE', hiddenTitle: 'If the “1 in 50 may meet retraction criteria” estimate is even order-of-magnitude right, one year implies roughly 65,500 papers.', hiddenDek: 'Applying 2% mechanically to the 3.275M papers in 2023 gives about 65,500 potentially retraction-criterion papers. You cannot subtract the 10,000 retractions issued in 2023 from that number: retractions span publication cohorts, and 2023 was itself an exceptional cleanup year.', retracted2023: '2023 retractions >10,000', dbTotal: 'Database total in 2026 >65,000', paperMill: '≈400,000 papers with paper-mill hallmarks, 2000–2022 (estimate)',
-			contamEyebrow: 'ERROR DOES NOT STOP AT THE RETRACTION BUTTON', contamTitle: 'Retracted papers still enter the reference lists of later research.', contamDek: 'A database-wide biomedical study examined 13,252 post-retraction citation contexts. Only 5.4% explicitly acknowledged that the cited paper had been retracted. Not every unacknowledged citation is misuse, but the result shows that a retraction label does not automatically stop knowledge propagation.', ack: 'Acknowledged retraction', noAck: 'Did not explicitly acknowledge', downstream: ['Paper', 'Review / meta-analysis', 'Student thesis', 'New experiment', 'Grant proposal', 'Policy / clinical lead'],
-			costEyebrow: 'THE EXPENSIVE PART IS NOT THE PDF', costTitle: 'Human attention and R&D opportunity costs dominate the story.', peerTitle: 'Peer-review labor', peerBody: 'Global peer review was estimated at more than 100 million hours in 2020. At 2,000 hours per full-time research year, that is roughly 50,000 FTE-years. This does not mean all review time is wasted; it shows the scale of attention consumed by the publication system.', moneyTitle: 'Irreproducible preclinical research', moneyBody: 'A 2015 study estimated roughly $28B per year in US preclinical life-science spending associated with irreproducible research. It is a field- and era-specific estimate, not a global academic-waste total.', opportunity: 'Capacity equivalence, not a value forecast', opportunityBody: '$28B is the same budget capacity as 28,000 $1M research projects; 100M hours is about 50,000 2,000-hour research years. We can compare what else could fit into that capacity, but not claim a fixed social return.',
-			materialEyebrow: 'PAPER + ELECTRICITY: TRANSPARENT SCENARIO ONLY', materialTitle: 'If you want a physical-resource number, expose the assumptions first.', pages: 'Printed pages per paper', copies: 'Printed copies per paper', device: 'Digital reading electricity per paper (Wh)', paperResult: 'For 10,000 retracted papers, modeled paper mass is', energyResult: 'Modeled digital-reading electricity is', materialNote: 'Default paper mass assumes roughly 5g per A4 80gsm sheet. This covers one final-paper print/read scenario only—no lab equipment, servers, training, travel, drafts, or replication—so it must not be called total environmental cost.',
-			crossEyebrow: '“WHEN DO RETRACTIONS OVERTAKE PUBLICATIONS?”', crossTitle: 'The answer moves by 17 years just by changing the growth window.', crossDek: 'This is deliberately an anti-misleading demonstration: the crossover is an exponential extrapolation, not a forecast. Retraction growth can also signal stronger detection rather than more misconduct.', long: 'Long-run, excluding the 2023 cleanup spike', spike: 'Treat the 2023 cleanup spike as persistent', retGrowth: 'Retraction growth assumption', pubGrowth: 'Publication growth baseline', crossAt: 'Mechanical crossover', crossWarning: 'If someone shows “retractions overtake publications in 2054” without showing the window choice, that number itself needs peer review.',
-			endingEyebrow: 'THE CRISIS IS NOT A SINGLE CROSSING DATE', endingTitle: 'The crisis is correction, filtering, and human reading capacity falling behind production.', endingDek: 'Science does not need to stop publishing. It needs stronger rewards for worthwhile questions, transparent methods, checkable evidence, and fast correction than for paper count alone. Otherwise the knowledge base becomes an increasingly expensive search problem.', sources: 'SOURCES + COMPUTATION BOUNDARIES', sourcesTitle: 'Every dramatic number is labeled as observation, estimate, or scenario.'
-		}
-	};
-	const t = () => copy[$language];
 </script>
 
 <svelte:head>
@@ -190,111 +287,1109 @@
 	<meta name="description" content={t().dek} />
 	<meta property="og:title" content={`${t().titleLead} ${t().titleEm}`} />
 	<meta property="og:description" content={t().dek} />
-	<meta name="theme-color" content="#f1eee7" />
+	<meta name="theme-color" content="#10151d" />
 	<link rel="canonical" href="https://cochranek.github.io/pudding-skill/stories/research-waste/" />
 </svelte:head>
 
-<article class="story" data-story-kind="research-waste" data-publication-baseline="3275079">
-	<section class="hero">
-		<div class="utility"><a href={`${base}/`}>{t().back}</a><LanguageToggle /></div>
-		<p class="kicker">{t().eyebrow}</p>
-		<h1>{t().titleLead}<br /><em>{t().titleEm}</em></h1>
-		<p class="dek">{t().dek}</p>
+<div class="progress" aria-hidden="true"><i style={`transform:scaleX(${scrollProgress})`}></i></div>
+
+<article class="story">
+	<header class="hero">
+		<div class="utility">
+			<a href={`${base}/`}>{t().back}</a>
+			<LanguageToggle />
+		</div>
+		<div class="hero-inner">
+			<p class="eyebrow">{t().eyebrow}</p>
+			<h1>{t().titleLead}<br /><em>{t().titleEm}</em></h1>
+			<p class="dek">{t().dek}</p>
+			<div class="hero-meter">
+				<strong>{fmt(modeledAnnual / 1_000_000, 2)}M</strong>
+				<span>{t().papers} / {currentYear}</span>
+			</div>
+			<div class="ticker" aria-live="off">
+				<span class="live-dot"></span>
+				{t().openSince} <b>{fmt(sinceOpen)}</b> {t().papers}
+			</div>
+			<p class="scroll-cue">↓ {t().scrollCue}</p>
+		</div>
+	</header>
+
+	{#snippet graphic(item)}
+		<div class={`viz-card viz-${item?.id ?? 'none'}`} data-research-waste-state={item?.id}>
+			<p class="viz-status">{item?.status}</p>
+
+			{#if item?.id === 'volume'}
+				<p class="viz-kicker">{t().model}</p>
+				<div class="giant-number">{fmt(modeledAnnual)}</div>
+				<p class="viz-unit">{t().papers} / {currentYear}</p>
+				<div class="metric-row">
+					<div><strong>{fmt(perDay)}</strong><span>{t().papers} / day</span></div>
+					<div><strong>{secondsPerPaper.toFixed(1)}s</strong><span>/ paper</span></div>
+					<div><strong>{fmt(todayCount)}</strong><span>today</span></div>
+				</div>
+				<p class="small-note">2023 observed: {fmt(observed2023)} · modeled current-year pace</p>
+			{:else if item?.id === 'reading'}
+				<p class="viz-kicker">{papersPerDay} / day × {readingYears} years</p>
+				<div class="giant-number">{pct(lifetimeVsOneYear, 1)}</div>
+				<p class="viz-unit">of one current year of output</p>
+				<div class="read-rail" aria-hidden="true">
+					<i style={`width:${Math.min(100, lifetimeVsOneYear)}%`}></i>
+				</div>
+				<div class="metric-row">
+					<div><strong>{fmt(lifetimeRead)}</strong><span>read in lifetime</span></div>
+					<div><strong>{pct(annualShare, 3)}</strong><span>of annual output</span></div>
+					<div><strong>{fmt(worldDuringReadingYears / 1_000_000, 0)}M</strong><span>produced meanwhile*</span></div>
+				</div>
+				<p class="small-note">*holding current output flat; no future growth assumed</p>
+			{:else if item?.id === 'boundary'}
+				<div class="boundary-grid">
+					{#each t().boundaryCards as card}
+						<div class="boundary-card">
+							<small>{card[2]}</small>
+							<strong>{card[0]}</strong>
+							<p>{card[1]}</p>
+						</div>
+					{/each}
+				</div>
+			{:else if item?.id === 'hidden'}
+				<div class="iceberg" aria-label="Observed 2023 retractions compared with a 2 percent criterion scenario">
+					<div class="ice-tip">
+						<strong>&gt;{fmt(facts.retraction_anchors['2023_minimum'])}</strong>
+						<span>2023 retractions</span>
+					</div>
+					<div class="waterline"></div>
+					<div class="ice-under">
+						<strong>≈ {fmt(hiddenCriterionPapers)}</strong>
+						<span>2% criterion scenario</span>
+					</div>
+				</div>
+				<p class="small-note">Different publication cohorts + exceptional 2023 cleanup → do not subtract directly.</p>
+			{:else if item?.id === 'contamination'}
+				<p class="viz-kicker">13,252 post-retraction citation contexts</p>
+				<div class="citation-bar" role="img" aria-label="5.4 percent acknowledged retraction, 94.6 percent did not explicitly acknowledge it">
+					<div class="ack" style={`width:${facts.post_retraction_acknowledgement_share * 100}%`}></div>
+					<div class="unack" style={`width:${postRetractionUnacknowledged * 100}%`}></div>
+				</div>
+				<div class="split-labels">
+					<div><strong>5.4%</strong><span>explicitly acknowledged</span></div>
+					<div><strong>94.6%</strong><span>did not explicitly acknowledge</span></div>
+				</div>
+				<div class="chain" aria-hidden="true">
+					<span>paper</span><b>→</b><span>review</span><b>→</b><span>student</span><b>→</b><span>experiment</span><b>→</b><span>policy</span>
+				</div>
+			{:else if item?.id === 'cost'}
+				<div class="cost-grid">
+					<div class="cost-card">
+						<small>peer review · 2020 estimate</small>
+						<strong>&gt;100M</strong>
+						<span>hours</span>
+						<p>≈ {fmt(reviewerFteYears)} full-time research years</p>
+					</div>
+					<div class="cost-card">
+						<small>US preclinical life science</small>
+						<strong>$28B</strong>
+						<span>/ year estimate</span>
+						<p>capacity equivalent: {fmt(millionDollarGrants)} × $1M projects</p>
+					</div>
+				</div>
+				<p class="small-note">Capacity equivalents are not predictions of social return.</p>
+			{:else if item?.id === 'crossing'}
+				<div class="crossing-years">
+					<div class:active={scenario === 'long'}><small>2010→2021 window</small><strong>{longCross}</strong></div>
+					<div class:active={scenario === 'spike'}><small>2010→2023 spike-inclusive</small><strong>{spikeCross}</strong></div>
+				</div>
+				<div class="timeline" aria-hidden="true">
+					<i class="now"></i><i class="spike"></i><i class="long"></i>
+					<span class="nlabel">2026</span><span class="slabel">2054</span><span class="llabel">2071</span>
+				</div>
+				<p class="scenario-result">Selected mechanical crossing: <strong>{activeCross}</strong> · retraction CAGR assumption {pct(activeRetGrowth * 100, 1)}</p>
+			{/if}
+		</div>
+	{/snippet}
+
+	{#snippet step(item)}
+		<p class="step-kicker">{item.kicker}</p>
+		<h2>{item.title}</h2>
+		<p>{item.body}</p>
+		{#if item.note}<p class="step-note">{item.note}</p>{/if}
+
+		{#if item.id === 'reading'}
+			<div class="controls">
+				<label>
+					<span>{item.daily}: <b>{papersPerDay}</b></span>
+					<input aria-label={item.daily} type="range" min="1" max="20" step="1" bind:value={papersPerDay} />
+				</label>
+				<label>
+					<span>{item.years}: <b>{readingYears}</b></span>
+					<input aria-label={item.years} type="range" min="10" max="70" step="5" bind:value={readingYears} />
+				</label>
+			</div>
+		{:else if item.id === 'crossing'}
+			<div class="scenario-buttons" aria-label="Retraction growth scenario">
+				<button class:active={scenario === 'long'} onclick={() => (scenario = 'long')}>{item.long}</button>
+				<button class:active={scenario === 'spike'} onclick={() => (scenario = 'spike')}>{item.spike}</button>
+			</div>
+			<p class="step-note">Neither line is a forecast. Both are deliberately mechanical extrapolations.</p>
+		{/if}
+	{/snippet}
+
+	<section class="scrolly-zone">
+		<ScrollyShell steps={stepData()} {graphic} {step} />
 	</section>
 
-	<section class="pace section-dark">
-		<div class="section-head"><p class="eyebrow">{t().baseline}</p><h2>{t().baselineTitle}</h2><p>{t().modelNote}</p></div>
-		<div class="pace-grid">
-			<div class="big-stat"><strong>{fmt(modeledAnnual)}</strong><span>{t().perYear}</span></div>
-			<div><strong>{fmt(perDay)}</strong><span>{t().perDay}</span></div>
-			<div><strong>{fmt(perSecond, 3)}</strong><span>{t().perSecond}</span></div>
-			<div><strong>{fmt(secondsPerPaper, 1)}</strong><span>{t().every} {t().seconds}</span></div>
-		</div>
-		<div class="live-grid" aria-live="polite">
-			<div><span>{t().today}</span><strong>{fmt(todayCount)}</strong><small>{t().papers}</small></div>
-			<div><span>{t().year}</span><strong>{fmt(yearCountAtOpen)}</strong><small>{t().papers}</small></div>
-			<div><span>{t().since}</span><strong>{fmt(sinceOpen, 1)}</strong><small>{t().papers}</small></div>
+	<section class="lab-section">
+		<div class="section-inner">
+			<p class="eyebrow">{t().labEyebrow}</p>
+			<h2>{t().labTitle}</h2>
+			<p class="section-dek">{t().labDek}</p>
+
+			<div class="lab-grid">
+				<label>
+					<span>{t().pagesPerPaper}</span>
+					<input type="range" min="4" max="30" step="1" bind:value={pagesPerPaper} />
+					<b>{pagesPerPaper}</b>
+				</label>
+				<label>
+					<span>{t().printCopies}</span>
+					<input type="range" min="0" max="5" step="1" bind:value={printCopies} />
+					<b>{printCopies}</b>
+				</label>
+				<label>
+					<span>{t().deviceWh}</span>
+					<input type="range" min="10" max="200" step="10" bind:value={deviceWhPerPaper} />
+					<b>{deviceWhPerPaper}</b>
+				</label>
+			</div>
+
+			<div class="lab-results">
+				<article>
+					<p>{t().paperResult}</p>
+					<strong>{fmt(paperKg)} {t().kg}</strong>
+					<small>{t().statusAssumption}</small>
+				</article>
+				<article>
+					<p>{t().energyResult}</p>
+					<strong>{fmt(deviceKwh)} {t().kwh}</strong>
+					<small>{t().statusAssumption}</small>
+				</article>
+			</div>
 		</div>
 	</section>
 
-	<section class="reading section-light">
-		<div class="section-head"><p class="eyebrow">{t().readEyebrow}</p><h2>{t().readTitle}</h2></div>
-		<div class="calculator">
-			<label><span>{t().readPerDay}: <b>{papersPerDay}</b></span><input type="range" min="1" max="50" step="1" bind:value={papersPerDay} /></label>
-			<label><span>{t().readYears}: <b>{readingYears}</b></span><input type="range" min="10" max="70" step="5" bind:value={readingYears} /></label>
-		</div>
-		<div class="read-results">
-			<div><span>{t().annualShare}</span><strong>{pct(annualShare, 3)}</strong></div>
-			<div><span>{t().lifetime}</span><strong>{fmt(lifetimeRead)}</strong></div>
-			<div><span>{t().lifetimeOneYear}</span><strong>{pct(lifetimeVsOneYear, 2)}</strong></div>
-			<div><span>{t().worldProduces}</span><strong>{fmt(worldDuringReadingYears)}</strong></div>
+	<section class="closing">
+		<div class="section-inner narrow">
+			<p class="eyebrow">{t().closeEyebrow}</p>
+			<h2>{t().closeTitle}</h2>
+			<p>{t().closeBody}</p>
+			<div class="closing-numbers">
+				<span><b>{spikeCross}</b> spike-inclusive scenario</span>
+				<span><b>{longCross}</b> longer-window scenario</span>
+				<span><b>17</b> years moved by one growth window</span>
+			</div>
 		</div>
 	</section>
 
-	<section class="boundaries section-paper">
-		<div class="section-head"><p class="eyebrow">{t().boundaryEyebrow}</p><h2>{t().boundaryTitle}</h2><p>{t().boundaryDek}</p></div>
-		<div class="boundary-grid">{#each t().boundaries as item, i}<article><span>0{i + 1}</span><h3>{item[0]}</h3><p>{item[1]}</p></article>{/each}</div>
-	</section>
-
-	<section class="hidden section-red">
-		<div class="section-head"><p class="eyebrow">{t().hiddenEyebrow}</p><h2>{t().hiddenTitle}</h2><p>{t().hiddenDek}</p></div>
-		<div class="hidden-number"><strong>{fmt(hiddenCriterionPapers)}</strong><span>≈ 2% × 3,275,079</span></div>
-		<div class="evidence-strip"><div>{t().retracted2023}</div><div>{t().dbTotal}</div><div>{t().paperMill}</div></div>
-	</section>
-
-	<section class="contamination section-light">
-		<div class="section-head"><p class="eyebrow">{t().contamEyebrow}</p><h2>{t().contamTitle}</h2><p>{t().contamDek}</p></div>
-		<div class="citation-meter" role="img" aria-label="5.4 percent of post-retraction citation contexts acknowledged the retraction">
-			<div class="ack" style={`width:${facts.post_retraction_acknowledgement_share * 100}%`}></div><div class="rest"></div>
+	<section class="sources">
+		<div class="section-inner">
+			<p class="eyebrow">{t().sources}</p>
+			<h2>{t().sources}</h2>
+			<p class="section-dek">{t().sourcesDek}</p>
+			<div class="source-list">
+				{#each facts.sources as source, index}
+					<article>
+						<span>{String(index + 1).padStart(2, '0')}</span>
+						<div>
+							<a href={source.url} target="_blank" rel="noreferrer">{source.label}</a>
+							<p>{source.note}</p>
+						</div>
+					</article>
+				{/each}
+			</div>
 		</div>
-		<div class="meter-labels"><span><b>5.4%</b> {t().ack}</span><span><b>94.6%</b> {t().noAck}</span></div>
-		<div class="downstream">{#each t().downstream as node, i}<div><span>{String(i + 1).padStart(2, '0')}</span>{node}</div>{/each}</div>
-	</section>
-
-	<section class="cost section-dark">
-		<div class="section-head"><p class="eyebrow">{t().costEyebrow}</p><h2>{t().costTitle}</h2></div>
-		<div class="cost-grid">
-			<article><strong>100M+</strong><h3>{t().peerTitle}</h3><p>{t().peerBody}</p><small>≈ {fmt(reviewerFteYears)} FTE-years</small></article>
-			<article><strong>$28B</strong><h3>{t().moneyTitle}</h3><p>{t().moneyBody}</p><small>≈ {fmt(millionDollarGrants)} × $1M</small></article>
-		</div>
-		<div class="opportunity"><p class="eyebrow">{t().opportunity}</p><p>{t().opportunityBody}</p></div>
-	</section>
-
-	<section class="materials section-paper">
-		<div class="section-head"><p class="eyebrow">{t().materialEyebrow}</p><h2>{t().materialTitle}</h2></div>
-		<div class="material-controls">
-			<label>{t().pages}<input type="number" min="1" max="100" bind:value={pagesPerPaper} /></label>
-			<label>{t().copies}<input type="number" min="0" max="20" bind:value={printCopies} /></label>
-			<label>{t().device}<input type="number" min="0" max="2000" step="10" bind:value={deviceWhPerPaper} /></label>
-		</div>
-		<div class="material-results"><div><span>{t().paperResult}</span><strong>{fmt(paperKg, 1)} kg</strong></div><div><span>{t().energyResult}</span><strong>{fmt(deviceKwh, 1)} kWh</strong></div></div>
-		<p class="caveat">{t().materialNote}</p>
-	</section>
-
-	<section class="cross section-light">
-		<div class="section-head"><p class="eyebrow">{t().crossEyebrow}</p><h2>{t().crossTitle}</h2><p>{t().crossDek}</p></div>
-		<div class="scenario-buttons" role="group" aria-label="Retraction growth scenario">
-			<button class:active={scenario === 'long'} onclick={() => scenario = 'long'}>{t().long}</button>
-			<button class:active={scenario === 'spike'} onclick={() => scenario = 'spike'}>{t().spike}</button>
-		</div>
-		<div class="cross-result">
-			<div><span>{t().retGrowth}</span><strong>{pct(activeRetGrowth * 100, 1)}</strong></div>
-			<div><span>{t().pubGrowth}</span><strong>{pct(pubGrowth * 100, 1)}</strong></div>
-			<div class="year"><span>{t().crossAt}</span><strong>{activeCross}</strong></div>
-		</div>
-		<div class="timeline"><span>2023</span><i style={`width:${Math.min(100, ((activeCross - 2023) / 55) * 100)}%`}></i><span>{activeCross}</span></div>
-		<p class="warning">{t().crossWarning}</p>
-	</section>
-
-	<section class="ending section-red"><p class="eyebrow">{t().endingEyebrow}</p><h2>{t().endingTitle}</h2><p>{t().endingDek}</p></section>
-
-	<section class="sources section-paper">
-		<div class="section-head"><p class="eyebrow">{t().sources}</p><h2>{t().sourcesTitle}</h2></div>
-		<div class="source-list">{#each facts.sources as source, i}<article><span>{String(i + 1).padStart(2, '0')}</span><div><a href={source.url} target="_blank" rel="noreferrer">{source.label} ↗</a><p>{$language === 'zh' ? sourceNotesZh[source.id] : source.note}</p></div></article>{/each}</div>
 	</section>
 </article>
 
 <style>
-	:global(body){background:#f1eee7;color:#171715}.story{--paper:#f1eee7;--ink:#171715;--muted:#68635d;--red:#a4312f;--line:#cec7bc;--cream:#fffaf1;min-height:100vh}.hero,.section-light,.section-paper,.section-dark,.section-red{padding-left:max(24px,calc((100vw - 1180px)/2));padding-right:max(24px,calc((100vw - 1180px)/2))}.hero{padding-top:3rem;padding-bottom:8rem}.utility{display:flex;justify-content:space-between;align-items:center;gap:1rem;margin-bottom:clamp(5rem,10vw,9rem);font:700 .78rem/1.2 var(--font-mono)}.utility a{color:inherit}.kicker,.eyebrow{font:750 .72rem/1.3 var(--font-mono);letter-spacing:.11em;text-transform:uppercase;color:var(--red)}h1,h2,h3{font-family:var(--font-serif)}h1{max-width:1100px;margin:.2em 0 .3em;font-size:clamp(4rem,10vw,9rem);line-height:.86;letter-spacing:-.065em}h1 em{color:var(--red);font-weight:400}.dek{max-width:820px;font-size:clamp(1.15rem,2vw,1.5rem);line-height:1.6;color:var(--muted)}.section-head{display:grid;grid-template-columns:1fr 1fr;gap:1.5rem 4rem;align-items:end;max-width:1180px;margin:0 auto 3rem}.section-head .eyebrow{grid-column:1/-1}.section-head h2{margin:0;font-size:clamp(2.8rem,6vw,5.8rem);line-height:.94;letter-spacing:-.05em}.section-head>p:last-child:not(.eyebrow){margin:0;max-width:58ch;line-height:1.65;color:inherit;opacity:.72}.section-dark{background:#171715;color:#f6f1e8;padding-top:7rem;padding-bottom:7rem}.section-dark .eyebrow{color:#f08f7f}.section-red{background:var(--red);color:#fff7ed;padding-top:7rem;padding-bottom:7rem}.section-red .eyebrow{color:#ffd1c9}.section-light{background:var(--cream);padding-top:7rem;padding-bottom:7rem}.section-paper{background:var(--paper);padding-top:7rem;padding-bottom:7rem}.pace-grid{display:grid;grid-template-columns:2fr repeat(3,1fr);max-width:1180px;margin:0 auto;border-top:1px solid #4b4944;border-bottom:1px solid #4b4944}.pace-grid>div{padding:1.5rem;border-right:1px solid #4b4944}.pace-grid>div:last-child{border-right:0}.pace-grid strong,.pace-grid span{display:block}.pace-grid strong{font:800 clamp(2.5rem,5vw,5rem)/.95 var(--font-sans);letter-spacing:-.055em}.pace-grid span{margin-top:.8rem;color:#bbb5ab;font-size:.82rem}.live-grid{display:grid;grid-template-columns:repeat(3,1fr);max-width:1180px;margin:3rem auto 0;gap:1rem}.live-grid>div{padding:1.4rem;border:1px solid #4b4944}.live-grid span,.live-grid small,.live-grid strong{display:block}.live-grid span{min-height:2.8em;color:#bbb5ab}.live-grid strong{margin:.7rem 0;font:750 clamp(2rem,4vw,4rem)/1 var(--font-mono);color:#fff}.live-grid small{color:#8d8981}.calculator,.read-results,.boundary-grid,.evidence-strip,.cost-grid,.material-controls,.material-results,.cross-result,.source-list,.downstream{max-width:1180px;margin-left:auto;margin-right:auto}.calculator{display:grid;grid-template-columns:1fr 1fr;gap:2rem;padding:2rem;background:#171715;color:#fff}.calculator label{display:grid;gap:1rem}.calculator input{width:100%}.read-results{display:grid;grid-template-columns:repeat(4,1fr);border:1px solid var(--line);border-top:0}.read-results>div{padding:1.5rem;border-right:1px solid var(--line)}.read-results>div:last-child{border-right:0}.read-results span,.read-results strong{display:block}.read-results span{min-height:3.4em;color:var(--muted);line-height:1.35}.read-results strong{margin-top:1rem;font:800 clamp(2rem,4vw,4rem)/1 var(--font-sans);letter-spacing:-.04em;color:var(--red)}.boundary-grid{display:grid;grid-template-columns:repeat(4,1fr);border-top:1px solid var(--line)}.boundary-grid article{padding:1.5rem;border-right:1px solid var(--line);border-bottom:1px solid var(--line)}.boundary-grid article:last-child{border-right:0}.boundary-grid article>span{font:700 .75rem var(--font-mono);color:var(--red)}.boundary-grid h3{font-size:1.7rem;margin:.8rem 0}.boundary-grid p{color:var(--muted);line-height:1.6}.hidden-number{max-width:1180px;margin:4rem auto}.hidden-number strong{display:block;font:900 clamp(5rem,16vw,13rem)/.75 var(--font-sans);letter-spacing:-.08em}.hidden-number span{display:block;margin-top:2rem;font-family:var(--font-mono)}.evidence-strip{display:grid;grid-template-columns:repeat(3,1fr);border-top:1px solid #d5685c;border-bottom:1px solid #d5685c}.evidence-strip div{padding:1.5rem;border-right:1px solid #d5685c}.evidence-strip div:last-child{border-right:0}.citation-meter{display:flex;max-width:1180px;height:72px;margin:0 auto;background:#d7d0c5}.citation-meter .ack{background:var(--red)}.citation-meter .rest{flex:1;background:#cfc8bd}.meter-labels{display:flex;justify-content:space-between;max-width:1180px;margin:1rem auto 4rem;color:var(--muted)}.meter-labels b{color:var(--ink)}.downstream{display:grid;grid-template-columns:repeat(6,1fr);border-top:1px solid var(--line);border-bottom:1px solid var(--line)}.downstream div{position:relative;padding:1.5rem .8rem;min-height:100px;border-right:1px solid var(--line);font:650 .9rem/1.35 var(--font-sans)}.downstream div::after{content:'→';position:absolute;right:-8px;top:45%;z-index:2;background:var(--cream);padding:0 2px;color:var(--red)}.downstream div:last-child{border-right:0}.downstream div:last-child::after{display:none}.downstream span{display:block;margin-bottom:.8rem;color:var(--red);font-family:var(--font-mono)}.cost-grid{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:#4b4944}.cost-grid article{background:#171715;padding:2rem}.cost-grid article>strong{font:900 clamp(4rem,9vw,8rem)/.9 var(--font-sans);letter-spacing:-.07em;color:#f08f7f}.cost-grid h3{font-size:2rem;margin:1rem 0}.cost-grid p{color:#c6c0b6;line-height:1.65}.cost-grid small{font:700 .8rem var(--font-mono);color:#f08f7f}.opportunity{max-width:1180px;margin:3rem auto 0;padding-top:2rem;border-top:1px solid #4b4944}.opportunity p:last-child{max-width:80ch;color:#c6c0b6;line-height:1.65}.material-controls{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem}.material-controls label{display:grid;gap:.6rem;font:700 .78rem var(--font-mono);text-transform:uppercase;letter-spacing:.05em}.material-controls input{min-height:48px;padding:0 .8rem;border:1px solid var(--line);background:#fff;color:var(--ink);font:700 1rem var(--font-mono)}.material-results{display:grid;grid-template-columns:1fr 1fr;margin-top:1rem;border:1px solid var(--line)}.material-results>div{padding:2rem}.material-results>div+div{border-left:1px solid var(--line)}.material-results span,.material-results strong{display:block}.material-results span{color:var(--muted)}.material-results strong{margin-top:1rem;font:850 clamp(3rem,6vw,6rem)/1 var(--font-sans);color:var(--red)}.caveat{max-width:1180px;margin:1.5rem auto 0;color:var(--muted);font-size:.86rem;line-height:1.6}.scenario-buttons{display:flex;max-width:1180px;margin:0 auto 1rem;gap:.6rem;flex-wrap:wrap}.scenario-buttons button{min-height:44px;padding:.75rem 1rem;border:1px solid var(--ink);background:transparent;color:var(--ink);font-weight:750}.scenario-buttons button.active{background:var(--ink);color:#fff}.cross-result{display:grid;grid-template-columns:1fr 1fr 1.2fr;border:1px solid var(--line)}.cross-result>div{padding:1.5rem;border-right:1px solid var(--line)}.cross-result>div:last-child{border-right:0}.cross-result span,.cross-result strong{display:block}.cross-result span{color:var(--muted)}.cross-result strong{margin-top:.7rem;font:800 clamp(2.5rem,5vw,5rem)/1 var(--font-sans)}.cross-result .year strong{color:var(--red)}.timeline{display:flex;align-items:center;max-width:1180px;margin:2rem auto 0;gap:1rem;font:700 .8rem var(--font-mono)}.timeline i{display:block;height:12px;background:var(--red);min-width:8%}.warning{max-width:1180px;margin:2rem auto 0;padding:1rem 1.2rem;border-left:5px solid var(--red);background:#f1e5e2;font-weight:650;line-height:1.55}.ending h2{max-width:1080px;margin:.25em 0;font-size:clamp(3.5rem,8vw,7.5rem);line-height:.9;letter-spacing:-.06em}.ending>p:last-child{max-width:800px;font-size:1.2rem;line-height:1.65}.source-list{border-top:1px solid var(--line)}.source-list article{display:grid;grid-template-columns:60px 1fr;gap:1rem;padding:1.25rem 0;border-bottom:1px solid var(--line)}.source-list article>span{font:700 .8rem var(--font-mono);color:var(--red)}.source-list a{font-weight:750;color:var(--ink)}.source-list p{max-width:90ch;margin:.5rem 0 0;color:var(--muted);line-height:1.55}
-	@media(max-width:800px){.section-head{grid-template-columns:1fr}.pace-grid{grid-template-columns:1fr 1fr}.pace-grid>div{border-bottom:1px solid #4b4944}.live-grid,.read-results,.boundary-grid,.evidence-strip,.cost-grid,.material-controls,.material-results,.cross-result{grid-template-columns:1fr}.live-grid{gap:.6rem}.read-results>div,.boundary-grid article,.evidence-strip div,.cross-result>div{border-right:0;border-bottom:1px solid var(--line)}.cost-grid{gap:1px}.calculator{grid-template-columns:1fr}.downstream{grid-template-columns:1fr 1fr}.downstream div:nth-child(2n){border-right:0}.downstream div::after{display:none}.material-results>div+div{border-left:0;border-top:1px solid var(--line)}.meter-labels{flex-direction:column;gap:.4rem}.hidden-number strong{font-size:clamp(4rem,24vw,8rem)}}
+	:global(body) {
+		background: #f1ede3;
+		color: #17191d;
+	}
+
+	.progress {
+		position: fixed;
+		top: 0;
+		left: 0;
+		right: 0;
+		height: 3px;
+		z-index: 1000;
+		background: transparent;
+		pointer-events: none;
+	}
+
+	.progress i {
+		display: block;
+		height: 100%;
+		width: 100%;
+		transform-origin: left;
+		background: linear-gradient(90deg, #5477f5, #ef654d, #e0ad44);
+	}
+
+	.story {
+		overflow: clip;
+	}
+
+	.hero {
+		min-height: 100svh;
+		position: relative;
+		display: grid;
+		align-items: center;
+		background:
+			radial-gradient(circle at 78% 12%, rgb(84 119 245 / 0.25), transparent 30%),
+			radial-gradient(circle at 12% 84%, rgb(239 101 77 / 0.19), transparent 28%),
+			#10151d;
+		color: #f6f0e4;
+	}
+
+	.utility {
+		position: absolute;
+		top: 1.4rem;
+		left: max(1.25rem, calc((100vw - 74rem) / 2));
+		right: max(1.25rem, calc((100vw - 74rem) / 2));
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		z-index: 3;
+	}
+
+	.utility a {
+		color: #d5d9df;
+		font-size: 0.85rem;
+		text-decoration: none;
+	}
+
+	.hero-inner {
+		width: min(100% - 2.5rem, 74rem);
+		margin-inline: auto;
+		padding-block: 15svh 10svh;
+	}
+
+	.eyebrow,
+	.viz-status,
+	.viz-kicker,
+	.step-kicker,
+	.small-note,
+	.source-list span,
+	.cost-card small,
+	.lab-results small {
+		font-family: var(--font-sans, system-ui, sans-serif);
+		font-size: 0.72rem;
+		font-weight: 750;
+		letter-spacing: 0.11em;
+		text-transform: uppercase;
+	}
+
+	.hero .eyebrow {
+		color: #aeb8c7;
+	}
+
+	.hero h1 {
+		font-family: Georgia, 'Noto Serif SC', serif;
+		font-size: clamp(4rem, 10vw, 8.5rem);
+		line-height: 0.88;
+		letter-spacing: -0.055em;
+		margin: 0.18em 0 0.28em;
+		max-width: 67rem;
+	}
+
+	.hero h1 em {
+		color: #ff715b;
+		font-style: italic;
+	}
+
+	.dek {
+		max-width: 48rem;
+		font-family: Georgia, 'Noto Serif SC', serif;
+		font-size: clamp(1.15rem, 2.1vw, 1.65rem);
+		line-height: 1.55;
+		color: #d7dce3;
+	}
+
+	.hero-meter {
+		display: flex;
+		align-items: flex-end;
+		gap: 1rem;
+		margin-top: clamp(2.5rem, 7vh, 5rem);
+	}
+
+	.hero-meter strong {
+		font-size: clamp(4.5rem, 13vw, 10rem);
+		line-height: 0.8;
+		letter-spacing: -0.065em;
+		font-variant-numeric: tabular-nums;
+		color: #ff715b;
+	}
+
+	.hero-meter span {
+		font-size: 0.85rem;
+		color: #aeb8c7;
+		padding-bottom: 0.45rem;
+	}
+
+	.ticker {
+		margin-top: 1.8rem;
+		display: inline-flex;
+		align-items: center;
+		gap: 0.65rem;
+		padding: 0.55rem 0.8rem;
+		border: 1px solid rgb(255 255 255 / 0.16);
+		border-radius: 999px;
+		font-size: 0.8rem;
+		color: #cdd4df;
+		background: rgb(255 255 255 / 0.04);
+	}
+
+	.live-dot {
+		width: 0.5rem;
+		height: 0.5rem;
+		border-radius: 50%;
+		background: #6ce2b6;
+		box-shadow: 0 0 0 0.38rem rgb(108 226 182 / 0.1);
+		animation: pulse 2s ease-in-out infinite;
+	}
+
+	.scroll-cue {
+		margin-top: 3.2rem;
+		font-size: 0.72rem;
+		letter-spacing: 0.09em;
+		color: #8993a1;
+	}
+
+	.scrolly-zone {
+		padding-block: 10svh 14svh;
+		background: #f1ede3;
+	}
+
+	.viz-card {
+		min-height: min(72svh, 44rem);
+		border-radius: 1.7rem;
+		padding: clamp(1.4rem, 3.6vw, 3rem);
+		box-shadow: 0 2.2rem 6rem rgb(34 30 22 / 0.12);
+		display: grid;
+		align-content: center;
+		background: #fbf8f0;
+		border: 1px solid #d9d1c4;
+		position: relative;
+		overflow: hidden;
+	}
+
+	.viz-volume {
+		background: linear-gradient(145deg, #edf2ff, #fbf8f0);
+	}
+
+	.viz-hidden,
+	.viz-contamination {
+		background: linear-gradient(145deg, #0e1c29, #143246);
+		color: #edf9ff;
+		border-color: #28445a;
+	}
+
+	.viz-cost,
+	.viz-crossing {
+		background: linear-gradient(145deg, #191817, #28231d);
+		color: #f7ecda;
+		border-color: #38332b;
+	}
+
+	.viz-status {
+		position: absolute;
+		top: 1.2rem;
+		left: 1.3rem;
+		opacity: 0.62;
+		margin: 0;
+	}
+
+	.viz-kicker {
+		opacity: 0.58;
+		margin: 0 0 0.75rem;
+	}
+
+	.giant-number {
+		font-size: clamp(4.3rem, 9.5vw, 8rem);
+		font-weight: 850;
+		line-height: 0.87;
+		letter-spacing: -0.06em;
+		font-variant-numeric: tabular-nums;
+	}
+
+	.viz-unit {
+		margin: 0.55rem 0 1.5rem;
+		font-size: 0.85rem;
+		opacity: 0.65;
+	}
+
+	.metric-row {
+		display: grid;
+		grid-template-columns: repeat(3, 1fr);
+		gap: 0.65rem;
+		margin-top: 1.2rem;
+	}
+
+	.metric-row > div {
+		border: 1px solid rgb(80 78 70 / 0.18);
+		border-radius: 0.9rem;
+		padding: 0.9rem;
+		background: rgb(255 255 255 / 0.35);
+	}
+
+	.metric-row strong,
+	.metric-row span {
+		display: block;
+	}
+
+	.metric-row strong {
+		font-size: clamp(1.35rem, 2.6vw, 2.2rem);
+		line-height: 1;
+	}
+
+	.metric-row span {
+		font-size: 0.68rem;
+		opacity: 0.58;
+		margin-top: 0.45rem;
+	}
+
+	.small-note {
+		margin-top: 1rem;
+		line-height: 1.5;
+		opacity: 0.58;
+		letter-spacing: 0.04em;
+		text-transform: none;
+	}
+
+	.read-rail {
+		height: 3.2rem;
+		border-radius: 0.7rem;
+		background: #1d2531;
+		overflow: hidden;
+		margin-top: 1.5rem;
+	}
+
+	.read-rail i {
+		display: block;
+		height: 100%;
+		min-width: 3px;
+		background: linear-gradient(90deg, #2e9479, #77ccb4);
+		transition: width 220ms ease;
+	}
+
+	.boundary-grid {
+		display: grid;
+		grid-template-columns: 1fr 1fr;
+		gap: 0.7rem;
+	}
+
+	.boundary-card {
+		padding: 1rem;
+		border: 1px solid #d8d0c1;
+		border-radius: 1rem;
+		background: #fffdf8;
+	}
+
+	.boundary-card small {
+		font-size: 0.58rem;
+		font-weight: 800;
+		color: #766b58;
+	}
+
+	.boundary-card strong {
+		display: block;
+		font-family: Georgia, 'Noto Serif SC', serif;
+		font-size: 1.35rem;
+		margin-top: 0.35rem;
+	}
+
+	.boundary-card p {
+		font-size: 0.76rem;
+		line-height: 1.55;
+		color: #5f594e;
+		margin-bottom: 0;
+	}
+
+	.iceberg {
+		width: min(100%, 30rem);
+		height: 23rem;
+		margin-inline: auto;
+		position: relative;
+		display: grid;
+		place-items: center;
+	}
+
+	.waterline {
+		position: absolute;
+		left: -30%;
+		right: -30%;
+		top: 43%;
+		height: 1px;
+		background: #8dd7e5;
+		box-shadow: 0 8rem 0 8rem rgb(17 64 88 / 0.5);
+	}
+
+	.ice-tip,
+	.ice-under {
+		position: absolute;
+		left: 50%;
+		transform: translateX(-50%);
+		text-align: center;
+		z-index: 2;
+	}
+
+	.ice-tip {
+		top: 17%;
+		width: 10rem;
+		height: 6rem;
+		clip-path: polygon(50% 0, 100% 100%, 0 100%);
+		background: #d9f3f7;
+		color: #173142;
+		padding-top: 2.8rem;
+	}
+
+	.ice-under {
+		top: 43%;
+		width: 18rem;
+		height: 10.5rem;
+		clip-path: polygon(0 0, 100% 0, 68% 100%, 28% 88%);
+		background: #75bdd0;
+		color: #09283a;
+		padding-top: 2.5rem;
+	}
+
+	.ice-tip strong,
+	.ice-under strong,
+	.ice-tip span,
+	.ice-under span {
+		display: block;
+	}
+
+	.ice-tip strong,
+	.ice-under strong {
+		font-size: 1.4rem;
+	}
+
+	.ice-tip span,
+	.ice-under span {
+		font-size: 0.62rem;
+		margin-top: 0.25rem;
+	}
+
+	.citation-bar {
+		height: 5rem;
+		display: flex;
+		border-radius: 0.9rem;
+		overflow: hidden;
+		margin-top: 1.5rem;
+		background: #21384a;
+	}
+
+	.citation-bar .ack {
+		background: #67d2b0;
+		min-width: 0.35rem;
+	}
+
+	.citation-bar .unack {
+		background: #ef6c58;
+	}
+
+	.split-labels {
+		display: grid;
+		grid-template-columns: 1fr 1fr;
+		gap: 1rem;
+		margin-top: 1rem;
+	}
+
+	.split-labels strong,
+	.split-labels span {
+		display: block;
+	}
+
+	.split-labels strong {
+		font-size: 2rem;
+	}
+
+	.split-labels span {
+		font-size: 0.7rem;
+		opacity: 0.7;
+	}
+
+	.chain {
+		display: flex;
+		gap: 0.4rem;
+		align-items: center;
+		flex-wrap: wrap;
+		margin-top: 1.4rem;
+		font-size: 0.69rem;
+		opacity: 0.72;
+	}
+
+	.chain span {
+		padding: 0.35rem 0.5rem;
+		border: 1px solid rgb(255 255 255 / 0.18);
+		border-radius: 999px;
+	}
+
+	.cost-grid {
+		display: grid;
+		grid-template-columns: 1fr 1fr;
+		gap: 0.8rem;
+	}
+
+	.cost-card {
+		padding: 1.2rem;
+		border: 1px solid rgb(255 255 255 / 0.14);
+		border-radius: 1rem;
+		background: rgb(255 255 255 / 0.05);
+	}
+
+	.cost-card strong,
+	.cost-card span {
+		display: block;
+	}
+
+	.cost-card strong {
+		font-size: clamp(2.4rem, 5vw, 4.4rem);
+		line-height: 0.95;
+		color: #f1c870;
+		letter-spacing: -0.045em;
+	}
+
+	.cost-card span {
+		font-size: 0.72rem;
+		opacity: 0.65;
+		margin-top: 0.35rem;
+	}
+
+	.cost-card p {
+		font-size: 0.75rem;
+		line-height: 1.5;
+		color: #d5cdbd;
+	}
+
+	.crossing-years {
+		display: grid;
+		grid-template-columns: 1fr 1fr;
+		gap: 0.75rem;
+	}
+
+	.crossing-years > div {
+		padding: 1rem;
+		border: 1px solid rgb(255 255 255 / 0.14);
+		border-radius: 1rem;
+		opacity: 0.45;
+		transition: opacity 180ms ease, transform 180ms ease;
+	}
+
+	.crossing-years > div.active {
+		opacity: 1;
+		transform: translateY(-0.2rem);
+		border-color: #efb953;
+	}
+
+	.crossing-years small,
+	.crossing-years strong {
+		display: block;
+	}
+
+	.crossing-years strong {
+		font-size: clamp(3.2rem, 7vw, 6rem);
+		line-height: 0.95;
+		color: #f1c870;
+	}
+
+	.timeline {
+		position: relative;
+		height: 4.5rem;
+		margin-top: 2rem;
+		border-top: 2px solid #6e6659;
+	}
+
+	.timeline i {
+		position: absolute;
+		top: -0.4rem;
+		width: 0.7rem;
+		height: 0.7rem;
+		border-radius: 50%;
+		background: #f1c870;
+	}
+
+	.timeline .now { left: 0; }
+	.timeline .spike { left: 62%; }
+	.timeline .long { left: 100%; transform: translateX(-100%); }
+	.timeline span {
+		position: absolute;
+		top: 0.9rem;
+		font-size: 0.68rem;
+		color: #cfc7ba;
+	}
+	.timeline .nlabel { left: 0; }
+	.timeline .slabel { left: 62%; transform: translateX(-50%); }
+	.timeline .llabel { right: 0; }
+
+	.scenario-result {
+		font-size: 0.78rem;
+		color: #d8d0c1;
+	}
+
+	.step-kicker {
+		color: #716859;
+		margin: 0 0 0.6rem;
+	}
+
+	:global(.scrolly-shell__step-card h2) {
+		font-family: Georgia, 'Noto Serif SC', serif;
+		letter-spacing: -0.025em;
+	}
+
+	.step-note {
+		font-size: 0.82rem !important;
+		color: #6e675a;
+		border-left: 3px solid #d7a54b;
+		padding-left: 0.75rem;
+	}
+
+	.controls {
+		display: grid;
+		gap: 1rem;
+		margin-top: 1.25rem;
+	}
+
+	.controls label,
+	.lab-grid label {
+		display: grid;
+		gap: 0.55rem;
+		font-size: 0.78rem;
+	}
+
+	input[type='range'] {
+		width: 100%;
+		min-height: 2.75rem;
+		accent-color: #e75e48;
+	}
+
+	.scenario-buttons {
+		display: grid;
+		grid-template-columns: 1fr 1fr;
+		gap: 0.55rem;
+		margin-top: 1.25rem;
+	}
+
+	.scenario-buttons button {
+		min-height: 2.8rem;
+		border: 1px solid #cfc5b4;
+		border-radius: 999px;
+		background: #fffaf0;
+		color: #302c25;
+		font: inherit;
+		font-size: 0.72rem;
+		cursor: pointer;
+	}
+
+	.scenario-buttons button.active {
+		background: #24211c;
+		color: #fff7e7;
+		border-color: #24211c;
+	}
+
+	.lab-section {
+		background: #fffdf7;
+		padding-block: 13svh;
+		border-top: 1px solid #ddd4c6;
+	}
+
+	.section-inner {
+		width: min(100% - 2.5rem, 68rem);
+		margin-inline: auto;
+	}
+
+	.section-inner.narrow {
+		max-width: 52rem;
+	}
+
+	.section-inner > h2,
+	.closing h2,
+	.sources h2 {
+		font-family: Georgia, 'Noto Serif SC', serif;
+		font-size: clamp(2.4rem, 5.7vw, 5rem);
+		line-height: 1.03;
+		letter-spacing: -0.045em;
+		margin: 0.18em 0 0.4em;
+	}
+
+	.section-dek {
+		max-width: 48rem;
+		font-size: 1.05rem;
+		line-height: 1.7;
+		color: #625d54;
+	}
+
+	.lab-grid {
+		display: grid;
+		grid-template-columns: repeat(3, 1fr);
+		gap: 1rem;
+		margin-top: 3rem;
+	}
+
+	.lab-grid label {
+		padding: 1.1rem;
+		border: 1px solid #ded5c6;
+		border-radius: 1rem;
+		background: #faf5eb;
+	}
+
+	.lab-grid b {
+		font-size: 1.8rem;
+	}
+
+	.lab-results {
+		display: grid;
+		grid-template-columns: 1fr 1fr;
+		gap: 1rem;
+		margin-top: 1rem;
+	}
+
+	.lab-results article {
+		padding: 1.2rem;
+		border-radius: 1rem;
+		background: #181a1f;
+		color: #f7f0e4;
+	}
+
+	.lab-results p,
+	.lab-results strong,
+	.lab-results small {
+		display: block;
+	}
+
+	.lab-results p {
+		font-size: 0.85rem;
+		color: #c6c1b7;
+	}
+
+	.lab-results strong {
+		font-size: clamp(2rem, 4vw, 3.4rem);
+		color: #f1c870;
+	}
+
+	.lab-results small {
+		margin-top: 0.7rem;
+		opacity: 0.58;
+	}
+
+	.closing {
+		background: #12151a;
+		color: #f5efe4;
+		padding-block: 16svh;
+	}
+
+	.closing .eyebrow {
+		color: #d3ae69;
+	}
+
+	.closing p {
+		font-family: Georgia, 'Noto Serif SC', serif;
+		font-size: clamp(1.05rem, 2vw, 1.35rem);
+		line-height: 1.75;
+		color: #c7c3bc;
+	}
+
+	.closing-numbers {
+		display: grid;
+		grid-template-columns: repeat(3, 1fr);
+		gap: 0.8rem;
+		margin-top: 2.5rem;
+	}
+
+	.closing-numbers span {
+		border-top: 2px solid #d9ad5e;
+		padding-top: 0.8rem;
+		font-size: 0.75rem;
+		color: #bdb7ac;
+	}
+
+	.closing-numbers b {
+		display: block;
+		font-size: 2.5rem;
+		color: #f1c870;
+	}
+
+	.sources {
+		background: #0c0f13;
+		color: #ebe6dc;
+		padding-block: 12svh 16svh;
+	}
+
+	.sources .section-dek {
+		color: #9f9d98;
+	}
+
+	.source-list {
+		margin-top: 3rem;
+		border-top: 1px solid rgb(255 255 255 / 0.13);
+	}
+
+	.source-list article {
+		display: grid;
+		grid-template-columns: 2.4rem 1fr;
+		gap: 1rem;
+		padding-block: 1rem;
+		border-bottom: 1px solid rgb(255 255 255 / 0.1);
+	}
+
+	.source-list span {
+		color: #8b8e91;
+	}
+
+	.source-list a {
+		color: #ede8de;
+		font-size: 0.9rem;
+	}
+
+	.source-list p {
+		font-size: 0.76rem;
+		line-height: 1.55;
+		color: #9c9b97;
+		margin: 0.4rem 0 0;
+	}
+
+	@keyframes pulse {
+		50% { opacity: 0.45; transform: scale(0.72); }
+	}
+
+	@media (max-width: 56rem) {
+		.hero-inner {
+			width: min(100% - 2rem, 42rem);
+		}
+
+		.hero h1 {
+			font-size: clamp(3.5rem, 16vw, 6rem);
+		}
+
+		.metric-row,
+		.boundary-grid,
+		.cost-grid,
+		.crossing-years,
+		.lab-grid,
+		.lab-results,
+		.closing-numbers {
+			grid-template-columns: 1fr;
+		}
+
+		.viz-card {
+			min-height: 44svh;
+			border-radius: 0 0 1.25rem 1.25rem;
+			padding: 2.5rem 1rem 1rem;
+		}
+
+		.giant-number {
+			font-size: clamp(3.2rem, 17vw, 6rem);
+		}
+
+		.metric-row {
+			grid-template-columns: repeat(3, 1fr);
+			gap: 0.35rem;
+		}
+
+		.metric-row > div {
+			padding: 0.55rem;
+		}
+
+		.metric-row strong {
+			font-size: 1rem;
+		}
+
+		.metric-row span {
+			font-size: 0.55rem;
+		}
+
+		.boundary-grid {
+			grid-template-columns: 1fr 1fr;
+			gap: 0.35rem;
+		}
+
+		.boundary-card {
+			padding: 0.65rem;
+		}
+
+		.boundary-card strong {
+			font-size: 1rem;
+		}
+
+		.boundary-card p {
+			font-size: 0.62rem;
+		}
+
+		.iceberg {
+			height: 15rem;
+		}
+
+		.ice-tip {
+			top: 12%;
+			transform: translateX(-50%) scale(0.75);
+		}
+
+		.ice-under {
+			top: 42%;
+			transform: translateX(-50%) scale(0.72);
+			transform-origin: top center;
+		}
+
+		.citation-bar {
+			height: 3.4rem;
+		}
+
+		.split-labels strong {
+			font-size: 1.4rem;
+		}
+
+		.chain {
+			display: none;
+		}
+
+		.cost-grid,
+		.crossing-years {
+			grid-template-columns: 1fr 1fr;
+		}
+
+		.cost-card {
+			padding: 0.75rem;
+		}
+
+		.cost-card strong {
+			font-size: 1.8rem;
+		}
+
+		.cost-card p {
+			display: none;
+		}
+
+		.crossing-years strong {
+			font-size: 2.5rem;
+		}
+
+		.section-inner {
+			width: min(100% - 2rem, 42rem);
+		}
+
+		.scenario-buttons {
+			grid-template-columns: 1fr;
+		}
+	}
+
+	@media (prefers-reduced-motion: reduce) {
+		.live-dot {
+			animation: none;
+		}
+		.read-rail i,
+		.crossing-years > div {
+			transition: none;
+		}
+	}
 </style>
