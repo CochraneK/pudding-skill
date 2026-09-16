@@ -1,9 +1,25 @@
+<div align="center">
+
 # pudding-skill
 
-A **Pudding-inspired editorial data-storytelling Agent Skill + SvelteKit starter** that turns structured data into an auditable set of story directions before it renders anything.
+**Evidence-first editorial data storytelling · Agent Skill + SvelteKit starter**
 
-This project is not a visual clone of [The Pudding](https://pudding.cool/). It borrows the more useful editorial idea: start with a question and evidence, compare what the data can support, choose the right narrative/visual form, and verify the result before publishing.
+<p>
+  <img alt="Pipeline" src="https://img.shields.io/badge/pipeline-research%20%E2%86%92%20evidence%20%E2%86%92%20story-6C63FF">
+  <img alt="Audit" src="https://img.shields.io/badge/claims-independently%20audited-2F80ED">
+  <img alt="QA" src="https://img.shields.io/badge/QA-browser%20%2B%20visual%20%2B%20benchmark-27AE60">
+  <img alt="License" src="https://img.shields.io/badge/license-MIT-F2994A">
+</p>
 
+[**Skill**](SKILL.md) · [**Quick start**](#quick-start) · [**Pipeline**](#pipeline) · [**Checks**](#checks) · [**Licensing**](#licensing-and-attribution)
+
+</div>
+
+A **Pudding-inspired editorial data-storytelling Agent Skill + SvelteKit starter** that turns a research question and structured evidence into auditable story directions before it renders anything.
+
+This project is **not** a visual clone of [The Pudding](https://pudding.cool/). It borrows the editorial discipline that matters more: question first, evidence second, competing story directions before commitment, independent claim verification, then visual execution.
+
+> [!NOTE]
 > The Svelte starter is derived from [`the-pudding/svelte-starter`](https://github.com/the-pudding/svelte-starter) under the MIT License. This project is not affiliated with The Pudding and does not ship or hotlink The Pudding logos or proprietary fonts.
 
 ## Research dossier mode: from a question to auditable evidence
@@ -17,92 +33,6 @@ python scripts/pudding.py research compile generated/research/research-dossier.j
 ```
 
 Compilation produces an executable research package: `research-report.md`, `source-ledger.json`, `numeric-evidence.csv`, and `data-acquisition-plan.md`. Material numbers retain source and scope metadata; unresolved conflicts and discovery-only figures are kept out of story-ready numeric evidence. See `references/research-dossier.md`.
-
-## v2.6: editorial benchmark and regression corpus
-
-v2.6 adds a curated regression suite so changes to scoring, selection, claim verification, visual grammar, or provenance can be measured across multiple data/story shapes rather than a single demo.
-
-```bash
-npm run benchmark
-# or
-python scripts/pudding.py benchmark
-```
-
-The initial corpus contains 12 self-contained cases across CSV, TSV, JSON, JSONL, and NDJSON. It covers divergence, grouped change, ranked means, correlation, distribution, missing values, percentage parsing, ignored identifiers, and explicit semantic contracts. Each case separately scores story selection (35), visual grammar (20), independent claim audit (25), editorial/renderer gate (10), and first-draft provenance (10).
-
-The committed regression floor is intentionally strict: 100/100 overall, 100% case pass rate, zero hard failures, and 100% pass in every dimension. A claim-audit regression cannot be hidden by a good average. Reports are written to `.qa/benchmark-report.json` and `.qa/benchmark-report.md` and uploaded with CI evidence.
-
-Use `/benchmark` to inspect the corpus and scoring contract. The benchmark is a deterministic regression instrument, **not** a score for newsworthiness, prose craft, causal validity, or visual taste. See `references/benchmark.md`.
-
-## v2.5: screenshot-driven visual refinement
-
-v2.5 extends the data/claim/browser pipeline into a bounded visual self-review loop. It deliberately keeps mechanical browser health, deterministic visual diagnostics, agent screenshot judgment, and automatic refinement as separate evidence layers.
-
-After a production build and browser QA, run:
-
-```bash
-npm run qa:visual-probe -- --base-url http://127.0.0.1:4173 --out .qa/visual-probe.json
-python scripts/pudding.py review .qa/visual-probe.json
-```
-
-The visual probe evaluates `/`, `/generated`, and `/lab` at desktop and mobile widths and captures both top-of-page and mid-page states, producing **12 screenshots** plus structured metrics. The critic checks measurable properties such as long-form copy measure, leading, heading hierarchy, touch targets, clipping, contrast, visual aspect, and sticky density.
-
-A deterministic `100/100` is still **not** aesthetic approval. `agent_review.status` remains pending until an agent/editor explicitly inspects every required screenshot. `python scripts/pudding.py review-check agent-visual-review.json` verifies screenshot coverage and prevents an agent PASS from overriding a deterministic hard failure.
-
-If review identifies a low-risk issue, `pudding refine` can only apply three allowlisted changes: readable copy width, text leading, and coarse-pointer target height. It never changes data, claims, chart transforms, arbitrary colors, or Svelte structure, and the automatic loop stops after two passes. Every applied change requires a fresh build, browser QA, visual probe, and before/after screenshot comparison.
-
-The v2.5 baseline is validated with 21 regression tests, 6/6 browser-delivery cases, 6 visual-probe route/viewport cases, 12 reviewed screenshots, a deterministic visual score of 100/100 with zero findings, and the existing high/critical dependency-audit gate.
-
-## v2.4: arbitrary data to publication-ready first draft
-
-v2.4 extends the evidence-audited v2.3 pipeline through an editable first-draft layer. The preferred entry point is now:
-
-```bash
-python scripts/pudding.py story data.csv --question "What changed?" --schema data-schema.json
-```
-
-New in v2.4:
-
-- accepts CSV, TSV, row-oriented JSON, JSONL, and NDJSON;
-- emits `visual-plan.json` with a richer editorial recommendation while preserving a deterministic baseline renderer;
-- emits `story-draft.json` and `story-draft.md` with headline, dek, narrative sections, annotations, methodology, caveats, sources, field glossary, and claim provenance;
-- maps quantitative copy back to verified structured evidence through `claim_ref` / `evidence_index`;
-- adds a unified `pudding.py` CLI for data inspection, candidate ranking, and full story generation;
-- expands regression coverage to 13 tests while retaining production build, dependency-audit, and 6/6 real-browser delivery gates.
-
-Generated copy remains `EDITORIAL_REVIEW_REQUIRED`. A richer visual recommendation never silently replaces the tested baseline renderer, and changing the numerical meaning of prose requires claim re-verification.
-
-## v2.3: evidence-to-browser delivery gates
-
-v2.3 keeps the v2.2 editorial decision system and closes the delivery gap between “the numbers are defensible” and “the published experience actually works.”
-
-New release gates:
-
-- real Chromium QA for `/`, `/generated`, and `/lab` at desktop and mobile widths;
-- console/exception/network, horizontal-overflow, keyboard, accessible-name, duplicate-ID, image-alt, and reduced-motion checks;
-- six screenshot artifacts plus a machine-readable browser QA report for review;
-- dependency-audit evidence in CI, with **high or critical advisories failing the build**;
-- compatible dependency remediation without destructive `npm audit fix --force`;
-- Svelte 5 reactive renderer cleanup so production builds are free of the prior project-level state warnings.
-
-The current compatible dependency set has **0 critical, 0 high, 0 moderate, and 7 low** audit findings. The remaining lows stay visible in CI evidence because npm's only automated remediation path is breaking and would downgrade SvelteKit.
-
-## v2.2: from chart heuristic to editorial decision system
-
-v2.1 established a deterministic data → story → Svelte baseline. v2.2 removes the biggest remaining shortcut: **the first matching analytical pattern no longer automatically becomes the story.**
-
-The pipeline now:
-
-1. profiles the data;
-2. optionally applies an explicit data contract for roles, labels, units, and definitions;
-3. generates multiple defensible story candidates;
-4. scores them with transparent editorial-priority proxies;
-5. selects the highest-ranked candidate that passes quality + renderer gates, with automatic fallback;
-6. creates a story spec and render bundle;
-7. independently recomputes the selected quantitative evidence from raw data;
-8. exposes the candidate board and audit trail in `/lab`;
-9. renders the selected baseline at `/generated`;
-10. runs the same gates in CI.
 
 ## Pipeline
 
@@ -320,6 +250,96 @@ npm audit --audit-level=high
 7. **Numeric claims must be reproducible from source data.**
 8. **Mobile and accessibility are correctness concerns, not polish.**
 9. **Scores assist judgment; they do not replace it.**
+
+## Recent release highlights
+
+The sections below are retained as implementation history. New users should start with the [Pipeline](#pipeline) and [Quick start](#quick-start), not the release chronology.
+
+### v2.6: editorial benchmark and regression corpus
+
+v2.6 adds a curated regression suite so changes to scoring, selection, claim verification, visual grammar, or provenance can be measured across multiple data/story shapes rather than a single demo.
+
+```bash
+npm run benchmark
+# or
+python scripts/pudding.py benchmark
+```
+
+The initial corpus contains 12 self-contained cases across CSV, TSV, JSON, JSONL, and NDJSON. It covers divergence, grouped change, ranked means, correlation, distribution, missing values, percentage parsing, ignored identifiers, and explicit semantic contracts. Each case separately scores story selection (35), visual grammar (20), independent claim audit (25), editorial/renderer gate (10), and first-draft provenance (10).
+
+The committed regression floor is intentionally strict: 100/100 overall, 100% case pass rate, zero hard failures, and 100% pass in every dimension. A claim-audit regression cannot be hidden by a good average. Reports are written to `.qa/benchmark-report.json` and `.qa/benchmark-report.md` and uploaded with CI evidence.
+
+Use `/benchmark` to inspect the corpus and scoring contract. The benchmark is a deterministic regression instrument, **not** a score for newsworthiness, prose craft, causal validity, or visual taste. See `references/benchmark.md`.
+
+### v2.5: screenshot-driven visual refinement
+
+v2.5 extends the data/claim/browser pipeline into a bounded visual self-review loop. It deliberately keeps mechanical browser health, deterministic visual diagnostics, agent screenshot judgment, and automatic refinement as separate evidence layers.
+
+After a production build and browser QA, run:
+
+```bash
+npm run qa:visual-probe -- --base-url http://127.0.0.1:4173 --out .qa/visual-probe.json
+python scripts/pudding.py review .qa/visual-probe.json
+```
+
+The visual probe evaluates `/`, `/generated`, and `/lab` at desktop and mobile widths and captures both top-of-page and mid-page states, producing **12 screenshots** plus structured metrics. The critic checks measurable properties such as long-form copy measure, leading, heading hierarchy, touch targets, clipping, contrast, visual aspect, and sticky density.
+
+A deterministic `100/100` is still **not** aesthetic approval. `agent_review.status` remains pending until an agent/editor explicitly inspects every required screenshot. `python scripts/pudding.py review-check agent-visual-review.json` verifies screenshot coverage and prevents an agent PASS from overriding a deterministic hard failure.
+
+If review identifies a low-risk issue, `pudding refine` can only apply three allowlisted changes: readable copy width, text leading, and coarse-pointer target height. It never changes data, claims, chart transforms, arbitrary colors, or Svelte structure, and the automatic loop stops after two passes. Every applied change requires a fresh build, browser QA, visual probe, and before/after screenshot comparison.
+
+The v2.5 baseline is validated with 21 regression tests, 6/6 browser-delivery cases, 6 visual-probe route/viewport cases, 12 reviewed screenshots, a deterministic visual score of 100/100 with zero findings, and the existing high/critical dependency-audit gate.
+
+### v2.4: arbitrary data to publication-ready first draft
+
+v2.4 extends the evidence-audited v2.3 pipeline through an editable first-draft layer. The preferred entry point is now:
+
+```bash
+python scripts/pudding.py story data.csv --question "What changed?" --schema data-schema.json
+```
+
+New in v2.4:
+
+- accepts CSV, TSV, row-oriented JSON, JSONL, and NDJSON;
+- emits `visual-plan.json` with a richer editorial recommendation while preserving a deterministic baseline renderer;
+- emits `story-draft.json` and `story-draft.md` with headline, dek, narrative sections, annotations, methodology, caveats, sources, field glossary, and claim provenance;
+- maps quantitative copy back to verified structured evidence through `claim_ref` / `evidence_index`;
+- adds a unified `pudding.py` CLI for data inspection, candidate ranking, and full story generation;
+- expands regression coverage to 13 tests while retaining production build, dependency-audit, and 6/6 real-browser delivery gates.
+
+Generated copy remains `EDITORIAL_REVIEW_REQUIRED`. A richer visual recommendation never silently replaces the tested baseline renderer, and changing the numerical meaning of prose requires claim re-verification.
+
+### v2.3: evidence-to-browser delivery gates
+
+v2.3 keeps the v2.2 editorial decision system and closes the delivery gap between “the numbers are defensible” and “the published experience actually works.”
+
+New release gates:
+
+- real Chromium QA for `/`, `/generated`, and `/lab` at desktop and mobile widths;
+- console/exception/network, horizontal-overflow, keyboard, accessible-name, duplicate-ID, image-alt, and reduced-motion checks;
+- six screenshot artifacts plus a machine-readable browser QA report for review;
+- dependency-audit evidence in CI, with **high or critical advisories failing the build**;
+- compatible dependency remediation without destructive `npm audit fix --force`;
+- Svelte 5 reactive renderer cleanup so production builds are free of the prior project-level state warnings.
+
+The current compatible dependency set has **0 critical, 0 high, 0 moderate, and 7 low** audit findings. The remaining lows stay visible in CI evidence because npm's only automated remediation path is breaking and would downgrade SvelteKit.
+
+### v2.2: from chart heuristic to editorial decision system
+
+v2.1 established a deterministic data → story → Svelte baseline. v2.2 removes the biggest remaining shortcut: **the first matching analytical pattern no longer automatically becomes the story.**
+
+The pipeline now:
+
+1. profiles the data;
+2. optionally applies an explicit data contract for roles, labels, units, and definitions;
+3. generates multiple defensible story candidates;
+4. scores them with transparent editorial-priority proxies;
+5. selects the highest-ranked candidate that passes quality + renderer gates, with automatic fallback;
+6. creates a story spec and render bundle;
+7. independently recomputes the selected quantitative evidence from raw data;
+8. exposes the candidate board and audit trail in `/lab`;
+9. renders the selected baseline at `/generated`;
+10. runs the same gates in CI.
 
 ## Licensing and attribution
 
